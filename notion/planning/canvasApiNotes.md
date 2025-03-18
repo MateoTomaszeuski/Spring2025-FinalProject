@@ -8,3 +8,7 @@ https://github.com/instructure/canvas-lms/wiki
 https://canvas.instructure.com/doc/api/
 
 
+
+
+Added complexity brainstorming
+- game-ify the app: set milestones, goals, etc.
