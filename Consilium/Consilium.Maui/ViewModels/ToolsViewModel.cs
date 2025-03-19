@@ -31,7 +31,6 @@ public partial class ToolsViewModel : ObservableObject
             default:
                 ActiveTool = "Notes";
                 break;
-        }
-        ;
+        };
     }
 }
