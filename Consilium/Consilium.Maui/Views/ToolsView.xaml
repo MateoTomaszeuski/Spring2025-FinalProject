@@ -2,11 +2,27 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Consilium.Maui.Views.ToolsView"
+             xmlns:tools="clr-namespace:Consilium.Maui.Controls"
              Title="ToolsView">
     <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+        <ScrollView>
+            <HorizontalStackLayout>
+                <Button 
+                    Text="Notes" 
+                    Command="{Binding ChangeToolCommand}" 
+                    CommandParameter="Notes"/>
+
+                <Button 
+                    Text="Calculator" 
+                    Command="{Binding ChangeToolCommand}" 
+                    CommandParameter="Calculator"/>
+
+                <Button 
+                    Text="Pomodoro" 
+                    Command="{Binding ChangeToolCommand}" 
+                    CommandParameter="Pomodoro"/>
+            </HorizontalStackLayout>
+        </ScrollView>
+        <tools:Tools Title="{Binding ActiveTool}"/>
     </VerticalStackLayout>
 </ContentPage>
