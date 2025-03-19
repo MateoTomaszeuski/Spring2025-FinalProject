@@ -10,17 +10,17 @@
                 <Button 
                     Text="Notes" 
                     Command="{Binding ChangeToolCommand}" 
-                    CommandParameter="{Binding Text, RelativeSource={RelativeSource Self}}"/>
+                    CommandParameter="Notes"/>
 
                 <Button 
                     Text="Calculator" 
                     Command="{Binding ChangeToolCommand}" 
-                    CommandParameter="{Binding Text, RelativeSource={RelativeSource Self}}"/>
+                    CommandParameter="Calculator"/>
 
                 <Button 
                     Text="Pomodoro" 
                     Command="{Binding ChangeToolCommand}" 
-                    CommandParameter="{Binding Text, RelativeSource={RelativeSource Self}}"/>
+                    CommandParameter="Pomodoro"/>
             </HorizontalStackLayout>
         </ScrollView>
         <tools:Tools Title="{Binding ActiveTool}"/>

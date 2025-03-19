@@ -1,11 +1,5 @@
-﻿using CommunityToolkit.Mvvm;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Consilium.Maui.ViewModels;
 
@@ -15,7 +9,7 @@ public partial class ToolsViewModel : ObservableObject
     private string activeTool = "Notes";
 
     [RelayCommand]
-    public void ChangeToolCommand(string tool)
+    public void ChangeTool(string tool)
     {
         switch (tool)
         {
