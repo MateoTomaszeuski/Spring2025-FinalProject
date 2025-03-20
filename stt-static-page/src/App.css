@@ -1,3 +1,13 @@
+:root {
+  --dark-dark: #242424;
+  --dark-back: #39403c;
+  --dark-med: #54695D;
+  --mid-green: #719984;
+  --light-back: #E3D6BF;
+  --light-med: #F2E9D8;
+  --light-light: #FAF7F2;
+}
+
 body,
 html {
   padding: 0;
@@ -6,10 +16,25 @@ html {
   font-family: "Inter", sans-serif;
 
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  color: black;
+  /* color: rgba(255, 255, 255, 0.87); */
+  background-color: var(--light-back);
 }
 
-#app {
+header {
+  background-color: var(--mid-green);
+  color: white;
+}
+
+a {
+  background-color: var(--light-light);
+  border: 1px solid black;
+  border-radius: 10px;
+  padding: 10px;
+  color: black;
+}
+
+#page {
   padding: 0 20px;
+  
 }
