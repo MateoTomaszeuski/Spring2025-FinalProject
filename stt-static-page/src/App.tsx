@@ -1,8 +1,9 @@
 import React from 'react'
 import './App.css'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { BrowserRouter, Link, Route, Routes } from 'react-router-dom'
 import { MissingPage } from './components/MissingPage'
 import { MainPage } from './components/MainPage'
+import { DemoPage } from './components/DemoPage'
 
 class App extends React.Component {
   render() {
@@ -10,9 +11,10 @@ class App extends React.Component {
       <div id='app'>
         <BrowserRouter>
           <Header />
-          <div id='page'>
+          <div id='content'>
             <Routes>
               <Route path='/' element={<MainPage />} />
+              <Route path='/demo' element={<DemoPage />} />
               <Route path='*' element={<MissingPage />} />
             </Routes>
           </div>
@@ -27,6 +29,12 @@ class Header extends React.Component {
     return (
       <header>
         <h1>Consilium</h1>
+
+        <div className='navElements'>
+          <Link to="/">Home</Link>
+          <Link to="/demo">Demo</Link>
+        </div>
+        <a href='https://youtu.be/dQw4w9WgXcQ?si=cxQcwxCL5z5MN--Q' target='_blank'>Download Now!</a>
       </header>
     )
   }

@@ -23,7 +23,14 @@ html {
 
 header {
   background-color: var(--mid-green);
+  padding: 0 10px;
   color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+header .navElements a {
+  margin-right: 5px;
 }
 
 a {
@@ -34,7 +41,7 @@ a {
   color: black;
 }
 
-#page {
+#content {
   padding: 0 20px;
   
 }
