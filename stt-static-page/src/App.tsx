@@ -28,11 +28,11 @@ class Header extends React.Component {
   render() {
     return (
       <header>
-        <h1>Consilium</h1>
+        <Link to="/" className='headerNav'><h1>Consilium</h1></Link>
           {/* Update here with a clickable link to home as well */}
         <div className='navElements'>
-          <Link to="/">Home</Link>
-          <Link to="/demo">Demo</Link>
+          <Link to="/" className='headerNav'>Home</Link>
+          <Link to="/demo" className='headerNav'>Demo</Link>
         </div>
         <a href='https://youtu.be/dQw4w9WgXcQ?si=cxQcwxCL5z5MN--Q' target='_blank'>Download Now!</a>
       </header>

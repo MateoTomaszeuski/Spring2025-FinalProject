@@ -34,11 +34,10 @@ header .navElements a {
 }
 
 a {
-  background-color: var(--light-light);
-  border: 1px solid black;
-  border-radius: 10px;
-  padding: 10px;
   color: black;
+}
+.headerNav {
+  text-decoration: none;
 }
 
 #content {

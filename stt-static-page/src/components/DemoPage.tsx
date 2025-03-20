@@ -1,4 +1,5 @@
 import React from 'react';
+import { PomodoroDisplay } from './PomodoroDisplay';
 
 export class DemoPage extends React.Component<Record<string, never>, {display: DisplayOptions}> {
   constructor() {
@@ -12,16 +13,6 @@ export class DemoPage extends React.Component<Record<string, never>, {display: D
       <div>
         <h1>Demo</h1>
         <PomodoroDisplay />
-      </div>
-    )
-  }
-}
-
-class PomodoroDisplay extends React.Component {
-  render() {
-    return(
-      <div>
-        <p>Timer</p>
       </div>
     )
   }
