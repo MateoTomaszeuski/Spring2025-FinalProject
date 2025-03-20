@@ -29,7 +29,7 @@ class Header extends React.Component {
     return (
       <header>
         <h1>Consilium</h1>
-
+          {/* Update here with a clickable link to home as well */}
         <div className='navElements'>
           <Link to="/">Home</Link>
           <Link to="/demo">Demo</Link>
