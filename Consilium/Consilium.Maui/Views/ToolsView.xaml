@@ -5,15 +5,6 @@
              xmlns:tools="clr-namespace:Consilium.Maui.Controls"
              Title="ToolsView">
 
-    <ContentPage.Triggers>
-        <DataTrigger TargetType="ContentView"
-                Binding="{Binding ActiveTool}"
-                Value="calculator">
-            <Setter Property="IsVisible"
-                    Value="True"/>
-        </DataTrigger>
-    </ContentPage.Triggers>
-
     <VerticalStackLayout>
         <ScrollView>
             <HorizontalStackLayout>
@@ -33,6 +24,29 @@
                     CommandParameter="Pomodoro"/>
             </HorizontalStackLayout>
         </ScrollView>
-        <tools:CalculatorTool x:Name="Calculator" IsVisible="False"/>
+
+        <tools:CalculatorView x:Name="Calculator" IsVisible="False">
+            <tools:CalculatorView.Triggers>
+                
+                <DataTrigger TargetType="tools:CalculatorView"
+                             Binding="{Binding ActiveTool}"
+                             Value="Calculator">
+                    <Setter Property="IsVisible" Value="True"/>
+                </DataTrigger>
+
+                <DataTrigger TargetType="tools:CalculatorView"
+                             Binding="{Binding ActiveTool}"
+                             Value="Notes">
+                    <Setter Property="IsVisible" Value="False"/>
+                </DataTrigger>
+
+                <DataTrigger TargetType="tools:CalculatorView"
+                             Binding="{Binding ActiveTool}"
+                             Value="Pomodoro">
+                    <Setter Property="IsVisible" Value="False"/>
+                </DataTrigger>
+            </tools:CalculatorView.Triggers>
+        </tools:CalculatorView>
+
     </VerticalStackLayout>
 </ContentPage>
