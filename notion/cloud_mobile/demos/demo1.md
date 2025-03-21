@@ -1,8 +1,13 @@
 ## Progress Made
-Show progress you've made since last demo.
+Static site & branding.
+MAUI setup & navigation.
+Working on custom controls for tools.
 
 ## Sticking Points
-Relate something that got you stuck and how you figured it out.
+NPM build issue.
+Multiple ViewModels for one ContentView -- is it possible?
 
 ## What's Next
-Share plans for what you'll be working on next.
+Building out the MAUI app.
+Setting up API & database.
+Authentication.
