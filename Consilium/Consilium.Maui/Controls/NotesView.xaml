@@ -4,5 +4,8 @@
              x:Class="Consilium.Maui.Controls.NotesView">
     <VerticalStackLayout>
         <Label Text="Notes" />
+
+        <Label Text="This is the notes view." />
+
     </VerticalStackLayout>
 </ContentView>

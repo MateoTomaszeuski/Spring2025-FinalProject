@@ -4,5 +4,7 @@
              x:Class="Consilium.Maui.Controls.CalculatorView">
     <VerticalStackLayout>
         <Label Text="Calculator" />
+
+        <Label Text="This is the calculator view." />
     </VerticalStackLayout>
 </ContentView>
