@@ -25,28 +25,7 @@
             </HorizontalStackLayout>
         </ScrollView>
 
-        <tools:CalculatorView x:Name="Calculator" IsVisible="False">
-            <tools:CalculatorView.Triggers>
-                
-                <DataTrigger TargetType="tools:CalculatorView"
-                             Binding="{Binding ActiveTool}"
-                             Value="Calculator">
-                    <Setter Property="IsVisible" Value="True"/>
-                </DataTrigger>
-
-                <DataTrigger TargetType="tools:CalculatorView"
-                             Binding="{Binding ActiveTool}"
-                             Value="Notes">
-                    <Setter Property="IsVisible" Value="False"/>
-                </DataTrigger>
-
-                <DataTrigger TargetType="tools:CalculatorView"
-                             Binding="{Binding ActiveTool}"
-                             Value="Pomodoro">
-                    <Setter Property="IsVisible" Value="False"/>
-                </DataTrigger>
-            </tools:CalculatorView.Triggers>
-        </tools:CalculatorView>
+        <tools:CalculatorView x:Name="Calculator"/>
 
     </VerticalStackLayout>
 </ContentPage>
