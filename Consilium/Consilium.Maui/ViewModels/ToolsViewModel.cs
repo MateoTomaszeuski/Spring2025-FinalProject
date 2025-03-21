@@ -7,8 +7,6 @@ namespace Consilium.Maui.ViewModels;
 public partial class ToolsViewModel : ObservableObject
 {
     [ObservableProperty]
-    private string activeTool = "Notes";
-    [ObservableProperty]
     private bool notesActive = false;
     [ObservableProperty]
     private bool calculatorActive = false;
