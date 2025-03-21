@@ -25,7 +25,7 @@
             </HorizontalStackLayout>
         </ScrollView>
 
-        <tools:CalculatorView x:Name="Calculator"/>
+        <tools:CalculatorView x:Name="Calculator" IsVisible="{Binding CalculatorActive}"/>
 
     </VerticalStackLayout>
 </ContentPage>

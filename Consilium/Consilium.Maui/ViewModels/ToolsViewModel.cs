@@ -6,13 +6,8 @@ namespace Consilium.Maui.ViewModels;
 
 public partial class ToolsViewModel : ObservableObject
 {
-    public ToolsViewModel()
-    {
-        PropertyChanged += OnActiveToolChanged
-    }
     [ObservableProperty]
     private string activeTool = "Notes";
-
     [ObservableProperty]
     private bool notesActive = false;
     [ObservableProperty]
@@ -22,10 +17,11 @@ public partial class ToolsViewModel : ObservableObject
 
     private void OnActiveToolChanged(object sender, PropertyChangedEventArgs e)
     {
-        if (e.PropertyName == nameof(ActiveTool))
-        {
-            Console.WriteLine($"ActiveTool changed to: {ActiveTool}");
-        }
+    }
+
+    public bool IsActive(string tool)
+    {
+        return ActiveTool == tool;
     }
 
     [RelayCommand]
