@@ -74,6 +74,12 @@
 	  <MauiXaml Update="Controls\CalculatorView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Controls\NotesView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Controls\PomodoroView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Controls\Tool.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

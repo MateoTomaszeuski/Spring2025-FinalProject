@@ -25,7 +25,9 @@
             </HorizontalStackLayout>
         </ScrollView>
 
-        <tools:CalculatorView x:Name="Calculator" IsVisible="{Binding CalculatorActive}"/>
+        <tools:CalculatorView IsVisible="{Binding CalculatorActive}"/>
+        <tools:NotesView IsVisible="{Binding NotesActive}"/>
+        <tools:PomodoroView IsVisible="{Binding PomodoroActive}"/>
 
     </VerticalStackLayout>
 </ContentPage>
