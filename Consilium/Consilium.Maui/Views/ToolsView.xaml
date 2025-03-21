@@ -4,25 +4,30 @@
              x:Class="Consilium.Maui.Views.ToolsView"
              xmlns:tools="clr-namespace:Consilium.Maui.Controls"
              Title="ToolsView">
+
     <VerticalStackLayout>
         <ScrollView>
             <HorizontalStackLayout>
-                <Button 
-                    Text="Notes" 
-                    Command="{Binding ChangeToolCommand}" 
+                <Button
+                    Text="Notes"
+                    Command="{Binding ChangeToolCommand}"
                     CommandParameter="Notes"/>
 
-                <Button 
-                    Text="Calculator" 
-                    Command="{Binding ChangeToolCommand}" 
+                <Button
+                    Text="Calculator"
+                    Command="{Binding ChangeToolCommand}"
                     CommandParameter="Calculator"/>
 
-                <Button 
-                    Text="Pomodoro" 
-                    Command="{Binding ChangeToolCommand}" 
+                <Button
+                    Text="Pomodoro"
+                    Command="{Binding ChangeToolCommand}"
                     CommandParameter="Pomodoro"/>
             </HorizontalStackLayout>
         </ScrollView>
-        <tools:Tools Title="{Binding ActiveTool}"/>
+
+        <tools:CalculatorView IsVisible="{Binding CalculatorActive}"/>
+        <tools:NotesView IsVisible="{Binding NotesActive}"/>
+        <tools:PomodoroView IsVisible="{Binding PomodoroActive}"/>
+
     </VerticalStackLayout>
 </ContentPage>

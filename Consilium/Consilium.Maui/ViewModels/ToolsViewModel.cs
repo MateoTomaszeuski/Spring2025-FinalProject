@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using System.ComponentModel;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
 namespace Consilium.Maui.ViewModels;
@@ -6,25 +7,17 @@ namespace Consilium.Maui.ViewModels;
 public partial class ToolsViewModel : ObservableObject
 {
     [ObservableProperty]
-    private string activeTool = "Notes";
+    private bool notesActive = false;
+    [ObservableProperty]
+    private bool calculatorActive = false;
+    [ObservableProperty]
+    private bool pomodoroActive = false;
 
     [RelayCommand]
     public void ChangeTool(string tool)
     {
-        switch (tool)
-        {
-            case "Notes":
-                ActiveTool = "Notes";
-                break;
-            case "Calculator":
-                ActiveTool = "Calculator";
-                break;
-            case "Pomodoro":
-                ActiveTool = "Pomodoro";
-                break;
-            default:
-                ActiveTool = "Notes";
-                break;
-        };
+        NotesActive = "Notes" == tool;
+        CalculatorActive = "Calculator" == tool;
+        PomodoroActive = "Pomodoro" == tool;
     }
 }
