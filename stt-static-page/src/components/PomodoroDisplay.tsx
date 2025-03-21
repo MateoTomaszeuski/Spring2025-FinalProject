@@ -2,22 +2,77 @@ import React from 'react';
 
 export class PomodoroDisplay extends React.Component<Record<string, never>,
   { currentTimer: number, active: boolean, currentAction: Actions, breakTime: number, workTime: number }> {
+  canvasRef: React.RefObject<HTMLCanvasElement | null>;
+  ctx: CanvasRenderingContext2D | null | undefined;
+  timerInterval: NodeJS.Timeout | null;
+
   constructor() {
     super({});
     this.state = {
-      currentTimer: 600,
-      breakTime: 300,
-      workTime: 600,
+      currentTimer: 12,
+      breakTime: 10,
+      workTime: 12,
       active: false,
       currentAction: "Working"
     }
+    this.canvasRef = React.createRef();
+    this.timerInterval = null;
+  }
+
+  componentDidMount(): void {
+    const canvas = this.canvasRef?.current;
+    this.ctx = canvas?.getContext('2d');
+    this.renderFrame();
+  }
+
+  componentDidUpdate() {
+    this.renderFrame();
+  }
+
+  renderFrame() {
+    if (this.ctx !== null && this.ctx !== undefined) {
+      this.ctx.clearRect(0, 0, 400, 400);
+
+      // Set background color here
+      this.ctx.fillStyle = "#000000";
+      this.ctx.fillRect(0, 0, 400, 400);
+
+      // Set fill color here
+      this.ctx.fillStyle = this.state.currentAction === "Working" ? "white" : "red";
+      // Draw circle
+      this.ctx.beginPath();
+      this.ctx.moveTo(200, 200);
+      this.ctx.lineTo(200, 50);
+      const percentage: number = this.state.currentAction === "Working" ? (this.state.currentTimer / this.state.workTime) : (this.state.currentTimer / this.state.breakTime);
+      this.ctx.arc(200, 200, 150, (3 * Math.PI) / 2, this.percentageToRadians(percentage * 100));
+      this.ctx.moveTo(200, 200);
+      this.ctx.fill();
+
+
+      // Now to display the overlaid text
+      // Set font, font size, color here
+      this.ctx.font = "bold 48px Inter";
+      this.ctx.strokeStyle = "red";
+      this.ctx.fillStyle = "red";
+
+      this.ctx.textAlign = "center";
+      this.ctx.textBaseline = "middle";
+      // Use either one, whether you want stroke or filled text
+      this.ctx.strokeText(toDuration(this.state.currentTimer), 200, 200);
+      this.ctx.fillText(toDuration(this.state.currentTimer), 200, 200);
+    }
+  }
+
+  // thank you ChatGPT
+  percentageToRadians = (percentage: number): number => {
+    const startAngle = (3 * Math.PI) / 2; 
+    const fullCircle = 2 * Math.PI;
+    return startAngle + (fullCircle * (percentage / 100));
   }
 
 
   startTimer = () => {
-    this.setState({ active: true });
-    const interval = setInterval(() => {
-      if (!this.state.active) clearInterval(interval);
+    this.timerInterval = setInterval(() => {
       const newTime = this.state.currentTimer - 1;
       this.setState({ currentTimer: newTime });
 
@@ -41,11 +96,13 @@ export class PomodoroDisplay extends React.Component<Record<string, never>,
   }
 
   stopTimer = () => {
-    this.setState({ active: false });
+    if (this.timerInterval !== null) {
+      clearInterval(this.timerInterval);
+    }
   }
 
   resetTimer = () => {
-    this.setState({ currentTimer: this.state.workTime });
+    this.setState({ currentTimer: this.state.workTime, currentAction: "Working" });
   }
 
   setBreakTime = (n: number) => {
@@ -59,8 +116,16 @@ export class PomodoroDisplay extends React.Component<Record<string, never>,
   render() {
     return (
       <div id="pomodoro-display">
-        <p>Current state: {this.state.currentAction}</p>
-        <p>Time Remaining: {toDuration(this.state.currentTimer)}</p>
+        <canvas
+          id='timer-display'
+          ref={this.canvasRef}
+          width={400}
+          height={400}
+          style={{ border: '1px solid black', borderRadius: '3px' }}
+        />
+        {/* <p>Current state: {this.state.currentAction}</p>
+        <p>Time Remaining: {toDuration(this.state.currentTimer)}</p> */}
+
         <div>
           <button onClick={this.startTimer}>Start</button>
           <button onClick={this.stopTimer}>Stop</button>
