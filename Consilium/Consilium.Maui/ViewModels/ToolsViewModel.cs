@@ -18,25 +18,8 @@ public partial class ToolsViewModel : ObservableObject
     [RelayCommand]
     public void ChangeTool(string tool)
     {
-        NotesActive = false;
-        CalculatorActive = false;
-        PomodoroActive = false;
-        
-        switch (tool)
-        {
-            case "Calculator":
-                CalculatorActive = true;
-                break;
-            case "Notes":
-                NotesActive = true;
-                break;
-            case "Pomodoro":
-                PomodoroActive = true;
-                break;
-            default:
-                CalculatorActive = true;
-                break;
-        }
-        ;
+        NotesActive = "Notes" == tool;
+        CalculatorActive = "Calculator" == tool;
+        PomodoroActive = "Pomodoro" == tool;
     }
 }
