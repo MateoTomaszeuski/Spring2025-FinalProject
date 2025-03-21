@@ -224,6 +224,16 @@
                         <mxRectangle width="150" height="30" as="alternateBounds"/>
                     </mxGeometry>
                 </mxCell>
+                <mxCell id="98" value="" style="fontSize=12;html=1;endArrow=ERmany;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=1.015;entryY=0.267;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="42" source="43" target="49">
+                    <mxGeometry width="100" height="100" relative="1" as="geometry">
+                        <mxPoint x="50" y="70" as="sourcePoint"/>
+                        <mxPoint x="260" y="84" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="290" y="45"/>
+                            <mxPoint x="290" y="100"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
                 <mxCell id="55" value="Course" style="shape=table;startSize=30;container=1;collapsible=1;childLayout=tableLayout;fixedRows=1;rowLines=0;fontStyle=1;align=center;resizeLast=1;html=1;" vertex="1" parent="1">
                     <mxGeometry x="40" y="270" width="180" height="150" as="geometry"/>
                 </mxCell>
@@ -324,8 +334,8 @@
                 <mxCell id="79" value="By default, each user has one to-do list." style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;fontColor=#000000;darkOpacity=0.05;fillColor=#FFF9B2;strokeColor=none;fillStyle=solid;direction=west;gradientDirection=north;gradientColor=#FFF2A1;shadow=1;size=20;pointerEvents=1;" vertex="1" parent="1">
                     <mxGeometry x="250" y="40" width="160" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="80" value="Do we want to allow multiple lists? E.g. School To-Dos, Work To-Dos, other, etc. Or do we want to keep it school-centric?" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=#dae8fc;strokeColor=#6c8ebf;fillStyle=solid;direction=west;gradientDirection=north;shadow=1;size=20;pointerEvents=1;" vertex="1" parent="1">
-                    <mxGeometry x="670" y="40" width="160" height="120" as="geometry"/>
+                <mxCell id="99" value="Self-reference for subtasks." style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;fontColor=#000000;darkOpacity=0.05;fillColor=#FFF9B2;strokeColor=none;fillStyle=solid;direction=west;gradientDirection=north;gradientColor=#FFF2A1;shadow=1;size=20;pointerEvents=1;" vertex="1" parent="1">
+                    <mxGeometry x="680" y="440" width="160" height="60" as="geometry"/>
                 </mxCell>
             </root>
         </mxGraphModel>
