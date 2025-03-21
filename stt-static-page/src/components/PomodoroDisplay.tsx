@@ -34,11 +34,17 @@ export class PomodoroDisplay extends React.Component<Record<string, never>,
       this.ctx.clearRect(0, 0, 400, 400);
 
       // Set background color here
-      this.ctx.fillStyle = "#000000";
+      this.ctx.fillStyle = "#FAF7F2";
       this.ctx.fillRect(0, 0, 400, 400);
 
+      // Background circle
+      this.ctx.fillStyle = "white";
+      this.ctx.beginPath();
+      this.ctx.arc(200, 200, 165, 0, 2 * Math.PI);
+      this.ctx.fill();
+
       // Set fill color here
-      this.ctx.fillStyle = this.state.currentAction === "Working" ? "white" : "red";
+      this.ctx.fillStyle = this.state.currentAction === "Working" ? "rgb(163, 193, 176, 0.6)" : "White";
       // Draw circle
       this.ctx.beginPath();
       this.ctx.moveTo(200, 200);
@@ -52,11 +58,12 @@ export class PomodoroDisplay extends React.Component<Record<string, never>,
       // Now to display the overlaid text
       // Set font, font size, color here
       this.ctx.font = "bold 48px Inter";
-      this.ctx.strokeStyle = "red";
-      this.ctx.fillStyle = "red";
+      this.ctx.strokeStyle = "#242424";
+      this.ctx.fillStyle = "#242424";
 
       this.ctx.textAlign = "center";
       this.ctx.textBaseline = "middle";
+
       // Use either one, whether you want stroke or filled text
       this.ctx.strokeText(toDuration(this.state.currentTimer), 200, 200);
       this.ctx.fillText(toDuration(this.state.currentTimer), 200, 200);
@@ -121,12 +128,12 @@ export class PomodoroDisplay extends React.Component<Record<string, never>,
           ref={this.canvasRef}
           width={400}
           height={400}
-          style={{ border: '1px solid black', borderRadius: '3px' }}
+          style={{ borderRadius: '3px' }}
         />
         {/* <p>Current state: {this.state.currentAction}</p>
         <p>Time Remaining: {toDuration(this.state.currentTimer)}</p> */}
 
-        <div>
+        <div id="pomodoro-controls">
           <button onClick={this.startTimer}>Start</button>
           <button onClick={this.stopTimer}>Stop</button>
           <button onClick={this.resetTimer}>Reset</button>

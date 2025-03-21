@@ -29,12 +29,16 @@ class Header extends React.Component {
     return (
       <header>
         <Link to="/" className='headerNav'><h1>Consilium</h1></Link>
-          {/* Update here with a clickable link to home as well */}
+        {/* Update here with a clickable link to home as well */}
         <div className='navElements'>
-          <Link to="/" className='headerNav'>Home</Link>
-          <Link to="/demo" className='headerNav'>Demo</Link>
+          <ul>
+            <li> <Link to="/" className='headerNav'>Home</Link></li>
+            <li><Link to="/demo" className='headerNav'>Demo</Link></li>
+        <li><a id="download-button" href='https://youtu.be/dQw4w9WgXcQ?si=cxQcwxCL5z5MN--Q' target='_blank'>Download Now!</a></li>
+          </ul>
         </div>
-        <a href='https://youtu.be/dQw4w9WgXcQ?si=cxQcwxCL5z5MN--Q' target='_blank'>Download Now!</a>
+
+
       </header>
     )
   }
