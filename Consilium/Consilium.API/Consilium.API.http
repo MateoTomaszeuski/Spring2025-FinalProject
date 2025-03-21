@@ -1,0 +1,6 @@
+@Consilium.API_HostAddress = http://localhost:5202
+
+GET {{Consilium.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
