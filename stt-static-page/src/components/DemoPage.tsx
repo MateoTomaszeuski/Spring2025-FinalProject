@@ -11,7 +11,6 @@ export class DemoPage extends React.Component<Record<string, never>, {display: D
   render() {
     return(
       <div>
-        <h1>Demo</h1>
         <PomodoroDisplay />
       </div>
     )

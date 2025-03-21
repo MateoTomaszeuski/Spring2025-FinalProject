@@ -1,6 +1,6 @@
 import React from 'react';
 
-export class PomodoroDisplay extends React.Component<Record<string, never>, 
+export class PomodoroDisplay extends React.Component<Record<string, never>,
   { currentTimer: number, active: boolean, currentAction: Actions, breakTime: number, workTime: number }> {
   constructor() {
     super({});
@@ -8,30 +8,30 @@ export class PomodoroDisplay extends React.Component<Record<string, never>,
       currentTimer: 600,
       breakTime: 300,
       workTime: 600,
-      active: false, 
+      active: false,
       currentAction: "Working"
     }
   }
 
 
   startTimer = () => {
-    this.setState({active: true});
+    this.setState({ active: true });
     const interval = setInterval(() => {
       if (!this.state.active) clearInterval(interval);
       const newTime = this.state.currentTimer - 1;
-      this.setState({currentTimer: newTime});
-      
+      this.setState({ currentTimer: newTime });
+
       if (newTime <= 0) {
         switch (this.state.currentAction) {
           case "Working": {
-            this.setState({currentAction: "Break"});
-            this.setState({currentTimer: this.state.breakTime});
+            this.setState({ currentAction: "Break" });
+            this.setState({ currentTimer: this.state.breakTime });
             window.alert("Stop working!");
             break;
           }
           case "Break": {
-            this.setState({currentAction: "Working"});
-            this.setState({currentTimer: this.state.workTime});
+            this.setState({ currentAction: "Working" });
+            this.setState({ currentTimer: this.state.workTime });
             window.alert("Start working!");
             break;
           }
@@ -41,45 +41,56 @@ export class PomodoroDisplay extends React.Component<Record<string, never>,
   }
 
   stopTimer = () => {
-    this.setState({active: false});
+    this.setState({ active: false });
   }
 
   resetTimer = () => {
-    this.setState({currentTimer: this.state.workTime});
+    this.setState({ currentTimer: this.state.workTime });
   }
 
   setBreakTime = (n: number) => {
-    this.setState({breakTime: n});
+    this.setState({ breakTime: n });
   }
 
   setWorkTime = (n: number) => {
-    this.setState({workTime: n});
+    this.setState({ workTime: n });
   }
 
   render() {
     return (
-      <div>
+      <div id="pomodoro-display">
         <p>Current state: {this.state.currentAction}</p>
         <p>Time Remaining: {toDuration(this.state.currentTimer)}</p>
-        <button onClick={this.startTimer}>Start</button>
-        <button onClick={this.stopTimer}>Stop</button>
-        <button onClick={this.resetTimer}>Reset</button>
+        <div>
+          <button onClick={this.startTimer}>Start</button>
+          <button onClick={this.stopTimer}>Stop</button>
+          <button onClick={this.resetTimer}>Reset</button>
+        </div>
 
-        <p>Set work time</p>
-        <select onChange={(e) => this.setWorkTime(parseInt(e.target.value))}>
-          <option value="600">10</option>
-          <option value="900">15</option>
-          <option value="1200">20</option>
-          <option value="1800">30</option>
-        </select>
+        <div id="pomodoro-settings">
 
-        <p>Set break time</p>
-        <select onChange={(e) => this.setBreakTime(parseInt(e.target.value))} defaultValue={300}>
-          <option value="60">1</option>
-          <option value="180">3</option>
-          <option value="300">5</option>
-          <option value="600">10</option>
-        </select>
+          <div>
+            <label htmlFor="work">Set work time</label>
+            <select name="work" onChange={(e) => this.setWorkTime(parseInt(e.target.value))}>
+              <option value="600">10</option>
+              <option value="900">15</option>
+              <option value="1200">20</option>
+              <option value="1800">30</option>
+            </select>
+          </div>
+
+          <div>
+
+            <br />
+            <label htmlFor="break">Set break time</label>
+            <select name="work" onChange={(e) => this.setBreakTime(parseInt(e.target.value))} defaultValue={300}>
+              <option value="60">1</option>
+              <option value="180">3</option>
+              <option value="300">5</option>
+              <option value="600">10</option>
+            </select>
+          </div>
+        </div>
       </div>
     );
   }
@@ -91,5 +102,5 @@ function toDuration(seconds: number): string {
   const minutes = Math.floor((seconds % 3600) / 60);
   seconds = seconds % 60;
 
-  return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0') }`;
+  return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
 }
