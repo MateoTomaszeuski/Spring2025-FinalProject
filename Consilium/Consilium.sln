@@ -5,8 +5,6 @@ VisualStudioVersion = 17.13.35818.85
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Consilium.Maui", "Consilium.Maui\Consilium.Maui.csproj", "{A37A09FF-C270-4FFE-AFE4-B53C93DB67B5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Consilium.API", "Consilium.API\Consilium.API.csproj", "{072CE15C-0C40-4B8E-BEFF-4234ED16FEB4}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Consilium.Tests", "Consilium.Tests\Consilium.Tests.csproj", "{8533AB16-7EA9-4EE4-B8CA-1CD3E1EA7C0F}"
 EndProject
 Global
