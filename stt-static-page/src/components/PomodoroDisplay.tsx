@@ -72,52 +72,62 @@ export class PomodoroDisplay extends React.Component<Record<string, never>,
 
   // thank you ChatGPT
   percentageToRadians = (percentage: number): number => {
-    const startAngle = (3 * Math.PI) / 2; 
+    const startAngle = (3 * Math.PI) / 2;
     const fullCircle = 2 * Math.PI;
     return startAngle + (fullCircle * (percentage / 100));
   }
 
 
   startTimer = () => {
-    this.timerInterval = setInterval(() => {
-      const newTime = this.state.currentTimer - 1;
-      this.setState({ currentTimer: newTime });
+    if (this.timerInterval === null) {
+      this.timerInterval = setInterval(() => {
+        const newTime = this.state.currentTimer - 1;
+        this.setState({ currentTimer: newTime });
 
-      if (newTime <= 0) {
-        switch (this.state.currentAction) {
-          case "Working": {
-            this.setState({ currentAction: "Break" });
-            this.setState({ currentTimer: this.state.breakTime });
-            window.alert("Stop working!");
-            break;
-          }
-          case "Break": {
-            this.setState({ currentAction: "Working" });
-            this.setState({ currentTimer: this.state.workTime });
-            window.alert("Start working!");
-            break;
+        if (newTime <= 0) {
+          switch (this.state.currentAction) {
+            case "Working": {
+              this.setState({ currentAction: "Break" });
+              this.setState({ currentTimer: this.state.breakTime });
+              window.alert("Stop working!");
+              break;
+            }
+            case "Break": {
+              this.setState({ currentAction: "Working" });
+              this.setState({ currentTimer: this.state.workTime });
+              window.alert("Start working!");
+              break;
+            }
           }
         }
-      }
-    }, 1000);
+      }, 1000);
+    }
   }
 
   stopTimer = () => {
     if (this.timerInterval !== null) {
       clearInterval(this.timerInterval);
+      this.timerInterval = null;
     }
   }
 
   resetTimer = () => {
+    this.stopTimer();
     this.setState({ currentTimer: this.state.workTime, currentAction: "Working" });
+  }
+  
+  setWorkTime = (n: number) => {
+    this.setState({ workTime: n });
+    setTimeout(() => {
+      this.resetTimer();
+    }, 100);
   }
 
   setBreakTime = (n: number) => {
     this.setState({ breakTime: n });
-  }
-
-  setWorkTime = (n: number) => {
-    this.setState({ workTime: n });
+    setTimeout(() => {
+      this.resetTimer();
+    }, 100);
   }
 
   render() {
@@ -143,7 +153,7 @@ export class PomodoroDisplay extends React.Component<Record<string, never>,
 
           <div>
             <label htmlFor="work">Set work time</label>
-            <select name="work" onChange={(e) => this.setWorkTime(parseInt(e.target.value))}>
+            <select name="work" onChange={(e) => this.setWorkTime(parseInt(e.target.value))} defaultValue={1200}>
               <option value="600">10</option>
               <option value="900">15</option>
               <option value="1200">20</option>
