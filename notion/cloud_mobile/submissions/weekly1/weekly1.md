@@ -5,18 +5,24 @@
 
 ## Progress Summary
 
-#### Scope Progress
-Progress on scope (show what you've done, what remains)
+![alt text](images/scope.png "Scope Table")
 
-#### Learning Objectives Progress
-Progress on learning objectives (note which objectives you can demonstrate through this project, which you cannot)
+<br/>
+
+![alt text](images/outcomes.png "Outcomes Table")
+
 
 ---
 
 ## Work Logs
 These time logs outline our meetings spent mob programming, debugging, and planning as a group.
 
-[Insert Time Logs Here]
+![alt text](images/group-sessions.png "Group Meetings")
+<br/>
+![alt text](images/time-summary.png "Time Summary")
+
+Here is a [link](https://docs.google.com/spreadsheets/d/18VnP5M3QZ9fHyKty3yBczf-pbReVf3Z-3jlyZqaL7vE/edit?usp=sharing) to the spreadsheet we're using to track our time.
+
 
 ---
 ## Blocking Issues
@@ -32,7 +38,13 @@ Share 3+ different blocking issues that you were stuck on for a while, and how y
   - We read the error messages in the deployment logs more clearly, and realized that the output location was incorrect. Adjusted this to work with vite, and fixed the problem.
 
 #### 2. Static Site Not Building
-* **Description:** 
+* **Description/Solution:** 
     - npm is broken in our project folder, but we can work around this by using vite commands directly:
       - `Vite`
       - `Vite Build`
+
+### 3. Toggling Between Tools
+* **Description:** 
+  - To toggle between tool controls in the UI, we initially wanted  to use multiple ViewModels for a single ContentView, but weren't sure this was possible (or a good idea).
+* **Attempts To Fix/Solution:**
+  - As we explored other options, we found a much better solution. Now, we're binding the IsVisible property for each tool to a bool that indicates whether it is active.
