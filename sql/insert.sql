@@ -1,0 +1,1 @@
+insert into account (email, displayName) values ('cody@final.codyhowell.dev', 'Cody')
