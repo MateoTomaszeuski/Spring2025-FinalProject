@@ -39,13 +39,11 @@ jobs:
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_435D1B6923F44B4E82FA646F8FCEC59F }}
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_7D5EEDC437EB451F9826076F416E790C }}
 
-      - run : ls
-      - run: ls ${{env.DOTNET_ROOT}}/myapp
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
         with:
-          app-name: '${{env.DOTNET_ROOT}}/myapp/consilium-api'
+          app-name: '${{env.DOTNET_ROOT}}/myapp/Consilium.API.dll'
           slot-name: 'Production'
           package: .
           
