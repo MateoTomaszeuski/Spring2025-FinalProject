@@ -9,11 +9,10 @@ public class Tests
     public async Task HelloWorldCall()
     {
         var client = new HttpClient();
-        client.BaseAddress = new Uri("https://localhost:8080");
+        client.BaseAddress = new Uri("http://localhost:8080");
 
-        var response = await client.GetAsync("/");
-        string output = await response.Content.ReadAsStringAsync();
+        string response = await client.GetStringAsync("/");
 
-        await Assert.That(output).IsEqualTo("Welcome to the Consilium Api");
+        await Assert.That(response).IsEqualTo("Welcome to the Consilium Api");
     }
 }
