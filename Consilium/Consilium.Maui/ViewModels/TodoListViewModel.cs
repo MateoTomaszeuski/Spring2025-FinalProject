@@ -33,7 +33,7 @@ public partial class TodoListViewModel: ObservableObject {
     {
         if (!string.IsNullOrWhiteSpace(NewTodoTitle))
         {
-            TodoItems.Add(new TodoItem { Title = NewTodoTitle });
+            TodoItems.Add(new TodoItem());
             NewTodoTitle = string.Empty; 
         }
     }
@@ -43,7 +43,7 @@ public partial class TodoListViewModel: ObservableObject {
     {
         if (todoItem != null)
         {
-            Console.WriteLine($"Removing Todo: {todoItem.Title}"); 
+            Console.WriteLine($"Removing Todo: {todoItem}"); 
             TodoItems.Remove(todoItem);
         }
     }
@@ -51,27 +51,10 @@ public partial class TodoListViewModel: ObservableObject {
 
 
 
-public class TodoItem : ObservableObject
+public class TodoItem
 {
-    private string ? title;
-    private string ? description;
-    private bool isCompleted;
+    public string ? Title { get; set; }
+    public string ? Description { get; set; }
+    public bool IsCompleted { get; set; }
 
-    public string Title
-    {
-        get => title;
-        set => SetProperty(ref title, value);
-    }
-
-    public string Description
-    {
-        get => description;
-        set => SetProperty(ref description, value);
-    }
-
-    public bool IsCompleted
-    {
-        get => isCompleted;
-        set => SetProperty(ref isCompleted, value);
-    }
 }
