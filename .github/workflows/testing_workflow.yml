@@ -25,9 +25,11 @@ jobs:
       - name: Spin up Api and Database
         run: docker compose -f docker-compose.integration-test.yml up -d
 
+      - name: docker logs
+        run: docker logs consilium-api 
+        
       - name: Run integration Tests
         run: |
-            docker logs consilium-api && \
             docker build \
                 -f integrationtest.Dockerfile \
                 -t consilium_integration_test_container \
