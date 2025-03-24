@@ -10,7 +10,8 @@ jobs:
 
     #using docker for integration testing
       - name: Run Tests
-        run: docker build \
-          -f test.Dockerfile \
-          -t consilium_test_container \
-          .
+        run: |
+            docker build \
+                -f test.Dockerfile \
+                -t consilium_test_container \
+                .
