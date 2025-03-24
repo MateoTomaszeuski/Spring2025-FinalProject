@@ -9,7 +9,7 @@ on:
     types: [completed]
 
 jobs:
-  build:
+  build_and_deploy_api:
     runs-on: ubuntu-latest
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     permissions:
@@ -43,7 +43,7 @@ jobs:
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
         with:
-          app-name: 'consilium-api'
+          app-name: '${{env.DOTNET_ROOT}}/myapp/consilium-api'
           slot-name: 'Production'
           package: .
           
