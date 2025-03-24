@@ -22,3 +22,11 @@ services:
       # - ./dbdata:/var/lib/postgresql/data
     ports:
       - 5432:5432
+
+  test:
+    container_name: consilium-integration-test
+    build:
+      context: .
+      dockerfile: integrationtest.Dockerfile
+    depends_on:
+      - webapp
