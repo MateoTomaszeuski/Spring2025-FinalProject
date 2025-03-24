@@ -15,6 +15,8 @@ if (app.Environment.IsDevelopment()) {
     app.UseSwaggerUI();
 }
 
+app.MapGet("", () => "Welcome to the Consilium Api");
+
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
