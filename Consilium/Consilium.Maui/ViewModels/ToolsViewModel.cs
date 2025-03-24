@@ -1,11 +1,10 @@
-﻿using System.ComponentModel;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using System.ComponentModel;
 
 namespace Consilium.Maui.ViewModels;
 
-public partial class ToolsViewModel : ObservableObject
-{
+public partial class ToolsViewModel : ObservableObject {
     [ObservableProperty]
     private bool notesActive = false;
     [ObservableProperty]
@@ -14,8 +13,7 @@ public partial class ToolsViewModel : ObservableObject
     private bool pomodoroActive = false;
 
     [RelayCommand]
-    public void ChangeTool(string tool)
-    {
+    public void ChangeTool(string tool) {
         NotesActive = "Notes" == tool;
         CalculatorActive = "Calculator" == tool;
         PomodoroActive = "Pomodoro" == tool;

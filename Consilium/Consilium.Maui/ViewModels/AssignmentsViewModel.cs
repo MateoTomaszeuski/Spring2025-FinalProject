@@ -6,6 +6,5 @@ using System.Threading.Tasks;
 
 namespace Consilium.Maui.ViewModels;
 
-public partial class AssignmentsViewModel
-{
+public partial class AssignmentsViewModel {
 }

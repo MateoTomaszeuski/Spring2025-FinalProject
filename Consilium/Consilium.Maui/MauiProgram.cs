@@ -5,10 +5,8 @@ using Microsoft.Extensions.Logging;
 
 namespace Consilium.Maui;
 
-public static class MauiProgram
-{
-    public static MauiApp CreateMauiApp()
-    {
+public static class MauiProgram {
+    public static MauiApp CreateMauiApp() {
         var builder = MauiApp.CreateBuilder();
         builder
             .UseMauiApp<App>()
@@ -28,10 +26,9 @@ public static class MauiProgram
 
         return builder.Build();
 
-}
+    }
 
-    public static MauiAppBuilder RegisterViews(this MauiAppBuilder builder)
-    {
+    public static MauiAppBuilder RegisterViews(this MauiAppBuilder builder) {
         builder.Services.AddSingleton<AssignmentsView>();
         builder.Services.AddSingleton<DashboardView>();
         builder.Services.AddSingleton<StatsView>();
@@ -41,8 +38,7 @@ public static class MauiProgram
         return builder;
     }
 
-    public static MauiAppBuilder RegisterViewModels(this MauiAppBuilder builder)
-    {
+    public static MauiAppBuilder RegisterViewModels(this MauiAppBuilder builder) {
         builder.Services.AddSingleton<AssignmentsViewModel>();
         builder.Services.AddSingleton<DashboardViewModel>();
         builder.Services.AddSingleton<StatsViewModel>();

@@ -1,9 +1,6 @@
-﻿namespace Consilium.Maui
-{
-    public partial class AppShell : Shell
-    {
-        public AppShell()
-        {
+﻿namespace Consilium.Maui {
+    public partial class AppShell : Shell {
+        public AppShell() {
             InitializeComponent();
         }
     }

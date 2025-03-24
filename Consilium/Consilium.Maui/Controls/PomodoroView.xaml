@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Consilium.Maui.Controls.PomodoroView">
     <VerticalStackLayout>
-        <Label Text="Pomodoro" />
-        <Label Text="This is the pomodoro view." />
+        <Label Text="Pomodoro"/>
+        <Label Text="This is the pomodoro view."/>
     </VerticalStackLayout>
 </ContentView>
