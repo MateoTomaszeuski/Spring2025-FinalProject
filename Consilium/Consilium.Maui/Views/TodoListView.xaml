@@ -5,10 +5,32 @@
              xmlns:ViewModels="clr-namespace:Consilium.Maui.ViewModels"
                 x:DataType="ViewModels:TodoListViewModel"
              Title="TodoListView">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+
+    <StackLayout Padding="20">
+        <Entry Placeholder="Enter a new task"
+               Text="{Binding NewTodoTitle}" />
+        <Button Text="Add Todo"
+                Command="{Binding AddTodoCommand}" />
+        <ListView ItemsSource="{Binding TodoItems}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout Orientation="Horizontal" Padding="10">
+                            <CheckBox IsChecked="{Binding IsCompleted}" />
+                            <Label Text="{Binding Title}" VerticalOptions="Center" HorizontalOptions="StartAndExpand" />
+                            <Picker SelectedItem="{Binding Description}" 
+                                    ItemsSource="{Binding Source={x:Reference TodoListView}, Path=BindingContext.Descriptions}" 
+                                    VerticalOptions="Center" />
+                            <Button Text="Remove"
+                                    Command="{Binding BindingContext.RemoveTodoCommand, Source={x:Reference TodoListView}}"
+                                    CommandParameter="{Binding .}" 
+                                    BackgroundColor="Red"
+                                    TextColor="White" />
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
+
 </ContentPage>
