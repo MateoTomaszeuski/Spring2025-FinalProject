@@ -26,8 +26,10 @@ jobs:
         run: docker compose -f docker-compose.integration-test.yml up -d
 
       - name: docker logs
-        run: docker logs consilium-api 
-        
+        run: |
+          docker ps
+          docker logs consilium-api 
+
       - name: Run integration Tests
         run: |
             docker build \
