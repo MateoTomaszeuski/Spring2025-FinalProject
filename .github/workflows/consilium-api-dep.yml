@@ -9,7 +9,7 @@ on:
     types: [completed]
 
 jobs:
-  build:
+  build_and_deploy_api:
     runs-on: ubuntu-latest
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     permissions:
@@ -45,5 +45,5 @@ jobs:
         with:
           app-name: 'consilium-api'
           slot-name: 'Production'
-          package: .
+          package: '${{env.DOTNET_ROOT}}/myapp'
           
