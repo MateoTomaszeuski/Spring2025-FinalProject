@@ -27,6 +27,7 @@ jobs:
 
       - name: Run integration Tests
         run: |
+            docker ps && \
             docker build \
                 -f integrationtest.Dockerfile \
                 -t consilium_integration_test_container \
