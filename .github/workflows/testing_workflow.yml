@@ -9,11 +9,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4 # git clone
       
-      - name: Check Linting
-        run: cd Consilium && dotnet restore && dotnet format --verify-no-changes --no-restore
-      
-      - name: Check warnings as errors
-        run: cd Consilium && dotnet build Consilium.API --warnaserror
+      - name: Check linting and warns
+        run: |
+          docker build \
+              -f check.Dockerfile \
+              -t consilium_linting_and_warns_container \
+          .
 
     #using docker for integration testing
       - name: Spin up Api and Database
