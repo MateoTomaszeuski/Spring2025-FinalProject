@@ -5,7 +5,7 @@ COPY . .
 
 WORKDIR /src/Consilium
 
-RUN dotnet sln rm Consilium.Maui/Consilium.Maui.csproj
+RUN dotnet sln remove Consilium.Maui/Consilium.Maui.csproj
 RUN rm -rf Consilium.Maui
 
 RUN dotnet restore
