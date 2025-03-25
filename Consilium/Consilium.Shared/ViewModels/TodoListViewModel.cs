@@ -8,13 +8,13 @@ namespace Consilium.Shared.ViewModels;
 
 public partial class TodoListViewModel : ObservableObject {
     [ObservableProperty]
-    private string newTodoTitle;
+    private string newTodoTitle = "";
 
     [ObservableProperty]
     private ObservableCollection<TodoItem> todoItems;
 
     [ObservableProperty]
-    private string newCategoryInput;
+    private string newCategoryInput = "";
 
     public TodoListViewModel() {
         TodoItems = new ObservableCollection<TodoItem>();
