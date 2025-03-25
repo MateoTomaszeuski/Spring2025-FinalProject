@@ -3,11 +3,9 @@ using System.Threading.Tasks;
 
 namespace Consilium.IntegrationTests;
 
-public class Tests
-{
+public class Tests {
     [Test]
-    public async Task HelloWorldCall()
-    {
+    public async Task HelloWorldCall() {
         var client = new HttpClient();
         client.BaseAddress = new Uri("http://consilium-api:8080");
 

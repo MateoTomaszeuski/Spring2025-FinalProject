@@ -7,7 +7,7 @@ using System.Windows.Input;
 
 namespace Consilium.Maui.ViewModels;
 
-public partial class TodoListViewModel: ObservableObject {
+public partial class TodoListViewModel : ObservableObject {
 
     [ObservableProperty]
     private string newTodoTitle;
@@ -18,8 +18,7 @@ public partial class TodoListViewModel: ObservableObject {
     [ObservableProperty]
     private ObservableCollection<string> descriptions;
 
-    public TodoListViewModel()
-    {
+    public TodoListViewModel() {
         TodoItems = new ObservableCollection<TodoItem>();
         Descriptions = new ObservableCollection<string>
         {
@@ -29,21 +28,17 @@ public partial class TodoListViewModel: ObservableObject {
         };
     }
     [RelayCommand]
-    private void AddTodo()
-    {
-        if (!string.IsNullOrWhiteSpace(NewTodoTitle))
-        {
-            TodoItems.Add(new TodoItem() { Title= NewTodoTitle});
-            NewTodoTitle = string.Empty; 
+    private void AddTodo() {
+        if (!string.IsNullOrWhiteSpace(NewTodoTitle)) {
+            TodoItems.Add(new TodoItem() { Title = NewTodoTitle });
+            NewTodoTitle = string.Empty;
         }
     }
 
     [RelayCommand]
-    private void RemoveTodo(TodoItem todoItem)
-    {
-        if (todoItem != null)
-        {
-            Console.WriteLine($"Removing Todo: {todoItem}"); 
+    private void RemoveTodo(TodoItem todoItem) {
+        if (todoItem != null) {
+            Console.WriteLine($"Removing Todo: {todoItem}");
             TodoItems.Remove(todoItem);
         }
     }
@@ -51,10 +46,9 @@ public partial class TodoListViewModel: ObservableObject {
 
 
 
-public class TodoItem : IEquatable<TodoItem>
-{
-    public string ? Title { get; set; }
-    public string ? Description { get; set; }
+public class TodoItem : IEquatable<TodoItem> {
+    public string? Title { get; set; }
+    public string? Description { get; set; }
     public bool IsCompleted { get; set; }
 
     public bool Equals(TodoItem? other) {
