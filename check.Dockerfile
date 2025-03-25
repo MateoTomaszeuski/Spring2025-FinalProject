@@ -5,6 +5,8 @@ COPY . .
 
 WORKDIR /src/Consilium
 
-RUN dotnet format --verify-no-changes
+RUN dotnet restore
+
+RUN dotnet format --verify-no-changes --no-restore
 
 RUN dotnet build Consilium.API --warnaserror
