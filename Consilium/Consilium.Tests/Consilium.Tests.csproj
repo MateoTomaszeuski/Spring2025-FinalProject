@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Consilium.API\Consilium.API.csproj" />
     <ProjectReference Include="..\Consilium.Shared\Consilium.Shared.csproj" />
   </ItemGroup>
 

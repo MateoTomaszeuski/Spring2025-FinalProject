@@ -5,14 +5,7 @@ using TUnit.Assertions.Extensions;
 namespace Consilium.Tests;
 
 
-public class Tests {
-    [Test]
-    public void Basic() {
-        Console.WriteLine("This is a basic test");
-    }
-
-    // These are for the ToDoListViewModel
-
+public class ToDoListVMTests {
     [Test]
     public async Task CanCreateViewModel() {
         TodoListViewModel viewModel = new TodoListViewModel();
