@@ -9,6 +9,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4 # git clone
       
+      # - run: nix-shell -p dotnetCorePackages.sdk_9_0_1xx --run
+
       - name: Check linting and warns
         run: |
           docker build \
