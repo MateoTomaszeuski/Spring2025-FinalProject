@@ -16,9 +16,7 @@
                         <StackLayout Orientation="Horizontal" Padding="10">
                             <CheckBox IsChecked="{Binding IsCompleted}" />
                             <Label Text="{Binding Title}" VerticalOptions="Center" HorizontalOptions="StartAndExpand" />
-                            <Picker SelectedItem="{Binding Description}" 
-                                    ItemsSource="{Binding Source={x:Reference TodoListView}, Path=BindingContext.Descriptions}" 
-                                    VerticalOptions="Center" />
+
                             <Button Text="Remove"
                                     Command="{Binding BindingContext.RemoveTodoCommand, Source={x:Reference TodoListView}}"
                                     CommandParameter="{Binding .}" 
