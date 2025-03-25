@@ -1,4 +1,4 @@
-using Consilium.Maui.ViewModels;
+using Consilium.Shared.ViewModels;
 
 namespace Consilium.Maui.Views;
 public partial class ToolsView : ContentPage {
