@@ -8,6 +8,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4 # git clone
       
+      - name: Check Linting
+        run: dotnet format --verify-no-changes
+      
+      - name: Check warnings as errors
+        run: dotnet build Consilium.API --warnaserror
+
     #using docker for integration testing
       - name: Spin up Api and Database
         run: docker compose -f docker-compose.integration-test.yml up -d --build
