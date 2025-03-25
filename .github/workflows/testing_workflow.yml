@@ -30,13 +30,15 @@ jobs:
           docker ps
           docker logs consilium-api 
 
-      - name: Run integration Tests
+      - name: build integration Tests
         run: |
             docker build \
                 -f integrationtest.Dockerfile \
                 -t consilium_integration_test_container \
             .
-      
+      - name: run integration tests
+        run: docker run --rm --network consilium_network consilium_integration_test_container
+
       - name: Stop Containers
         run: docker compose down
 

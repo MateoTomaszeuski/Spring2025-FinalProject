@@ -1,6 +1,8 @@
 services:
   webapp:
     container_name: consilium-api
+    networks:
+      - consilium
     build:
       context: .
       dockerfile: Dockerfile
@@ -11,6 +13,8 @@ services:
 
   db:
     image: postgres
+    networks:
+      - consilium
     restart: always
     shm_size: 128mb
     environment:
@@ -22,11 +26,7 @@ services:
       # - ./dbdata:/var/lib/postgresql/data
     ports:
       - 5432:5432
-
-  test:
-    container_name: consilium-integration-test
-    build:
-      context: .
-      dockerfile: integrationtest.Dockerfile
-    depends_on:
-      - webapp
+      
+networks:
+  consilium:
+    name: consilium_network
