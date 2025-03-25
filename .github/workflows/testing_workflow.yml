@@ -3,19 +3,6 @@ on :
 - push
 
 jobs:
-  Test_Project:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4 # git clone
-
-    #using docker for integration testing
-      - name: Run Tests
-        run: |
-            docker build \
-                -f test.Dockerfile \
-                -t consilium_test_container \
-            .
-
   Integration_Test_Project:
     runs-on: ubuntu-latest
     steps:
