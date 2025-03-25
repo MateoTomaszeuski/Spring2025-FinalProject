@@ -3,30 +3,79 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Consilium.Maui.Views.TodoListView"
              Title="TodoListView">
-
     <StackLayout Padding="20">
+        <!-- Add Todo Task -->
         <Entry Placeholder="Enter a new task"
                Text="{Binding NewTodoTitle}" />
         <Button Text="Add Todo"
                 Command="{Binding AddTodoCommand}" />
-        <ListView ItemsSource="{Binding TodoItems}">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <StackLayout Orientation="Horizontal" Padding="10">
-                            <CheckBox IsChecked="{Binding IsCompleted}" />
-                            <Label Text="{Binding Title}" VerticalOptions="Center" HorizontalOptions="StartAndExpand" />
 
-                            <Button Text="Remove"
-                                    Command="{Binding BindingContext.RemoveTodoCommand, Source={x:Reference TodoListView}}"
-                                    CommandParameter="{Binding .}" 
-                                    BackgroundColor="Red"
-                                    TextColor="White" />
+        <!-- Sort by Category and Completion Buttons -->
+        <StackLayout Orientation="Horizontal" Spacing="10">
+            <Button Text="Sort by Category"
+                    Command="{Binding SortByCategoryCommand}" />
+            <Button Text="Sort by Completion"
+                    Command="{Binding SortByCompletionCommand}" />
+        </StackLayout>
+
+        <!-- Display TodoItems without ListView -->
+        <StackLayout>
+            <CollectionView ItemsSource="{Binding TodoItems}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout Orientation="Vertical" Padding="10">
+                            <!-- Task Title with Checkbox -->
+                            <StackLayout Orientation="Horizontal">
+                                <CheckBox IsChecked="{Binding IsCompleted}" />
+                                <Label Text="{Binding Title}" VerticalOptions="Center" HorizontalOptions="StartAndExpand" />
+                                <Button Text="Remove"
+                                        Command="{Binding BindingContext.RemoveTodoCommand, Source={x:Reference TodoListView}}"
+                                        CommandParameter="{Binding .}"
+                                        BackgroundColor="Red"
+                                        TextColor="White" />
+                            </StackLayout>
+
+                            <!-- Category Input -->
+                            <StackLayout Orientation="Horizontal" Padding="5, 10, 5, 0">
+                                <Entry Placeholder="Enter category"
+                                       Text="{Binding Category}"
+                                       IsVisible="{Binding Category, Converter={StaticResource NullToVisibleConverter}}" />
+                                <Button Text="Set Category"
+                                        Command="{Binding BindingContext.SetCategoryForTodoItemCommand, Source={x:Reference TodoListView}}"
+                                        CommandParameter="{Binding .}" />
+                            </StackLayout>
+
+                            <!-- Sub-Tasks Section -->
+                            <StackLayout Orientation="Vertical" Padding="10">
+                                <Label Text="Sub-Tasks" FontAttributes="Bold" />
+
+                                <!-- Display Sub-Tasks -->
+                                <StackLayout>
+                                    <CollectionView ItemsSource="{Binding SubTasks}">
+                                        <CollectionView.ItemTemplate>
+                                            <DataTemplate>
+                                                <StackLayout Orientation="Horizontal" Padding="5">
+                                                    <Label Text="{Binding Title}" />
+                                                    <CheckBox IsChecked="{Binding IsCompleted}" />
+                                                </StackLayout>
+                                            </DataTemplate>
+                                        </CollectionView.ItemTemplate>
+                                    </CollectionView>
+                                </StackLayout>
+
+                                <!-- Add Sub-Task Button -->
+                                <StackLayout Orientation="Horizontal" Padding="10">
+                                    <Entry Placeholder="Enter sub-task"
+                                           Text="{Binding Source={x:Reference TodoListView}, Path=BindingContext.NewTodoTitle}" />
+                                    <Button Text="Add Sub-Task"
+                                            Command="{Binding BindingContext.AddSubTaskCommand, Source={x:Reference TodoListView}}"
+                                            CommandParameter="{Binding .}" />
+                                </StackLayout>
+                            </StackLayout>
                         </StackLayout>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </StackLayout>
     </StackLayout>
-
 </ContentPage>

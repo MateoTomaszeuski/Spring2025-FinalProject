@@ -6,7 +6,8 @@ using System.Windows.Input;
 
 namespace Consilium.Maui.ViewModels;
 
-public partial class TodoListViewModel : ObservableObject {
+public partial class TodoListViewModel : ObservableObject
+{
     [ObservableProperty]
     private string newTodoTitle;
 
@@ -14,86 +15,98 @@ public partial class TodoListViewModel : ObservableObject {
     private ObservableCollection<TodoItem> todoItems;
 
     [ObservableProperty]
-    private string newCategoryInput;  
+    private string newCategoryInput;
 
-    public TodoListViewModel() {
+    public TodoListViewModel()
+    {
         TodoItems = new ObservableCollection<TodoItem>();
     }
 
     [RelayCommand]
-    private void AddTodo() {
-        if (!string.IsNullOrWhiteSpace(NewTodoTitle)) {
+    private void AddTodo()
+    {
+        if (!string.IsNullOrWhiteSpace(NewTodoTitle))
+        {
             TodoItems.Add(new TodoItem() { Title = NewTodoTitle });
             NewTodoTitle = string.Empty;
         }
     }
 
     [RelayCommand]
-    private void RemoveTodo(TodoItem todoItem) {
-        if (todoItem != null) {
+    private void RemoveTodo(TodoItem todoItem)
+    {
+        if (todoItem != null)
+        {
             Console.WriteLine($"Removing Todo: {todoItem}");
             TodoItems.Remove(todoItem);
         }
     }
 
     [RelayCommand]
-    private void SetCategoryForTodoItem(TodoItem todoItem) {
-        if (todoItem != null && !string.IsNullOrWhiteSpace(NewCategoryInput)) {
-            todoItem.Category = NewCategoryInput;  
-            NewCategoryInput = string.Empty; 
+    private void SetCategoryForTodoItem(TodoItem todoItem)
+    {
+        if (todoItem != null && !string.IsNullOrWhiteSpace(NewCategoryInput))
+        {
+            todoItem.Category = NewCategoryInput;
+            NewCategoryInput = string.Empty;
         }
     }
 
     [RelayCommand]
-    private void SortByCategory() {
+    private void SortByCategory()
+    {
         var sortedItems = TodoItems.OrderBy(item => item.Category).ToList();
         TodoItems.Clear();
-        foreach (var item in sortedItems) {
+        foreach (var item in sortedItems)
+        {
             TodoItems.Add(item);
         }
     }
 
     [RelayCommand]
-    private void SortByCompletion() {
-        var sortedItems = TodoItems.OrderBy(item => item.IsCompleted).ToList();
+    private void SortByCompletion()
+    {
+        var sortedItems = TodoItems.OrderByDescending(item => item.IsCompleted).ToList();
         TodoItems.Clear();
-        foreach (var item in sortedItems) {
+        foreach (var item in sortedItems)
+        {
             TodoItems.Add(item);
+        }
+    }
+    [RelayCommand]
+    private void AddSubTask(TodoItem parentTask)
+    {
+        if (parentTask != null && !string.IsNullOrWhiteSpace(NewTodoTitle))
+        {
+            var subTask = new TodoItem { Title = NewTodoTitle };
+            parentTask.SubTasks.Add(subTask);
+            NewTodoTitle = string.Empty;
         }
     }
 }
 
-public class TodoItem : IEquatable<TodoItem> {
+public class TodoItem : IEquatable<TodoItem>
+{
     public string? Title { get; set; }
     public string? Description { get; set; }
-    public string? Category { get; set; } 
+    public string? Category { get; set; }
     public bool IsCompleted { get; set; }
     public string? AssignmentId { get; set; }
-    public ObservableCollection<TodoItem> SubTasks { get; set; }  
+    public ObservableCollection<TodoItem> SubTasks { get; set; }
 
-    public TodoItem() {
+    public TodoItem()
+    {
         SubTasks = new ObservableCollection<TodoItem>();
     }
 
-    public bool Equals(TodoItem? other) {
+    public bool Equals(TodoItem? other)
+    {
         if (other == null) return false;
         return Title == other.Title && AssignmentId == other.AssignmentId;
     }
 }
 
 
-
-
-//public class TodoItem : IEquatable<TodoItem>
-//{
-//    public string ? Title { get; set; }
-//    public string ? Description { get; set; }
-//    public bool IsCompleted { get; set; }
-
-//    public bool Equals(TodoItem? other) {
-//        return Title == other.Title;
-//    }
-//}
 
 //Custom Categories not descriptions
 // need Nested Todo items 
