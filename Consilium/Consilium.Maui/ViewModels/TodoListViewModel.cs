@@ -85,6 +85,7 @@ public partial class TodoListViewModel : ObservableObject
     }
 }
 
+
 public class TodoItem : IEquatable<TodoItem>
 {
     public string? Title { get; set; }
