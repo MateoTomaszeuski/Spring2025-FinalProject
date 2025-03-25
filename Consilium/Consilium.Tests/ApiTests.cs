@@ -13,6 +13,6 @@ public class ApiTests {
     [Test]
     public async Task InMemServiceCanBeBuilt() {
         service.AddTask(new TodoItem());
-        await Assert.That(service.TaskCount).IsEqualTo(0);
+        await Assert.That(service.TaskCount).IsEqualTo(1);
     }
 }
