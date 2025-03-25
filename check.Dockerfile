@@ -3,9 +3,7 @@ FROM mcr.microsoft.com/dotnet/sdk:9.0 AS test
 WORKDIR /src/.
 COPY . .
 
-WORKDIR /src/Consilium
-
-RUN rm -rf Consilium.MAUI
+WORKDIR /src/Consilium/Consilium.API
 
 RUN dotnet restore
 
