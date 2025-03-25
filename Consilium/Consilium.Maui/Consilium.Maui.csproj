@@ -100,4 +100,8 @@
 	  </MauiXaml>
 	</ItemGroup>
 
+	<ItemGroup>
+	  <ProjectReference Include="..\Consilium.Shared\Consilium.Shared.csproj" />
+	</ItemGroup>
+
 </Project>
