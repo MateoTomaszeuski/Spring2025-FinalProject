@@ -43,3 +43,11 @@ Share 3+ different blocking issues that you were stuck on for a while, and how y
   - Added a logging step to the docker-compose to see the startup logs for the API container. The logs didn't actually print in our workflow logs. 
 * **Solution:**
   - Realized our target URI was https instead of http. Also, the API's appsettings.json needed to have 0.0.0.0 instead of localhost. Then, we could access the API being run in the docker compose.
+  
+#### 4. Testing MAUI in Deployment Pipeline
+* **Description:** 
+  - The MAUI project gets recognized as a class library when `dotnet test` gets run in the pipeline. It always results in a failing test, failing the pipeline.
+* **Attempts To Fix:**
+  - Looked for a docker image that could be used to run the tests correctly. Most of them were for the Windows OS, but we found one for Linux. To be continued...
+* **Solution:**
+  - lorem
