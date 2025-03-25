@@ -9,9 +9,9 @@ export class PomodoroDisplay extends React.Component<Record<string, never>,
   constructor() {
     super({});
     this.state = {
-      currentTimer: 12,
-      breakTime: 10,
-      workTime: 12,
+      currentTimer: 1200,
+      breakTime: 300,
+      workTime: 1200,
       active: false,
       currentAction: "Working"
     }
