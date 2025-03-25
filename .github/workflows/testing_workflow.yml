@@ -8,13 +8,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4 # git clone
       
-      - run: cd Consilium
-
       - name: Check Linting
-        run: dotnet format --verify-no-changes
+        run: cd Consilium &&  dotnet format --verify-no-changes
       
       - name: Check warnings as errors
-        run: dotnet build Consilium.API --warnaserror
+        run: cd Consilium && dotnet build Consilium.API --warnaserror
 
     #using docker for integration testing
       - name: Spin up Api and Database
