@@ -1,6 +1,7 @@
 name: Test Project
 on : 
 - push
+- pull_request
 
 jobs:
   Integration_Test_Project:
@@ -9,7 +10,7 @@ jobs:
       - uses: actions/checkout@v4 # git clone
       
       - name: Check Linting
-        run: cd Consilium &&  dotnet format --verify-no-changes
+        run: cd Consilium &&  dotnet format --verify-no-changes --no-restore
       
       - name: Check warnings as errors
         run: cd Consilium && dotnet build Consilium.API --warnaserror
