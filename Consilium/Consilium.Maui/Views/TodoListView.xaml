@@ -4,27 +4,21 @@
              x:Class="Consilium.Maui.Views.TodoListView"
              Title="TodoListView">
     <StackLayout Padding="20">
-        <!-- Add Todo Task -->
         <Entry Placeholder="Enter a new task"
                Text="{Binding NewTodoTitle}" />
         <Button Text="Add Todo"
                 Command="{Binding AddTodoCommand}" />
-
-        <!-- Sort by Category and Completion Buttons -->
         <StackLayout Orientation="Horizontal" Spacing="10">
             <Button Text="Sort by Category"
                     Command="{Binding SortByCategoryCommand}" />
             <Button Text="Sort by Completion"
                     Command="{Binding SortByCompletionCommand}" />
         </StackLayout>
-
-        <!-- Display TodoItems without ListView -->
         <StackLayout>
             <CollectionView ItemsSource="{Binding TodoItems}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <StackLayout Orientation="Vertical" Padding="10">
-                            <!-- Task Title with Checkbox -->
                             <StackLayout Orientation="Horizontal">
                                 <CheckBox IsChecked="{Binding IsCompleted}" />
                                 <Label Text="{Binding Title}" VerticalOptions="Center" HorizontalOptions="StartAndExpand" />
@@ -34,8 +28,6 @@
                                         BackgroundColor="Red"
                                         TextColor="White" />
                             </StackLayout>
-
-                            <!-- Category Input -->
                             <StackLayout Orientation="Horizontal" Padding="5, 10, 5, 0">
                                 <Entry Placeholder="Enter category"
                                        Text="{Binding Category}"
@@ -44,12 +36,8 @@
                                         Command="{Binding BindingContext.SetCategoryForTodoItemCommand, Source={x:Reference TodoListView}}"
                                         CommandParameter="{Binding .}" />
                             </StackLayout>
-
-                            <!-- Sub-Tasks Section -->
                             <StackLayout Orientation="Vertical" Padding="10">
                                 <Label Text="Sub-Tasks" FontAttributes="Bold" />
-
-                                <!-- Display Sub-Tasks -->
                                 <StackLayout>
                                     <CollectionView ItemsSource="{Binding SubTasks}">
                                         <CollectionView.ItemTemplate>
@@ -62,8 +50,6 @@
                                         </CollectionView.ItemTemplate>
                                     </CollectionView>
                                 </StackLayout>
-
-                                <!-- Add Sub-Task Button -->
                                 <StackLayout Orientation="Horizontal" Padding="10">
                                     <Entry Placeholder="Enter sub-task"
                                            Text="{Binding Source={x:Reference TodoListView}, Path=BindingContext.NewTodoTitle}" />

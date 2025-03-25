@@ -91,7 +91,6 @@ public class TodoItem : IEquatable<TodoItem>
     public string? Description { get; set; }
     public string? Category { get; set; }
     public bool IsCompleted { get; set; }
-    public string? AssignmentId { get; set; }
     public ObservableCollection<TodoItem> SubTasks { get; set; }
 
     public TodoItem()
@@ -102,7 +101,7 @@ public class TodoItem : IEquatable<TodoItem>
     public bool Equals(TodoItem? other)
     {
         if (other == null) return false;
-        return Title == other.Title && AssignmentId == other.AssignmentId;
+        return Title == other.Title;
     }
 }
 
