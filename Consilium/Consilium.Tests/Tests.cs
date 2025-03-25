@@ -166,7 +166,7 @@ public class ToDoListVMTests {
         await Assert.That(parentTask).IsNotNull();
         viewModel.NewTodoTitle = "Sub Task 1";
         viewModel.AddSubTaskCommand.Execute(parentTask);
-        await Assert.That(parentTask.SubTasks.Count).IsEqualTo(1);
+        await Assert.That(parentTask!.SubTasks.Count).IsEqualTo(1);
         await Assert.That(parentTask.SubTasks[0].Title).IsEqualTo("Sub Task 1");
     }
 
