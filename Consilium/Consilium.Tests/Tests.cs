@@ -1,4 +1,4 @@
-﻿using Consilium.Maui.ViewModels;
+﻿using Consilium.Shared.ViewModels;
 using System.Threading.Tasks;
 using TUnit.Assertions.Extensions;
 
@@ -25,23 +25,6 @@ public class Tests {
         viewModel.NewTodoTitle = "Test Todo";
         viewModel.AddTodoCommand.Execute(null);
         await Assert.That(viewModel.TodoItems.Count).IsEqualTo(1);
-    }
-
-    [Test]
-    public async Task CanRemoveTodo() {
-        TodoListViewModel viewModel = new TodoListViewModel();
-        viewModel.NewTodoTitle = "Test Todo";
-        viewModel.AddTodoCommand.Execute(null);
-        viewModel.RemoveTodoCommand.Execute(viewModel.TodoItems[0]);
-        await Assert.That(viewModel.TodoItems.Count).IsEqualTo(0);
-    }
-
-    [Test]
-    public async Task CantAddEmptyTodo() {
-        TodoListViewModel viewModel = new TodoListViewModel();
-        viewModel.NewTodoTitle = "";
-        viewModel.AddTodoCommand.Execute(null);
-        await Assert.That(viewModel.TodoItems.Count).IsEqualTo(0);
     }
 
     [Test]

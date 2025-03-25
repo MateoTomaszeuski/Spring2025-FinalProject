@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Consilium.Maui\Consilium.Maui.csproj" />
+    <ProjectReference Include="..\Consilium.Shared\Consilium.Shared.csproj" />
   </ItemGroup>
 
 </Project>
