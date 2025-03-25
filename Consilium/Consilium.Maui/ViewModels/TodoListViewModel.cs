@@ -33,7 +33,7 @@ public partial class TodoListViewModel: ObservableObject {
     {
         if (!string.IsNullOrWhiteSpace(NewTodoTitle))
         {
-            TodoItems.Add(new TodoItem());
+            TodoItems.Add(new TodoItem() { Title= NewTodoTitle});
             NewTodoTitle = string.Empty; 
         }
     }
@@ -51,10 +51,19 @@ public partial class TodoListViewModel: ObservableObject {
 
 
 
-public class TodoItem
+public class TodoItem : IEquatable<TodoItem>
 {
     public string ? Title { get; set; }
     public string ? Description { get; set; }
     public bool IsCompleted { get; set; }
 
+    public bool Equals(TodoItem? other) {
+        return Title == other.Title;
+    }
 }
+
+//Custom Categories not descriptions
+// need Nested Todo items 
+// add an assginment id wich can be empty
+// be able to sort by category
+// be able to sort by completion
