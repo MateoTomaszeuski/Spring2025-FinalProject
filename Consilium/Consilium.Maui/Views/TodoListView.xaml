@@ -35,7 +35,7 @@
                                        Text="{Binding Category}"
                                        IsVisible="{Binding Category, Converter={StaticResource NullToVisibleConverter}}" />
                                 <Button Text="Set Category"
-                                        Command="{Binding BindingContext.SetCategoryForTodoItemCommand, Source={x:Reference TodoListView}}"
+                                        Command="{Binding x:DataType='ViewModels:TodoListViewModel', Source={RelativeSource AncestorType={x:Type ViewModels:TodoListViewModel}}, Path=SetCategoryForTodoItemCommand}"
                                         CommandParameter="{Binding .}" />
                             </StackLayout>
                             <StackLayout Orientation="Vertical" Padding="10">

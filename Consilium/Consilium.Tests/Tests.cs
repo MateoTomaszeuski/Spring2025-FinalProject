@@ -45,8 +45,7 @@ public class Tests {
     }
 
     [Test]
-    public async Task CanRemoveTodo()
-    {
+    public async Task CanRemoveTodo() {
         TodoListViewModel viewModel = new TodoListViewModel();
         viewModel.NewTodoTitle = "Test Todo";
         viewModel.AddTodoCommand.Execute(null);
@@ -55,8 +54,7 @@ public class Tests {
     }
 
     [Test]
-    public async Task CantAddEmptyTodo()
-    {
+    public async Task CantAddEmptyTodo() {
         TodoListViewModel viewModel = new TodoListViewModel();
         viewModel.NewTodoTitle = "";
         viewModel.AddTodoCommand.Execute(null);
@@ -65,8 +63,7 @@ public class Tests {
 
     [Test]
 
-    public async Task CheckCorrectTodoItemIsAdded()
-    {
+    public async Task CheckCorrectTodoItemIsAdded() {
         TodoListViewModel viewModel = new TodoListViewModel();
         viewModel.NewTodoTitle = "Test Todo";
         viewModel.AddTodoCommand.Execute(null);
@@ -75,8 +72,7 @@ public class Tests {
 
     [Test]
 
-    public async Task CanAddMultipleItems()
-    {
+    public async Task CanAddMultipleItems() {
         TodoListViewModel viewModel = new TodoListViewModel();
         viewModel.NewTodoTitle = "Test Todo";
         viewModel.AddTodoCommand.Execute(null);
@@ -87,8 +83,7 @@ public class Tests {
 
     [Test]
 
-    public async Task GetTodoItemsList()
-    {
+    public async Task GetTodoItemsList() {
         TodoListViewModel viewModel = new TodoListViewModel();
         viewModel.NewTodoTitle = "Test Todo";
         viewModel.AddTodoCommand.Execute(null);
@@ -108,8 +103,7 @@ public class Tests {
 
     [Test]
 
-    public async Task CanDeleteItem()
-    {
+    public async Task CanDeleteItem() {
         TodoListViewModel viewModel = new TodoListViewModel();
         viewModel.NewTodoTitle = "Test Todo";
         viewModel.AddTodoCommand.Execute(null);
@@ -124,8 +118,7 @@ public class Tests {
     }
 
     [Test]
-    public async Task CanSetTodoCategory()
-    {
+    public async Task CanSetTodoCategory() {
         var viewModel = new TodoListViewModel();
         viewModel.NewTodoTitle = "Test Todo";
         viewModel.AddTodoCommand.Execute(null);
@@ -135,8 +128,7 @@ public class Tests {
     }
 
     [Test]
-    public async Task CanSortTodoItemByCategory()
-    {
+    public async Task CanSortTodoItemByCategory() {
         var viewModel = new TodoListViewModel();
         viewModel.NewTodoTitle = "Test Todo";
         viewModel.NewCategoryInput = "Test Category A";
@@ -152,8 +144,7 @@ public class Tests {
     }
 
     [Test]
-    public async Task CanSortTodoItemsByCategory()
-    {
+    public async Task CanSortTodoItemsByCategory() {
         var viewModel = new TodoListViewModel();
         viewModel.NewTodoTitle = "Task 1";
         viewModel.NewCategoryInput = "Work";
@@ -174,8 +165,7 @@ public class Tests {
     }
 
     [Test]
-    public async Task CanSortTodoItemsByIsComplete()
-    {
+    public async Task CanSortTodoItemsByIsComplete() {
         var viewModel = new TodoListViewModel();
         viewModel.NewTodoTitle = "Task 1";
         viewModel.AddTodoCommand.Execute(null);
@@ -192,17 +182,16 @@ public class Tests {
         await Assert.That(viewModel.TodoItems[2].IsCompleted).IsFalse();
     }
     [Test]
-    public async Task CanCreateSubTask()
-    {
+    public async Task CanCreateSubTask() {
         var viewModel = new TodoListViewModel();
         viewModel.NewTodoTitle = "Task 1";
         viewModel.AddTodoCommand.Execute(null);
         var parentTask = viewModel.TodoItems.FirstOrDefault();
-       await Assert.That(parentTask).IsNotNull(); 
+        await Assert.That(parentTask).IsNotNull();
         viewModel.NewTodoTitle = "Sub Task 1";
-        viewModel.AddSubTaskCommand.Execute(parentTask); 
-       await Assert.That(parentTask.SubTasks.Count).IsEqualTo(1);
-      await  Assert.That(parentTask.SubTasks[0].Title).IsEqualTo("Sub Task 1");
+        viewModel.AddSubTaskCommand.Execute(parentTask);
+        await Assert.That(parentTask.SubTasks.Count).IsEqualTo(1);
+        await Assert.That(parentTask.SubTasks[0].Title).IsEqualTo("Sub Task 1");
     }
 
 }
