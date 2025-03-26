@@ -4,7 +4,9 @@ using Consilium.Shared.ViewModels;
 namespace Consilium.API.InMemoryServices;
 
 public class DBServiceIM : IDBService {
-    private Dictionary<string, List<TodoItem>> todos = new();
+    private Dictionary<string, List<TodoItem>> todos = new() { 
+        { "cody", new List<TodoItem>() { new TodoItem() { Title = "lorem"} } } 
+    };
 
     public void AddToDo(TodoItem Todo, string username) {
         if (todos.ContainsKey(username)) {
