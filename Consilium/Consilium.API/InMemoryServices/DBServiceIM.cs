@@ -3,8 +3,8 @@
 namespace Consilium.API.InMemoryServices;
 
 public class DBServiceIM : IDBService {
-    private Dictionary<string, List<TodoItem>> todos = new() { 
-        { "cody", new List<TodoItem>() { new TodoItem() { Title = "lorem"} } } 
+    private Dictionary<string, List<TodoItem>> todos = new() {
+        { "cody", new List<TodoItem>() { new TodoItem() { Title = "lorem"} } }
     };
 
     public void AddToDo(TodoItem Todo, string username) {
