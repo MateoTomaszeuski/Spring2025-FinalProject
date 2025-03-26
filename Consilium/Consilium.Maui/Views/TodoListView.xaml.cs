@@ -7,9 +7,6 @@ public partial class TodoListView : ContentPage {
         Appearing += async (s, e) =>
         {
             await vm.InitializeItems();
-            InitCompleted?.Invoke(this, EventArgs.Empty);
         };
     }
-
-    public event EventHandler<EventArgs> InitCompleted;
 }
