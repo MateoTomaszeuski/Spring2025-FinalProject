@@ -19,4 +19,19 @@ public class todoController(IDBService service) : ControllerBase {
         service.UpdateToDo(index, item, username);
         return Results.Accepted();
     }
+
+
+    [HttpPost(Name = "CreateTodos")]
+    public IResult Post(TodoItem item) {
+        string username = Request.Headers["Consilium-User"]!;
+        service.AddToDo(item, username);
+        return Results.Accepted();
+    }
+
+    [HttpDelete(Name = "RemoveTodos")]
+    public IResult Remove(int index) {
+        string username = Request.Headers["Consilium-User"]!;
+        service.RemoveToDo(index, username);
+        return Results.Accepted();
+    }
 }
