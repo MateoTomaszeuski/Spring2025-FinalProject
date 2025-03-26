@@ -1,4 +1,6 @@
-﻿using Consilium.Shared.ViewModels;
+﻿using Consilium.Shared.Models;
+using Consilium.Shared.Services;
+using Consilium.Shared.ViewModels;
 using NSubstitute;
 using System.Threading.Tasks;
 using TUnit.Assertions.Extensions;
@@ -8,13 +10,13 @@ namespace Consilium.Tests;
 public class ToDoListVMTests {
     [Test]
     public async Task CanCreateViewModel() {
-        TodoListViewModel viewModel = new TodoListViewModel(Substitute.For<IHttpClientFactory>());
+        TodoListViewModel viewModel = new TodoListViewModel(Substitute.For<IToDoService>());
         await Assert.That(viewModel).IsNotNull();
     }
 
     [Test]
     public async Task CanAddTodo() {
-        TodoListViewModel viewModel = new TodoListViewModel(Substitute.For<IHttpClientFactory>());
+        TodoListViewModel viewModel = new TodoListViewModel(Substitute.For<IToDoService>());
         viewModel.NewTodoTitle = "Test Todo";
         viewModel.AddTodoCommand.Execute(null);
         await Assert.That(viewModel.TodoItems.Count).IsEqualTo(1);
@@ -22,7 +24,7 @@ public class ToDoListVMTests {
 
     [Test]
     public async Task CanRemoveTodo() {
-        TodoListViewModel viewModel = new TodoListViewModel(Substitute.For<IHttpClientFactory>());
+        TodoListViewModel viewModel = new TodoListViewModel(Substitute.For<IToDoService>());
         viewModel.NewTodoTitle = "Test Todo";
         viewModel.AddTodoCommand.Execute(null);
         viewModel.RemoveTodoCommand.Execute(viewModel.TodoItems[0]);
@@ -31,7 +33,7 @@ public class ToDoListVMTests {
 
     [Test]
     public async Task CantAddEmptyTodo() {
-        TodoListViewModel viewModel = new TodoListViewModel(Substitute.For<IHttpClientFactory>());
+        TodoListViewModel viewModel = new TodoListViewModel(Substitute.For<IToDoService>());
         viewModel.NewTodoTitle = "";
         viewModel.AddTodoCommand.Execute(null);
         await Assert.That(viewModel.TodoItems.Count).IsEqualTo(0);
@@ -40,7 +42,7 @@ public class ToDoListVMTests {
     [Test]
 
     public async Task CheckCorrectTodoItemIsAdded() {
-        TodoListViewModel viewModel = new TodoListViewModel(Substitute.For<IHttpClientFactory>());
+        TodoListViewModel viewModel = new TodoListViewModel(Substitute.For<IToDoService>());
         viewModel.NewTodoTitle = "Test Todo";
         viewModel.AddTodoCommand.Execute(null);
         await Assert.That(viewModel.TodoItems[0].Title).IsEqualTo("Test Todo");
@@ -49,7 +51,7 @@ public class ToDoListVMTests {
     [Test]
 
     public async Task CanAddMultipleItems() {
-        TodoListViewModel viewModel = new TodoListViewModel(Substitute.For<IHttpClientFactory>());
+        TodoListViewModel viewModel = new TodoListViewModel(Substitute.For<IToDoService>());
         viewModel.NewTodoTitle = "Test Todo";
         viewModel.AddTodoCommand.Execute(null);
         viewModel.NewTodoTitle = "Test Todo 2";
@@ -60,7 +62,7 @@ public class ToDoListVMTests {
     [Test]
 
     public async Task GetTodoItemsList() {
-        TodoListViewModel viewModel = new TodoListViewModel(Substitute.For<IHttpClientFactory>());
+        TodoListViewModel viewModel = new TodoListViewModel(Substitute.For<IToDoService>());
         viewModel.NewTodoTitle = "Test Todo";
         viewModel.AddTodoCommand.Execute(null);
         viewModel.NewTodoTitle = "Test Todo 2";
@@ -80,7 +82,7 @@ public class ToDoListVMTests {
     [Test]
 
     public async Task CanDeleteItem() {
-        TodoListViewModel viewModel = new TodoListViewModel(Substitute.For<IHttpClientFactory>());
+        TodoListViewModel viewModel = new TodoListViewModel(Substitute.For<IToDoService>());
         viewModel.NewTodoTitle = "Test Todo";
         viewModel.AddTodoCommand.Execute(null);
         viewModel.NewTodoTitle = "Test Todo 2";
@@ -95,7 +97,7 @@ public class ToDoListVMTests {
 
     [Test]
     public async Task CanSetTodoCategory() {
-        var viewModel = new TodoListViewModel(Substitute.For<IHttpClientFactory>());
+        var viewModel = new TodoListViewModel(Substitute.For<IToDoService>());
         viewModel.NewTodoTitle = "Test Todo";
         viewModel.AddTodoCommand.Execute(null);
         viewModel.NewCategoryInput = "Test Category";
@@ -105,7 +107,7 @@ public class ToDoListVMTests {
 
     [Test]
     public async Task CanSortTodoItemByCategory() {
-        var viewModel = new TodoListViewModel(Substitute.For<IHttpClientFactory>());
+        var viewModel = new TodoListViewModel(Substitute.For<IToDoService>());
         viewModel.NewTodoTitle = "Test Todo";
         viewModel.NewCategoryInput = "Test Category A";
         viewModel.AddTodoCommand.Execute(null);
@@ -121,7 +123,7 @@ public class ToDoListVMTests {
 
     [Test]
     public async Task CanSortTodoItemsByCategory() {
-        var viewModel = new TodoListViewModel(Substitute.For<IHttpClientFactory>());
+        var viewModel = new TodoListViewModel(Substitute.For<IToDoService>());
         viewModel.NewTodoTitle = "Task 1";
         viewModel.NewCategoryInput = "Work";
         viewModel.AddTodoCommand.Execute(null);
@@ -142,7 +144,7 @@ public class ToDoListVMTests {
 
     [Test]
     public async Task CanSortTodoItemsByIsComplete() {
-        var viewModel = new TodoListViewModel(Substitute.For<IHttpClientFactory>());
+        var viewModel = new TodoListViewModel(Substitute.For<IToDoService>());
         viewModel.NewTodoTitle = "Task 1";
         viewModel.AddTodoCommand.Execute(null);
         viewModel.NewTodoTitle = "Task 2";
@@ -159,7 +161,7 @@ public class ToDoListVMTests {
     }
     [Test]
     public async Task CanCreateSubTask() {
-        var viewModel = new TodoListViewModel(Substitute.For<IHttpClientFactory>());
+        var viewModel = new TodoListViewModel(Substitute.For<IToDoService>());
         viewModel.NewTodoTitle = "Task 1";
         viewModel.AddTodoCommand.Execute(null);
         var parentTask = viewModel.TodoItems.FirstOrDefault();

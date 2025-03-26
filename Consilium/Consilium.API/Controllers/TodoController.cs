@@ -1,4 +1,4 @@
-using Consilium.Shared.ViewModels;
+using Consilium.Shared.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Consilium.API.Controllers;
@@ -28,10 +28,15 @@ public class todoController(IDBService service) : ControllerBase {
         return Results.Accepted();
     }
 
-    [HttpDelete(Name = "RemoveTodos")]
+    [HttpDelete("remove/{index}", Name = "RemoveTodos")]
     public IResult Remove(int index) {
-        string username = Request.Headers["Consilium-User"]!;
-        service.RemoveToDo(index, username);
+        try {
+            string username = Request.Headers["Consilium-User"]!;
+            service.RemoveToDo(index, username);
+        } catch (Exception e) {
+            return Results.BadRequest(e.Message);
+        }
+
         return Results.Accepted();
     }
 }

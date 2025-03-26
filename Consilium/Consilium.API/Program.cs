@@ -22,7 +22,7 @@ if (app.Environment.IsDevelopment()) {
 
 app.MapGet("", () => "Welcome to the Consilium Api");
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
 app.UseAuthorization();
 

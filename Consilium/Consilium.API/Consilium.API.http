@@ -3,7 +3,7 @@
 
 ###
 GET {{Consilium}}/todo
-Consilium-User: cody
+Consilium-User: password
 ###
 PATCH {{Consilium}}/todo/update/?index=0
 Consilium-User: cody
@@ -16,4 +16,14 @@ Content-Type: application/json
     "subTasks": []
   }
 ###
+POST {{Consilium}}/todo
+Consilium-User: password
+Content-Type: application/json
+  {
+    "title": "Addition",
+    "description": null,
+    "category": null,
+    "isCompleted": false,
+    "subTasks": []
+  }
 

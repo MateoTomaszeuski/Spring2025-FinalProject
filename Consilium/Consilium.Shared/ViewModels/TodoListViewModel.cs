@@ -1,5 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Consilium.Shared.Models;
+using Consilium.Shared.Services;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net.Http;
@@ -9,17 +11,13 @@ using System.Windows.Input;
 namespace Consilium.Shared.ViewModels;
 public partial class TodoListViewModel : ObservableObject {
     private HttpClient client;
-    public TodoListViewModel(IHttpClientFactory factory) {
+    public TodoListViewModel(IToDoService toDoService) {
         client = new();
         TodoItems = new();
-        this.factory = factory;
+        ToDoService = toDoService;
     }
-    public async Task InitializeItems() {
-        client = factory.CreateClient("client");
-        client.DefaultRequestHeaders.Add("Consilium-User", "password");
-        var response = await client.GetFromJsonAsync<IEnumerable<TodoItem>>("todo");
-        if (response == null) return;
-        TodoItems = new(response);
+    public async Task InitializeItemsAsync() {
+        TodoItems = await ToDoService.GetTodoItemsAsync();
     }
 
     [ObservableProperty]
@@ -30,7 +28,11 @@ public partial class TodoListViewModel : ObservableObject {
 
     [ObservableProperty]
     private string newCategoryInput = "";
-    private IHttpClientFactory factory;
+    private IToDoService ToDoService;
+
+    [ObservableProperty]
+    private string message = "";
+
 
     [RelayCommand]
     private void AddTodo() {
@@ -41,10 +43,14 @@ public partial class TodoListViewModel : ObservableObject {
     }
 
     [RelayCommand]
-    private void RemoveTodo(TodoItem todoItem) {
+    private async Task RemoveTodoAsync(TodoItem todoItem) {
         if (todoItem != null) {
             Console.WriteLine($"Removing Todo: {todoItem}");
-            TodoItems.Remove(todoItem);
+            int index = TodoItems.IndexOf(todoItem);
+            Message = await ToDoService.RemoveToDoAsync(index);
+            if (Message == "Deleted successfully") {
+                TodoItems.Remove(todoItem);
+            }
         }
     }
 
@@ -80,24 +86,6 @@ public partial class TodoListViewModel : ObservableObject {
             parentTask.SubTasks.Add(subTask);
             NewTodoTitle = string.Empty;
         }
-    }
-}
-
-
-public class TodoItem : IEquatable<TodoItem> {
-    public string? Title { get; set; }
-    public string? Description { get; set; }
-    public string? Category { get; set; }
-    public bool IsCompleted { get; set; }
-    public ObservableCollection<TodoItem> SubTasks { get; set; }
-
-    public TodoItem() {
-        SubTasks = new ObservableCollection<TodoItem>();
-    }
-
-    public bool Equals(TodoItem? other) {
-        if (other == null) return false;
-        return Title == other.Title;
     }
 }
 

@@ -6,7 +6,7 @@ public partial class TodoListView : ContentPage {
         BindingContext = vm;
         Appearing += async (s, e) =>
         {
-            await vm.InitializeItems();
+            await vm.InitializeItemsAsync();
         };
     }
 }

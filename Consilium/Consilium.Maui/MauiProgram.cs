@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Maui;
 using Consilium.Maui.Views;
+using Consilium.Shared.Services;
 using Consilium.Shared.ViewModels;
 using Microsoft.Extensions.Logging;
 
@@ -13,6 +14,7 @@ public static class MauiProgram {
             .UseMauiCommunityToolkit()
             .RegisterViews()
             .RegisterViewModels()
+            .RegisterServices()
             .ConfigureFonts(fonts =>
             {
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
@@ -26,7 +28,7 @@ public static class MauiProgram {
 #if DEBUG
         builder.Logging.AddDebug();
 #endif
-        builder.Services.AddHttpClient("client", client =>
+        builder.Services.AddHttpClient("ApiClient", client =>
         {
             client.BaseAddress = new Uri("http://localhost:5202");
         });
@@ -51,6 +53,11 @@ public static class MauiProgram {
         builder.Services.AddSingleton<StatsViewModel>();
         builder.Services.AddSingleton<TodoListViewModel>();
         builder.Services.AddSingleton<ToolsViewModel>();
+
+        return builder;
+    }
+    public static MauiAppBuilder RegisterServices(this MauiAppBuilder builder) {
+        builder.Services.AddSingleton<IToDoService, ToDoService>();
 
         return builder;
     }
