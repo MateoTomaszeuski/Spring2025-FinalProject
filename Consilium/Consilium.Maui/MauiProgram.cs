@@ -28,7 +28,7 @@ public static class MauiProgram {
 #endif
         builder.Services.AddHttpClient("client", client =>
         {
-            client.BaseAddress = new Uri("http://localhos:5202");
+            client.BaseAddress = new Uri("http://localhost:5202");
         });
 
         return builder.Build();

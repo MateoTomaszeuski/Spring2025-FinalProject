@@ -11,14 +11,15 @@ public partial class TodoListViewModel : ObservableObject {
     private HttpClient client;
     public TodoListViewModel(IHttpClientFactory factory) {
         client = new();
-        TodoItems = new(); // Initialize to nothing
-        InitializeItems(factory);
+        TodoItems = new();
+        this.factory = factory;
     }
-
-    private async Task InitializeItems(IHttpClientFactory factory) {
+    public async Task InitializeItems() {
         client = factory.CreateClient("client");
-        var response = client.GetAsync("todo").Result;
-        TodoItems = new(await response.Content.ReadFromJsonAsync<IEnumerable<TodoItem>>());
+        client.DefaultRequestHeaders.Add("Consilium-User", "cody");
+        var response = await client.GetFromJsonAsync<IEnumerable<TodoItem>>("todo");
+        if (response == null) return;
+        TodoItems = new(response);
     }
 
     [ObservableProperty]
@@ -29,6 +30,7 @@ public partial class TodoListViewModel : ObservableObject {
 
     [ObservableProperty]
     private string newCategoryInput = "";
+    private IHttpClientFactory factory;
 
     [RelayCommand]
     private void AddTodo() {

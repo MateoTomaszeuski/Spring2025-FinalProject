@@ -1,5 +1,4 @@
-﻿
-using Consilium.Shared.ViewModels;
+﻿using Consilium.Shared.ViewModels;
 
 namespace Consilium.API.InMemoryServices;
 
