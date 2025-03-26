@@ -2,11 +2,25 @@
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Json;
 using System.Windows.Input;
 
 namespace Consilium.Shared.ViewModels;
-
 public partial class TodoListViewModel : ObservableObject {
+    private HttpClient client;
+    public TodoListViewModel(IHttpClientFactory factory) {
+        client = new();
+        TodoItems = new(); // Initialize to nothing
+        InitializeItems(factory);
+    }
+
+    private async Task InitializeItems(IHttpClientFactory factory) {
+        client = factory.CreateClient("client");
+        var response = client.GetAsync("todo").Result;
+        TodoItems = new(await response.Content.ReadFromJsonAsync<IEnumerable<TodoItem>>());
+    }
+
     [ObservableProperty]
     private string newTodoTitle = "";
 
@@ -15,10 +29,6 @@ public partial class TodoListViewModel : ObservableObject {
 
     [ObservableProperty]
     private string newCategoryInput = "";
-
-    public TodoListViewModel() {
-        TodoItems = new ObservableCollection<TodoItem>();
-    }
 
     [RelayCommand]
     private void AddTodo() {

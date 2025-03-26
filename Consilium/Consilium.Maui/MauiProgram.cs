@@ -26,6 +26,10 @@ public static class MauiProgram {
 #if DEBUG
         builder.Logging.AddDebug();
 #endif
+        builder.Services.AddHttpClient("client", client =>
+        {
+            client.BaseAddress = new Uri("http://localhos:5202");
+        });
 
         return builder.Build();
 
