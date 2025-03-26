@@ -22,7 +22,7 @@ public class ApiTests {
 
     [Test]
     public async Task InMemServiceCanStoreTwoItems() {
-        service.AddToDo(new TodoItem() { Title = "Lorem"}, "cody");
+        service.AddToDo(new TodoItem() { Title = "Lorem" }, "cody");
         service.AddToDo(new TodoItem() { Title = "Lorem2" }, "cody");
 
         await Assert.That(service.ToDoCount("cody")).IsEqualTo(2);

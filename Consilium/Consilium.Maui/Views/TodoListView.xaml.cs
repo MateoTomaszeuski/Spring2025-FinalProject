@@ -1,4 +1,4 @@
-    using Consilium.Shared.ViewModels;
+using Consilium.Shared.ViewModels;
 namespace Consilium.Maui.Views;
 public partial class TodoListView : ContentPage {
     public TodoListView(TodoListViewModel vm) {
