@@ -1,7 +1,7 @@
 ﻿using Consilium.Shared.ViewModels;
+using NSubstitute;
 using System.Threading.Tasks;
 using TUnit.Assertions.Extensions;
-using NSubstitute;
 namespace Consilium.Tests;
 
 

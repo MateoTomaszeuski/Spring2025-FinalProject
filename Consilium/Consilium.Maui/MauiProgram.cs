@@ -1,6 +1,6 @@
 ﻿using CommunityToolkit.Maui;
-using Consilium.Shared.ViewModels;
 using Consilium.Maui.Views;
+using Consilium.Shared.ViewModels;
 using Microsoft.Extensions.Logging;
 
 namespace Consilium.Maui;
