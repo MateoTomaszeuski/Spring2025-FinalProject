@@ -16,7 +16,7 @@ public partial class TodoListViewModel : ObservableObject {
     }
     public async Task InitializeItems() {
         client = factory.CreateClient("client");
-        client.DefaultRequestHeaders.Add("Consilium-User", "cody");
+        client.DefaultRequestHeaders.Add("Consilium-User", "password");
         var response = await client.GetFromJsonAsync<IEnumerable<TodoItem>>("todo");
         if (response == null) return;
         TodoItems = new(response);
