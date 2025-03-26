@@ -5,7 +5,7 @@
 GET {{Consilium}}/todo
 Consilium-User: cody
 ###
-PATCH {{Consilium}}/todo?index=0
+PATCH {{Consilium}}/todo/update/?index=0
 Consilium-User: cody
 Content-Type: application/json
   {

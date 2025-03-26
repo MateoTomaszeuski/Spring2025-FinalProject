@@ -13,10 +13,9 @@ public class todoController(IDBService service) : ControllerBase {
         return service.GetToDos(username);
     }
 
-
-    [HttpPatch(Name = "PatchTodos")]
+    [HttpPatch("update", Name = "PatchTodos")]
     public IResult Update(int index, TodoItem item) {
-        string username = Request.Headers["Consilium-User"]!; // Cody - I know this will be there at this point
+        string username = Request.Headers["Consilium-User"]!; 
         service.UpdateToDo(index, item, username);
         return Results.Accepted();
     }
