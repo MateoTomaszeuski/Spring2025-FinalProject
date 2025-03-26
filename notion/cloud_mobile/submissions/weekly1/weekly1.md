@@ -19,8 +19,10 @@ These time logs outline our meetings spent mob programming, debugging, and plann
 
 ![alt text](images/group-sessions.png "Group Meetings")
 <br/>
+
 ![alt text](images/time-summary.png "Time Summary")
 
+<br/>
 Here is a [link](https://docs.google.com/spreadsheets/d/18VnP5M3QZ9fHyKty3yBczf-pbReVf3Z-3jlyZqaL7vE/edit?usp=sharing) to the spreadsheet we're using to track our time.
 
 
@@ -43,7 +45,7 @@ Share 3+ different blocking issues that you were stuck on for a while, and how y
       - `Vite`
       - `Vite Build`
 
-### 3. Toggling Between Tools
+#### 3. Toggling Between Tools
 * **Description:** 
   - To toggle between tool controls in the UI, we initially wanted  to use multiple ViewModels for a single ContentView, but weren't sure this was possible (or a good idea).
 * **Attempts To Fix/Solution:**

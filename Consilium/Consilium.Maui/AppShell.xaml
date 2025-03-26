@@ -5,7 +5,17 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:Consilium.Maui.Views"
     Shell.FlyoutBehavior="Flyout"
-    Title="Consilium.Maui">
+    Title="Consilium.Maui"
+    Shell.BackgroundColor="#1F2A24"
+    Shell.TabBarBackgroundColor="#1F2A24"
+    Shell.TabBarForegroundColor="{StaticResource White}"
+    Shell.TabBarDisabledColor="{StaticResource Light-Med}"
+    Shell.TabBarTitleColor="{StaticResource White}"
+    Shell.TabBarUnselectedColor="{StaticResource Light-Back}"
+    Shell.TitleColor="{StaticResource Light-Light}"
+    FlyoutBackgroundColor="{StaticResource Light-Back}"
+    FlyoutBackground="{AppThemeBinding Light={StaticResource Light-Light}, Dark={StaticResource Dark-Green}}"
+    >
 
     <TabBar>
         
