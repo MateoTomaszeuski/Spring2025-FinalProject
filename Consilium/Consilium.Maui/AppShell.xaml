@@ -15,7 +15,10 @@
     Shell.TitleColor="{StaticResource Light-Light}"
     FlyoutBackgroundColor="{StaticResource Light-Back}"
     FlyoutBackground="{AppThemeBinding Light={StaticResource Light-Light}, Dark={StaticResource Dark-Green}}"
-    >
+    Shell.NavBarIsVisible="False">
+    <Shell.TitleView>
+        <Label FontFamily="Inter"/>
+    </Shell.TitleView>
 
     <TabBar>
         
