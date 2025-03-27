@@ -22,24 +22,32 @@
 
     <TabBar>
         
+        <!--If we decide we don't want the text titles on the tabs (just icons): -->
+        <!--https://stackoverflow.com/questions/76436217/how-do-i-delete-the-awkward-empty-space-under-icon-in-tabbar-in-net-maui-->
+        
     <ShellContent
         Title="Dashboard"
+        Icon="home.png"
         ContentTemplate="{DataTemplate local:DashboardView}"
         Route="Dashboard" />
     <ShellContent
         Title="TodoList"
+        Icon="checklist.png"
         ContentTemplate="{DataTemplate local:TodoListView}"
         Route="TodoList" />
     <ShellContent
         Title="Assignments"
+        Icon="assignment.png"
         ContentTemplate="{DataTemplate local:AssignmentsView}"
         Route="Assignments" />
     <ShellContent
         Title="Stats"
+        Icon="graph.png"
         ContentTemplate="{DataTemplate local:StatsView}"
         Route="Stats" />
     <ShellContent
         Title="Tools"
+        Icon="timer.png"
         ContentTemplate="{DataTemplate local:ToolsView}"
         Route="Tools" />
 

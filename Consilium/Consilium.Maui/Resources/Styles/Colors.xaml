@@ -16,7 +16,7 @@
     <Color x:Key="Light-Back">#F4EEE6</Color>
     <Color x:Key="Light-Light">#FAF7F2</Color>
 
-    <Color x:Key="Primary">#2E4237</Color>
+    <Color x:Key="Primary">#395948</Color>
     <Color x:Key="PrimaryDark">#648c77</Color>
     <Color x:Key="PrimaryDarkText">#242424</Color>
     <Color x:Key="Secondary">#FAF7F2</Color>
