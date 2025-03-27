@@ -32,9 +32,9 @@ if (app.Environment.IsDevelopment()) {
 app.MapGet("", () => "Welcome to the Consilium Api");
 
 // feature flag accomplished!
-var featureFlag = builder.Configuration["feature_flag"] ?? "";
+bool featureFlag = builder.Configuration["feature_flag"] == "true";
 
-if (!String.IsNullOrEmpty(featureFlag)) {
+if (featureFlag) {
     app.MapGet("/secret", () => "Secrets are hidden within.");
 }
 
