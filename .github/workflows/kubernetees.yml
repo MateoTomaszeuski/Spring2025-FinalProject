@@ -11,6 +11,8 @@ jobs:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     
     steps:
+    - uses: actions/checkout@v4 # git clone
+    
     - name: Check Nodes
       run: kubectl get nodes
 
@@ -20,11 +22,12 @@ jobs:
         username: ${{ vars.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
 
+    
     - name : Build image
       run: |
         docker buildx \
         build --platform linux/amd64 \
-        -f Dockerfiles/Dockerfile \
+        -f ./Dockerfiles/Dockerfile \
         -t mateotomaszeuski/consilium:${{ github.run_number }} \
         .
     
