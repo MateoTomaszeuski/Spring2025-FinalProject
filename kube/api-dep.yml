@@ -30,3 +30,5 @@ spec:
             value: "Host=consilium-postgres-svc;Port=5432;Username=consilium-admin;Password=mypassword;Database=consiliumdb"
           - name: OTEL_URL
             value: "http://consilium-otel-collector-svc:4317"
+          - name: feature_flag
+            value: true
