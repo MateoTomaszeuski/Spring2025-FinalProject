@@ -17,7 +17,7 @@ spec:
         - name: consilium-postgres-data
           persistentVolumeClaim:
             claimName: consilium-postgres-pvc
-        - name: schema-init
+        - name: consilium-init
           configMap:
             name: consilium-postgres-config
       containers:

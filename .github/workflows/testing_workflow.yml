@@ -59,3 +59,23 @@ jobs:
 
 # https://docs.github.com/en/actions/writing-workflows/choosing-when-your-workflow-runs/events-that-trigger-workflows#workflow_run
 # - run: nix-shell -p dotnetCorePackages.sdk_9_0_1xx --run
+
+# - name : Build image
+# run: |
+#   docker buildx \
+#   build --platform linux/amd64 \
+#   -f Dockerfiles/Dockerfile \
+#   -t mateotomaszeuski/consilium:${{ github.run_number }} \
+#   .
+
+# - name: Push image to DockerHub
+# run: docker push mateotomaszeuski/consilium:${{ github.run_number }}
+
+# - name: Apply Kubernetes Changes
+#         run: |
+#           export BUILD_NUMBER=${{ github.run_number }}
+          
+#           for FILE in "kube"/*
+#           do
+#             cat $FILE | envsubst | kubectl apply -f -
+#           done

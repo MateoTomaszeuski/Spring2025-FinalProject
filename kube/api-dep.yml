@@ -20,7 +20,8 @@ spec:
     spec:
       containers:
       - name: consilium-api
-        image: mateotomaszeuski/consilium:$BUILD_NUMBER
+        # image: mateotomaszeuski/consilium:$BUILD_NUMBER
+        image: mateotomaszeuski/consilium:local_v1
         imagePullPolicy: Always
         ports:
         - containerPort: 8080

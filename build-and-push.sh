@@ -2,7 +2,8 @@
 
 docker buildx \
     build --platform linux/amd64 \
-    -t mateotomaszeuski/consilium \
+    -f Dockerfiles/Dockerfile \
+    -t mateotomaszeuski/consilium:local_v1 \
     .
 
-docker push mateotomaszeuski/consiliumi
+docker push mateotomaszeuski/consilium:local_v1

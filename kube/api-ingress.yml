@@ -5,7 +5,8 @@ metadata:
   namespace: consilium
 spec:
   rules:
-  - host: api.kube.final.codyhowell.dev
+  # - host: api.kube.final.codyhowell.dev
+  - host: consilium.duckdns.org
     http:
       paths:
       - path: /

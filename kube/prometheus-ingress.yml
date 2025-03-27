@@ -5,7 +5,8 @@ metadata:
   namespace: consilium
 spec:
   rules:
-  - host: prometheus.kube.final.codyhowell.dev
+  # - host: prometheus.kube.final.codyhowell.dev
+  - host: prometheus.consilium.duckdns.org
     http:
       paths:
       - pathType: Prefix

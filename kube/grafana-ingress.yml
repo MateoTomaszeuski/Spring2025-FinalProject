@@ -5,7 +5,8 @@ metadata:
   namespace: consilium
 spec:
   rules:
-  - host: grafana.kube.final.codyhowell.dev
+  # - host: grafana.kube.final.codyhowell.dev
+  - host: grafana.consilium.duckdns.org
     http:
       paths:
       - pathType: Prefix
