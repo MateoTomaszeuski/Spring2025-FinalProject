@@ -26,7 +26,7 @@ spec:
         ports:
         - containerPort: 8080
         env:
-          - name: ConnectionStrings__DBCONN
+          - name: ConnectionStrings__DB_CONN
             value: "Host=consilium-postgres-svc;Port=5432;Username=consilium-admin;Password=mypassword;Database=consiliumdb"
           - name: OTEL_URL
             value: "http://consilium-otel-collector-svc:4317"
