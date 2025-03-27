@@ -5,76 +5,98 @@
              xmlns:ViewModels="clr-namespace:Consilium.Shared.ViewModels;assembly=Consilium.Shared"
              Title="TodoListView">
     <ScrollView>
-        
-    <StackLayout Padding="20">
+
+        <StackLayout Padding="20">
+            <Label Text="To-Do List" 
+                   FontSize="27" 
+                   FontAttributes="Bold" 
+                   HorizontalOptions="Center" 
+                   Margin="0,0,0,20"/>
+            <Entry Placeholder="Enter a new task"
+                   Text="{Binding NewTodoTitle}"
+                   Margin="0,0,0,10"
+                   BackgroundColor="{StaticResource Gray100}"
+                   />
+            <Button Text="Add Todo"
+                Command="{Binding AddTodoCommand}"
+                    Margin="0,0,0,30"/>
+            <StackLayout Orientation="Horizontal" 
+                         Spacing="10" 
+                         HorizontalOptions="End"
+                         Opacity="0.8">
+                
+                <Button Text="Sort by Category"
+                    Command="{Binding SortByCategoryCommand}" />
+                <Button Text="Sort by Completion"
+                    Command="{Binding SortByCompletionCommand}" />
+            </StackLayout>
+
+            <Border StrokeShape="RoundRectangle 10"
+                    Padding="10"
+                    Margin="0,20,0,0"
+                    BackgroundColor="{StaticResource Dark-Dark}"
+                    StrokeThickness="0">
             <StackLayout>
                 
-            </StackLayout>
-            <Entry Placeholder="Enter a new task"
-               Text="{Binding NewTodoTitle}" />
-        <Button Text="Add Todo"
-                Command="{Binding AddTodoCommand}" />
-        <StackLayout Orientation="Horizontal" Spacing="10">
-            <Button Text="Sort by Category"
-                    Command="{Binding SortByCategoryCommand}" />
-            <Button Text="Sort by Completion"
-                    Command="{Binding SortByCompletionCommand}" />
-        </StackLayout>
-        <StackLayout>
                 <ActivityIndicator 
                     IsRunning="{Binding IsLoading}" 
                     IsVisible="{Binding IsLoading}" 
                     Color="{AppThemeBinding Light={StaticResource Dark-Green}, Dark=White}" 
                     HorizontalOptions="Center" 
-                    VerticalOptions="Center"/>      
+                    VerticalOptions="Center"/>
+                
                 <CollectionView ItemsSource="{Binding TodoItems}">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate> 
-                        <StackLayout Orientation="Vertical" Padding="10">
-                            <StackLayout Orientation="Horizontal">
-                                <CheckBox IsChecked="{Binding IsCompleted}" />
-                                <Label Text="{Binding Title}" VerticalOptions="Center" HorizontalOptions="StartAndExpand" />
-                                <Button Text="Remove"
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout Orientation="Vertical" Padding="10">
+                                <StackLayout Orientation="Horizontal">
+                                    <CheckBox IsChecked="{Binding IsCompleted}" />
+                                    <Label Text="{Binding Title}" VerticalOptions="Center" HorizontalOptions="StartAndExpand" />
+                                    <Button Text="{StaticResource TrashIcon}"
+                                            FontFamily="FontAwesomeSolid"
                                         Command="{Binding x:DataType='ViewModels:TodoListViewModel', Source={RelativeSource AncestorType={x:Type ViewModels:TodoListViewModel}}, Path=RemoveTodoCommand}"
                                         CommandParameter="{Binding .}"
-                                        BackgroundColor="Red"
+                                        BackgroundColor="#7a2b35"
                                         TextColor="White" />
-                            </StackLayout>
-                            <StackLayout Orientation="Horizontal" Padding="5, 10, 5, 0">
-                                <Entry Placeholder="Enter category"
+                                </StackLayout>
+                                <StackLayout Orientation="Horizontal" Padding="5, 10, 5, 0">
+                                    <Entry Placeholder="Enter category"
                                        Text="{Binding Category}"
                                        IsVisible="{Binding Category, Converter={StaticResource NullToVisibleConverter}}" />
-                                <Button Text="Set Category"
+                                    <Button Text="Set Category"
                                         Command="{Binding x:DataType='ViewModels:TodoListViewModel', Source={RelativeSource AncestorType={x:Type ViewModels:TodoListViewModel}}, Path=SetCategoryForTodoItemCommand}"
                                         CommandParameter="{Binding .}" />
-                            </StackLayout>
-                            <StackLayout Orientation="Vertical" Padding="10">
-                                <Label Text="Sub-Tasks" FontAttributes="Bold" />
-                                <StackLayout>
-                                    <CollectionView ItemsSource="{Binding SubTasks}">
-                                        <CollectionView.ItemTemplate>
-                                            <DataTemplate>
-                                                <StackLayout Orientation="Horizontal" Padding="5">
-                                                    <Label Text="{Binding Title}" />
-                                                    <CheckBox IsChecked="{Binding IsCompleted}" />
-                                                </StackLayout>
-                                            </DataTemplate>
-                                        </CollectionView.ItemTemplate>
-                                    </CollectionView>
                                 </StackLayout>
-                                <StackLayout Orientation="Horizontal" Padding="10">
-                                    <Entry Placeholder="Enter sub-task"
+                                <StackLayout Orientation="Vertical" Padding="10">
+                                    <Label Text="Sub-Tasks" FontAttributes="Bold" />
+                                    <StackLayout>
+                                        <CollectionView ItemsSource="{Binding SubTasks}">
+                                            <CollectionView.ItemTemplate>
+                                                <DataTemplate>
+                                                    <StackLayout Orientation="Horizontal" Padding="5">
+                                                        <Label Text="{Binding Title}" />
+                                                        <CheckBox IsChecked="{Binding IsCompleted}" />
+                                                    </StackLayout>
+                                                </DataTemplate>
+                                            </CollectionView.ItemTemplate>
+                                        </CollectionView>
+                                    </StackLayout>
+                                    <StackLayout Orientation="Horizontal" Padding="10">
+                                        <Entry Placeholder="Enter sub-task"
                                            Text="{Binding Source={x:Reference TodoListView}, Path=BindingContext.NewTodoTitle}" />
-                                    <Button Text="Add Sub-Task"
+                                        <Button Text="Add Sub-Task"
                                             Command="{Binding x:DataType='ViewModels:TodoListViewModel', Source={RelativeSource AncestorType={x:Type ViewModels:TodoListViewModel}}, Path=AddSubTaskCommand}"
                                             CommandParameter="{Binding .}" />
+                                    </StackLayout>
                                 </StackLayout>
+                                
                             </StackLayout>
-                        </StackLayout>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
+                            
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </StackLayout>
+            </Border>
         </StackLayout>
-    </StackLayout>
     </ScrollView>
 </ContentPage>

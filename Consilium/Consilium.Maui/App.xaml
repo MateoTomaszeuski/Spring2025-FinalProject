@@ -10,7 +10,7 @@
                 <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
-            <x:String x:Key="SpinnerIcon">&#xf1ce;</x:String>
+            <x:String x:Key="TrashIcon">&#xf1f8;</x:String>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
