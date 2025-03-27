@@ -55,8 +55,9 @@ public partial class TodoListViewModel : ObservableObject {
         if (todoItem != null) {
             Console.WriteLine($"Removing Todo: {todoItem}");
             int index = TodoItems.IndexOf(todoItem);
-            Message = await ToDoService.RemoveToDoAsync(index);
-            if (Message == "Deleted successfully") {
+            string localMessage = await ToDoService.RemoveToDoAsync(index);
+            Message = localMessage;
+            if (localMessage == "Deleted successfully") {
                 TodoItems.Remove(todoItem);
             }
         }

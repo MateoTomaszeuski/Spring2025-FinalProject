@@ -12,7 +12,10 @@ public class ToDoListVMTests {
     private readonly TodoListViewModel viewModel;
 
     public ToDoListVMTests() {
-        viewModel = new TodoListViewModel(Substitute.For<IToDoService>());
+        IToDoService service = Substitute.For<IToDoService>();
+        service.RemoveToDoAsync(0).Returns("Deleted successfully");
+        service.RemoveToDoAsync(1).Returns("Deleted successfully");
+        viewModel = new TodoListViewModel(service);
     }
 
     [Test]
@@ -80,7 +83,6 @@ public class ToDoListVMTests {
     }
 
     [Test]
-
     public async Task CanDeleteItem() {
         viewModel.NewTodoTitle = "Test Todo";
         viewModel.AddTodoCommand.Execute(null);
