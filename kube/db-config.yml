@@ -4,7 +4,7 @@ metadata:
   name: consilium-postgres-config
   namespace: consilium
 data:
-  db-init: |
+  init.sql: |
     CREATE TABLE
       public.account (
         id int4 PRIMARY KEY GENERATED ALWAYS AS IDENTITY NOT NULL,
