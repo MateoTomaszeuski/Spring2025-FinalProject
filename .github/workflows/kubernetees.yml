@@ -25,15 +25,19 @@ jobs:
     
     - name : Build image
       run: |
+        echo "building image"
+
         docker buildx \
         build --platform linux/amd64 \
         -f ./Dockerfiles/Dockerfile \
         -t mateotomaszeuski/consilium:${{ github.run_number }} \
         .
-    
+        
+        echo "publishing"
         - name: Push image to DockerHub
         run: docker push mateotomaszeuski/consilium:${{ github.run_number }}
     
+        echo "apply to kubernetees"
         - name: Apply Kubernetes Changes
                 run: |
                 export BUILD_NUMBER=${{ github.run_number }}
