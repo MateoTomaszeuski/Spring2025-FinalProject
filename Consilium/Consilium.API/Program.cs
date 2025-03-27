@@ -1,8 +1,16 @@
 using Consilium.API;
-using Consilium.API.InMemoryServices;
+using Consilium.API.DBServices;
+using Npgsql;
+using System.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
+string connString = builder.Configuration["DB_CONN"] ?? throw new Exception("No connection string was found.");
+Console.WriteLine("Connection String: " + connString);
+builder.Services.AddSingleton<IDbConnection>(provider =>
+{
+    return new NpgsqlConnection(connString);
+});
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -10,7 +18,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddSingleton<IDBService, DBServiceIM>();
+//builder.Services.AddSingleton<IDBService, DBService>();
+builder.Services.AddSingleton<DBService>();
 
 var app = builder.Build();
 
@@ -28,6 +37,8 @@ var featureFlag = builder.Configuration["feature_flag"] ?? "";
 if (!String.IsNullOrEmpty(featureFlag)) {
     app.MapGet("/secret", () => "Secrets are hidden within.");
 }
+
+app.MapGet("/account", (DBService service) => service.GetAllUsers());
 
 //app.UseHttpsRedirection();
 
