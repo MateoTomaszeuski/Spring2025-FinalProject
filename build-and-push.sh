@@ -5,4 +5,4 @@ docker buildx \
     -t mateotomaszeuski/consilium \
     .
 
-docker push mateotomaszeuski/consilium
+docker push mateotomaszeuski/consiliumi
