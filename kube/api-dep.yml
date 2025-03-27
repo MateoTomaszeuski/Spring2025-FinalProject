@@ -31,4 +31,4 @@ spec:
           - name: OTEL_URL
             value: "http://consilium-otel-collector-svc:4317"
           - name: feature_flag
-            value: true
+            value: "true"
