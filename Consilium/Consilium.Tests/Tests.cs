@@ -167,7 +167,7 @@ public class ToDoListVMTests {
 
     [Test]
     public async Task InitSetsIsLoading() {
-
+        await Task.Delay(1);
     }
 
 }
