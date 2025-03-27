@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: consilium-postgres-dep
+  namespace: consilium
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: consilium-postgres
+  template:
+    metadata:
+      labels:
+        app: consilium-postgres
+    spec:
+      volumes:
+        - name: consilium-postgres-data
+          persistentVolumeClaim:
+            claimName: consilium-postgres-pvc
+        - name: schema-init
+          configMap:
+            name: consilium-postgres-config
+      containers:
+      - name: consilium-postgres
+        volumeMounts:
+          - name: consilium-postgres-data
+            mountPath: /var/lib/postgresql/data
+          - name: consilium-init
+            mountPath: /docker-entrypoint-initdb.d
+        image: postgres:16
+        ports:
+        - containerPort: 5432
+        env:
+          - name: POSTGRES_USER
+            value: consilium-admin
+          - name: POSTGRES_PASSWORD
+            value: mypassword
+          - name: POSTGRES_DB
+            value: consiliumdb

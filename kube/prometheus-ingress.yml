@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: consilium-prometheus-ingress
+  namespace: consilium
+spec:
+  rules:
+  - host: prometheus.kube.final.codyhowell.dev
+    http:
+      paths:
+      - pathType: Prefix
+        path: /
+        backend:
+          service:
+            name: consilium-prometheus-svc
+            port: 
+              number: 9090
