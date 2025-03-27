@@ -22,6 +22,13 @@ if (app.Environment.IsDevelopment()) {
 
 app.MapGet("", () => "Welcome to the Consilium Api");
 
+// feature flag accomplished!
+var featureFlag = builder.Configuration["feature_flag"] ?? "";
+
+if (!String.IsNullOrEmpty(featureFlag)) {
+    app.MapGet("/secret", () => "Secrets are hidden within.");
+}
+
 //app.UseHttpsRedirection();
 
 app.UseAuthorization();
