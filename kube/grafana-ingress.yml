@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: consilium-grafana-ingress
+  namespace: consilium
+spec:
+  rules:
+  - host: grafana.kube.final.codyhowell.dev
+    http:
+      paths:
+      - pathType: Prefix
+        path: /
+        backend:
+          service:
+            name: consilium-grafana-svc
+            port: 
+              number: 1002

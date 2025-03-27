@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: consilium-api-ingress
+  namespace: consilium
+spec:
+  rules:
+  - host: api.kube.final.codyhowell.dev
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: consilium-api-svc
+            port:
+              number: 1000

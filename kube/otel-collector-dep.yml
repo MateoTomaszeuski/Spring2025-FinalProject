@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: consilium-otel-collector-dep
+  namespace: consilium
+spec:
+  strategy:
+   type: RollingUpdate
+   rollingUpdate:
+     maxUnavailable: 1
+  replicas: 1
+  selector:
+    matchLabels:
+      app: consilium-otel-collector
+  template:
+    metadata:
+      labels:
+        app: consilium-otel-collector
+    spec:
+      volumes:
+        - name: consilium-otel-config
+          configMap:
+            name: consilium-otel-collector-config
+      containers:
+      - name: consilium-otel-collector
+        image: otel/opentelemetry-collector-contrib:0.120.0
+        volumeMounts:
+          - name: consilium-otel-config
+            mountPath: /etc/otelcol-contrib/
+        ports:
+        - containerPort: 4317
+        - containerPort: 8889

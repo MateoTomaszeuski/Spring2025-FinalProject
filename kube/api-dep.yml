@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: consilium-api-dep
+  namespace: consilium
+spec:
+  strategy:
+   type: RollingUpdate
+   rollingUpdate:
+     maxUnavailable: 1
+  replicas: 1
+  selector:
+    matchLabels:
+      app: consilium-api
+  # pod below
+  template:
+    metadata:
+      labels:
+        app: consilium-api
+    spec:
+      containers:
+      - name: consilium-api
+        image: mateotomaszeuski/consilium:$BUILD_NUMBER
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+        env:
+          - name: ConnectionStrings__DBCONN
+            value: "Host=consilium-postgres-svc;Port=5432;Username=consilium-admin;Password=mypassword;Database=consiliumdb"
+          - name: OTEL_URL
+            value: "http://consilium-otel-collector-svc:4317"
