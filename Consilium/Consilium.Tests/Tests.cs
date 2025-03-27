@@ -165,9 +165,9 @@ public class ToDoListVMTests {
         await Assert.That(parentTask.SubTasks[0].Title).IsEqualTo("Sub Task 1");
     }
 
-    [Test]
-    public async Task InitSetsIsLoading() {
-        await Task.Delay(1);
-    }
+    //[Test]
+    //public async Task InitSetsIsLoading() {
+    //    await Task.Delay(1);
+    //}
 
 }
