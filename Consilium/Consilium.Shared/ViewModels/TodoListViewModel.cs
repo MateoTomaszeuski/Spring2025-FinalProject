@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
+using System.Reflection.Emit;
 using System.Windows.Input;
 
 namespace Consilium.Shared.ViewModels;
@@ -17,8 +18,15 @@ public partial class TodoListViewModel : ObservableObject {
         ToDoService = toDoService;
     }
     public async Task InitializeItemsAsync() {
+        IsLoading = true;
+        //_ = SpinAsync();
         TodoItems = await ToDoService.GetTodoItemsAsync();
+        IsLoading = false;
     }
+
+
+    [ObservableProperty]
+    private bool isLoading;
 
     [ObservableProperty]
     private string newTodoTitle = "";
@@ -87,6 +95,16 @@ public partial class TodoListViewModel : ObservableObject {
             NewTodoTitle = string.Empty;
         }
     }
+
+    //private async Task SpinAsync() {
+    //    while (IsLoading) {
+    //        await SpinIcon.RotateTo(360, 1000);
+    //        SpinIcon.Rotation = 0;
+    //    }
+    //}
+
+    //public Label SpinIcon { get; set; }
+
 }
 
 

@@ -5,19 +5,29 @@
              xmlns:ViewModels="clr-namespace:Consilium.Shared.ViewModels;assembly=Consilium.Shared"
              Title="TodoListView">
     <ScrollView>
+        
     <StackLayout Padding="20">
-        <Entry Placeholder="Enter a new task"
+            <StackLayout>
+                
+            </StackLayout>
+            <Entry Placeholder="Enter a new task"
                Text="{Binding NewTodoTitle}" />
         <Button Text="Add Todo"
                 Command="{Binding AddTodoCommand}" />
         <StackLayout Orientation="Horizontal" Spacing="10">
-            <Button Text="Sort by Categit pugory"
+            <Button Text="Sort by Category"
                     Command="{Binding SortByCategoryCommand}" />
             <Button Text="Sort by Completion"
                     Command="{Binding SortByCompletionCommand}" />
         </StackLayout>
         <StackLayout>
-            <CollectionView ItemsSource="{Binding TodoItems}">
+                <ActivityIndicator 
+                    IsRunning="{Binding IsLoading}" 
+                    IsVisible="{Binding IsLoading}" 
+                    Color="{AppThemeBinding Light={StaticResource Dark-Green}, Dark=White}" 
+                    HorizontalOptions="Center" 
+                    VerticalOptions="Center"/>      
+                <CollectionView ItemsSource="{Binding TodoItems}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate> 
                         <StackLayout Orientation="Vertical" Padding="10">

@@ -2,6 +2,7 @@
 using Consilium.Shared.Services;
 using Consilium.Shared.ViewModels;
 using NSubstitute;
+using Shouldly;
 using System.Threading.Tasks;
 using TUnit.Assertions.Extensions;
 namespace Consilium.Tests;
@@ -163,11 +164,6 @@ public class ToDoListVMTests {
         viewModel.AddSubTaskCommand.Execute(parentTask);
         await Assert.That(parentTask!.SubTasks.Count).IsEqualTo(1);
         await Assert.That(parentTask.SubTasks[0].Title).IsEqualTo("Sub Task 1");
-    }
-
-    [Test]
-    public async Task InitSetsIsLoading() {
-
     }
 
 }

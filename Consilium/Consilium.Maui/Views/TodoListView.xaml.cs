@@ -8,5 +8,7 @@ public partial class TodoListView : ContentPage {
         {
             await vm.InitializeItemsAsync();
         };
+
+        //vm.SpinIcon = SpinIcon;
     }
 }
