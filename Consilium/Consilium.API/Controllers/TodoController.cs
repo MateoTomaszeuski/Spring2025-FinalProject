@@ -5,7 +5,11 @@ namespace Consilium.API.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class todoController(IDBService service) : ControllerBase {
+public class todoController : ControllerBase {
+
+    private readonly IDBService service;
+
+    public todoController(IDBService service) => this.service = service;
 
     [HttpGet(Name = "GetTodos")]
     public IEnumerable<TodoItem> Get() {

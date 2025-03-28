@@ -1,5 +1,6 @@
 using Consilium.API;
 using Consilium.API.DBServices;
+using Microsoft.AspNetCore.Mvc;
 using Npgsql;
 using System.Data;
 
@@ -39,7 +40,7 @@ if (featureFlag) {
     app.MapGet("/secret", () => "Secrets are hidden within.");
 }
 
-app.MapGet("/account", (DBService service) => service.GetAllUsers());
+app.MapGet("/account", ([FromServices]DBService service) => service.GetAllUsers());
 
 //app.UseHttpsRedirection();
 
