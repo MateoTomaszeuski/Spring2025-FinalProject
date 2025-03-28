@@ -28,7 +28,7 @@ if (app.Environment.IsDevelopment()) {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+//change
 app.MapGet("", () => "Welcome to the Consilium Api");
 
 // feature flag accomplished!
