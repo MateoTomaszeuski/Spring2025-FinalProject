@@ -1,17 +1,22 @@
-﻿using System.Collections.ObjectModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using System.Collections.ObjectModel;
 
 namespace Consilium.Shared.Models;
 
-public class TodoItem : IEquatable<TodoItem> {
+public partial class TodoItem : ObservableObject, IEquatable<TodoItem> {
+    public int Id { get; set; }
     public string? Title { get; set; }
     public string? Description { get; set; }
     public string? Category { get; set; }
     public bool IsCompleted { get; set; }
-    public ObservableCollection<TodoItem> SubTasks { get; set; }
+    public int? ParentId { get; set; }
 
-    public TodoItem() {
-        SubTasks = new ObservableCollection<TodoItem>();
-    }
+    [ObservableProperty]
+    private bool isExpanded;
+
+    // property for CategoryId?
+
+    public ObservableCollection<TodoItem> SubTasks { get; set; } = new();
 
     public bool Equals(TodoItem? other) {
         if (other == null) return false;

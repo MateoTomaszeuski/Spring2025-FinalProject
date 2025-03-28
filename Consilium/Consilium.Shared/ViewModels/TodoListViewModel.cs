@@ -19,10 +19,14 @@ public partial class TodoListViewModel : ObservableObject {
     }
     public async Task InitializeItemsAsync() {
         IsLoading = true;
-        //_ = SpinAsync();
-        TodoItems = await ToDoService.GetTodoItemsAsync();
+        //TodoItems = await ToDoService.GetTodoItemsAsync();
+        TodoItems = new ObservableCollection<TodoItem>() { new TodoItem() { Id = 1, Title = "Name" }, new TodoItem() { Id = 2, Title = "Item2" } };
         IsLoading = false;
     }
+
+    [ObservableProperty]
+    private ObservableCollection<string> categories = new ObservableCollection<string>() { "School", "Work", "Misc." };
+
 
 
     [ObservableProperty]
@@ -88,24 +92,22 @@ public partial class TodoListViewModel : ObservableObject {
             TodoItems.Add(item);
         }
     }
+
     [RelayCommand]
     private void AddSubTask(TodoItem parentTask) {
         if (parentTask != null && !string.IsNullOrWhiteSpace(NewTodoTitle)) {
-            var subTask = new TodoItem { Title = NewTodoTitle };
+            var subTask = new TodoItem { Title = NewTodoTitle, ParentId = parentTask.Id };
             parentTask.SubTasks.Add(subTask);
             NewTodoTitle = string.Empty;
         }
     }
 
-    //private async Task SpinAsync() {
-    //    while (IsLoading) {
-    //        await SpinIcon.RotateTo(360, 1000);
-    //        SpinIcon.Rotation = 0;
-    //    }
-    //}
-
-    //public Label SpinIcon { get; set; }
-
+    [RelayCommand]
+    private void ToggleSubtaskVisibility(TodoItem parentTask) {
+        if (parentTask != null) {
+            parentTask.IsExpanded = !parentTask.IsExpanded;
+        }
+    }
 }
 
 
