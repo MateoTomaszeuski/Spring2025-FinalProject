@@ -48,9 +48,9 @@ Share 3+ different blocking issues that you were stuck on for a while, and how y
 * **Description:** 
   - The MAUI project gets recognized as a class library when `dotnet test` gets run in the pipeline. It always results in a failing test, failing the pipeline.
 * **Attempts To Fix:**
-  - Looked for a docker image that could be used to run the tests correctly. Most of them were for the Windows OS, but we found one for Linux. To be continued...
+  - Looked for a docker image that could be used to run the tests correctly. Most of them were for the Windows OS, but we found one for Linux.
 * **Solution:**
-  - lorem
+  - Escalated to Alex, who confirmed that we should separate our viewmodel logic into a shared project and test that instead of the MAUI project.
 
 
 #### 5. Controller Routing
@@ -59,21 +59,12 @@ Share 3+ different blocking issues that you were stuck on for a while, and how y
 * **Attempts To Fix:**
   - Tried using [Route("update")], but that caused problems in Swagger.
 * **Solution:**
-  - lorem
+  - Just a syntax problem with slashes. Also realized we didn't need a separate attribute for the path.
 
-#### 6. 
-* **Description:** 
-  - 
-* **Attempts To Fix:**
-  - lorem 
-* **Solution:**
-  - lorem
-
-
-#### 7. Calling Async Methods in Constructor (Without Warnings)
+#### 6. Calling Async Methods in Constructor (Without Warnings)
 * **Description:** 
   - We can't have any warnings (for our deployment pipeline), but we don't know of a clean way to call the relevant async method to get the To-Dos when the viewmodel is created. 
 * **Attempts To Fix:**
-  - [StackOverflow](https://stackoverflow.com/questions/23048285/call-asynchronous-method-in-constructor) 
+  - Looked through some potential solutions, like [this one](https://stackoverflow.com/questions/23048285/call-asynchronous-method-in-constructor). 
 * **Solution:**
-  - Call InitializeItems in the code-behind OnAppearing method.
+  - Call InitializeItems in the code-behind OnAppearing method, treating it like the OnInitializedAsync in Blazor.
