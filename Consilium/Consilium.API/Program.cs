@@ -32,7 +32,7 @@ if (app.Environment.IsDevelopment()) {
 app.MapGet("", () => "Welcome to the Consilium Api");
 
 // feature flag accomplished!
-// Need to make a change to test formatting
+// Need to make a change to test formatting, test 2
 bool featureFlag = builder.Configuration["feature_flag"] == "true";
 
 if (featureFlag) {
