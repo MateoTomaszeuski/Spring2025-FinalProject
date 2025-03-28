@@ -19,7 +19,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 //builder.Services.AddSingleton<IDBService, DBService>();
-builder.Services.AddSingleton<DBService>();
+builder.Services.AddSingleton<IDBService,DBService>();
 
 var app = builder.Build();
 
