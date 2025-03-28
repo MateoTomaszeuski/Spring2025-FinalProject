@@ -27,7 +27,6 @@ public partial class TodoListViewModel : ObservableObject {
     [ObservableProperty]
     private ObservableCollection<string> categories = new ObservableCollection<string>() { "School", "Work", "Misc." };
 
-
     [ObservableProperty]
     private bool isLoading;
 
@@ -108,8 +107,6 @@ public partial class TodoListViewModel : ObservableObject {
         }
     }
 }
-
-
 
 //Custom Categories not descriptions
 // need Nested Todo items 
