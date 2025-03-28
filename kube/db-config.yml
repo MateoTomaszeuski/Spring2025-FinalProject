@@ -6,28 +6,28 @@ metadata:
 data:
   init.sql: |
     CREATE TABLE
-      public.account (
+      account (
         id int4 PRIMARY KEY GENERATED ALWAYS AS IDENTITY NOT NULL,
         email varchar(80) NOT NULL,
         displayName varchar(80)
       );
 
     CREATE TABLE
-      public.course (
+      course (
         id int4 PRIMARY KEY GENERATED ALWAYS AS IDENTITY NOT NULL,
         accountId int references account (id) NOT NULL,
         courseName varchar(80)
       );
 
     CREATE TABLE
-      public.assignment (
+      assignment (
         id int4 PRIMARY KEY GENERATED ALWAYS AS IDENTITY NOT NULL,
         courseId int references course (id) NOT NULL,
         assignmentName varchar(80)
       );
 
     CREATE TABLE
-      public.category (
+      category (
         id int4 PRIMARY KEY GENERATED ALWAYS AS IDENTITY NOT NULL,
         account_id int references account (id) NOT NULL,
         categoryName varchar(80),
@@ -35,14 +35,14 @@ data:
       );
 
     CREATE TABLE
-      public.todolist (
+      todolist (
         id int4 PRIMARY KEY GENERATED ALWAYS AS IDENTITY NOT NULL,
         account_id int references account (id) NOT NULL,
         listName varchar(80)
       );
 
     CREATE TABLE
-      public.todoitem (
+      todoitem (
         id int4 PRIMARY KEY GENERATED ALWAYS AS IDENTITY NOT NULL,
         toDoListId int references todolist (id) NOT NULL,
         categoryId int references category (id) NOT NULL,
@@ -54,21 +54,21 @@ data:
     insert into account (email, displayName) values ('cody@final.codyhowell.dev', 'Cody')
 
     - Insert mock accounts
-    INSERT INTO public.account (email, displayName) VALUES
+    INSERT INTO account (email, displayName) VALUES
     ('user1@example.com', 'User One'),
     ('user2@example.com', 'User Two'),
     ('user3@example.com', 'User Three'),
     ('user4@example.com', 'User Four');
 
     -- Insert mock courses
-    INSERT INTO public.course (accountId, courseName) VALUES
+    INSERT INTO course (accountId, courseName) VALUES
     (1, 'Math 101'),
     (1, 'History 201'),
     (2, 'Science 301'),
     (3, 'Literature 401');
 
     -- Insert mock assignments
-    INSERT INTO public.assignment (courseId, assignmentName) VALUES
+    INSERT INTO assignment (courseId, assignmentName) VALUES
     (1, 'Algebra Homework'),
     (1, 'Geometry Quiz'),
     (2, 'WWII Essay'),
@@ -76,21 +76,21 @@ data:
     (4, 'Shakespeare Analysis');
 
     -- Insert mock categories
-    INSERT INTO public.category (account_id, categoryName, color) VALUES
+    INSERT INTO category (account_id, categoryName, color) VALUES
     (1, 'Homework', 'FF5733'),
     (2, 'Exams', '33FF57'),
     (3, 'Projects', '3357FF'),
     (4, 'Reading', 'FF33A8');
 
     -- Insert mock to-do lists
-    INSERT INTO public.todolist (account_id, listName) VALUES
+    INSERT INTO todolist (account_id, listName) VALUES
     (1, 'Daily Tasks'),
     (2, 'Weekly Review'),
     (3, 'Assignments List'),
     (4, 'Personal Goals');
 
     -- Insert mock to-do items
-    INSERT INTO public.todoitem (toDoListId, categoryId, parentId, assignmentId, toDoName) VALUES
+    INSERT INTO todoitem (toDoListId, categoryId, parentId, assignmentId, toDoName) VALUES
     (1, 1, NULL, 1, 'Complete Algebra Homework'),
     (1, 1, NULL, 2, 'Prepare for Geometry Quiz'),
     (2, 2, NULL, 3, 'Write WWII Essay'),
