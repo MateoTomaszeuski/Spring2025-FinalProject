@@ -42,7 +42,7 @@ if (featureFlag) {
 app.MapGet("/account", (DBService service) => service.GetAllUsers());
 
 //app.UseHttpsRedirection();
-
+// change
 app.UseAuthorization();
 
 app.MapControllers();
