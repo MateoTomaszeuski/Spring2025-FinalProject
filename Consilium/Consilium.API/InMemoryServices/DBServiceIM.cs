@@ -15,6 +15,10 @@ public class DBServiceIM : IDBService {
         }
     }
 
+    public IEnumerable<User> GetAllUsers() {
+        throw new NotImplementedException();
+    }
+
     public List<TodoItem> GetToDos(string username) {
         if (todos.ContainsKey(username)) {
             List<TodoItem> items = todos[username];
