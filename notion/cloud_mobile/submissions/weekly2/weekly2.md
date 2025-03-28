@@ -1,21 +1,20 @@
-<div style="text-align: right"> Date </div>
+<div style="text-align: right"> 3/28/2025 </div>
 
 # Weekly Report 2
 
 ## Progress Summary
 ### Scope Progress
-Progress on scope (show what you've done, what remains)
+![alt text](scope.png "Scope Table")
 
-### Learning Objectives Progress
-Progress on learning objectives (note which objectives you can demonstrate through this project, which you cannot)
-
+### Learning Outcomes Progress
+![alt text](outcomes.png "Outcomes Table")
 ---
 
 ## Work Logs
 These time logs outline our meetings spent mob programming, debugging, and planning as a group.
 
-[Insert Time Logs Here]
-
+![alt text](groupsessions.png "Group Session Table")
+![alt text](time-summary.png "Time Summary Table")
 ---
 ## Blocking Issues
 Share 3+ different blocking issues that you were stuck on for a while, and how you resolved them.
