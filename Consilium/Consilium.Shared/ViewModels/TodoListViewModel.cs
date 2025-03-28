@@ -19,8 +19,8 @@ public partial class TodoListViewModel : ObservableObject {
     }
     public async Task InitializeItemsAsync() {
         IsLoading = true;
-        //TodoItems = await ToDoService.GetTodoItemsAsync();
-        TodoItems = new ObservableCollection<TodoItem>() { new TodoItem() { Id = 1, Title = "Name" }, new TodoItem() { Id = 2, Title = "Item2" } };
+        TodoItems = await ToDoService.GetTodoItemsAsync();
+        //TodoItems = new ObservableCollection<TodoItem>() { new TodoItem() { Id = 1, Title = "Name" }, new TodoItem() { Id = 2, Title = "Item2" } };
         IsLoading = false;
     }
 
