@@ -40,7 +40,7 @@ if (featureFlag) {
     app.MapGet("/secret", () => "Secrets are hidden within.");
 }
 
-app.MapGet("/account", ([FromServices]DBService service) => service.GetAllUsers());
+app.MapGet("/account", ([FromServices] DBService service) => service.GetAllUsers());
 
 //app.UseHttpsRedirection();
 
