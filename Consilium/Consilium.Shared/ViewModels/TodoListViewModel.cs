@@ -28,7 +28,6 @@ public partial class TodoListViewModel : ObservableObject {
     private ObservableCollection<string> categories = new ObservableCollection<string>() { "School", "Work", "Misc." };
 
 
-
     [ObservableProperty]
     private bool isLoading;
 
