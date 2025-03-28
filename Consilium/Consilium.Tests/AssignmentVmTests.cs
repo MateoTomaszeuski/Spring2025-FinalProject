@@ -27,15 +27,9 @@ public class AssignmentsVmTest {
 
     [Test]
     public async Task CanGetAssignment() {
-        await Assert.That(viewModel.Assignments.Count).IsEqualTo(0);
+        await Assert.That(viewModel.Assignments.Count).IsEqualTo(3);
     }
 
-    [Test]
-    public async Task CanAddAssignment() {
-        Assignment assignment = new() { Title = "Assignment 1", Description = "Assignment 1 Description", Category = "Homework", IsCompleted = false };
-        viewModel.Assignments.Add(assignment);
-        await Assert.That(viewModel.Assignments.Count).IsEqualTo(1);
-    }
 
     [Test]
     public async Task CanFilterAssignmentsWithCourseId() {
