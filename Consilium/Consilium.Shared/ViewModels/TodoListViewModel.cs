@@ -74,7 +74,7 @@ public partial class TodoListViewModel : ObservableObject {
         if (todoItem != null) {
             Console.WriteLine($"Removing Todo: {todoItem}");
             int index = TodoItems.IndexOf(todoItem);
-                TodoItems.Remove(todoItem);
+            TodoItems.Remove(todoItem);
         }
     }
 
@@ -146,6 +146,11 @@ public partial class TodoListViewModel : ObservableObject {
     }
 
 }
+
+//TO-DO:
+// set up binding for categories
+// review options for subtask visibility toggling (caret to indicate subtasks, or save space by simply clicking ToDo's title?)
+// style style style
 
 //Custom Categories not descriptions
 // need Nested Todo items 

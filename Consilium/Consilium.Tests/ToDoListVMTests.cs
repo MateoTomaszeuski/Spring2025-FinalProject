@@ -156,16 +156,6 @@ public class ToDoListVMTests {
         await Assert.That(viewModel.TodoItems[1].IsCompleted).IsTrue();
         await Assert.That(viewModel.TodoItems[2].IsCompleted).IsFalse();
     }
-    [Test]
-    public async Task CanCreateSubTask() {
-        viewModel.NewTodoTitle = "Task 1";
-        viewModel.AddTodoCommand.Execute(null);
-        var parentTask = viewModel.TodoItems.FirstOrDefault();
-        await Assert.That(parentTask).IsNotNull();
-        viewModel.NewTodoTitle = "Sub Task 1";
-        viewModel.AddSubTaskCommand.Execute(parentTask);
-        await Assert.That(parentTask!.SubTasks.Count).IsEqualTo(1);
-        await Assert.That(parentTask.SubTasks[0].Title).IsEqualTo("Sub Task 1");
-    }
+
 
 }

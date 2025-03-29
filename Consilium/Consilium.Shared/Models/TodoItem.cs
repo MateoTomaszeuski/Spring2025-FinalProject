@@ -7,9 +7,11 @@ public partial class TodoItem : ObservableObject, IEquatable<TodoItem> {
     public int Id { get; set; }
     public string? Title { get; set; }
     public string? Description { get; set; }
-    public string? Category { get; set; }
     public bool IsCompleted { get; set; }
     public TodoItem? ParentTask { get; set; }
+
+    [ObservableProperty]
+    private string? category;
 
     [ObservableProperty]
     public bool hasSubtasks;
@@ -21,7 +23,8 @@ public partial class TodoItem : ObservableObject, IEquatable<TodoItem> {
     private bool subtaskEntryIsVisible;
 
     public TodoItem() {
-        Subtasks.CollectionChanged += (s, e) => {
+        Subtasks.CollectionChanged += (s, e) =>
+        {
             HasSubtasks = Subtasks.Count > 0;
         };
     }
