@@ -126,12 +126,15 @@ public partial class TodoListViewModel : ObservableObject {
         }
     }
 
-    //[RelayCommand]
-    //private void RemoveSubtask(TodoItem subTask) {
-    //    if (parentTask != null && subTask != null) {
-    //        parentTask.Subtasks.Remove(subTask);
-    //    }
-    //}
+    [RelayCommand]
+    private void RemoveSubtask(TodoItem subTask) {
+        foreach (var parentTask in TodoItems) {
+            if (parentTask.Subtasks.Contains(subTask)) {
+                parentTask.Subtasks.Remove(subTask);
+                break;
+            }
+        }
+    }
 
 }
 
