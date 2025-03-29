@@ -134,6 +134,8 @@ public partial class TodoListViewModel : ObservableObject {
         if (parentTask != null) {
             parentTask.SubtaskEntryIsVisible = !parentTask.SubtaskEntryIsVisible;
         }
+
+        NewSubtaskTitle = "";
     }
 
     [RelayCommand]

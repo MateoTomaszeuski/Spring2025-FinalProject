@@ -78,7 +78,7 @@
                                                 TextColor="White" />
                                     </StackLayout>
                                     <StackLayout Margin="50,20,0,0" HorizontalOptions="FillAndExpand">
-                                        <StackLayout IsVisible="{Binding SubtaskEntryIsVisible}" Orientation="Horizontal">
+                                        <StackLayout IsVisible="{Binding SubtaskEntryIsVisible}" Orientation="Horizontal" Spacing="10">
                                             <Entry Placeholder="Enter new subtask title"
                                                Text="{Binding Source={RelativeSource AncestorType={x:Type ViewModels:TodoListViewModel}}, Path=NewSubtaskTitle}"
                                                HorizontalOptions="FillAndExpand"
@@ -86,8 +86,15 @@
                                                    Margin="5,0,10,0"/>
                                             <Button Text="{StaticResource PlusIcon}"
                                                     FontFamily="FontAwesomeSolid"
-                                                Command="{Binding Source={RelativeSource AncestorType={x:Type ViewModels:TodoListViewModel}}, Path=AddSubtaskCommand}"
-                                                CommandParameter="{Binding .}"/>
+                                                    Command="{Binding Source={RelativeSource AncestorType={x:Type ViewModels:TodoListViewModel}}, Path=AddSubtaskCommand}"
+                                                    CommandParameter="{Binding .}"
+                                                    Opacity="0.7"/>
+                                            <Button Text="{StaticResource XIcon}"
+                                                    FontFamily="FontAwesomeSolid"
+                                                    Command="{Binding Source={RelativeSource AncestorType={x:Type ViewModels:TodoListViewModel}}, Path=ToggleSubtaskVisibilityCommand}"
+                                                    CommandParameter="{Binding .}"
+                                                    BackgroundColor="#7a2b35"
+                                                    Opacity="0.7"/>
                                         </StackLayout>
                                         <StackLayout IsVisible="{Binding IsExpanded}" Padding="0,0,0,0" >
                                             <!--subtasks will show a checkbox, title, and trashcan-->
