@@ -74,6 +74,12 @@
                                                    HorizontalTextAlignment="Start"
                                                    HorizontalOptions="FillAndExpand"
                                                    VerticalTextAlignment="Center"/>
+                                            <Button Text="{StaticResource CaretDownIcon}"
+                                                    WidthRequest="2"
+                                                    HorizontalOptions="End"
+                                                    FontFamily="FontAwesomeSolid"
+                                                    IsVisible="{Binding HasSubtasks}"
+                                                    BackgroundColor="{AppThemeBinding Dark={StaticResource Dark-Dark}, Light={StaticResource Light-Light}}"/>
                                             <Button Command="{Binding Source={RelativeSource AncestorType={x:Type ViewModels:TodoListViewModel}}, Path=ToggleSubtaskVisibilityCommand}"
                                                     CommandParameter="{Binding .}"
                                                     BackgroundColor="Transparent"/>     
