@@ -121,6 +121,10 @@ public partial class TodoListViewModel : ObservableObject {
     [RelayCommand]
     private void ToggleSubtaskVisibility(TodoItem parentTask) {
         if (parentTask != null) {
+
+            if (parentTask.SubtaskEntryIsVisible)
+                ToggleSubtaskEntryVisibility(parentTask);
+
             parentTask.IsExpanded = !parentTask.IsExpanded;
         }
     }

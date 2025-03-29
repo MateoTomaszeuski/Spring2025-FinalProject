@@ -77,13 +77,13 @@
                                                 Margin="5,0,0,0"
                                                 TextColor="White" />
                                     </StackLayout>
-                                    <StackLayout Margin="50,20,0,10" HorizontalOptions="FillAndExpand">
+                                    <StackLayout Margin="50,20,0,0" HorizontalOptions="FillAndExpand">
                                         <StackLayout IsVisible="{Binding SubtaskEntryIsVisible}" Orientation="Horizontal">
                                             <Entry Placeholder="Enter new subtask title"
                                                Text="{Binding Source={RelativeSource AncestorType={x:Type ViewModels:TodoListViewModel}}, Path=NewSubtaskTitle}"
                                                HorizontalOptions="FillAndExpand"
                                                    MinimumWidthRequest="300"
-                                                   Margin="10,0,10,0"/>
+                                                   Margin="5,0,10,0"/>
                                             <Button Text="{StaticResource PlusIcon}"
                                                     FontFamily="FontAwesomeSolid"
                                                 Command="{Binding Source={RelativeSource AncestorType={x:Type ViewModels:TodoListViewModel}}, Path=AddSubtaskCommand}"
