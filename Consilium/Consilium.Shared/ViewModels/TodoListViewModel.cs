@@ -19,8 +19,15 @@ public partial class TodoListViewModel : ObservableObject {
     }
     public async Task InitializeItemsAsync() {
         IsLoading = true;
-        TodoItems = await ToDoService.GetTodoItemsAsync();
-        //TodoItems = new ObservableCollection<TodoItem>() { new TodoItem() { Id = 1, Title = "Name" }, new TodoItem() { Id = 2, Title = "Item2" } };
+        //TodoItems = await ToDoService.GetTodoItemsAsync();
+
+        //TodoItems = new ObservableCollection<TodoItem>() { 
+        //    new TodoItem() { 
+        //        Title = "Item1" }, 
+        //    new TodoItem() { 
+        //        Title = "Item2" } };
+
+
         IsLoading = false;
     }
 
@@ -57,11 +64,11 @@ public partial class TodoListViewModel : ObservableObject {
         if (todoItem != null) {
             Console.WriteLine($"Removing Todo: {todoItem}");
             int index = TodoItems.IndexOf(todoItem);
-            string localMessage = await ToDoService.RemoveToDoAsync(index);
-            Message = localMessage;
-            if (localMessage == "Deleted successfully") {
+            //string localMessage = await ToDoService.RemoveToDoAsync(index);
+            //Message = localMessage;
+            //if (localMessage == "Deleted successfully") {
                 TodoItems.Remove(todoItem);
-            }
+            //}
         }
     }
 
@@ -91,12 +98,17 @@ public partial class TodoListViewModel : ObservableObject {
         }
     }
 
+    [ObservableProperty]
+    private string newSubtaskTitle = "";
+
+
     [RelayCommand]
-    private void AddSubTask(TodoItem parentTask) {
-        if (parentTask != null && !string.IsNullOrWhiteSpace(NewTodoTitle)) {
-            var subTask = new TodoItem { Title = NewTodoTitle, ParentId = parentTask.Id };
-            parentTask.SubTasks.Add(subTask);
-            NewTodoTitle = string.Empty;
+    private void AddSubtask(TodoItem parentTask) {
+        if (parentTask != null && !string.IsNullOrWhiteSpace(NewSubtaskTitle)) {
+            var subTask = new TodoItem { Title = NewSubtaskTitle };
+            parentTask.Subtasks.Add(subTask);
+            ToggleSubtaskEntryVisibility(parentTask);
+            NewSubtaskTitle = string.Empty;
         }
     }
 
@@ -106,6 +118,21 @@ public partial class TodoListViewModel : ObservableObject {
             parentTask.IsExpanded = !parentTask.IsExpanded;
         }
     }
+
+    [RelayCommand]
+    private void ToggleSubtaskEntryVisibility(TodoItem parentTask) {
+        if (parentTask != null) {
+            parentTask.SubtaskEntryIsVisible = !parentTask.SubtaskEntryIsVisible;
+        }
+    }
+
+    //[RelayCommand]
+    //private void RemoveSubtask(TodoItem subTask) {
+    //    if (parentTask != null && subTask != null) {
+    //        parentTask.Subtasks.Remove(subTask);
+    //    }
+    //}
+
 }
 
 //Custom Categories not descriptions

@@ -11,6 +11,7 @@
             </ResourceDictionary.MergedDictionaries>
 
             <x:String x:Key="TrashIcon">&#xf1f8;</x:String>
+            <x:String x:Key="PlusIcon">&#x2b;</x:String>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

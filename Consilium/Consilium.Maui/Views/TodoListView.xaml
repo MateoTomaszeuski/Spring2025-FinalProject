@@ -54,7 +54,16 @@
                                         <CheckBox IsChecked="{Binding IsCompleted}" />
                                         <Label Text="{Binding Title}" VerticalOptions="Center" HorizontalOptions="StartAndExpand" />
                                         <Picker ItemsSource="{Binding Source={RelativeSource AncestorType={x:Type ViewModels:TodoListViewModel}}, Path=Categories}"/>
-                                        <Button Text="AddSubtask" Command="{Binding AddSubtaskCommand}"/>
+                                        <Button Text="Show Subtasks"
+                                                IsVisible="{Binding HasSubtasks}"
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type ViewModels:TodoListViewModel}}, Path=ToggleSubtaskVisibilityCommand}"
+                                                CommandParameter="{Binding .}"
+                                                TextColor="White"/>
+                                        <Button Text="{StaticResource PlusIcon}"
+                                                FontFamily="FontAwesomeSolid"
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type ViewModels:TodoListViewModel}}, Path=ToggleSubtaskEntryVisibilityCommand}"
+                                                CommandParameter="{Binding .}"
+                                                TextColor="White"/>
                                         <Button Text="{StaticResource TrashIcon}"
                                                 FontFamily="FontAwesomeSolid"
                                                 Command="{Binding x:DataType='ViewModels:TodoListViewModel', Source={RelativeSource AncestorType={x:Type ViewModels:TodoListViewModel}}, Path=RemoveTodoCommand}"
@@ -62,9 +71,16 @@
                                                 BackgroundColor="#7a2b35"
                                                 TextColor="White" />
                                     </StackLayout>
+                                    <StackLayout IsVisible="{Binding SubtaskEntryIsVisible}">
+                                        <Entry Placeholder="Enter subtask title"
+                                               Text="{Binding Source={RelativeSource AncestorType={x:Type ViewModels:TodoListViewModel}}, Path=NewSubtaskTitle}"/>
+                                        <Button Text="Add Subtask"
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type ViewModels:TodoListViewModel}}, Path=AddSubtaskCommand}"
+                                                CommandParameter="{Binding .}"/>
+                                    </StackLayout>
                                     <StackLayout IsVisible="{Binding IsExpanded}" Padding="20,0,0,0">
                                         <!--subtasks will show a checkbox, title, and trashcan-->
-                                        <CollectionView ItemsSource="{Binding SubTasks}">
+                                        <CollectionView ItemsSource="{Binding Subtasks}">
                                             <CollectionView.ItemTemplate>
                                                 <DataTemplate>
                                                     <StackLayout Orientation="Horizontal" Padding="5">
@@ -72,7 +88,7 @@
                                                         <Label Text="{Binding Title}" VerticalOptions="Center" />
                                                         <Button Text="{StaticResource TrashIcon}"
                                                                 FontFamily="FontAwesomeSolid"
-                                                                Command="{Binding x:DataType='ViewModels:TodoListViewModel', Source={RelativeSource AncestorType={x:Type ViewModels:TodoListViewModel}}, Path=RemoveTodoCommand}"
+                                                                Command="{Binding x:DataType='ViewModels:TodoListViewModel', Source={RelativeSource AncestorType={x:Type ViewModels:TodoListViewModel}}, Path=RemoveSubtaskCommand}"
                                                                 CommandParameter="{Binding .}"
                                                                 BackgroundColor="#7a2b35"
                                                                 TextColor="White" />
