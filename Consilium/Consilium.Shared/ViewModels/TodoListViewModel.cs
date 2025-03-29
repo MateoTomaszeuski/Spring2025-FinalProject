@@ -19,15 +19,8 @@ public partial class TodoListViewModel : ObservableObject {
     }
     public async Task InitializeItemsAsync() {
         IsLoading = true;
+        await Task.Delay(1);
         //TodoItems = await ToDoService.GetTodoItemsAsync();
-
-        //TodoItems = new ObservableCollection<TodoItem>() { 
-        //    new TodoItem() { 
-        //        Title = "Item1" }, 
-        //    new TodoItem() { 
-        //        Title = "Item2" } };
-
-
         IsLoading = false;
     }
 
@@ -59,16 +52,29 @@ public partial class TodoListViewModel : ObservableObject {
         }
     }
 
+
+    // this method is for when the API/service is working (--Audrey)
+
+    //[RelayCommand]
+    //private async Task RemoveTodoAsync(TodoItem todoItem) {
+    //    if (todoItem != null) {
+    //        Console.WriteLine($"Removing Todo: {todoItem}");
+    //        int index = TodoItems.IndexOf(todoItem);
+    //        string localMessage = await ToDoService.RemoveToDoAsync(index);
+    //        Message = localMessage;
+    //        if (localMessage == "Deleted successfully") {
+    //            TodoItems.Remove(todoItem);
+    //    }
+    //}
+    //}
+
+
     [RelayCommand]
-    private async Task RemoveTodoAsync(TodoItem todoItem) {
+    private void RemoveTodo(TodoItem todoItem) {
         if (todoItem != null) {
             Console.WriteLine($"Removing Todo: {todoItem}");
             int index = TodoItems.IndexOf(todoItem);
-            //string localMessage = await ToDoService.RemoveToDoAsync(index);
-            //Message = localMessage;
-            //if (localMessage == "Deleted successfully") {
                 TodoItems.Remove(todoItem);
-            //}
         }
     }
 
@@ -105,9 +111,9 @@ public partial class TodoListViewModel : ObservableObject {
     [RelayCommand]
     private void AddSubtask(TodoItem parentTask) {
         if (parentTask != null && !string.IsNullOrWhiteSpace(NewSubtaskTitle)) {
-            var subTask = new TodoItem { Title = NewSubtaskTitle };
+            var subTask = new TodoItem { Title = NewSubtaskTitle, ParentTask = parentTask };
             parentTask.Subtasks.Add(subTask);
-            ToggleSubtaskEntryVisibility(parentTask);
+            parentTask.IsExpanded = true;
             NewSubtaskTitle = string.Empty;
         }
     }
@@ -128,11 +134,8 @@ public partial class TodoListViewModel : ObservableObject {
 
     [RelayCommand]
     private void RemoveSubtask(TodoItem subTask) {
-        foreach (var parentTask in TodoItems) {
-            if (parentTask.Subtasks.Contains(subTask)) {
-                parentTask.Subtasks.Remove(subTask);
-                break;
-            }
+        if (subTask?.ParentTask != null) {
+            subTask.ParentTask.Subtasks.Remove(subTask);
         }
     }
 

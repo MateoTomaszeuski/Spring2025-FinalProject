@@ -9,6 +9,7 @@ public partial class TodoItem : ObservableObject, IEquatable<TodoItem> {
     public string? Description { get; set; }
     public string? Category { get; set; }
     public bool IsCompleted { get; set; }
+    public TodoItem? ParentTask { get; set; }
 
     [ObservableProperty]
     public bool hasSubtasks;
