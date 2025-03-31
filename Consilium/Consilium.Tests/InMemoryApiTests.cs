@@ -4,7 +4,7 @@ using Consilium.Shared.Models;
 
 namespace Consilium.Tests;
 
-public class ApiTests {
+public class InMemoryApiTests {
     private DBServiceIM service = new();
     [Before(Test)]
     public void Setup() {
