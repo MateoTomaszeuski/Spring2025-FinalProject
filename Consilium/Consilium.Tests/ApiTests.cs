@@ -21,46 +21,46 @@ public class ApiTests {
         await Assert.That(service.ToDoCount("cody")).IsEqualTo(1);
     }
 
-    //[Test]
-    //public async Task InMemServiceCanStoreTwoItems() {
-    //    service.AddToDo(new TodoItem() { Title = "Lorem" }, "cody");
-    //    service.AddToDo(new TodoItem() { Title = "Lorem2" }, "cody");
+    [Test]
+    public async Task InMemServiceCanStoreTwoItems() {
+        service.AddToDo(new TodoItem() { Title = "Lorem" }, "cody");
+        service.AddToDo(new TodoItem() { Title = "Lorem2" }, "cody");
 
-    //    await Assert.That(service.ToDoCount("cody")).IsEqualTo(2);
+        await Assert.That(service.ToDoCount("cody")).IsEqualTo(2);
 
-    //    List<TodoItem> items = service.GetToDos("cody");
-    //    await Assert.That(items[0].Title).IsEqualTo("Lorem");
-    //    await Assert.That(items[1].Title).IsEqualTo("Lorem2");
-    //}
+        List<TodoItem> items = service.GetToDos("cody").ToList();
+        await Assert.That(items[0].Title).IsEqualTo("Lorem");
+        await Assert.That(items[1].Title).IsEqualTo("Lorem2");
+    }
 
-    //[Test]
-    //public async Task InMemServiceCanStoreTwoPeople() {
-    //    service.AddToDo(new TodoItem() { Title = "LoremC" }, "cody");
-    //    service.AddToDo(new TodoItem() { Title = "LoremA" }, "audrey");
+    [Test]
+    public async Task InMemServiceCanStoreTwoPeople() {
+        service.AddToDo(new TodoItem() { Title = "LoremC" }, "cody");
+        service.AddToDo(new TodoItem() { Title = "LoremA" }, "audrey");
 
-    //    await Assert.That(service.ToDoCount("cody")).IsEqualTo(1);
+        await Assert.That(service.ToDoCount("cody")).IsEqualTo(1);
 
-    //    List<TodoItem> Citems = service.GetToDos("cody");
-    //    List<TodoItem> Aitems = service.GetToDos("audrey");
-    //    await Assert.That(Citems[0].Title).IsEqualTo("LoremC");
-    //    await Assert.That(Aitems[0].Title).IsEqualTo("LoremA");
-    //}
+        List<TodoItem> Citems = service.GetToDos("cody").ToList();
+        List<TodoItem> Aitems = service.GetToDos("audrey").ToList();
+        await Assert.That(Citems[0].Title).IsEqualTo("LoremC");
+        await Assert.That(Aitems[0].Title).IsEqualTo("LoremA");
+    }
 
-    //[Test]
-    //public async Task InMemServiceCanUpdateItem() {
-    //    service.AddToDo(new TodoItem() { Title = "Lorem" }, "cody");
-    //    service.UpdateToDo(0, new TodoItem() { Title = "Cody" }, "cody");
+    [Test]
+    public async Task InMemServiceCanUpdateItem() {
+        service.AddToDo(new TodoItem() { Title = "Lorem" }, "cody");
+        service.UpdateToDo(0, new TodoItem() { Title = "Cody" }, "cody");
 
-    //    List<TodoItem> items = service.GetToDos("cody");
-    //    await Assert.That(items[0].Title).IsEqualTo("Cody");
-    //}
+        List<TodoItem> items = service.GetToDos("cody").ToList();
+        await Assert.That(items[0].Title).IsEqualTo("Cody");
+    }
 
-    //[Test]
-    //public async Task InMemServiceCanRemoveItem() {
-    //    service.AddToDo(new TodoItem() { Title = "Lorem" }, "cody");
-    //    service.RemoveToDo(0, "cody");
+    [Test]
+    public async Task InMemServiceCanRemoveItem() {
+        service.AddToDo(new TodoItem() { Title = "Lorem" }, "cody");
+        service.RemoveToDo(0, "cody");
 
-    //    List<TodoItem> items = service.GetToDos("cody");
-    //    await Assert.That(items.Count).IsEqualTo(0);
-    //}
+        List<TodoItem> items = service.GetToDos("cody").ToList();
+        await Assert.That(items.Count).IsEqualTo(0);
+    }
 }
