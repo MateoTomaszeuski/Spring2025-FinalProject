@@ -1,41 +1,50 @@
 CREATE TABLE
-  public.account (
-    id int4 PRIMARY KEY GENERATED ALWAYS AS IDENTITY NOT NULL,
-    email varchar(80) NOT NULL,
-    displayName varchar(80)
+  "HowlDev.User" (
+    email varchar(80) UNIQUE PRIMARY KEY NOT NULL,
+    displayName varchar(80) NOT NULL, 
+    role int4 NOT NULL
   );
 
 CREATE TABLE
-  public.course (
+  "HowlDev.Key" (
     id int4 PRIMARY KEY GENERATED ALWAYS AS IDENTITY NOT NULL,
-    accountId int references account (id) NOT NULL,
+    email varchar(80) references "HowlDev.User" (email) NOT NULL,
+    apiKey varchar(20) NOT NULL,
+    validatorToken varchar(40) NOT NULL, 
+    validatedOn timestamp NULL
+  );
+
+CREATE TABLE
+  course (
+    id int4 PRIMARY KEY GENERATED ALWAYS AS IDENTITY NOT NULL,
+    accountId int references "HowlDev.User" (email) NOT NULL,
     courseName varchar(80)
   );
 
 CREATE TABLE
-  public.assignment (
+  assignment (
     id int4 PRIMARY KEY GENERATED ALWAYS AS IDENTITY NOT NULL,
     courseId int references course (id) NOT NULL,
     assignmentName varchar(80)
   );
 
 CREATE TABLE
-  public.category (
+  category (
     id int4 PRIMARY KEY GENERATED ALWAYS AS IDENTITY NOT NULL,
-    account_id int references account (id) NOT NULL,
+    account_id int references "HowlDev.User" (email) NOT NULL,
     categoryName varchar(80),
     color varchar(6)
   );
 
 CREATE TABLE
-  public.todolist (
+  todolist (
     id int4 PRIMARY KEY GENERATED ALWAYS AS IDENTITY NOT NULL,
-    account_id int references account (id) NOT NULL,
+    account_id int references "HowlDev.User" (email) NOT NULL,
     listName varchar(80)
   );
 
 CREATE TABLE
-  public.todoitem (
+  todoitem (
     id int4 PRIMARY KEY GENERATED ALWAYS AS IDENTITY NOT NULL,
     toDoListId int references todolist (id) NOT NULL,
     categoryId int references category (id) NOT NULL,
