@@ -4,6 +4,7 @@
 - API works in Azure
   - More detail on endpoints and services(?)
 - Database schema
+- Auth
 
 
 ## Sticking Points
@@ -13,5 +14,4 @@
 
 ## What's Next
 - More API endpoints/services to build out functionality
-- Auth
 - Mobile-responsive styling (we want it to look good on desktop and mobile)
