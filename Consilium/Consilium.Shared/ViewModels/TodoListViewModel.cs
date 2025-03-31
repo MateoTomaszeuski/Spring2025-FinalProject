@@ -89,9 +89,12 @@ public partial class TodoListViewModel : ObservableObject {
     [RelayCommand]
     private void SortByCategory() {
         var sortedItems = TodoItems.OrderBy(item => item.Category).ToList();
-        TodoItems.Clear();
-        foreach (var item in sortedItems) {
-            TodoItems.Add(item);
+
+        for (int i = 0; i < sortedItems.Count; i++) {
+            int oldIndex = TodoItems.IndexOf(sortedItems[i]);
+            if (oldIndex != i) {
+                TodoItems.Move(oldIndex, i);
+            }
         }
     }
 

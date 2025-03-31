@@ -3,6 +3,7 @@ using Consilium.Shared.Services;
 using Consilium.Shared.ViewModels;
 using NSubstitute;
 using Shouldly;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using TUnit.Assertions.Extensions;
 namespace Consilium.Tests;
@@ -157,5 +158,30 @@ public class ToDoListVMTests {
         await Assert.That(viewModel.TodoItems[2].IsCompleted).IsFalse();
     }
 
+    [Test]
+    public async Task CanAddSingleSubtask() {
+        viewModel.TodoItems = new ObservableCollection<TodoItem>() {
+            new TodoItem() { Title = "Task 1", Id = 1 },
+            new TodoItem() { Title = "Task 2", Id = 2 }
+        };
 
+        viewModel.NewSubtaskTitle = "Subtask 1";
+        viewModel.AddSubtaskCommand.Execute(viewModel.TodoItems[0]);
+
+        // check that TodoItem with ID1 has a single subtask
+        await Assert.That(viewModel.TodoItems[0].Subtasks.Count).IsEqualTo(1);
+
+    }
+
+    [Test]
+    public async Task CanRemoveSingleSubtask() {
+
+    }
+
+    [Test]
+    public async Task CanRemoveCorrectSubtaskFromOneParentTask() {
+        // if two parent tasks have subtasks of the same name
+        // and we remove one subtask, the other subtask should remain
+
+    }
 }

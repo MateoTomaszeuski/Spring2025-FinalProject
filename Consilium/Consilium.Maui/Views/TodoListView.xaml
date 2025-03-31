@@ -85,8 +85,9 @@
                                                     BackgroundColor="Transparent"/>     
                                         </Grid>
                                         <Picker ItemsSource="{Binding Source={RelativeSource AncestorType={x:Type ViewModels:TodoListViewModel}}, Path=Categories}"
-                                                SelectedItem="{Binding Category}"
+                                                SelectedItem="{Binding Category, Mode=TwoWay}"
                                                 WidthRequest="100"/>
+
                                         <Button Text="Add Subtask"
                                                 Command="{Binding Source={RelativeSource AncestorType={x:Type ViewModels:TodoListViewModel}}, Path=ToggleSubtaskEntryVisibilityCommand}"
                                                 CommandParameter="{Binding .}"
