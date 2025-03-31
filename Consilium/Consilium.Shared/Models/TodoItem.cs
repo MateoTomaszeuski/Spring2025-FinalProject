@@ -34,7 +34,12 @@ public partial class TodoItem : ObservableObject, IEquatable<TodoItem> {
 
     public bool Equals(TodoItem? other) {
         if (other == null) return false;
-        return Title == other.Title;
+
+        return Title == other.Title && 
+            IsCompleted == other.IsCompleted && 
+            //(ParentTask?.Equals(other.ParentTask) ?? false) && 
+            Category == other.Category && 
+            Description == other.Description;
     }
 }
 
