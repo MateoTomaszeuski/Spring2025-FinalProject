@@ -173,15 +173,15 @@ public class ToDoListVMTests {
 
     }
 
-    [Test]
-    public async Task CanRemoveSingleSubtask() {
+    //[Test]
+    //public async Task CanRemoveSingleSubtask() {
 
-    }
+    //}
 
-    [Test]
-    public async Task CanRemoveCorrectSubtaskFromOneParentTask() {
-        // if two parent tasks have subtasks of the same name
-        // and we remove one subtask, the other subtask should remain
+    //[Test]
+    //public async Task CanRemoveCorrectSubtaskFromOneParentTask() {
+    //    // if two parent tasks have subtasks of the same name
+    //    // and we remove one subtask, the other subtask should remain
 
-    }
+    //}
 }
