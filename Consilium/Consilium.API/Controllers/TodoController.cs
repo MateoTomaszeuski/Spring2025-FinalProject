@@ -12,9 +12,9 @@ public class todoController : ControllerBase {
     public todoController(IDBService service) => this.service = service;
 
     [HttpGet(Name = "GetTodos")]
-    public IEnumerable<TodoItem> Get() {
+    public IEnumerable<TodoList> Get() {
         string username = Request.Headers["Consilium-User"]!; // Cody - I know this will be there at this point
-        return service.GetToDos(username);
+        return service.GetToDoLists(username);
     }
 
     [HttpPatch("update", Name = "PatchTodos")]

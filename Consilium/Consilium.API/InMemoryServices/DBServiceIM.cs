@@ -19,12 +19,15 @@ public class DBServiceIM : IDBService {
         throw new NotImplementedException();
     }
 
-    public List<TodoItem> GetToDos(string username) {
+    public IEnumerable<TodoList> GetToDoLists(string username) {
+        throw new NotImplementedException();
+    }
+    public IEnumerable<TodoItem> GetToDos(string username) {
         if (todos.ContainsKey(username)) {
             List<TodoItem> items = todos[username];
             return items;
         }
-        return new();
+        return new List<TodoItem>();
     }
 
     public void RemoveToDo(int index, string username) {

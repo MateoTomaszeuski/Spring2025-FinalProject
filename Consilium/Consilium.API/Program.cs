@@ -1,5 +1,6 @@
 using Consilium.API;
 using Consilium.API.DBServices;
+using EmailAuthenticator;
 using Microsoft.AspNetCore.Mvc;
 using Npgsql;
 using System.Data;
@@ -13,6 +14,9 @@ builder.Services.AddSingleton<IDbConnection>(provider =>
     return new NpgsqlConnection(connString);
 });
 // Add services to the container.
+builder.Services.AddSingleton<AuthService>();
+builder.Services.AddSingleton<IEmailService, EmailService>();
+builder.Services.AddSingleton<IIDMiddlewareConfig, MiddlewareConfig>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -29,6 +33,10 @@ if (app.Environment.IsDevelopment()) {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+//app.UseMiddleware<IdentityMiddleware>();
+app.UseRouting();
+
 //change
 app.MapGet("", () => "Welcome to the Consilium Api");
 

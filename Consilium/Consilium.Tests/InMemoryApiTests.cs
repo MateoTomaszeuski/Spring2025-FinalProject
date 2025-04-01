@@ -4,7 +4,7 @@ using Consilium.Shared.Models;
 
 namespace Consilium.Tests;
 
-public class ApiTests {
+public class InMemoryApiTests {
     private DBServiceIM service = new();
     [Before(Test)]
     public void Setup() {
@@ -28,7 +28,7 @@ public class ApiTests {
 
         await Assert.That(service.ToDoCount("cody")).IsEqualTo(2);
 
-        List<TodoItem> items = service.GetToDos("cody");
+        List<TodoItem> items = service.GetToDos("cody").ToList();
         await Assert.That(items[0].Title).IsEqualTo("Lorem");
         await Assert.That(items[1].Title).IsEqualTo("Lorem2");
     }
@@ -40,8 +40,8 @@ public class ApiTests {
 
         await Assert.That(service.ToDoCount("cody")).IsEqualTo(1);
 
-        List<TodoItem> Citems = service.GetToDos("cody");
-        List<TodoItem> Aitems = service.GetToDos("audrey");
+        List<TodoItem> Citems = service.GetToDos("cody").ToList();
+        List<TodoItem> Aitems = service.GetToDos("audrey").ToList();
         await Assert.That(Citems[0].Title).IsEqualTo("LoremC");
         await Assert.That(Aitems[0].Title).IsEqualTo("LoremA");
     }
@@ -51,7 +51,7 @@ public class ApiTests {
         service.AddToDo(new TodoItem() { Title = "Lorem" }, "cody");
         service.UpdateToDo(0, new TodoItem() { Title = "Cody" }, "cody");
 
-        List<TodoItem> items = service.GetToDos("cody");
+        List<TodoItem> items = service.GetToDos("cody").ToList();
         await Assert.That(items[0].Title).IsEqualTo("Cody");
     }
 
@@ -60,7 +60,7 @@ public class ApiTests {
         service.AddToDo(new TodoItem() { Title = "Lorem" }, "cody");
         service.RemoveToDo(0, "cody");
 
-        List<TodoItem> items = service.GetToDos("cody");
+        List<TodoItem> items = service.GetToDos("cody").ToList();
         await Assert.That(items.Count).IsEqualTo(0);
     }
 }
