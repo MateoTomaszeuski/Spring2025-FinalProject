@@ -48,8 +48,6 @@ if (featureFlag) {
     app.MapGet("/secret", () => "Secrets are hidden within.");
 }
 
-app.MapGet("/account", ([FromServices] IDBService service) => service.GetAllUsers());
-
 //app.UseHttpsRedirection();
 
 app.UseAuthorization();
