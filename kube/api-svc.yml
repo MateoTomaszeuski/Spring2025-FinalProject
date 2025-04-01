@@ -6,6 +6,7 @@ metadata:
 spec:
   selector:
     app: consilium-api
+  sessionAffinity: ClientIP
   ports:
     - protocol: TCP
       port: 1000

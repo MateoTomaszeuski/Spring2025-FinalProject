@@ -8,7 +8,7 @@ spec:
    type: RollingUpdate
    rollingUpdate:
      maxSurge: 4
-     maxUnavailable: 2
+     maxUnavailable: 1
   replicas: 4
   selector:
     matchLabels:
@@ -30,14 +30,14 @@ spec:
           httpGet:
             path: /health
             port: 8080
-          initialDelaySeconds: 15
-          periodSeconds: 10
+          initialDelaySeconds: 10
+          periodSeconds: 5
         livenessProbe:
           httpGet:
             path: /health
             port: 8080
-          initialDelaySeconds: 15
-          periodSeconds: 10
+          initialDelaySeconds: 10
+          periodSeconds: 5
         env:
           - name: DB_CONN
             value: "Host=consilium-postgres-svc;Port=5432;Username=consilium-admin;Password=mypassword;Database=consiliumdb"
