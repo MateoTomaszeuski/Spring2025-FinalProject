@@ -4,9 +4,9 @@ services:
     restart: always
     shm_size: 128mb
     environment:
-      POSTGRES_PASSWORD: 123456abc
-      POSTGRES_USER: admin
-      POSTGRES_DB: consilium
+      POSTGRES_PASSWORD: mypassword
+      POSTGRES_USER: consilium-admin
+      POSTGRES_DB: consiliumdb
     volumes:
       - ./sql:/docker-entrypoint-initdb.d
       # - ./dbdata:/var/lib/postgresql/data

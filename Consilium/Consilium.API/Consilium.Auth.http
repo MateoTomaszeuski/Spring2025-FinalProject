@@ -1,0 +1,29 @@
+@Consilium = http://localhost:5202
+
+
+###
+GET {{Consilium}}/todo
+Consilium-User: password
+###
+PATCH {{Consilium}}/todo/update/?index=0
+Consilium-User: cody
+Content-Type: application/json
+  {
+    "title": "New",
+    "description": null,
+    "category": null,
+    "isCompleted": false,
+    "subTasks": []
+  }
+###
+POST {{Consilium}}/todo
+Consilium-User: password
+Content-Type: application/json
+  {
+    "title": "Addition",
+    "description": null,
+    "category": null,
+    "isCompleted": false,
+    "subTasks": []
+  }
+
