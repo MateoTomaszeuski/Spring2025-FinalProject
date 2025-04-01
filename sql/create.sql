@@ -17,7 +17,7 @@ CREATE TABLE
 CREATE TABLE
   course (
     id int4 PRIMARY KEY GENERATED ALWAYS AS IDENTITY NOT NULL,
-    accountId int references "HowlDev.User" (email) NOT NULL,
+    account_email int references "HowlDev.User" (email) NOT NULL,
     courseName varchar(80)
   );
 
@@ -31,7 +31,7 @@ CREATE TABLE
 CREATE TABLE
   category (
     id int4 PRIMARY KEY GENERATED ALWAYS AS IDENTITY NOT NULL,
-    account_id int references "HowlDev.User" (email) NOT NULL,
+    account_email int references "HowlDev.User" (email) NOT NULL,
     categoryName varchar(80),
     color varchar(6)
   );
@@ -39,7 +39,7 @@ CREATE TABLE
 CREATE TABLE
   todolist (
     id int4 PRIMARY KEY GENERATED ALWAYS AS IDENTITY NOT NULL,
-    account_id int references "HowlDev.User" (email) NOT NULL,
+    account_email int references "HowlDev.User" (email) NOT NULL,
     listName varchar(80)
   );
 

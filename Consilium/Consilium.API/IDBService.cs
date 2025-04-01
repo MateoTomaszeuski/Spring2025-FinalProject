@@ -9,5 +9,4 @@ public interface IDBService {
     IEnumerable<TodoList> GetToDoLists(string username);
     public void UpdateToDo(int index, TodoItem Todo, string username);
     public void RemoveToDo(int index, string username);
-    public IEnumerable<User> GetAllUsers();
 }
