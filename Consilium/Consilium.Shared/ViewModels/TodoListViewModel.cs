@@ -19,13 +19,14 @@ public partial class TodoListViewModel : ObservableObject {
     }
     public async Task InitializeItemsAsync() {
         IsLoading = true;
-        await Task.Delay(1);
+        await Task.CompletedTask;
+        NewTodoCategory = Categories[0];
         //TodoItems = await ToDoService.GetTodoItemsAsync();
         IsLoading = false;
     }
 
     [ObservableProperty]
-    private ObservableCollection<string> categories = new ObservableCollection<string>() { "School", "Work", "Misc." };
+    private ObservableCollection<string> categories = new ObservableCollection<string>() { "Misc.", "School", "Work" };
 
     [ObservableProperty]
     private bool isLoading;
@@ -37,7 +38,7 @@ public partial class TodoListViewModel : ObservableObject {
     private ObservableCollection<TodoItem> todoItems;
 
     [ObservableProperty]
-    private string newCategoryInput = "";
+    private string newTodoCategory;
     private IToDoService ToDoService;
 
     [ObservableProperty]
@@ -47,7 +48,7 @@ public partial class TodoListViewModel : ObservableObject {
     [RelayCommand]
     private void AddTodo() {
         if (!string.IsNullOrWhiteSpace(NewTodoTitle)) {
-            TodoItems.Add(new TodoItem() { Title = NewTodoTitle });
+            TodoItems.Add(new TodoItem() { Title = NewTodoTitle, Category = NewTodoCategory });
             NewTodoTitle = string.Empty;
         }
     }
@@ -75,14 +76,6 @@ public partial class TodoListViewModel : ObservableObject {
             Console.WriteLine($"Removing Todo: {todoItem}");
             int index = TodoItems.IndexOf(todoItem);
             TodoItems.Remove(todoItem);
-        }
-    }
-
-    [RelayCommand]
-    private void SetCategoryForTodoItem(TodoItem todoItem) {
-        if (todoItem != null && !string.IsNullOrWhiteSpace(NewCategoryInput)) {
-            todoItem.Category = NewCategoryInput;
-            NewCategoryInput = string.Empty;
         }
     }
 

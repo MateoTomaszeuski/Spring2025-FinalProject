@@ -11,14 +11,24 @@
                    FontSize="27" 
                    FontAttributes="Bold" 
                    HorizontalOptions="Center" 
-                   Margin="0,0,0,20"/>
-            <Entry Placeholder="Enter a new task"
+                   Margin="0,0,0,20"
+                   />
+            <StackLayout Orientation="Horizontal" Spacing="10" Margin="0,0,0,10">
+                <Entry Placeholder="Enter a new task"
                    Text="{Binding NewTodoTitle}"
-                   Margin="0,0,0,10"
                    BackgroundColor="{AppThemeBinding Dark={StaticResource Gray100}, Light=White}"
                    TextColor="Black"
+                   HorizontalOptions="FillAndExpand"
+                   HeightRequest="40"
+                   VerticalOptions="Center"
                    />
-            <Button Text="Add Todo"
+                <Picker ItemsSource="{Binding Source={RelativeSource AncestorType={x:Type ViewModels:TodoListViewModel}}, Path=Categories}"
+                        SelectedItem="{Binding NewTodoCategory}"
+                        WidthRequest="110"
+                        HeightRequest="40"
+                        VerticalOptions="Center"/>
+            </StackLayout>
+                <Button Text="Add Todo"
                 Command="{Binding AddTodoCommand}"
                     Margin="0,0,0,30"/>
             <StackLayout Orientation="Horizontal" 
@@ -52,8 +62,8 @@
                                 <StackLayout Orientation="Vertical" Padding="3">
                                     <StackLayout Orientation="Horizontal" Spacing="10">
                                         <CheckBox IsChecked="{Binding IsCompleted}" />
-                                        
-                                    <!--option 1 is a caret button to expand subtasks-->                                        
+
+                                        <!--option 1 is a caret button to expand subtasks-->
                                         <!--<Label Text="{Binding Title}" VerticalOptions="Center" HorizontalOptions="StartAndExpand" />-->
                                         <!--<Button Text="{StaticResource CaretDownIcon}"
                                                 FontFamily="FontAwesomeSolid"
@@ -65,7 +75,7 @@
                                                 WidthRequest="5"
                                                 BackgroundColor="{AppThemeBinding Dark={StaticResource Dark-Dark}, Light={StaticResource Light-Light}}"
                                                 HorizontalOptions="End"/>-->
-                                        
+
                                         <Grid BackgroundColor="{AppThemeBinding Dark={StaticResource Dark-Dark}, Light={StaticResource Light-Light}}"
                                               HorizontalOptions="FillAndExpand">
                                             <Label Text="{Binding Title}"
@@ -73,7 +83,13 @@
                                                    Padding="10,0"
                                                    HorizontalTextAlignment="Start"
                                                    HorizontalOptions="FillAndExpand"
-                                                   VerticalTextAlignment="Center"/>
+                                                   VerticalTextAlignment="Center"
+                                                   FontAttributes="Bold"
+                                                   FontSize="18"/>
+                                            <Label Text="{Binding Category}"
+                                                   VerticalTextAlignment="End"
+                                                   Margin="15,0,0,0"/>
+
                                             <Button Text="{StaticResource CaretDownIcon}"
                                                     TextColor="{AppThemeBinding Dark=White, Light=Black}"
                                                     WidthRequest="2"
@@ -83,11 +99,9 @@
                                                     BackgroundColor="{AppThemeBinding Dark={StaticResource Dark-Dark}, Light={StaticResource Light-Light}}"/>
                                             <Button Command="{Binding Source={RelativeSource AncestorType={x:Type ViewModels:TodoListViewModel}}, Path=ToggleSubtaskVisibilityCommand}"
                                                     CommandParameter="{Binding .}"
-                                                    BackgroundColor="Transparent"/>     
+                                                    BackgroundColor="Transparent"/>
                                         </Grid>
-                                        <Picker ItemsSource="{Binding Source={RelativeSource AncestorType={x:Type ViewModels:TodoListViewModel}}, Path=Categories}"
-                                                SelectedItem="{Binding Category, Mode=TwoWay}"
-                                                WidthRequest="100"/>
+
 
                                         <Button Text="Add Subtask"
                                                 Command="{Binding Source={RelativeSource AncestorType={x:Type ViewModels:TodoListViewModel}}, Path=ToggleSubtaskEntryVisibilityCommand}"
@@ -135,7 +149,7 @@
                                                                     CommandParameter="{Binding .}"
                                                                     BackgroundColor="#7a2b35"
                                                                     TextColor="White"
-                                                                    HorizontalOptions="End"/>   
+                                                                    HorizontalOptions="End"/>
                                                         </Grid>
                                                     </DataTemplate>
                                                 </CollectionView.ItemTemplate>
