@@ -9,7 +9,7 @@ services:
       POSTGRES_USER: consilium-admin
       POSTGRES_DB: consiliumdb
     volumes:
-      - ../sql:/docker-entrypoint-initdb.d
+      - ./sql:/docker-entrypoint-initdb.d
       # - ./dbdata:/var/lib/postgresql/data
     ports:
       - 5432:5432

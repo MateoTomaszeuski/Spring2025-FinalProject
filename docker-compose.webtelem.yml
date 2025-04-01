@@ -31,7 +31,7 @@ services:
     container_name: consilium-otel-collector
     image: otel/opentelemetry-collector-contrib
     volumes:
-    - ../configs/otel-collector-config.yaml:/etc/otelcol-contrib/config.yaml
+    - ./configs/otel-collector-config.yaml:/etc/otelcol-contrib/config.yaml
     ports:
       - 4317:4317 # OTLP gRPC receiver
 
@@ -43,14 +43,14 @@ services:
     image: prom/prometheus:latest
     container_name: consilium-prometheus
     volumes:
-      - ../configs/prometheus-config.yml:/etc/prometheus/prometheus.yml
+      - ./configs/prometheus-config.yml:/etc/prometheus/prometheus.yml
     ports: 
       - 9090:9090
 
   grafana:
     container_name: consilium-grafana
     volumes:
-      - ../configs/grafana-datasource.yml:/etc/grafana/provisioning/datasources/ds.yaml
+      - ./configs/grafana-datasource.yml:/etc/grafana/provisioning/datasources/ds.yaml
       - grafana-data:/var/lib/grafana
     environment:
       # - GF_PATHS_PROVISIONING=/etc/grafana/provisioning
