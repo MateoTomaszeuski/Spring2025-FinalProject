@@ -32,11 +32,11 @@ spec:
             value: "http://consilium-otel-collector-svc:4317"
           - name: feature_flag
             value: "true"
-        args:
-          - liveness
-        livenessProbe:
-          httpGet:
-            path: /health
-            port: 8080
-          initialDelaySeconds: 5
-          periodSeconds: 3
+        # args:
+        #   - liveness
+        # livenessProbe:
+        #   httpGet:
+        #     path: /health
+        #     port: 8080
+        #   initialDelaySeconds: 5
+        #   periodSeconds: 3
