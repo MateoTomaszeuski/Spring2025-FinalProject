@@ -95,7 +95,14 @@
                                                     HorizontalOptions="End"
                                                     FontFamily="FontAwesomeSolid"
                                                     IsVisible="{Binding HasSubtasks}"
-                                                    BackgroundColor="{AppThemeBinding Dark={StaticResource Dark-Dark}, Light={StaticResource Light-Light}}"/>
+                                                    BackgroundColor="{AppThemeBinding Dark={StaticResource Dark-Dark}, Light={StaticResource Light-Light}}">
+                                                <Button.Triggers>
+                                                    <DataTrigger TargetType="Button" Binding="{Binding IsExpanded}" Value="True">
+                                                        <Setter Property="Text" Value="{StaticResource CaretUpIcon}" />
+                                                    </DataTrigger>
+                                                </Button.Triggers>
+
+                                            </Button>
                                             <Label Text="{Binding Category}"
                                                    FontSize="14"
                                                    VerticalTextAlignment="End"
