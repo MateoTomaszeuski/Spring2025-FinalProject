@@ -1,10 +1,10 @@
 @Consilium = http://localhost:5202
 @email = codyhowell44@gmail.com
-@key = loerm
+@key = qrFNrl4wiS5iCUWrsFCx
 
 ###
 GET {{Consilium}}/account
 ###
 POST {{Consilium}}/account?email={{email}}
-
+###
 

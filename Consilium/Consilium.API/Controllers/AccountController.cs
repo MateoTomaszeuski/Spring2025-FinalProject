@@ -22,35 +22,17 @@ public class AccountController : ControllerBase {
         return await service.AddUser(email);
     }
 
-    [HttpGet("/validate")]
-    public IResult ValidateAccount(string email, string token) {
+    [HttpGet("validate")]
+    public IResult ValidateAccount([FromQuery] string email, [FromQuery] string token) {
         service.Validate(email, token);
         return Results.Redirect("/account/signedin");
     }
 
-    [HttpGet("/signedin")]
+    [HttpGet("signedin")]
     public IResult ValidateAccount() {
-        return Results.Content("<h1>Signed In</h1><p>Thanks for signing in!</p>", "text/html");
+        return Results.File("../../../Misc/SignedIn.html", "text/html");
     }
 
 
 
-    //[HttpPost(Name = "CreateTodos")]
-    //public IResult Post(TodoItem item) {
-    //    string username = Request.Headers["Consilium-User"]!;
-    //    service.AddToDo(item, username);
-    //    return Results.Accepted();
-    //}
-
-    //[HttpDelete("remove/{index}", Name = "RemoveTodos")]
-    //public IResult Remove(int index) {
-    //    try {
-    //        string username = Request.Headers["Consilium-User"]!;
-    //        service.RemoveToDo(index, username);
-    //    } catch (Exception e) {
-    //        return Results.BadRequest(e.Message);
-    //    }
-
-    //    return Results.Accepted();
-    //}
 }
