@@ -12,6 +12,8 @@ using System.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
+DateTime started = DateTime.UtcNow;
+
 const string serviceName = "Consilium";
 var Uri = builder.Configuration["OTEL_URL"] ?? throw new Exception("No collector uri string was found.");
 builder.Services.AddOpenTelemetry()
@@ -79,6 +81,15 @@ app.UseRouting();
 
 //change
 app.MapGet("", () => "Welcome to the Consilium Api");
+
+app.MapGet("/health",() => {
+    var duration = DateTime.UtcNow - started;
+    if (duration.TotalSeconds > 10)
+    {
+        return Results.Problem($"error: {duration.TotalSeconds}", statusCode: 500);
+    }
+    return Results.Ok("ok");
+});
 
 // feature flag accomplished!
 // Need to make a change to test formatting, test 3
