@@ -8,7 +8,8 @@ public partial class TodoItem : ObservableObject {
     public string? Title { get; set; }
     public string? Description { get; set; }
     public bool IsCompleted { get; set; }
-    public TodoItem? ParentTask { get; set; }
+    public int? ParentTask { get; set; }
+    public int? AssignmentId { get; set; }
 
     [ObservableProperty]
     private string? category;
