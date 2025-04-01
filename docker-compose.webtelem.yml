@@ -1,0 +1,72 @@
+services:
+  webapp:
+    container_name: consilium-api
+    build:
+      context: .
+      dockerfile: Dockerfiles/Dockerfile
+    ports:
+      - 8080:8080
+    environment:
+      - DB_CONN="Host=db;Port=5432;Username=consilium-admin;Password=mypassword;Database=consiliumdb"
+    depends_on:
+      - db
+
+  db:
+    container_name: consilium-db
+    image: postgres
+    restart: always
+    shm_size: 128mb
+    environment:
+      POSTGRES_PASSWORD: mypassword
+      POSTGRES_USER: consilium-admin
+      POSTGRES_DB: consiliumdb
+    volumes:
+      - ./sql:/docker-entrypoint-initdb.d
+      - dbdata:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+      
+  otel-collector:
+    container_name: consilium-otel-collector
+    image: otel/opentelemetry-collector-contrib
+    volumes:
+    - ./configs/otel-collector-config.yaml:/etc/otelcol-contrib/config.yaml
+    ports:
+      - 4317:4317 # OTLP gRPC receiver
+
+  loki: 
+    image: grafana/loki:latest
+    container_name: consilium-loki
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: consilium-prometheus
+    volumes:
+      - ./configs/prometheus-config.yml:/etc/prometheus/prometheus.yml
+    ports: 
+      - 9090:9090
+
+  grafana:
+    container_name: consilium-grafana
+    volumes:
+      - ./configs/grafana-datasource.yml:/etc/grafana/provisioning/datasources/ds.yaml
+      - grafana-data:/var/lib/grafana
+    environment:
+      # - GF_PATHS_PROVISIONING=/etc/grafana/provisioning
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"
+  
+  zipkin:
+    image: openzipkin/zipkin
+    container_name: consilium-zipkin
+    ports:
+      - "9411:9411"
+    environment:
+      - STORAGE_TYPE=mem
+
+volumes:
+  grafana-data:
+  dbdata:
