@@ -65,7 +65,6 @@ public class ToDoListVMTests {
     }
 
     [Test]
-
     public async Task GetTodoItemsList() {
         viewModel.NewTodoTitle = "Test Todo";
         viewModel.AddTodoCommand.Execute(null);
@@ -73,13 +72,9 @@ public class ToDoListVMTests {
         viewModel.AddTodoCommand.Execute(null);
 
         List<TodoItem> TodoItems = new List<TodoItem>(viewModel.TodoItems);
-        await Assert.That(TodoItems[0]).IsEqualTo(
-        new TodoItem() { Title = "Test Todo" }
-        );
+        await Assert.That(TodoItems[0].Title).IsEqualTo("Test Todo");
 
-        await Assert.That(TodoItems[1]).IsEqualTo(
-        new TodoItem() { Title = "Test Todo 2" }
-        );
+        await Assert.That(TodoItems[1].Title).IsEqualTo("Test Todo 2");
 
     }
 
@@ -92,9 +87,7 @@ public class ToDoListVMTests {
         viewModel.RemoveTodoCommand.Execute(viewModel.TodoItems[0]);
         List<TodoItem> TodoItems = new List<TodoItem>(viewModel.TodoItems);
         await Assert.That(TodoItems.Count).IsEqualTo(1);
-        await Assert.That(TodoItems[0]).IsEqualTo(
-        new TodoItem() { Title = "Test Todo 2" }
-        );
+        await Assert.That(TodoItems[0].Title).IsEqualTo("Test Todo 2");
     }
 
     [Test]
