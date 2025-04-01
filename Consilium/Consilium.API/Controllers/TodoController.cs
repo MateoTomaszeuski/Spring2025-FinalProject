@@ -13,13 +13,13 @@ public class todoController : ControllerBase {
 
     [HttpGet(Name = "GetTodos")]
     public IEnumerable<TodoList> Get() {
-        string username = Request.Headers["Consilium-User"]!; // Cody - I know this will be there at this point
+        string username = Request.Headers["Email-Auth_Email"]!; // Cody - I know this will be there at this point
         return service.GetToDoLists(username);
     }
 
     [HttpPatch("update", Name = "PatchTodos")]
     public IResult Update(int index, TodoItem item) {
-        string username = Request.Headers["Consilium-User"]!;
+        string username = Request.Headers["Email-Auth_Email"]!;
         service.UpdateToDo(index, item, username);
         return Results.Accepted();
     }
@@ -27,7 +27,7 @@ public class todoController : ControllerBase {
 
     [HttpPost(Name = "CreateTodos")]
     public IResult Post(TodoItem item) {
-        string username = Request.Headers["Consilium-User"]!;
+        string username = Request.Headers["Email-Auth_Email"]!;
         service.AddToDo(item, username);
         return Results.Accepted();
     }
@@ -35,7 +35,7 @@ public class todoController : ControllerBase {
     [HttpDelete("remove/{index}", Name = "RemoveTodos")]
     public IResult Remove(int index) {
         try {
-            string username = Request.Headers["Consilium-User"]!;
+            string username = Request.Headers["Email-Auth_Email"]!;
             service.RemoveToDo(index, username);
         } catch (Exception e) {
             return Results.BadRequest(e.Message);
