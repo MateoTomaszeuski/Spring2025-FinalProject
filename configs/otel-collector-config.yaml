@@ -11,14 +11,12 @@ exporters:
   debug:
     verbosity: detailed
   otlphttp:
-    endpoint: http://loki:3100/otlp
+    endpoint: http://consilium-loki:3100/otlp
   prometheus:
     endpoint: 0.0.0.0:8889
     namespace: default
-  # prometheusremotewrite:
-  #   endpoint: http://prometheus:9090/api/prom/push
-  #   tls:
-  #     insecure: true
+  zipkin:
+    endpoint: http://consilium-zipkin:9411/api/v2/spans
 
 
 extensions:

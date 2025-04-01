@@ -40,7 +40,7 @@ jobs:
 
     #using docker for integration testing
       - name: Spin up Api and Database
-        run: docker compose -f docker-compose.integration-test.yml up -d --build
+        run: cd DockerCompose && docker compose -f docker-compose.integration-test.yml up -d --build
 
       - name: build integration Tests
         run: |

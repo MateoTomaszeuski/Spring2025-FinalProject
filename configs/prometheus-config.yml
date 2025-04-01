@@ -14,4 +14,4 @@ rule_files:
 scrape_configs:
   - job_name: "otel"
     static_configs:
-      - targets: ["otel-collector:8889"]
+      - targets: ["consilium-otel-collector:8889"]

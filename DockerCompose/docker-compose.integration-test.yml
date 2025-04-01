@@ -5,16 +5,18 @@ services:
       - consilium
     build:
       context: .
-      dockerfile: Dockerfiles/Dockerfile
+      dockerfile: ../Dockerfiles/Dockerfile
     ports:
       - 8080:8080
     environment:
       - DB_CONN="Host=db;Port=5432;Username=consilium-admin;Password=mypassword;Database=consiliumdb"
+      - OTEL_URL=http://consilium-otel-collector:4317
     depends_on:
       - db
 
   db:
     image: postgres
+    container_name: consilium-db
     networks:
       - consilium
     restart: always
@@ -24,7 +26,7 @@ services:
       POSTGRES_USER: consilium-admin
       POSTGRES_DB: consiliumdb
     volumes:
-      - ./sql:/docker-entrypoint-initdb.d
+      - ../sql:/docker-entrypoint-initdb.d
       # - ./dbdata:/var/lib/postgresql/data
     ports:
       - 5432:5432

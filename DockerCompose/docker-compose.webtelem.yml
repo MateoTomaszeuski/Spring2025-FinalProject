@@ -3,11 +3,12 @@ services:
     container_name: consilium-api
     build:
       context: .
-      dockerfile: Dockerfiles/Dockerfile
+      dockerfile: ../Dockerfiles/Dockerfile
     ports:
       - 8080:8080
     environment:
       - DB_CONN="Host=db;Port=5432;Username=consilium-admin;Password=mypassword;Database=consiliumdb"
+      - OTEL_URL=http://consilium-otel-collector:4317
     depends_on:
       - db
 
@@ -21,7 +22,7 @@ services:
       POSTGRES_USER: consilium-admin
       POSTGRES_DB: consiliumdb
     volumes:
-      - ./sql:/docker-entrypoint-initdb.d
+      - ../sql:/docker-entrypoint-initdb.d
       - dbdata:/var/lib/postgresql/data
     ports:
       - 5432:5432
@@ -30,7 +31,7 @@ services:
     container_name: consilium-otel-collector
     image: otel/opentelemetry-collector-contrib
     volumes:
-    - ./configs/otel-collector-config.yaml:/etc/otelcol-contrib/config.yaml
+    - ../configs/otel-collector-config.yaml:/etc/otelcol-contrib/config.yaml
     ports:
       - 4317:4317 # OTLP gRPC receiver
 
@@ -42,14 +43,14 @@ services:
     image: prom/prometheus:latest
     container_name: consilium-prometheus
     volumes:
-      - ./configs/prometheus-config.yml:/etc/prometheus/prometheus.yml
+      - ../configs/prometheus-config.yml:/etc/prometheus/prometheus.yml
     ports: 
       - 9090:9090
 
   grafana:
     container_name: consilium-grafana
     volumes:
-      - ./configs/grafana-datasource.yml:/etc/grafana/provisioning/datasources/ds.yaml
+      - ../configs/grafana-datasource.yml:/etc/grafana/provisioning/datasources/ds.yaml
       - grafana-data:/var/lib/grafana
     environment:
       # - GF_PATHS_PROVISIONING=/etc/grafana/provisioning

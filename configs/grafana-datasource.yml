@@ -4,11 +4,14 @@ datasources:
   - name: Loki
     type: loki
     access: proxy
-    url: http://loki:3100
+    url: http://consilium-loki:3100
     jsonData:
       timeout: 60
       maxLines: 1000
   - name: Prometheus
     type: prometheus
     access: proxy
-    url: http://prometheus:9090
+    url: http://consilium-prometheus:9090
+  - name: Zipkin
+    type: zipkin
+    url: http://consilium-zipkin:9411
