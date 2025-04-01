@@ -5,6 +5,7 @@ import { MissingPage } from './components/MissingPage'
 import { MainPage } from './components/MainPage'
 import { DemoPage } from './components/DemoPage'
 import { DocsPage } from './components/DocsPage'
+import { SignedInPage } from './components/SignedInPage'
 
 class App extends React.Component {
   render() {
@@ -17,6 +18,7 @@ class App extends React.Component {
               <Route path='/' element={<MainPage />} />
               <Route path='/demo' element={<DemoPage />} />
               <Route path='/docs' element={<DocsPage />} />
+              <Route path='/signedin' element={<SignedInPage />} />
               <Route path='*' element={<MissingPage />} />
             </Routes>
           </div>

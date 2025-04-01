@@ -25,14 +25,14 @@ public class AccountController : ControllerBase {
     [HttpGet("validate")]
     public IResult ValidateAccount([FromQuery] string email, [FromQuery] string token) {
         service.Validate(email, token);
-        return Results.Redirect("/account/signedin");
+        return Results.Redirect("final.codyhowell.dev/signedin");
     }
 
-    [HttpGet("signedin")]
-    public IResult ValidateAccount() {
-        return Results.File("../../../Misc/SignedIn.html", "text/html");
+    [HttpGet("global/signout")]
+    public IResult SignOutOfAccounts() {
+        string email = Request.Headers["Email-Auth_Email"]!; // Cody - This is validated in IdentityMiddleware to not be null
+        service.GlobalSignOut(email);
+        return Results.Ok("Done!");
     }
-
-
 
 }
