@@ -5,7 +5,7 @@ on :
 
 jobs:
   Check_Linting_and_Warns:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4 # git clone
 
@@ -17,7 +17,7 @@ jobs:
           .
 
   Test_Project:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4 # git clone
 
@@ -34,7 +34,7 @@ jobs:
 
   
   Integration_Test_Project:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4 # git clone
 
