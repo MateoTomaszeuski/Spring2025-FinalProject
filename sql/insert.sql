@@ -10,7 +10,7 @@
     ('bob@example.com', 'APIKEY0987654321', 'TOKENVALID09876543210987654321', NULL);
 
     -- Insert mock data into course
-    INSERT INTO course (accountId, courseName) VALUES
+    INSERT INTO course (account_email, courseName) VALUES
     ('alice@example.com', 'Database Systems'),
     ('bob@example.com', 'Software Engineering'),
     ('charlie@example.com', 'Computer Networks');
@@ -22,13 +22,13 @@
     (3, 'Network Security Presentation');
 
     -- Insert mock data into category
-    INSERT INTO category (account_id, categoryName, color) VALUES
+    INSERT INTO category (account_email, categoryName, color) VALUES
     ('alice@example.com', 'Work', 'FF5733'),
     ('bob@example.com', 'Personal', '33FF57'),
     ('charlie@example.com', 'Urgent', '5733FF');
 
     -- Insert mock data into todolist
-    INSERT INTO todolist (account_id, listName) VALUES
+    INSERT INTO todolist (account_email, listName) VALUES
     ('alice@example.com', 'Project Tasks'),
     ('bob@example.com', 'Grocery List'),
     ('charlie@example.com', 'Homework');
