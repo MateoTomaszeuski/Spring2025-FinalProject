@@ -10,7 +10,7 @@ on:
 
 jobs:
   build_and_deploy_api:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     permissions:
       contents: read #This is required for actions/checkout
