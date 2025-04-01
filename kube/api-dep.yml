@@ -7,9 +7,8 @@ spec:
   strategy:
    type: RollingUpdate
    rollingUpdate:
-     maxSurge: 4
      maxUnavailable: 1
-  replicas: 4
+  replicas: 3
   selector:
     matchLabels:
       app: consilium-api
