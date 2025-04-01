@@ -8,7 +8,7 @@ spec:
    type: RollingUpdate
    rollingUpdate:
      maxSurge: 1
-     maxUnavailable: 1
+     maxUnavailable: 0
   replicas: 1
   selector:
     matchLabels:
@@ -26,6 +26,18 @@ spec:
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 15
+          periodSeconds: 10
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 15
+          periodSeconds: 10
         env:
           - name: DB_CONN
             value: "Host=consilium-postgres-svc;Port=5432;Username=consilium-admin;Password=mypassword;Database=consiliumdb"
@@ -33,13 +45,3 @@ spec:
             value: "http://consilium-otel-collector-svc:4317"
           - name: feature_flag
             value: "true"
-        readinessProbe:
-          tcpSocket:
-            port: 8080
-          initialDelaySeconds: 15
-          periodSeconds: 10
-        livenessProbe:
-          tcpSocket:
-            port: 8080
-          initialDelaySeconds: 15
-          periodSeconds: 10
