@@ -13,6 +13,7 @@ namespace Consilium.Shared.ViewModels;
 public partial class TodoListViewModel : ObservableObject {
     private HttpClient client;
     public TodoListViewModel(IToDoService toDoService) {
+        NewTodoCategory = Categories[0];
         client = new();
         TodoItems = new();
         ToDoService = toDoService;
@@ -20,7 +21,6 @@ public partial class TodoListViewModel : ObservableObject {
     public async Task InitializeItemsAsync() {
         IsLoading = true;
         await Task.CompletedTask;
-        NewTodoCategory = Categories[0];
         //TodoItems = await ToDoService.GetTodoItemsAsync();
         IsLoading = false;
     }

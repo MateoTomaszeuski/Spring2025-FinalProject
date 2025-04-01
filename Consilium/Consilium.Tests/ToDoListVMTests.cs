@@ -102,11 +102,9 @@ public class ToDoListVMTests {
         viewModel.NewTodoTitle = "Test Todo";
         viewModel.NewTodoCategory = "Test Category A";
         viewModel.AddTodoCommand.Execute(null);
-        //viewModel.SetCategoryForTodoItemCommand.Execute(viewModel.TodoItems[0]);
         viewModel.NewTodoTitle = "Test Todo 2";
         viewModel.NewTodoCategory = "Test Category B";
         viewModel.AddTodoCommand.Execute(null);
-        //viewModel.SetCategoryForTodoItemCommand.Execute(viewModel.TodoItems[1]);
         viewModel.SortByCategoryCommand.Execute(null);
         await Assert.That(viewModel.TodoItems[0].Category).IsEqualTo("Test Category A");
         await Assert.That(viewModel.TodoItems[1].Category).IsEqualTo("Test Category B");
@@ -117,15 +115,12 @@ public class ToDoListVMTests {
         viewModel.NewTodoTitle = "Task 1";
         viewModel.NewTodoCategory = "Work";
         viewModel.AddTodoCommand.Execute(null);
-        //viewModel.SetCategoryForTodoItemCommand.Execute(viewModel.TodoItems[0]);
         viewModel.NewTodoTitle = "Task 2";
         viewModel.NewTodoCategory = "Personal";
         viewModel.AddTodoCommand.Execute(null);
-        //viewModel.SetCategoryForTodoItemCommand.Execute(viewModel.TodoItems[1]);
         viewModel.NewTodoTitle = "Task 3";
         viewModel.NewTodoCategory = "School";
         viewModel.AddTodoCommand.Execute(null);
-        //viewModel.SetCategoryForTodoItemCommand.Execute(viewModel.TodoItems[2]);
         viewModel.SortByCategoryCommand.Execute(null);
         await Assert.That(viewModel.TodoItems[0].Category).IsEqualTo("Personal");
         await Assert.That(viewModel.TodoItems[1].Category).IsEqualTo("School");
@@ -161,7 +156,6 @@ public class ToDoListVMTests {
 
         // check that TodoItem with ID1 has a single subtask
         await Assert.That(viewModel.TodoItems[0].Subtasks.Count).IsEqualTo(1);
-
     }
 
 
