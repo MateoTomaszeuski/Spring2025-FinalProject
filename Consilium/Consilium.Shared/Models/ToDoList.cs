@@ -4,6 +4,11 @@ using System.Collections.ObjectModel;
 namespace Consilium.Shared.Models;
 
 public class TodoList {
+    public TodoList() {
+        Id = -1;
+        ListName = "";
+        TodoItems = new();
+    }
     public TodoList(int id = -1, string listname = "", List<TodoItem>? todoItems = null) {
         Id = id;
         ListName = listname;

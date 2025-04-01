@@ -4,8 +4,7 @@ using System.Net.Http.Json;
 
 namespace Consilium.Shared.Services;
 
-public class AssignmentService : IAssignmentService
-{
+public class AssignmentService : IAssignmentService {
     private readonly HttpClient client;
 
     public AssignmentService(IHttpClientFactory factory) {
@@ -13,5 +12,5 @@ public class AssignmentService : IAssignmentService
         client.DefaultRequestHeaders.Add("Consilium-User", "password");
     }
 
-    public async Task<ObservableCollection<Assignment>>
+    //public async Task<ObservableCollection<Assignment>>
 }

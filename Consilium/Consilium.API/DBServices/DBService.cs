@@ -14,8 +14,8 @@ public class DBService(IDbConnection conn) : IDBService {
     }
     public IEnumerable<TodoList> GetToDoLists(string email) {
         string sql = $"SELECT id, listname FROM todolist tl INNER JOIN \"HowlDev.User\" h on (tl.account_email = h.email) WHERE h.email = @email";
-        var todolists = conn.Query<TodoItem>(sql, new { email });
-        return conn.Query<TodoList>(sql);
+        var todolists = conn.Query<TodoList>(sql, new { email });
+        return todolists;
     }
     public TodoList GetTodoList(int tableid) {
         string sql = $"SELECT id, listname FROM todolist WHERE id = @tableid";

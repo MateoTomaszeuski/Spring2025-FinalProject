@@ -12,7 +12,8 @@ public class ToDoService : IToDoService {
 
     public ToDoService(IHttpClientFactory factory) {
         client = factory.CreateClient("ApiClient");
-        client.DefaultRequestHeaders.Add("Consilium-User", "password");
+        client.DefaultRequestHeaders.Add("Email-Auth_Email", "bob@example.com");
+        todoItems = new();
     }
 
     public ObservableCollection<TodoItem> GetTodoItemsAsync() {
@@ -28,7 +29,7 @@ public class ToDoService : IToDoService {
             return "Failed to remove item";
         }
     }
-    
+
     public async Task InitializeTodosAsync() {
         var response = await client.GetFromJsonAsync<IEnumerable<TodoItem>>("todo");
         todoItems = response == null ? new() : new(response);
