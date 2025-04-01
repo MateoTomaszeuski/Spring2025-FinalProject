@@ -98,24 +98,15 @@ public class ToDoListVMTests {
     }
 
     [Test]
-    public async Task CanSetTodoCategory() {
-        viewModel.NewTodoTitle = "Test Todo";
-        viewModel.AddTodoCommand.Execute(null);
-        viewModel.NewCategoryInput = "Test Category";
-        viewModel.SetCategoryForTodoItemCommand.Execute(viewModel.TodoItems[0]);
-        await Assert.That(viewModel.TodoItems[0].Category).IsEqualTo("Test Category");
-    }
-
-    [Test]
     public async Task CanSortTodoItemByCategory() {
         viewModel.NewTodoTitle = "Test Todo";
-        viewModel.NewCategoryInput = "Test Category A";
+        viewModel.NewTodoCategory = "Test Category A";
         viewModel.AddTodoCommand.Execute(null);
-        viewModel.SetCategoryForTodoItemCommand.Execute(viewModel.TodoItems[0]);
+        //viewModel.SetCategoryForTodoItemCommand.Execute(viewModel.TodoItems[0]);
         viewModel.NewTodoTitle = "Test Todo 2";
-        viewModel.NewCategoryInput = "Test Category B";
+        viewModel.NewTodoCategory = "Test Category B";
         viewModel.AddTodoCommand.Execute(null);
-        viewModel.SetCategoryForTodoItemCommand.Execute(viewModel.TodoItems[1]);
+        //viewModel.SetCategoryForTodoItemCommand.Execute(viewModel.TodoItems[1]);
         viewModel.SortByCategoryCommand.Execute(null);
         await Assert.That(viewModel.TodoItems[0].Category).IsEqualTo("Test Category A");
         await Assert.That(viewModel.TodoItems[1].Category).IsEqualTo("Test Category B");
@@ -124,17 +115,17 @@ public class ToDoListVMTests {
     [Test]
     public async Task CanSortTodoItemsByCategory() {
         viewModel.NewTodoTitle = "Task 1";
-        viewModel.NewCategoryInput = "Work";
+        viewModel.NewTodoCategory = "Work";
         viewModel.AddTodoCommand.Execute(null);
-        viewModel.SetCategoryForTodoItemCommand.Execute(viewModel.TodoItems[0]);
+        //viewModel.SetCategoryForTodoItemCommand.Execute(viewModel.TodoItems[0]);
         viewModel.NewTodoTitle = "Task 2";
-        viewModel.NewCategoryInput = "Personal";
+        viewModel.NewTodoCategory = "Personal";
         viewModel.AddTodoCommand.Execute(null);
-        viewModel.SetCategoryForTodoItemCommand.Execute(viewModel.TodoItems[1]);
+        //viewModel.SetCategoryForTodoItemCommand.Execute(viewModel.TodoItems[1]);
         viewModel.NewTodoTitle = "Task 3";
-        viewModel.NewCategoryInput = "School";
+        viewModel.NewTodoCategory = "School";
         viewModel.AddTodoCommand.Execute(null);
-        viewModel.SetCategoryForTodoItemCommand.Execute(viewModel.TodoItems[2]);
+        //viewModel.SetCategoryForTodoItemCommand.Execute(viewModel.TodoItems[2]);
         viewModel.SortByCategoryCommand.Execute(null);
         await Assert.That(viewModel.TodoItems[0].Category).IsEqualTo("Personal");
         await Assert.That(viewModel.TodoItems[1].Category).IsEqualTo("School");
@@ -173,15 +164,5 @@ public class ToDoListVMTests {
 
     }
 
-    //[Test]
-    //public async Task CanRemoveSingleSubtask() {
 
-    //}
-
-    //[Test]
-    //public async Task CanRemoveCorrectSubtaskFromOneParentTask() {
-    //    // if two parent tasks have subtasks of the same name
-    //    // and we remove one subtask, the other subtask should remain
-
-    //}
 }

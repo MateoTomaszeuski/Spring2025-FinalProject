@@ -157,18 +157,14 @@
                                                    Text="{Binding Source={RelativeSource AncestorType={x:Type ViewModels:TodoListViewModel}}, Path=NewSubtaskTitle}"
                                                    HorizontalOptions="FillAndExpand"
                                                    MinimumWidthRequest="300"
-                                                   Margin="5,0,10,0"/>
+                                                   Margin="5,0,10,0"
+                                                   Completed="NewSubtaskTitle_Completed"
+                                                   />
                                             <Button Text="{StaticResource CheckIcon}"
                                                     FontFamily="FontAwesomeSolid"
                                                     Command="{Binding Source={RelativeSource AncestorType={x:Type ViewModels:TodoListViewModel}}, Path=AddSubtaskCommand}"
                                                     CommandParameter="{Binding .}"
                                                     Opacity="0.8"/>
-                                            <!--<Button Text="{StaticResource XIcon}"
-                                                    FontFamily="FontAwesomeSolid"
-                                                    Command="{Binding Source={RelativeSource AncestorType={x:Type ViewModels:TodoListViewModel}}, Path=ToggleSubtaskEntryVisibilityCommand}"
-                                                    CommandParameter="{Binding .}"
-                                                    BackgroundColor="#7a2b35"
-                                                    Opacity="0.8"/>-->
                                         </StackLayout>
                                         <StackLayout IsVisible="{Binding IsExpanded}" Padding="0,0,0,0" >
                                             <!--subtasks will show a checkbox, title, and trashcan-->

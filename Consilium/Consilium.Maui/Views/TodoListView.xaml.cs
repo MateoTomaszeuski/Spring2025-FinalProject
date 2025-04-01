@@ -1,3 +1,4 @@
+using Consilium.Shared.Models;
 using Consilium.Shared.ViewModels;
 namespace Consilium.Maui.Views;
 public partial class TodoListView : ContentPage {
@@ -17,4 +18,12 @@ public partial class TodoListView : ContentPage {
             vm.AddTodoCommand.Execute(null);
         }
     }
+    private void NewSubtaskTitle_Completed(object sender, EventArgs e) {
+        var entry = sender as Entry;
+        var parentTask = entry?.BindingContext as TodoItem;
+        if (parentTask != null && vm.AddSubtaskCommand.CanExecute(parentTask)) {
+            vm.AddSubtaskCommand.Execute(parentTask);
+        }
+    }
+
 }
