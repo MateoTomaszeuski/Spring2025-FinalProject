@@ -86,7 +86,7 @@ app.MapGet("", () => "Welcome to the Consilium Api");
 app.MapGet("/health", () =>
 {
     var duration = DateTime.UtcNow - started;
-    if (duration.TotalSeconds > 10) {
+    if (duration.TotalSeconds > 20) {
         return Results.Problem($"error: {duration.TotalSeconds}", statusCode: 500);
     }
     return Results.Ok("ok");
