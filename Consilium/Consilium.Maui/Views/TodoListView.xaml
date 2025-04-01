@@ -21,14 +21,15 @@
                    HorizontalOptions="FillAndExpand"
                    HeightRequest="40"
                    VerticalOptions="Center"
+                   Completed="NewTodoTitle_Completed"
                    />
                 <Picker ItemsSource="{Binding Source={RelativeSource AncestorType={x:Type ViewModels:TodoListViewModel}}, Path=Categories}"
                         SelectedItem="{Binding NewTodoCategory}"
-                        WidthRequest="110"
+                        WidthRequest="100"
                         HeightRequest="40"
                         VerticalOptions="Center"/>
             </StackLayout>
-                <Button Text="Add Todo"
+            <Button Text="Add Todo"
                 Command="{Binding AddTodoCommand}"
                     Margin="0,0,0,30"/>
             <StackLayout Orientation="Horizontal" 
@@ -59,9 +60,8 @@
                     <CollectionView ItemsSource="{Binding TodoItems}">
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
-                                <StackLayout Orientation="Vertical" Padding="3">
-                                    <StackLayout Orientation="Horizontal" Spacing="10">
-                                        <CheckBox IsChecked="{Binding IsCompleted}" />
+                                <StackLayout Orientation="Vertical" Padding="0">
+                                    <StackLayout Orientation="Horizontal" Spacing="5">
 
                                         <!--option 1 is a caret button to expand subtasks-->
                                         <!--<Label Text="{Binding Title}" VerticalOptions="Center" HorizontalOptions="StartAndExpand" />-->
@@ -76,19 +76,18 @@
                                                 BackgroundColor="{AppThemeBinding Dark={StaticResource Dark-Dark}, Light={StaticResource Light-Light}}"
                                                 HorizontalOptions="End"/>-->
 
+                                        <CheckBox IsChecked="{Binding IsCompleted}" />
                                         <Grid BackgroundColor="{AppThemeBinding Dark={StaticResource Dark-Dark}, Light={StaticResource Light-Light}}"
                                               HorizontalOptions="FillAndExpand">
                                             <Label Text="{Binding Title}"
                                                    TextColor="{AppThemeBinding Dark=White, Light=Black}"
-                                                   Padding="10,0"
+                                                   Padding="0,10,0,15"
                                                    HorizontalTextAlignment="Start"
                                                    HorizontalOptions="FillAndExpand"
                                                    VerticalTextAlignment="Center"
                                                    FontAttributes="Bold"
-                                                   FontSize="18"/>
-                                            <Label Text="{Binding Category}"
-                                                   VerticalTextAlignment="End"
-                                                   Margin="15,0,0,0"/>
+                                                   FontSize="17"
+                                                   LineBreakMode="TailTruncation"/>
 
                                             <Button Text="{StaticResource CaretDownIcon}"
                                                     TextColor="{AppThemeBinding Dark=White, Light=Black}"
@@ -97,39 +96,76 @@
                                                     FontFamily="FontAwesomeSolid"
                                                     IsVisible="{Binding HasSubtasks}"
                                                     BackgroundColor="{AppThemeBinding Dark={StaticResource Dark-Dark}, Light={StaticResource Light-Light}}"/>
+                                            <Label Text="{Binding Category}"
+                                                   FontSize="14"
+                                                   VerticalTextAlignment="End"
+                                                   Margin="0,0,0,0"
+                                                   Padding="0,0,0,0"
+                                                   Opacity="0.6"/>
                                             <Button Command="{Binding Source={RelativeSource AncestorType={x:Type ViewModels:TodoListViewModel}}, Path=ToggleSubtaskVisibilityCommand}"
                                                     CommandParameter="{Binding .}"
                                                     BackgroundColor="Transparent"/>
                                         </Grid>
 
 
-                                        <Button Text="Add Subtask"
+                                        <Button Text="Add Subtasks"
                                                 Command="{Binding Source={RelativeSource AncestorType={x:Type ViewModels:TodoListViewModel}}, Path=ToggleSubtaskEntryVisibilityCommand}"
                                                 CommandParameter="{Binding .}"
-                                                TextColor="White"/>
+                                                TextColor="White"
+                                                FontSize="13"
+                                                Margin="5,5,0,0">
+                                            <VisualStateManager.VisualStateGroups>
+                                                <VisualStateGroupList>
+                                                    <VisualStateGroup>
+                                                        <VisualState x:Name="Default">
+                                                            <VisualState.Setters>
+                                                                <Setter Property="Text" Value="Add Subtasks" />
+                                                            </VisualState.Setters>
+                                                        </VisualState>
+                                                        <VisualState x:Name="Mobile">
+                                                            <VisualState.StateTriggers>
+                                                                <AdaptiveTrigger MinWindowWidth="0" />
+                                                            </VisualState.StateTriggers>
+                                                            <VisualState.Setters>
+                                                                <Setter Property="Text" Value="{StaticResource PlusIcon}" />
+                                                                <Setter Property="FontFamily" Value="FontAwesomeSolid" />
+                                                            </VisualState.Setters>
+                                                        </VisualState>
+                                                        <VisualState x:Name="Desktop">
+                                                            <VisualState.StateTriggers>
+                                                                <AdaptiveTrigger MinWindowWidth="600" />
+                                                            </VisualState.StateTriggers>
+                                                            <VisualState.Setters>
+                                                                <Setter Property="Text" Value="Add Subtasks" />
+                                                            </VisualState.Setters>
+                                                        </VisualState>
+                                                    </VisualStateGroup>
+                                                </VisualStateGroupList>
+                                            </VisualStateManager.VisualStateGroups>
+                                        </Button>
                                         <Button Text="{StaticResource TrashIcon}"
                                                 FontFamily="FontAwesomeSolid"
                                                 Command="{Binding x:DataType='ViewModels:TodoListViewModel', Source={RelativeSource AncestorType={x:Type ViewModels:TodoListViewModel}}, Path=RemoveTodoCommand}"
                                                 CommandParameter="{Binding .}"
                                                 BackgroundColor="#7a2b35"
-                                                Margin="5,0,0,0"
+                                                Margin="5,5,0,0"
                                                 TextColor="White" />
                                     </StackLayout>
-                                    <StackLayout Margin="50,20,0,0" HorizontalOptions="FillAndExpand">
+                                    <StackLayout Margin="50,15,0,0" HorizontalOptions="FillAndExpand">
                                         <StackLayout IsVisible="{Binding SubtaskEntryIsVisible}" Orientation="Horizontal" Spacing="10">
                                             <Entry Placeholder="Enter new subtask title"
                                                    Text="{Binding Source={RelativeSource AncestorType={x:Type ViewModels:TodoListViewModel}}, Path=NewSubtaskTitle}"
                                                    HorizontalOptions="FillAndExpand"
                                                    MinimumWidthRequest="300"
                                                    Margin="5,0,10,0"/>
-                                            <Button Text="{StaticResource PlusIcon}"
+                                            <Button Text="{StaticResource CheckIcon}"
                                                     FontFamily="FontAwesomeSolid"
                                                     Command="{Binding Source={RelativeSource AncestorType={x:Type ViewModels:TodoListViewModel}}, Path=AddSubtaskCommand}"
                                                     CommandParameter="{Binding .}"
                                                     Opacity="0.8"/>
                                             <!--<Button Text="{StaticResource XIcon}"
                                                     FontFamily="FontAwesomeSolid"
-                                                    Command="{Binding Source={RelativeSource AncestorType={x:Type ViewModels:TodoListViewModel}}, Path=ToggleSubtaskVisibilityCommand}"
+                                                    Command="{Binding Source={RelativeSource AncestorType={x:Type ViewModels:TodoListViewModel}}, Path=ToggleSubtaskEntryVisibilityCommand}"
                                                     CommandParameter="{Binding .}"
                                                     BackgroundColor="#7a2b35"
                                                     Opacity="0.8"/>-->
@@ -149,7 +185,8 @@
                                                                     CommandParameter="{Binding .}"
                                                                     BackgroundColor="#7a2b35"
                                                                     TextColor="White"
-                                                                    HorizontalOptions="End"/>
+                                                                    HorizontalOptions="End"
+                                                                    Opacity="0.8"/>
                                                         </Grid>
                                                     </DataTemplate>
                                                 </CollectionView.ItemTemplate>
