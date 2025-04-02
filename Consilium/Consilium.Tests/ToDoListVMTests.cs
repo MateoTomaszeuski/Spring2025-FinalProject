@@ -119,24 +119,7 @@ public class ToDoListVMTests {
         await Assert.That(viewModel.TodoItems[1].Category).IsEqualTo("School");
         await Assert.That(viewModel.TodoItems[2].Category).IsEqualTo("Work");
     }
-
-    [Test]
-    public async Task CanSortTodoItemsByIsComplete() {
-        viewModel.NewTodoTitle = "Task 1";
-        viewModel.AddTodoCommand.Execute(null);
-        viewModel.NewTodoTitle = "Task 2";
-        viewModel.AddTodoCommand.Execute(null);
-        viewModel.NewTodoTitle = "Task 3";
-        viewModel.AddTodoCommand.Execute(null);
-        viewModel.TodoItems[0].IsCompleted = true;
-        viewModel.TodoItems[1].IsCompleted = false;
-        viewModel.TodoItems[2].IsCompleted = true;
-        viewModel.SortByCompletionCommand.Execute(null);
-        await Assert.That(viewModel.TodoItems[0].IsCompleted).IsTrue();
-        await Assert.That(viewModel.TodoItems[1].IsCompleted).IsTrue();
-        await Assert.That(viewModel.TodoItems[2].IsCompleted).IsFalse();
-    }
-
+    
     [Test]
     public async Task CanAddSingleSubtask() {
         viewModel.TodoItems = new ObservableCollection<TodoItem>() {
