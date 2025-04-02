@@ -32,5 +32,12 @@ Content-Type: application/json
   "id": 4,
   "isCompleted": true
 }
+###
+DELETE {{Consilium}}/todo/remove
+Email-Auth_Email: {{email}}
+Content-Type: application/json
+{
+  "id": 5
+}
 
 
