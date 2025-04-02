@@ -62,6 +62,8 @@ public static class MauiProgram {
     }
     public static MauiAppBuilder RegisterServices(this MauiAppBuilder builder) {
         builder.Services.AddSingleton<IToDoService, ToDoService>();
+        builder.Services.AddSingleton<IPersistenceService, PersistenceService>();
+
 
         return builder;
     }
