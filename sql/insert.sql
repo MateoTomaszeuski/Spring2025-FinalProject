@@ -10,25 +10,19 @@
     ('bob@example.com', 'APIKEY0987654321', 'TOKENVALID09876543210987654321', NULL);
 
     -- Insert mock data into course
-    INSERT INTO course (account_email, courseName) VALUES
+    INSERT INTO course (account_email, course_name) VALUES
     ('alice@example.com', 'Database Systems'),
     ('bob@example.com', 'Software Engineering'),
     ('charlie@example.com', 'Computer Networks');
 
     -- Insert mock data into assignment
-    INSERT INTO assignment (courseId, assignmentName) VALUES
+    INSERT INTO assignment (course_id, assignment_name) VALUES
     (1, 'SQL Queries Homework'),
     (2, 'Design Patterns Report'),
     (3, 'Network Security Presentation');
 
-    -- Insert mock data into todolist
-    INSERT INTO todolist (account_email, listName) VALUES
-    ('alice@example.com', 'Project Tasks'),
-    ('bob@example.com', 'Grocery List'),
-    ('charlie@example.com', 'Homework');
-
     -- Insert mock data into todoitem
-    INSERT INTO todoitem (toDoListId, categoryId, parentId, assignmentId, toDoName) VALUES
-    (1, 'Something', NULL, 1, 'Finish database schema'),
-    (2, 'Something else', NULL, NULL, 'Buy milk'),
-    (3, 'Lorem', NULL, 2, 'Write design patterns summary');
+    INSERT INTO todoitem (category_name, parent_id, assignment_id, todo_name) VALUES
+    ('alice@example.com', 'Something', NULL, 1, 'Finish database schema'),
+    ('bob@example.com', 'Something else', NULL, NULL, 'Buy milk'),
+    ('charlie@example.com', 'Lorem', NULL, 2, 'Write design patterns summary');

@@ -18,38 +18,23 @@ CREATE TABLE
   course (
     id int4 PRIMARY KEY GENERATED ALWAYS AS IDENTITY NOT NULL,
     account_email varchar(80) references "HowlDev.User" (email) NOT NULL,
-    courseName varchar(80)
+    course_name varchar(80)
   );
 
 CREATE TABLE
   assignment (
     id int4 PRIMARY KEY GENERATED ALWAYS AS IDENTITY NOT NULL,
-    courseId int references course (id) NOT NULL,
-    assignmentName varchar(80)
-  );
-
--- CREATE TABLE
---   category (
---     id int4 PRIMARY KEY GENERATED ALWAYS AS IDENTITY NOT NULL,
---     account_email varchar(80) references "HowlDev.User" (email) NOT NULL,
---     categoryName varchar(80),
---     color varchar(6)
---   );
-
-CREATE TABLE
-  todolist (
-    id int4 PRIMARY KEY GENERATED ALWAYS AS IDENTITY NOT NULL,
-    account_email varchar(80) references "HowlDev.User" (email) NOT NULL,
-    listName varchar(80)
+    course_id int references course (id) NOT NULL,
+    assignment_name varchar(80)
   );
 
 CREATE TABLE
   todoitem (
     id int4 PRIMARY KEY GENERATED ALWAYS AS IDENTITY NOT NULL,
-    toDoListId int references todolist (id) NOT NULL,
-    categoryId varchar(80) NOT NULL,
-    parentId int references todoitem (id) NULL,
-    assignmentId int references assignment (id) NULL,
-    toDoName varchar(80) NOT NULL, 
-    completionDate timestamp NULL
+    account_email varchar(80) references "HowlDev.User" (email) NOT NULL,
+    category_name varchar(80) NOT NULL,
+    parent_id int references todoitem (id) NULL,
+    assignment_id int references assignment (id) NULL,
+    todo_name varchar(80) NOT NULL, 
+    completion_date timestamp NULL
   );
