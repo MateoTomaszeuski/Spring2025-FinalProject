@@ -10,4 +10,25 @@ POST {{Consilium}}/account?email={{email}}
 GET {{Consilium}}/todo
 Email-Auth_Email: {{email}}
 ###
+GET {{Consilium}}/todo/2/items
+Email-Auth_Email: {{email}}
+###
+POST {{Consilium}}/todo
+Email-Auth_Email: {{email}}
+Content-Type: application/json
+{
+  "id": 2,
+  "title": "Lorem",
+  "isCompleted": false,
+  "todoListId": 2,
+  "parentId": null,
+  "assignmentId": null,
+  "completionDate": null,
+  "subtasks": [],
+  "category": "Something else",
+  "hasSubtasks": false,
+  "isExpanded": false,
+  "subtaskEntryIsVisible": false
+}
+###
 

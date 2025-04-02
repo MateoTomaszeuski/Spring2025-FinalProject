@@ -19,6 +19,10 @@ public class DBServiceIM : IDBService {
         throw new NotImplementedException();
     }
 
+    public TodoList GetTodoList(int tableId, string email) {
+        throw new NotImplementedException();
+    }
+
     public IEnumerable<TodoList> GetToDoLists(string username) {
         throw new NotImplementedException();
     }

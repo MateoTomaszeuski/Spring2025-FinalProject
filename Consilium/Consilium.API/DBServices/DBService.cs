@@ -11,25 +11,41 @@ namespace Consilium.API.DBServices;
 public class DBService(IDbConnection conn) : IDBService {
     #region ToDos
     public void AddToDo(TodoItem Todo, string email) {
-        throw new NotImplementedException();
+        string addItem = @"
+            insert into todoitem (todolistid, categoryid, parentid, assignmentid, todoname, completiondate) values 
+                (@todolistid, @categoryid, @parentid, @assignmentid, @todoname, @completiondate)
+            ";
+        conn.Execute(addItem, new {
+            todolistid = Todo.TodoListId,
+            categoryId = Todo.Category,
+            parentId = Todo.ParentId,
+            assignmentId = Todo.AssignmentId,
+            todoName = Todo.Title,
+            completionDate = Todo.CompletionDate
+        });
     }
 
+    /// <summary>
+    /// Gets empty To-Do lists for user selection. 
+    /// </summary>
     public IEnumerable<TodoList> GetToDoLists(string email) {
         string sql = $"SELECT id, listname FROM todolist tl INNER JOIN \"HowlDev.User\" h on (tl.account_email = h.email) WHERE h.email = @email";
         var todolists = conn.Query<TodoList>(sql, new { email }).ToList();
-        foreach (TodoList list in todolists) {
-            List<TodoItem> items = [.. GetTodoItems(list.Id)];
-            list.TodoItems = items;
-        }
+        //foreach (TodoList list in todolists) {
+        //    List<TodoItem> items = [.. GetTodoItems(list.Id)];
+        //    list.TodoItems = items;
+        //}
         return todolists;
     }
 
-    public TodoList GetTodoList(int tableid) {
-        string sql = $"SELECT id, listname FROM todolist WHERE id = @tableid";
-        var todolist = conn.Query<TodoList>(sql, new { tableid }).FirstOrDefault();
+    /// <summary>
+    /// Retrieves the filled To-Do list. 
+    /// </summary>
+    public TodoList GetTodoList(int tableid, string email) {
+        string sql = $"SELECT id, listname FROM todolist WHERE id = @tableid AND account_email = @email";
+        var todolist = conn.Query<TodoList>(sql, new { tableid, email }).FirstOrDefault();
 
-        sql = $"SELECT id, categoryId, parentId, assignmentId,toDoName FROM todoitem WHERE toDoListId = @tableid";
-        var todoitems = conn.Query<TodoItem>(sql, new { tableid });
+        var todoitems = GetTodoItems(tableid);
 
         if (todolist is null)
             throw new SqlNullValueException();

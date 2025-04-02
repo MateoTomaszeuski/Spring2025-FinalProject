@@ -7,6 +7,7 @@ public partial class TodoItem : ObservableObject {
     public int Id { get; set; }
     public string? Title { get; set; }
     public bool IsCompleted { get; set; }
+    public int TodoListId { get; set; }
     public int? ParentId { get; set; }
     public int? AssignmentId { get; set; }
     public DateTime? CompletionDate { get; set; }

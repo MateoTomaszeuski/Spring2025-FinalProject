@@ -17,7 +17,11 @@ public class todoController : ControllerBase {
         return service.GetToDoLists(username);
     }
 
-
+    [HttpGet("{id}/items", Name = "GetItems")]
+    public TodoList GetItems(int id) {
+        string username = Request.Headers["Email-Auth_Email"]!; // Cody - I know this will be there at this point
+        return service.GetTodoList(id, username);
+    }
 
     [HttpPatch("update", Name = "PatchTodos")]
     public IResult Update(TodoItem item) {
