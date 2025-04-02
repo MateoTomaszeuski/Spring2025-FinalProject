@@ -3,7 +3,7 @@ services:
     container_name: consilium-api
     build:
       context: .
-      dockerfile: ../Dockerfiles/Dockerfile
+      dockerfile: ./Dockerfiles/Dockerfile
     ports:
       - 8080:8080
     environment:
