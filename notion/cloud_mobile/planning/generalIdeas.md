@@ -1,7 +1,7 @@
 # Brain Dump
 
-- authentication via email
-
+- multiple lists for each user
+- configuring categories in settings
 
 
 ## Optimization
