@@ -22,7 +22,7 @@
     (3, 'Network Security Presentation');
 
     -- Insert mock data into todoitem
-    INSERT INTO todoitem (category_name, parent_id, assignment_id, todo_name) VALUES
+    INSERT INTO todoitem (account_email, category_name, parent_id, assignment_id, todo_name) VALUES
     ('alice@example.com', 'Something', NULL, 1, 'Finish database schema'),
     ('bob@example.com', 'Something else', NULL, NULL, 'Buy milk'),
     ('charlie@example.com', 'Lorem', NULL, 2, 'Write design patterns summary');
