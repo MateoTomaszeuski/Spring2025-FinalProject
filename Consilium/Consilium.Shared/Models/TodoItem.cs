@@ -6,10 +6,10 @@ namespace Consilium.Shared.Models;
 public partial class TodoItem : ObservableObject {
     public int Id { get; set; }
     public string? Title { get; set; }
-    public string? Description { get; set; }
     public bool IsCompleted { get; set; }
-    public int? ParentTask { get; set; }
+    public int? ParentId { get; set; }
     public int? AssignmentId { get; set; }
+    public DateTime? CompletionDate { get; set; }
 
     [ObservableProperty]
     private string? category;

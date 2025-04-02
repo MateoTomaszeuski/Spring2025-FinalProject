@@ -96,7 +96,7 @@ public partial class TodoListViewModel : ObservableObject {
     [RelayCommand]
     private void AddSubtask(TodoItem parentTask) {
         if (parentTask != null && !string.IsNullOrWhiteSpace(NewSubtaskTitle)) {
-            var subTask = new TodoItem { Title = NewSubtaskTitle, ParentTask = parentTask.Id };
+            var subTask = new TodoItem { Title = NewSubtaskTitle, ParentId = parentTask.Id };
             parentTask.Subtasks.Add(subTask);
             parentTask.IsExpanded = true;
             NewSubtaskTitle = string.Empty;
@@ -125,8 +125,8 @@ public partial class TodoListViewModel : ObservableObject {
 
     [RelayCommand]
     private void RemoveSubtask(TodoItem subTask) {
-        if (subTask?.ParentTask != null) {
-            TodoItem parentTask = TodoItems.First(a => a.Id == subTask.ParentTask);
+        if (subTask?.ParentId != null) {
+            TodoItem parentTask = TodoItems.First(a => a.Id == subTask.ParentId);
             parentTask.Subtasks.Remove(subTask);
         }
     }

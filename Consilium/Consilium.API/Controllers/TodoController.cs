@@ -17,10 +17,16 @@ public class todoController : ControllerBase {
         return service.GetToDoLists(username);
     }
 
+
+
     [HttpPatch("update", Name = "PatchTodos")]
-    public IResult Update(int index, TodoItem item) {
+    public IResult Update(TodoItem item) {
         string username = Request.Headers["Email-Auth_Email"]!;
-        service.UpdateToDo(index, item, username);
+        try {
+            service.UpdateToDo(item, username);
+        } catch (Exception e) {
+            return Results.BadRequest(e.Message);
+        }
         return Results.Accepted();
     }
 
@@ -32,11 +38,11 @@ public class todoController : ControllerBase {
         return Results.Accepted();
     }
 
-    [HttpDelete("remove/{index}", Name = "RemoveTodos")]
-    public IResult Remove(int index) {
+    [HttpDelete("remove", Name = "RemoveTodos")]
+    public IResult Remove(TodoItem item) {
         try {
             string username = Request.Headers["Email-Auth_Email"]!;
-            service.RemoveToDo(index, username);
+            service.RemoveToDo(item, username);
         } catch (Exception e) {
             return Results.BadRequest(e.Message);
         }

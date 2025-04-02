@@ -30,9 +30,9 @@ public class DBServiceIM : IDBService {
         return new List<TodoItem>();
     }
 
-    public void RemoveToDo(int index, string username) {
+    public void RemoveToDo(TodoItem item, string username) {
         if (todos.ContainsKey(username)) {
-            todos[username].RemoveAt(index);
+            todos[username].Remove(item);
         }
     }
 
@@ -43,9 +43,9 @@ public class DBServiceIM : IDBService {
         return 0;
     }
 
-    public void UpdateToDo(int index, TodoItem Todo, string username) {
+    public void UpdateToDo(TodoItem Todo, string username) {
         if (todos.ContainsKey(username)) {
-            todos[username][index] = Todo;
+            //todos[username][index] = Todo;
         }
     }
 }

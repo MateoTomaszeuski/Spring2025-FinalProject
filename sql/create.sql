@@ -28,13 +28,13 @@ CREATE TABLE
     assignmentName varchar(80)
   );
 
-CREATE TABLE
-  category (
-    id int4 PRIMARY KEY GENERATED ALWAYS AS IDENTITY NOT NULL,
-    account_email varchar(80) references "HowlDev.User" (email) NOT NULL,
-    categoryName varchar(80),
-    color varchar(6)
-  );
+-- CREATE TABLE
+--   category (
+--     id int4 PRIMARY KEY GENERATED ALWAYS AS IDENTITY NOT NULL,
+--     account_email varchar(80) references "HowlDev.User" (email) NOT NULL,
+--     categoryName varchar(80),
+--     color varchar(6)
+--   );
 
 CREATE TABLE
   todolist (
@@ -47,8 +47,9 @@ CREATE TABLE
   todoitem (
     id int4 PRIMARY KEY GENERATED ALWAYS AS IDENTITY NOT NULL,
     toDoListId int references todolist (id) NOT NULL,
-    categoryId int references category (id) NOT NULL,
+    categoryId varchar(80) NOT NULL,
     parentId int references todoitem (id) NULL,
     assignmentId int references assignment (id) NULL,
-    toDoName varchar(80)
+    toDoName varchar(80) NOT NULL, 
+    completionDate timestamp NULL
   );

@@ -21,12 +21,6 @@
     (2, 'Design Patterns Report'),
     (3, 'Network Security Presentation');
 
-    -- Insert mock data into category
-    INSERT INTO category (account_email, categoryName, color) VALUES
-    ('alice@example.com', 'Work', 'FF5733'),
-    ('bob@example.com', 'Personal', '33FF57'),
-    ('charlie@example.com', 'Urgent', '5733FF');
-
     -- Insert mock data into todolist
     INSERT INTO todolist (account_email, listName) VALUES
     ('alice@example.com', 'Project Tasks'),
@@ -35,6 +29,6 @@
 
     -- Insert mock data into todoitem
     INSERT INTO todoitem (toDoListId, categoryId, parentId, assignmentId, toDoName) VALUES
-    (1, 1, NULL, 1, 'Finish database schema'),
-    (2, 2, NULL, NULL, 'Buy milk'),
-    (3, 3, NULL, 2, 'Write design patterns summary');
+    (1, 'Something', NULL, 1, 'Finish database schema'),
+    (2, 'Something else', NULL, NULL, 'Buy milk'),
+    (3, 'Lorem', NULL, 2, 'Write design patterns summary');
