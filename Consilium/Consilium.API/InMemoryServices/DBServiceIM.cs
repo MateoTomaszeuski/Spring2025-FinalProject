@@ -45,7 +45,8 @@ public class DBServiceIM : IDBService {
 
     public void UpdateToDo(TodoItem Todo, string username) {
         if (todos.ContainsKey(username)) {
-            //todos[username][index] = Todo;
+            int index = todos[username].IndexOf(Todo);
+            todos[username][index] = Todo;
         }
     }
 }

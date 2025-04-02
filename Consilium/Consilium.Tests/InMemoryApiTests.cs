@@ -48,8 +48,10 @@ public class InMemoryApiTests {
 
     [Test]
     public async Task InMemServiceCanUpdateItem() {
-        service.AddToDo(new TodoItem() { Title = "Lorem" }, "cody");
-        service.UpdateToDo(0, new TodoItem() { Title = "Cody" }, "cody");
+        TodoItem todo = new TodoItem() { Title = "Lorem" };
+        service.AddToDo(todo, "cody");
+        todo.Title = "Cody";
+        service.UpdateToDo(todo, "cody");
 
         List<TodoItem> items = service.GetToDos("cody").ToList();
         await Assert.That(items[0].Title).IsEqualTo("Cody");
@@ -57,8 +59,9 @@ public class InMemoryApiTests {
 
     [Test]
     public async Task InMemServiceCanRemoveItem() {
-        service.AddToDo(new TodoItem() { Title = "Lorem" }, "cody");
-        service.RemoveToDo(0, "cody");
+        TodoItem todo = new TodoItem() { Title = "Lorem" };
+        service.AddToDo(todo, "cody");
+        service.RemoveToDo(todo, "cody");
 
         List<TodoItem> items = service.GetToDos("cody").ToList();
         await Assert.That(items.Count).IsEqualTo(0);
