@@ -18,17 +18,19 @@ Email-Auth_Email: {{email}}
 Content-Type: application/json
 {
   "id": 2,
-  "title": "Lorem",
+  "title": "Lorem2",
   "isCompleted": false,
   "todoListId": 2,
   "parentId": null,
-  "assignmentId": null,
-  "completionDate": null,
-  "subtasks": [],
-  "category": "Something else",
-  "hasSubtasks": false,
-  "isExpanded": false,
-  "subtaskEntryIsVisible": false
+  "category": "Something else"
 }
 ###
+PATCH {{Consilium}}/todo/update
+Email-Auth_Email: {{email}}
+Content-Type: application/json
+{
+  "id": 4,
+  "isCompleted": true
+}
+
 

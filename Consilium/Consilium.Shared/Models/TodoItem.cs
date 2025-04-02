@@ -6,7 +6,7 @@ namespace Consilium.Shared.Models;
 public partial class TodoItem : ObservableObject {
     public int Id { get; set; }
     public string? Title { get; set; }
-    public bool IsCompleted { get; set; }
+    public bool IsCompleted => CompletionDate is null;
     public int TodoListId { get; set; }
     public int? ParentId { get; set; }
     public int? AssignmentId { get; set; }

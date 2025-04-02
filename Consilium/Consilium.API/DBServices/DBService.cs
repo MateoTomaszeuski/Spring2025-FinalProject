@@ -59,8 +59,9 @@ public class DBService(IDbConnection conn) : IDBService {
                 delete from todoitem t where t.id = @id;
                 """";
             conn.Execute(removeItem, new { id = item.Id });
+        } else {
+            throw new Exception("You don't have control over this item.");
         }
-        throw new Exception("You don't have control over this item.");
     }
 
     public int ToDoCount(string email) {
@@ -72,10 +73,14 @@ public class DBService(IDbConnection conn) : IDBService {
             string updateItem = """"
                 update todoitem t set completionDate = @time where id = @id
                 """";
-            DateTime now = DateTime.Now;
+            DateTime? now = null;
+            if (Todo.IsCompleted) {
+                now = DateTime.Now;
+            }
             conn.Execute(updateItem, new { time = now, id = Todo.Id });
+        } else {
+            throw new Exception("You don't have control over this item.");
         }
-        throw new Exception("You don't have control over this item.");
     }
 
     private bool ValidateControlOverItem(int itemId, string email) {
@@ -85,7 +90,7 @@ public class DBService(IDbConnection conn) : IDBService {
             WHERE tl.account_email = @email
             	AND ti.id = @itemId
             """";
-        int count = conn.QuerySingle(getCountOfItems, new { itemId, email });
+        int count = conn.QuerySingle<int>(getCountOfItems, new { itemId, email });
         return count == 1;
     }
 
