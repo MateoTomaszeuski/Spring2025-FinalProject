@@ -119,7 +119,7 @@ public class ToDoListVMTests {
         await Assert.That(viewModel.TodoItems[1].Category).IsEqualTo("School");
         await Assert.That(viewModel.TodoItems[2].Category).IsEqualTo("Work");
     }
-    
+
     [Test]
     public async Task CanAddSingleSubtask() {
         viewModel.TodoItems = new ObservableCollection<TodoItem>() {
