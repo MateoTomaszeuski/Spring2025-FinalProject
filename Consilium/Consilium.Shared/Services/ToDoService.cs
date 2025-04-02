@@ -12,9 +12,6 @@ public class ToDoService : IToDoService {
     private readonly IPersistenceService service;
     private List<TodoItem> todoItems;
 
-    private Dictionary<string, TodoList> lists;
-    public TodoList this[string s] => lists[s];
-
     public ToDoService(IHttpClientFactory factory, IPersistenceService service) {
         client = factory.CreateClient("ApiClient");
         client.DefaultRequestHeaders.Add("Email-Auth_Email", "bob@example.com");
