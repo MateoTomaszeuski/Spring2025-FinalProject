@@ -17,6 +17,5 @@ public partial class ToolsViewModel : ObservableObject {
         NotesActive = "Notes" == tool;
         CalculatorActive = "Calculator" == tool;
         PomodoroActive = "Pomodoro" == tool;
-        //
     }
 }
