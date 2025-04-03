@@ -13,7 +13,7 @@ namespace Consilium.Shared.ViewModels;
 
 
 public class ScratchpadViewModel : ObservableObject {
-    private SKPath currentPath;
+    private SKPath? currentPath;
     private ObservableCollection<SKPath> drawingPaths;
 
     public ObservableCollection<SKPath> DrawingPaths {
