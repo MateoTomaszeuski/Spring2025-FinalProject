@@ -1,18 +1,18 @@
-﻿using System;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using SkiaSharp;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CommunityToolkit.Mvvm.ComponentModel;
-using System.Collections.ObjectModel;
-using System.IO;
-using SkiaSharp;
 
 
 namespace Consilium.Shared.ViewModels;
 
 
-    public class ScratchpadViewModel : ObservableObject {
+public class ScratchpadViewModel : ObservableObject {
     private SKPath currentPath;
     private ObservableCollection<SKPath> drawingPaths;
 
