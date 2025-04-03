@@ -4,9 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Consilium.Shared.ViewModels
-{
-    class ScratchpadViewModel
-    {
+namespace Consilium.Shared.ViewModels {
+    class ScratchpadViewModel {
     }
 }
