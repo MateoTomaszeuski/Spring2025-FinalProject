@@ -102,6 +102,9 @@
 	  <MauiXaml Update="Views\DashboardView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\ScratchpadView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\StatsView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
