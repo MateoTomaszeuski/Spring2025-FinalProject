@@ -38,6 +38,9 @@ public partial class TodoListViewModel : ObservableObject {
     private string newTodoCategory;
 
     [ObservableProperty]
+    private string newSubtaskTitle = "";
+
+    [ObservableProperty]
     private string message = "";
 
     private bool categoryIsSortedAscending;
@@ -94,8 +97,6 @@ public partial class TodoListViewModel : ObservableObject {
         categoryIsSortedAscending = false;
     }
 
-    [ObservableProperty]
-    private string newSubtaskTitle = "";
 
 
     [RelayCommand]
