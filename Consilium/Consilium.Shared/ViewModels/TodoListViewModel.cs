@@ -118,7 +118,7 @@ public partial class TodoListViewModel : ObservableObject {
 
     [RelayCommand]
     private void AddSubtask(TodoItem parentTask) {
-        if (parentTask == null || !string.IsNullOrWhiteSpace(NewSubtaskTitle)) return;
+        if (parentTask is null || string.IsNullOrWhiteSpace(NewSubtaskTitle)) return;
 
         var subTask = new TodoItem { Title = NewSubtaskTitle, ParentId = parentTask.Id };
         parentTask.Subtasks.Add(subTask);
