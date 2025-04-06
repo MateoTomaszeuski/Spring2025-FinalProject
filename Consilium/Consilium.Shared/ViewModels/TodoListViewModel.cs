@@ -97,27 +97,14 @@ public partial class TodoListViewModel : ObservableObject {
         categoryIsSortedAscending = false;
     }
 
-
-
-    [RelayCommand]
-    private void AddSubtask(TodoItem parentTask) {
-        if (parentTask != null && !string.IsNullOrWhiteSpace(NewSubtaskTitle)) {
-            var subTask = new TodoItem { Title = NewSubtaskTitle, ParentId = parentTask.Id };
-            parentTask.Subtasks.Add(subTask);
-            parentTask.IsExpanded = true;
-            NewSubtaskTitle = string.Empty;
-        }
-    }
-
     [RelayCommand]
     private void ToggleSubtaskVisibility(TodoItem parentTask) {
-        if (parentTask != null) {
+        if (parentTask == null) return;
 
-            if (parentTask.SubtaskEntryIsVisible)
-                ToggleSubtaskEntryVisibility(parentTask);
+        if (parentTask.SubtaskEntryIsVisible)
+            ToggleSubtaskEntryVisibility(parentTask);
 
-            parentTask.IsExpanded = !parentTask.IsExpanded;
-        }
+        parentTask.IsExpanded = !parentTask.IsExpanded;
     }
 
     [RelayCommand]
@@ -127,6 +114,16 @@ public partial class TodoListViewModel : ObservableObject {
         }
 
         NewSubtaskTitle = "";
+    }
+
+    [RelayCommand]
+    private void AddSubtask(TodoItem parentTask) {
+        if (parentTask != null && !string.IsNullOrWhiteSpace(NewSubtaskTitle)) {
+            var subTask = new TodoItem { Title = NewSubtaskTitle, ParentId = parentTask.Id };
+            parentTask.Subtasks.Add(subTask);
+            parentTask.IsExpanded = true;
+            NewSubtaskTitle = string.Empty;
+        }
     }
 
     [RelayCommand]
