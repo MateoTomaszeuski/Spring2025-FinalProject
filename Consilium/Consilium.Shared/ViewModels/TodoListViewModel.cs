@@ -20,8 +20,8 @@ public partial class TodoListViewModel : ObservableObject {
     }
     public async Task InitializeItemsAsync() {
         IsLoading = true;
-        await ToDoService.InitializeTodosAsync();
-        TodoItems = ToDoService.GetTodoItemsAsync();
+        //await ToDoService.InitializeTodosAsync();
+        //TodoItems = ToDoService.GetTodoItemsAsync();
         IsLoading = false;
     }
 

@@ -135,4 +135,34 @@ public class ToDoListVMTests {
     }
 
 
+    [Test]
+    public async Task WhenIsCompletedBecomesTrue_CompletionDateIsSet() {
+        viewModel.TodoItems = new ObservableCollection<TodoItem>() {
+            new TodoItem() { Title = "Task 1", Id = 1 },
+            new TodoItem() { Title = "Task 2", Id = 2 }
+        };
+
+        await Assert.That(viewModel.TodoItems[0].CompletionDate).IsNull();
+
+        viewModel.TodoItems[0].IsCompleted = true;
+        await Assert.That(viewModel.TodoItems[0].CompletionDate).IsNotNull();
+    }
+
+    [Test]
+    public async Task WhenIsCompletedIsFalse_CompletionDateIsNull() {
+        viewModel.TodoItems = new ObservableCollection<TodoItem>() {
+            new TodoItem() { Title = "Task 1", Id = 1 },
+            new TodoItem() { Title = "Task 2", Id = 2 }
+        };
+
+        await Assert.That(viewModel.TodoItems[0].CompletionDate).IsNull();
+
+        viewModel.TodoItems[0].IsCompleted = true;
+        await Assert.That(viewModel.TodoItems[0].CompletionDate).IsNotNull();
+
+        viewModel.TodoItems[0].IsCompleted = false;
+        await Assert.That(viewModel.TodoItems[0].CompletionDate).IsNull();
+
+    }
+
 }

@@ -6,7 +6,6 @@ namespace Consilium.Shared.Models;
 public partial class TodoItem : ObservableObject {
     public int Id { get; set; }
     public string? Title { get; set; }
-    public bool IsCompleted => CompletionDate is null;
     public int TodoListId { get; set; }
     public int? ParentId { get; set; }
     public int? AssignmentId { get; set; }
@@ -23,6 +22,17 @@ public partial class TodoItem : ObservableObject {
 
     [ObservableProperty]
     private bool subtaskEntryIsVisible;
+
+    [ObservableProperty]
+    private bool isCompleted;
+
+    partial void OnIsCompletedChanged(bool value) {
+        if (value) {
+            CompletionDate = DateTime.Now;
+        } else {
+            CompletionDate = null;
+        }
+    }
 
     public TodoItem() {
         Subtasks.CollectionChanged += (s, e) =>
