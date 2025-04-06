@@ -162,7 +162,10 @@ public class ToDoListVMTests {
 
         viewModel.TodoItems[0].IsCompleted = false;
         await Assert.That(viewModel.TodoItems[0].CompletionDate).IsNull();
-
     }
 
+    [Test]
+    public async Task WhenCategoryIsSorted_SortingAgainReversesOrder() {
+        await Task.CompletedTask;
+    }
 }

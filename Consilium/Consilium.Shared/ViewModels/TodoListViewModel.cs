@@ -44,6 +44,8 @@ public partial class TodoListViewModel : ObservableObject {
     [ObservableProperty]
     private string message = "";
 
+    private bool categoryIsSortedAscending;
+
 
     [RelayCommand]
     private void AddTodo() {
