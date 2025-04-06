@@ -109,38 +109,37 @@ public partial class TodoListViewModel : ObservableObject {
 
     [RelayCommand]
     private void ToggleSubtaskEntryVisibility(TodoItem parentTask) {
-        if (parentTask != null) {
-            parentTask.SubtaskEntryIsVisible = !parentTask.SubtaskEntryIsVisible;
+        if (parentTask == null) return;
+
+        foreach (var task in TodoItems) {
+            if (task != parentTask && task.SubtaskEntryIsVisible) {
+                task.SubtaskEntryIsVisible = false;
+            }
         }
 
+        parentTask.SubtaskEntryIsVisible = !parentTask.SubtaskEntryIsVisible;
         NewSubtaskTitle = "";
     }
 
     [RelayCommand]
     private void AddSubtask(TodoItem parentTask) {
-        // ask in class why this refactoring doesn't work:
-        //if (parentTask is null || string.IsNullOrWhiteSpace(NewSubtaskTitle)) return;
+        if (parentTask is null || string.IsNullOrWhiteSpace(NewSubtaskTitle)) return;
 
-        //var subTask = new TodoItem { Title = NewSubtaskTitle, ParentId = parentTask.Id };
-        //parentTask.Subtasks.Add(subTask);
+        var subTask = new TodoItem { Title = NewSubtaskTitle, ParentTempId = parentTask.TempId };
+        parentTask.Subtasks.Add(subTask);
 
-        //parentTask.IsExpanded = true;
-        //NewSubtaskTitle = string.Empty;
-
-        if (parentTask != null && !string.IsNullOrWhiteSpace(NewSubtaskTitle)) {
-            var subTask = new TodoItem { Title = NewSubtaskTitle, ParentId = parentTask.Id };
-            parentTask.Subtasks.Add(subTask);
-            parentTask.IsExpanded = true;
-            NewSubtaskTitle = string.Empty;
-        }
+        parentTask.IsExpanded = true;
+        NewSubtaskTitle = string.Empty;
     }
 
     [RelayCommand]
     private void RemoveSubtask(TodoItem subTask) {
-        if (subTask?.ParentId != null) {
-            TodoItem parentTask = TodoItems.First(a => a.Id == subTask.ParentId);
-            parentTask.Subtasks.Remove(subTask);
-        }
+        if (subTask?.ParentTempId is null) return;
+
+        var parent = TodoItems.FirstOrDefault(t => t.TempId == subTask.ParentTempId);
+        if (parent is null) return;
+
+        parent.Subtasks.Remove(subTask);
     }
 
 }
