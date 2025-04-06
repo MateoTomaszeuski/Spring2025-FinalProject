@@ -132,14 +132,3 @@ public partial class TodoListViewModel : ObservableObject {
     }
 
 }
-
-//TO-DO:
-// set up binding for categories
-// review options for subtask visibility toggling (caret to indicate subtasks, or save space by simply clicking ToDo's title?)
-// style style style
-
-//Custom Categories not descriptions
-// need Nested Todo items 
-// add an assginment id wich can be empty
-// be able to sort by category
-// be able to sort by completion
