@@ -122,9 +122,9 @@ public partial class TodoListViewModel : ObservableObject {
 
         var subTask = new TodoItem { Title = NewSubtaskTitle, ParentId = parentTask.Id };
         parentTask.Subtasks.Add(subTask);
+
         parentTask.IsExpanded = true;
         NewSubtaskTitle = string.Empty;
-
     }
 
     [RelayCommand]
