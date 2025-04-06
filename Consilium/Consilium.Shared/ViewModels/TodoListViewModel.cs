@@ -72,7 +72,6 @@ public partial class TodoListViewModel : ObservableObject {
     private void RemoveTodo(TodoItem todoItem) {
         if (todoItem != null) {
             Console.WriteLine($"Removing Todo: {todoItem}");
-            int index = TodoItems.IndexOf(todoItem);
             TodoItems.Remove(todoItem);
         }
     }
