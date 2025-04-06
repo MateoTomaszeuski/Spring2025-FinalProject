@@ -22,6 +22,7 @@ public partial class TodoListViewModel : ObservableObject {
         IsLoading = true;
         //await ToDoService.InitializeTodosAsync();
         //TodoItems = ToDoService.GetTodoItemsAsync();
+        await Task.CompletedTask;
         IsLoading = false;
     }
 
@@ -83,13 +84,20 @@ public partial class TodoListViewModel : ObservableObject {
 
     [RelayCommand]
     private void SortByCategory() {
-        TodoItems = [.. TodoItems.OrderBy(item => item.Category)];
+        if (categoryIsSortedAscending) {
+            TodoItems = [.. TodoItems.OrderByDescending(item => item.Category)];
+            categoryIsSortedAscending = false;
+        } else {
+            TodoItems = [.. TodoItems.OrderBy(item => item.Category)];
+            categoryIsSortedAscending = true;
+        }
     }
 
     [RelayCommand]
     private void SortByCompletion() {
         // ascending - puts complete items at the end
         TodoItems = [.. TodoItems.OrderBy(item => item.IsCompleted)];
+        categoryIsSortedAscending = false;
     }
 
     [ObservableProperty]

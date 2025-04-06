@@ -165,7 +165,46 @@ public class ToDoListVMTests {
     }
 
     [Test]
+    public async Task WhenSortedOnce_SortByAscendingCategory() {
+        viewModel.TodoItems = new ObservableCollection<TodoItem>() {
+            new TodoItem() { Title = "Task 1", Id = 1, Category="Banana" },
+            new TodoItem() { Title = "Task 2", Id = 2, Category="Apple" }
+        };
+
+        viewModel.SortByCategoryCommand.Execute(null);
+
+        await Assert.That(viewModel.TodoItems[0].Category).IsEqualTo("Apple");
+        await Assert.That(viewModel.TodoItems[1].Category).IsEqualTo("Banana");
+    }
+
+    [Test]
+    public async Task AscendingSortWorksForThreeItemsWithDistinctCategories() {
+        viewModel.TodoItems = new ObservableCollection<TodoItem>() {
+            new TodoItem() { Title = "Task 1", Id = 1, Category="Banana" },
+            new TodoItem() { Title = "Task 2", Id = 2, Category="Cookie" },
+            new TodoItem() { Title = "Task 2", Id = 2, Category="Apple" }
+        };
+
+        viewModel.SortByCategoryCommand.Execute(null);
+
+        await Assert.That(viewModel.TodoItems[0].Category).IsEqualTo("Apple");
+        await Assert.That(viewModel.TodoItems[1].Category).IsEqualTo("Banana");
+        await Assert.That(viewModel.TodoItems[2].Category).IsEqualTo("Cookie");
+    }
+
+    [Test]
     public async Task WhenCategoryIsSorted_SortingAgainReversesOrder() {
-        await Task.CompletedTask;
+        viewModel.TodoItems = new ObservableCollection<TodoItem>() {
+            new TodoItem() { Title = "Task 1", Id = 1, Category="Banana" },
+            new TodoItem() { Title = "Task 2", Id = 2, Category="Cookie" },
+            new TodoItem() { Title = "Task 2", Id = 2, Category="Apple" }
+        };
+
+        viewModel.SortByCategoryCommand.Execute(null);
+        viewModel.SortByCategoryCommand.Execute(null);
+
+        await Assert.That(viewModel.TodoItems[0].Category).IsEqualTo("Cookie");
+        await Assert.That(viewModel.TodoItems[1].Category).IsEqualTo("Banana");
+        await Assert.That(viewModel.TodoItems[2].Category).IsEqualTo("Apple");
     }
 }
