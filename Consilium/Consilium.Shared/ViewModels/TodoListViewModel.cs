@@ -3,14 +3,10 @@ using CommunityToolkit.Mvvm.Input;
 using Consilium.Shared.Models;
 using Consilium.Shared.Services;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Json;
-using System.Reflection.Emit;
-using System.Windows.Input;
 
 namespace Consilium.Shared.ViewModels;
 public partial class TodoListViewModel : ObservableObject {
+    private IToDoService ToDoService;
     private HttpClient client;
     public TodoListViewModel(IToDoService toDoService) {
         NewTodoCategory = Categories[0];
@@ -40,7 +36,6 @@ public partial class TodoListViewModel : ObservableObject {
 
     [ObservableProperty]
     private string newTodoCategory;
-    private IToDoService ToDoService;
 
     [ObservableProperty]
     private string message = "";
