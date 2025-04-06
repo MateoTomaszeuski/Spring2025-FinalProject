@@ -86,7 +86,8 @@ public partial class TodoListViewModel : ObservableObject {
 
     [RelayCommand]
     private void SortByCompletion() {
-        TodoItems = [.. TodoItems.OrderByDescending(item => item.IsCompleted)];
+        // ascending - puts complete items at the end
+        TodoItems = [.. TodoItems.OrderBy(item => item.IsCompleted)];
     }
 
     [ObservableProperty]
