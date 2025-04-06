@@ -37,8 +37,46 @@
                          HorizontalOptions="End"
                          Opacity="0.8">
 
-                <Button Text="Sort by Category"
-                    Command="{Binding SortByCategoryCommand}" />
+                <Border Stroke="{AppThemeBinding Light=Gray, Dark=White}"
+                        StrokeThickness="0"
+                        BackgroundColor="#719984"
+                        StrokeShape="RoundRectangle 10"
+                        Padding="10"
+                        Opacity="0.9">  
+                    <Grid>
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SortByCategoryCommand}" />
+                        </Grid.GestureRecognizers>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Label Grid.Column="0"
+                               Text="Sort by Category"
+                               FontSize="14"
+                               VerticalOptions="Center"
+                               TextColor="White"/>
+
+                        <Label Grid.Column="1"
+                               Text="{StaticResource CaretUpIcon}"
+                               FontFamily="FontAwesomeSolid"
+                               FontSize="14"
+                               Margin="5,0,0,0"
+                               VerticalOptions="Center"
+                               TextColor="White">   
+                            <Label.Triggers>
+                                <DataTrigger TargetType="Label"
+                                             Binding="{Binding CategoryIsSortedAscending}"
+                                             Value="True">
+                                    <Setter Property="Text" Value="{StaticResource CaretDownIcon}" />
+                                </DataTrigger>
+                            </Label.Triggers>
+                        </Label>
+                    </Grid>
+                </Border>
+
                 <Button Text="Sort by Completion"
                     Command="{Binding SortByCompletionCommand}" />
             </StackLayout>

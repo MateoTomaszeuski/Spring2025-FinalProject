@@ -43,6 +43,7 @@ public partial class TodoListViewModel : ObservableObject {
     [ObservableProperty]
     private string message = "";
 
+    [ObservableProperty]
     private bool categoryIsSortedAscending;
 
 
@@ -81,12 +82,12 @@ public partial class TodoListViewModel : ObservableObject {
 
     [RelayCommand]
     private void SortByCategory() {
-        if (categoryIsSortedAscending) {
+        if (CategoryIsSortedAscending) {
             TodoItems = [.. TodoItems.OrderByDescending(item => item.Category)];
-            categoryIsSortedAscending = false;
+            CategoryIsSortedAscending = false;
         } else {
             TodoItems = [.. TodoItems.OrderBy(item => item.Category)];
-            categoryIsSortedAscending = true;
+            CategoryIsSortedAscending = true;
         }
     }
 
@@ -94,7 +95,7 @@ public partial class TodoListViewModel : ObservableObject {
     private void SortByCompletion() {
         // ascending - puts complete items at the end
         TodoItems = [.. TodoItems.OrderBy(item => item.IsCompleted)];
-        categoryIsSortedAscending = false;
+        CategoryIsSortedAscending = false;
     }
 
     [RelayCommand]
