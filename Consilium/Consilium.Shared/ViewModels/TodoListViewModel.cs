@@ -118,13 +118,21 @@ public partial class TodoListViewModel : ObservableObject {
 
     [RelayCommand]
     private void AddSubtask(TodoItem parentTask) {
-        if (parentTask is null || string.IsNullOrWhiteSpace(NewSubtaskTitle)) return;
+        // ask in class why this refactoring doesn't work:
+        //if (parentTask is null || string.IsNullOrWhiteSpace(NewSubtaskTitle)) return;
 
-        var subTask = new TodoItem { Title = NewSubtaskTitle, ParentId = parentTask.Id };
-        parentTask.Subtasks.Add(subTask);
+        //var subTask = new TodoItem { Title = NewSubtaskTitle, ParentId = parentTask.Id };
+        //parentTask.Subtasks.Add(subTask);
 
-        parentTask.IsExpanded = true;
-        NewSubtaskTitle = string.Empty;
+        //parentTask.IsExpanded = true;
+        //NewSubtaskTitle = string.Empty;
+
+        if (parentTask != null && !string.IsNullOrWhiteSpace(NewSubtaskTitle)) {
+            var subTask = new TodoItem { Title = NewSubtaskTitle, ParentId = parentTask.Id };
+            parentTask.Subtasks.Add(subTask);
+            parentTask.IsExpanded = true;
+            NewSubtaskTitle = string.Empty;
+        }
     }
 
     [RelayCommand]
