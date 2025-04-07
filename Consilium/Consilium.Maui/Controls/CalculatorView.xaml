@@ -3,17 +3,16 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Consilium.Maui.Controls.CalculatorView">
     <VerticalStackLayout Spacing="10" Padding="20">
-        <!-- Display -->
         <Label x:Name="DisplayLabel"
                Text="0"
                FontSize="32"
                HorizontalTextAlignment="End"
                VerticalOptions="Center"
-               BackgroundColor="LightGray"
                Padding="10" />
 
-        <!-- Buttons -->
-        <Grid RowSpacing="5" ColumnSpacing="5">
+        <Grid 
+            RowSpacing="5" 
+            ColumnSpacing="5">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
@@ -29,31 +28,26 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <!-- First Row -->
             <Button Text="C" Grid.Row="0" Grid.Column="0" Clicked="OnClearClicked"/>
             <Button Text="←" Grid.Row="0" Grid.Column="1" Clicked="OnBackspaceClicked"/>
             <Button Text="/" Grid.Row="0" Grid.Column="2" Clicked="OnOperatorClicked"/>
             <Button Text="*" Grid.Row="0" Grid.Column="3" Clicked="OnOperatorClicked"/>
 
-            <!-- Second Row -->
             <Button Text="7" Grid.Row="1" Grid.Column="0" Clicked="OnDigitClicked"/>
             <Button Text="8" Grid.Row="1" Grid.Column="1" Clicked="OnDigitClicked"/>
             <Button Text="9" Grid.Row="1" Grid.Column="2" Clicked="OnDigitClicked"/>
             <Button Text="-" Grid.Row="1" Grid.Column="3" Clicked="OnOperatorClicked"/>
 
-            <!-- Third Row -->
             <Button Text="4" Grid.Row="2" Grid.Column="0" Clicked="OnDigitClicked"/>
             <Button Text="5" Grid.Row="2" Grid.Column="1" Clicked="OnDigitClicked"/>
             <Button Text="6" Grid.Row="2" Grid.Column="2" Clicked="OnDigitClicked"/>
             <Button Text="+" Grid.Row="2" Grid.Column="3" Clicked="OnOperatorClicked"/>
 
-            <!-- Fourth Row -->
             <Button Text="1" Grid.Row="3" Grid.Column="0" Clicked="OnDigitClicked"/>
             <Button Text="2" Grid.Row="3" Grid.Column="1" Clicked="OnDigitClicked"/>
             <Button Text="3" Grid.Row="3" Grid.Column="2" Clicked="OnDigitClicked"/>
             <Button Text="=" Grid.Row="3" Grid.Column="3" Clicked="OnEqualsClicked"/>
 
-            <!-- Fifth Row -->
             <Button Text="0" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Clicked="OnDigitClicked"/>
             <Button Text="." Grid.Row="4" Grid.Column="2" Clicked="OnDigitClicked"/>
         </Grid>
