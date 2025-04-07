@@ -1,26 +1,27 @@
 name: Build and deploy Api to Kubernetees for Pull Requests
-
 on:
   workflow_run:
-    workflows: [Test Project]
-    types: [completed]
+    workflows: Test Pull Request
+    types: completed
 
 jobs:
   build_and_deploy_api:
     runs-on: self-hosted
-    if: ${{ github.event.workflow_run.conclusion == 'success' }} &&  ${{ github.event.workflow_run.pull_requests != '' }}
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
     - uses: actions/checkout@v4 # git clone
-    
+   
     - name: Extract PR Number
       id: get_pr
-      run: echo "pr_number=$(jq '."workflow_run"."pull_requests"[0].number' "$GITHUB_EVENT_PATH")" >> $GITHUB_OUTPUT
+      run: |
+        pr_number=$(jq -r '.workflow_run.pull_requests[0].number' "$GITHUB_EVENT_PATH")
+        echo "pr_number=$pr_number" >> $GITHUB_OUTPUT
 
     - name: Check Nodes
       run: kubectl get nodes
 
     - name: Create Namespace
-      run: kubectl create namespace consilium_pull_request_${{ steps.get_pr.outputs.pr_number }}
+      run: kubectl create namespace consilium-pull-request-${{ steps.get_pr.outputs.pr_number }}
     
 
     - name: Login to Docker Hub

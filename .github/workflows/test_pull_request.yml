@@ -1,6 +1,6 @@
-name: Test Project
+name: Test Pull Request
 on : 
-- push
+- pull_request
 
 jobs:
   Check_Linting_and_Warns:
