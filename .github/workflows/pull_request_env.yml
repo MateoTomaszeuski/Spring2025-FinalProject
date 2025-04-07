@@ -15,6 +15,7 @@ jobs:
               -t consilium_linting_and_warns_container \
           .
 
+
   Test_Project:
     runs-on: ubuntu-latest
     steps:
@@ -78,9 +79,7 @@ jobs:
         with:
           username: ${{ vars.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-  
           
-      
       - name : Build image
         run: |
           docker buildx \
@@ -95,7 +94,7 @@ jobs:
       - name: Apply Kubernetes Changes
         run: |
           export BUILD_NUMBER=${{ github.run_number }}
-          export NAMESPACE=consilium_pull_request_${{ steps.get_pr.outputs.pr_number }}
+          export NAMESPACE=consilium-pull-request-${{ steps.get_pr.outputs.pr_number }}
           export PULL_REQUEST_NUMBER=pr-${{ steps.get_pr.outputs.pr_number }}
           
           for FILE in "kube"/*
