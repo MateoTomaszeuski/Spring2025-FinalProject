@@ -50,6 +50,11 @@
         Icon="timer.png"
         ContentTemplate="{DataTemplate local:ToolsView}"
         Route="Tools" />
+        <ShellContent
+        Title="Tools"
+        Icon="splash.png"
+        ContentTemplate="{DataTemplate local:ScratchpadView}"
+        Route="Tools" />
 
     </TabBar>
 </Shell>

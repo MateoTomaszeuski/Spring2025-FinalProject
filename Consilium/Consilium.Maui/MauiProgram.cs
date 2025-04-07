@@ -47,6 +47,7 @@ public static class MauiProgram {
         builder.Services.AddSingleton<StatsView>();
         builder.Services.AddSingleton<TodoListView>();
         builder.Services.AddSingleton<ToolsView>();
+        builder.Services.AddSingleton<ScratchpadView>();
 
         return builder;
     }
@@ -57,6 +58,7 @@ public static class MauiProgram {
         builder.Services.AddSingleton<StatsViewModel>();
         builder.Services.AddSingleton<TodoListViewModel>();
         builder.Services.AddSingleton<ToolsViewModel>();
+
 
         return builder;
     }
