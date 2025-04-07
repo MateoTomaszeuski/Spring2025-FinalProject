@@ -17,6 +17,7 @@ DateTime started = DateTime.UtcNow;
 
 const string serviceName = "Consilium";
 var Uri = builder.Configuration["OTEL_URL"] ?? "";
+Console.WriteLine(Uri);
 if (Uri != "") {
     builder.Services.AddOpenTelemetry()
         .ConfigureResource(r => r.AddService(serviceName: serviceName))
