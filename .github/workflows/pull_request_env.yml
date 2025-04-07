@@ -107,6 +107,10 @@ jobs:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
             github.rest.issues.createComment({
-              ApiUrl: pr-${{ steps.get_pr.outputs.pr_number }}.consilium.duckdns.org
+             issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: 'ApiUrl: pr-${{ steps.get_pr.outputs.pr_number }}.consilium.duckdns.org'
+              
             })
         
