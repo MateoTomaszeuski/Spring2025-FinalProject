@@ -46,28 +46,28 @@ public partial class CalculatorView : ContentView
         }
     }
 
-    void OnEqualsClicked(object sender, EventArgs e)
+void OnEqualsClicked(object sender, EventArgs e)
+{
+    if (!double.TryParse(currentInput, out double currentValue))
+        return;
+
+    double result = 0;
+
+    switch (operation)
     {
-        if (!double.TryParse(currentInput, out double currentValue))
-            return;
-
-        double result = 0;
-
-        switch (operation)
-        {
-            case "+": result = previousValue + currentValue; break;
-            case "-": result = previousValue - currentValue; break;
-            case "*": result = previousValue * currentValue; break;
-            case "/": result = currentValue != 0 ? previousValue / currentValue : 0; break;
-        }
-
-        DisplayLabel.Text = result.ToString();
-
-        // Reset everything
-        currentInput = result.ToString();
-        expression = "";
-        isNewInput = true;
+        case "+": result = previousValue + currentValue; break;
+        case "-": result = previousValue - currentValue; break;
+        case "*": result = previousValue * currentValue; break;
+        case "/": result = currentValue != 0 ? previousValue / currentValue : 0; break;
     }
+
+    DisplayLabel.Text = result.ToString();
+
+    // Reset everything, but retain the result as the starting point for the next expression
+    currentInput = result.ToString();
+    expression = result.ToString();  // <-- this keeps the result in the display
+    isNewInput = true;
+}
 
     void OnClearClicked(object sender, EventArgs e)
     {
