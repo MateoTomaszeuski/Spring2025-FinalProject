@@ -6,6 +6,7 @@ public partial class CalculatorView : ContentView
     private double previousValue = 0;
     private string operation = "";
     private bool isNewInput = false;
+    private string expression = "";
 
     public CalculatorView()
     {
@@ -23,7 +24,8 @@ public partial class CalculatorView : ContentView
             }
 
             currentInput += button.Text;
-            DisplayLabel.Text = currentInput;
+            expression += button.Text;
+            DisplayLabel.Text = expression;
         }
     }
 
@@ -38,7 +40,9 @@ public partial class CalculatorView : ContentView
         if (sender is Button button)
         {
             operation = button.Text;
-            isNewInput = true;
+            expression += button.Text;
+            DisplayLabel.Text = expression;
+            isNewInput = false;
         }
     }
 
@@ -57,8 +61,12 @@ public partial class CalculatorView : ContentView
             case "/": result = currentValue != 0 ? previousValue / currentValue : 0; break;
         }
 
-        DisplayLabel.Text = result.ToString();
+        expression += "=" + result.ToString();
+        DisplayLabel.Text = expression;
+
+        // Reset for next operation
         currentInput = result.ToString();
+        expression = result.ToString();
         isNewInput = true;
     }
 
@@ -67,6 +75,7 @@ public partial class CalculatorView : ContentView
         currentInput = "";
         previousValue = 0;
         operation = "";
+        expression = "";
         DisplayLabel.Text = "0";
     }
 
@@ -75,7 +84,8 @@ public partial class CalculatorView : ContentView
         if (!string.IsNullOrEmpty(currentInput))
         {
             currentInput = currentInput.Substring(0, currentInput.Length - 1);
-            DisplayLabel.Text = string.IsNullOrEmpty(currentInput) ? "0" : currentInput;
+            expression = expression.Substring(0, expression.Length - 1);
+            DisplayLabel.Text = string.IsNullOrEmpty(expression) ? "0" : expression;
         }
     }
 }
