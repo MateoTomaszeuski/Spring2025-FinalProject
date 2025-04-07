@@ -31,13 +31,11 @@ Share 3+ different blocking issues that you were stuck on for a while, and how y
 **Solution:**
   - I basically created my own button from scratch using a border, a grid, and a gesture recognizer. This solution led to a lot of XAML code, but it does look the way I wanted it to.
 
-#### 2. Issue
+#### 2. ViewModel Breaks Conditionally Visible Tools
 * **Description:** 
-  - lorem
-* **Attempts To Fix:**
-  - lorem 
+  - We're using custom controls to render the individual tools on the tools page. Having ViewModels for each of the tools seems to break the Tools page.
 * **Solution:**
-  - lorem
+  - Workaround: use the code-behind for the tools logic instead of MVVM.
 
 #### 3. Issue
 * **Description:** 
