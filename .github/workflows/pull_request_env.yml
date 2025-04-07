@@ -58,6 +58,9 @@ jobs:
   build_and_deploy_api:
       needs: [Check_Linting_and_Warns, Test_Project, Integration_Test_Project]
       runs-on: self-hosted
+      permissions:
+        pull-requests: write
+        issues: write
       steps:
       - uses: actions/checkout@v4 # git clone
       
