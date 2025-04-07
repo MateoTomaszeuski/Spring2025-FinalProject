@@ -14,4 +14,4 @@ spec:
           service:
             name: consilium-zipkin-svc
             port: 
-              number: 1003
+              number: 9411
