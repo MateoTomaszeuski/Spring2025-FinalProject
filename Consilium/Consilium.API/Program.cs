@@ -9,6 +9,7 @@ using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
 using System.Data;
+using System.Diagnostics;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -49,6 +50,9 @@ if (Uri != "") {
 
         );
 }
+ActivitySource? activitySource = new ActivitySource(serviceName);
+
+
 string connString = builder.Configuration["DB_CONN"] ?? throw new Exception("No connection string was found.");
 Console.WriteLine("Connection String: " + connString);
 builder.Services.AddSingleton<IDbConnection>(provider =>
@@ -81,10 +85,19 @@ if (app.Environment.IsDevelopment()) {
 app.UseRouting();
 
 //change
-app.MapGet("", () => "Welcome to the Consilium Api");
+app.MapGet("", () =>
+{
+    using var activity = activitySource.StartActivity("HomeActivity");
+    activity?.SetTag("home", "home");
+
+    return "Welcome to the Consilium Api";
+});
 
 app.MapGet("/health", () =>
 {
+    using var activity = activitySource.StartActivity("HomeActivity");
+    activity?.SetTag("Health", "Checking Health");
+
     return Results.Ok("healthy");
 });
 
@@ -94,7 +107,13 @@ app.MapGet("/health", () =>
 bool featureFlag = builder.Configuration["feature_flag"] == "true";
 
 if (featureFlag) {
-    app.MapGet("/secret", () => "Secrets are hidden within.");
+    app.MapGet("/secret", () =>
+    {
+        using var activity = activitySource.StartActivity("HomeActivity");
+        activity?.SetTag("Secret", "Checking Secrets");
+
+        return "Secrets are hidden within.";
+    });
 }
 
 //app.UseHttpsRedirection();
