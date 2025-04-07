@@ -61,12 +61,11 @@ public partial class CalculatorView : ContentView
             case "/": result = currentValue != 0 ? previousValue / currentValue : 0; break;
         }
 
-        expression += "=" + result.ToString();
-        DisplayLabel.Text = expression;
+        DisplayLabel.Text = result.ToString();
 
-        // Reset for next operation
+        // Reset everything
         currentInput = result.ToString();
-        expression = result.ToString();
+        expression = "";
         isNewInput = true;
     }
 
