@@ -1,10 +1,13 @@
-﻿using Consilium.Shared.Models;
+﻿using Consilium.API.Controllers;
+using Consilium.Shared.Models;
 using Consilium.Shared.Services;
 using Consilium.Shared.ViewModels;
 using NSubstitute;
 using Shouldly;
 using System.Collections.ObjectModel;
+using System.Net.Http.Json;
 using System.Threading.Tasks;
+using TUnit.Assertions.AssertionBuilders.Wrappers;
 using TUnit.Assertions.Extensions;
 namespace Consilium.Tests;
 
@@ -14,8 +17,7 @@ public class ToDoListVMTests {
 
     public ToDoListVMTests() {
         IToDoService service = Substitute.For<IToDoService>();
-        service.RemoveToDoAsync(0).Returns("Deleted successfully");
-        service.RemoveToDoAsync(1).Returns("Deleted successfully");
+
         viewModel = new TodoListViewModel(service);
     }
 
@@ -47,7 +49,6 @@ public class ToDoListVMTests {
     }
 
     [Test]
-
     public async Task CheckCorrectTodoItemIsAdded() {
         viewModel.NewTodoTitle = "Test Todo";
         viewModel.AddTodoCommand.Execute(null);
@@ -55,7 +56,6 @@ public class ToDoListVMTests {
     }
 
     [Test]
-
     public async Task CanAddMultipleItems() {
         viewModel.NewTodoTitle = "Test Todo";
         viewModel.AddTodoCommand.Execute(null);

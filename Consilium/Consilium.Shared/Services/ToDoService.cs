@@ -19,11 +19,11 @@ public class ToDoService : IToDoService {
         todoItems = new();
     }
 
-    public ObservableCollection<TodoItem> GetTodoItemsAsync() {
+    public ObservableCollection<TodoItem> GetTodoItems() {
         return new(ListCollapser.CollapseList(todoItems));
     }
 
-    public async Task AddItem(TodoItem item) {
+    public async Task AddItemAsync(TodoItem item) {
         var response = await client.PostAsJsonAsync($"todo", item);
         int id = Convert.ToInt16(response.Content.ReadAsStringAsync());
         item.Id = id;
@@ -34,7 +34,7 @@ public class ToDoService : IToDoService {
     /// Takes in an item with an adjusted CompletionDate and updates the item in the list with 
     /// that value.
     /// </summary>
-    public async Task UpdateItem(TodoItem item) {
+    public async Task UpdateItemAsync(TodoItem item) {
         var response = await client.PatchAsJsonAsync($"todo/update", item);
         TodoItem listItem = todoItems.Where(a => a.Id == item.Id).First();
         listItem.CompletionDate = item.CompletionDate;
