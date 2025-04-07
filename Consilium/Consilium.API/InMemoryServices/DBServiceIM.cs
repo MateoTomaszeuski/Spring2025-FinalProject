@@ -7,12 +7,13 @@ public class DBServiceIM : IDBService {
         { "password", new List<TodoItem>() { new TodoItem() { Title = "lorem" } } }
     };
 
-    public void AddToDo(TodoItem Todo, string username) {
+    public int AddToDo(TodoItem Todo, string username) {
         if (todos.ContainsKey(username)) {
             todos[username].Add(Todo);
         } else {
             todos.Add(username, new() { Todo });
         }
+        return 0;
     }
 
     public IEnumerable<User> GetAllUsers() {
@@ -38,13 +39,6 @@ public class DBServiceIM : IDBService {
         if (todos.ContainsKey(username)) {
             todos[username].Remove(item);
         }
-    }
-
-    public int ToDoCount(string username) {
-        if (todos.ContainsKey(username)) {
-            return todos[username].Count();
-        }
-        return 0;
     }
 
     public void UpdateToDo(TodoItem Todo, string username) {

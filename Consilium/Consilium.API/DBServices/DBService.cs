@@ -10,12 +10,13 @@ namespace Consilium.API.DBServices;
 
 public class DBService(IDbConnection conn) : IDBService {
     #region ToDos
-    public void AddToDo(TodoItem Todo, string email) {
+    public int AddToDo(TodoItem Todo, string email) {
         string addItem = @"
             insert into todoitem (account_email, category_name, parent_id, assignment_id, todo_name, completion_date) values 
                 (@email, @categoryid, @parentid, @assignmentid, @todoname, @completiondate)
+                returning id
             ";
-        conn.Execute(addItem, new {
+        return conn.QuerySingle<int>(addItem, new {
             email,
             categoryId = Todo.Category,
             parentId = Todo.ParentId,
@@ -41,10 +42,6 @@ public class DBService(IDbConnection conn) : IDBService {
             delete from todoitem t where t.id = @id and account_email = @email;
             """";
         conn.Execute(removeItem, new { id = item.Id, email });
-    }
-
-    public int ToDoCount(string email) {
-        throw new NotImplementedException();
     }
 
     public void UpdateToDo(TodoItem Todo, string email) {

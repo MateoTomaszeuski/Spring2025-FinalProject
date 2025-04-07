@@ -16,17 +16,9 @@ public class InMemoryApiTests {
     }
 
     [Test]
-    public async Task InMemServiceCanStoreOneItem() {
-        service.AddToDo(new TodoItem(), "cody");
-        await Assert.That(service.ToDoCount("cody")).IsEqualTo(1);
-    }
-
-    [Test]
     public async Task InMemServiceCanStoreTwoItems() {
         service.AddToDo(new TodoItem() { Title = "Lorem" }, "cody");
         service.AddToDo(new TodoItem() { Title = "Lorem2" }, "cody");
-
-        await Assert.That(service.ToDoCount("cody")).IsEqualTo(2);
 
         List<TodoItem> items = service.GetToDos("cody").ToList();
         await Assert.That(items[0].Title).IsEqualTo("Lorem");
@@ -37,8 +29,6 @@ public class InMemoryApiTests {
     public async Task InMemServiceCanStoreTwoPeople() {
         service.AddToDo(new TodoItem() { Title = "LoremC" }, "cody");
         service.AddToDo(new TodoItem() { Title = "LoremA" }, "audrey");
-
-        await Assert.That(service.ToDoCount("cody")).IsEqualTo(1);
 
         List<TodoItem> Citems = service.GetToDos("cody").ToList();
         List<TodoItem> Aitems = service.GetToDos("audrey").ToList();

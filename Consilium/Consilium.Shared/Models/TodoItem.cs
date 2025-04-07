@@ -46,15 +46,11 @@ public partial class TodoItem : ObservableObject {
 
     public ObservableCollection<TodoItem> Subtasks { get; set; } = new();
 
-    //public bool Equals(TodoItem? other) {
-    //    if (other == null) return false;
+    public bool Equals(TodoItem? other) {
+        if (other == null) return false;
 
-    //    return Title == other.Title && 
-    //        IsCompleted == other.IsCompleted && 
-    //        //(ParentTask?.Equals(other.ParentTask) ?? false) && 
-    //        Category == other.Category && 
-    //        Description == other.Description;
-    //}
+        return Id == other.Id;
+    }
 }
 
 

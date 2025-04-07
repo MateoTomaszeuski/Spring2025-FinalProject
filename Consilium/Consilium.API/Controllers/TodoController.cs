@@ -32,8 +32,8 @@ public class todoController : ControllerBase {
     [HttpPost(Name = "CreateTodos")]
     public IResult Post(TodoItem item) {
         string username = Request.Headers["Email-Auth_Email"]!;
-        service.AddToDo(item, username);
-        return Results.Accepted();
+        int result = service.AddToDo(item, username);
+        return Results.Ok(result);
     }
 
     [HttpDelete("remove", Name = "RemoveTodos")]
