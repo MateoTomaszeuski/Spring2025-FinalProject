@@ -173,6 +173,7 @@ public class ToDoListVMTests {
 
         viewModel.SortByCategoryCommand.Execute(null);
 
+        await Assert.That(viewModel.CategoryIsSortedAscending).IsTrue();
         await Assert.That(viewModel.TodoItems[0].Category).IsEqualTo("Apple");
         await Assert.That(viewModel.TodoItems[1].Category).IsEqualTo("Banana");
     }
@@ -187,6 +188,7 @@ public class ToDoListVMTests {
 
         viewModel.SortByCategoryCommand.Execute(null);
 
+        await Assert.That(viewModel.CategoryIsSortedAscending).IsTrue();
         await Assert.That(viewModel.TodoItems[0].Category).IsEqualTo("Apple");
         await Assert.That(viewModel.TodoItems[1].Category).IsEqualTo("Banana");
         await Assert.That(viewModel.TodoItems[2].Category).IsEqualTo("Cookie");
@@ -203,6 +205,7 @@ public class ToDoListVMTests {
         viewModel.SortByCategoryCommand.Execute(null);
         viewModel.SortByCategoryCommand.Execute(null);
 
+        await Assert.That(viewModel.CategoryIsSortedAscending).IsFalse();
         await Assert.That(viewModel.TodoItems[0].Category).IsEqualTo("Cookie");
         await Assert.That(viewModel.TodoItems[1].Category).IsEqualTo("Banana");
         await Assert.That(viewModel.TodoItems[2].Category).IsEqualTo("Apple");
