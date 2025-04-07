@@ -85,11 +85,11 @@ jobs:
           docker buildx \
           build --platform linux/amd64 \
           -f ./Dockerfiles/Dockerfile \
-          -t mateotomaszeuski/consilium:${{ github.run_number }} \
+          -t mateotomaszeuski/consilium:pr-${{ github.run_number }} \
           .
           
       - name: Push image to DockerHub
-        run: docker push mateotomaszeuski/consilium:${{ github.run_number }}
+        run: docker push mateotomaszeuski/consilium:pr-${{ github.run_number }}
       
       - name: Apply Kubernetes Changes
         run: |
