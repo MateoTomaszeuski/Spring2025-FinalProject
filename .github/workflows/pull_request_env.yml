@@ -82,15 +82,15 @@ jobs:
           docker buildx \
           build --platform linux/amd64 \
           -f ./Dockerfiles/Dockerfile \
-          -t mateotomaszeuski/consilium:pr-${{ github.run_number }} \
+          -t mateotomaszeuski/consilium:pr-${{ github.event.number }} \
           .
           
       - name: Push image to DockerHub
-        run: docker push mateotomaszeuski/consilium:pr-${{ github.run_number }}
+        run: docker push mateotomaszeuski/consilium:pr-${{ github.event.number }}
       
       - name: Apply Kubernetes Changes
         run: |
-          export BUILD_NUMBER=${{ github.run_number }}
+          export BUILD_NUMBER=pr-${{ github.event.number}}
           export NAMESPACE=consilium-pull-request-${{github.event.number}}
           export PULL_REQUEST_NUMBER=pr-${{github.event.number}}
           
