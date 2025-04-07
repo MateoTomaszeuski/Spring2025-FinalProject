@@ -63,7 +63,6 @@ void OnEqualsClicked(object sender, EventArgs e)
 
     DisplayLabel.Text = result.ToString();
 
-    // Reset everything, but retain the result as the starting point for the next expression
     currentInput = result.ToString();
     expression = result.ToString();  // <-- this keeps the result in the display
     isNewInput = true;
