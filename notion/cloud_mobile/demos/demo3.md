@@ -4,6 +4,6 @@
 - can press 'enter' to add tasks and subtasks
 
 ## Sticking Points
-
+- 
 
 ## What's Next
