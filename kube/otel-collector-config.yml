@@ -23,7 +23,7 @@ data:
       endpoint: 0.0.0.0:8889
       namespace: default
     zipkin:
-      endpoint: http://consilium-zipkin-svc9411/api/v2/spans
+      endpoint: http://consilium-zipkin-svc:9411/api/v2/spans
 
   service:
     extensions: []
