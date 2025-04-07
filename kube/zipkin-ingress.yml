@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: consilium-zipkin-ingress
+  namespace: $NAMESPACE
+spec:
+  rules:
+  - host: $PULL_REQUEST_NUMBER.zipkin.consilium.duckdns.org
+    http:
+      paths:
+      - pathType: Prefix
+        path: /
+        backend:
+          service:
+            name: consilium-zipkin-svc
+            port: 
+              number: 9411

@@ -7,18 +7,8 @@ on:
     types: [ closed ]
 
 jobs:
-  merge_job:
-    # this job will only run if the PR has been merged
-    if: github.event.pull_request.merged == true
+  delete_enviroment:
     runs-on: self-hosted
     steps:
-    - run: |
-        echo PR #${{ github.event.number }} has been merged
-
-  close_job:
-    # this job will only run if the PR has been closed without being merged
-    if: github.event.pull_request.merged == false
-    runs-on: self-hosted
-    steps:
-    - run: |
-        echo PR #${{ github.event.number }} has been closed without being merged
+    - name: Delete Namespace with all contents
+      run: kubectl delete namespace consilium-pull-request-${{github.event.number}}

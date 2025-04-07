@@ -58,20 +58,17 @@ jobs:
   build_and_deploy_api:
       needs: [Check_Linting_and_Warns, Test_Project, Integration_Test_Project]
       runs-on: self-hosted
+      permissions:
+        pull-requests: write
+        issues: write
       steps:
       - uses: actions/checkout@v4 # git clone
-      
-      - name: Extract PR Number
-        id: get_pr
-        run: |
-          pr_number=${{github.event.number}}
-          echo "pr_number=$pr_number" >> $GITHUB_OUTPUT
   
       - name: Check Nodes
         run: kubectl get nodes
   
       - name: Create Namespace
-        run: kubectl create namespace consilium-pull-request-${{ steps.get_pr.outputs.pr_number }}
+        run: kubectl create namespace consilium-pull-request-${{github.event.number}}
       
   
       - name: Login to Docker Hub
@@ -85,17 +82,17 @@ jobs:
           docker buildx \
           build --platform linux/amd64 \
           -f ./Dockerfiles/Dockerfile \
-          -t mateotomaszeuski/consilium:pr-${{ github.run_number }} \
+          -t mateotomaszeuski/consilium:pr-${{ github.event.number }} \
           .
           
       - name: Push image to DockerHub
-        run: docker push mateotomaszeuski/consilium:pr-${{ github.run_number }}
+        run: docker push mateotomaszeuski/consilium:pr-${{ github.event.number }}
       
       - name: Apply Kubernetes Changes
         run: |
-          export BUILD_NUMBER=${{ github.run_number }}
-          export NAMESPACE=consilium-pull-request-${{ steps.get_pr.outputs.pr_number }}
-          export PULL_REQUEST_NUMBER=pr-${{ steps.get_pr.outputs.pr_number }}
+          export BUILD_NUMBER=pr-${{ github.event.number}}
+          export NAMESPACE=consilium-pull-request-${{github.event.number}}
+          export PULL_REQUEST_NUMBER=pr-${{github.event.number}}
           
           for FILE in "kube"/*
           do
@@ -110,7 +107,7 @@ jobs:
              issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: 'ApiUrl: pr-${{ steps.get_pr.outputs.pr_number }}.consilium.duckdns.org'
+              body: 'ApiUrl: https://pr-${{github.event.number}}.consilium.duckdns.org'
               
             })
         

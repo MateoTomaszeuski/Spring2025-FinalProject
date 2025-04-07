@@ -22,15 +22,21 @@ data:
     prometheus:
       endpoint: 0.0.0.0:8889
       namespace: default
+    zipkin:
+      endpoint: http://zipkin-mateo:9411/api/v2/spans
 
   service:
     extensions: []
     pipelines:
-      metrics:
-        receivers: [otlp]
-        processors: []
-        exporters: [prometheus, debug]
-      logs:
-        receivers: [otlp]
-        processors: []
-        exporters: [otlphttp, debug]
+    metrics:
+      receivers: [otlp]
+      processors: []
+      exporters: [prometheus, debug]
+    logs:
+      receivers: [otlp]
+      processors: []
+      exporters: [otlphttp, debug]
+    traces:
+      receivers: [otlp]
+      processors: []
+      exporters: [zipkin, debug]
