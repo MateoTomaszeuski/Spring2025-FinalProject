@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: consilium-prometheus-dep
-  namespace: consilium
+  namespace: $NAMESPACE
 spec:
   strategy:
    type: RollingUpdate

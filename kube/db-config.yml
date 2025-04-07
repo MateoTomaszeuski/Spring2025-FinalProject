@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: consilium-postgres-config
-  namespace: consilium
+  namespace: $NAMESPACE
 data:
   init.sql: |
     CREATE TABLE

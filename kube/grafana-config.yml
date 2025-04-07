@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: consilium-grafana-config
-  namespace: consilium
+  namespace: $NAMESPACE
 data:
   ds.yaml: |
     apiVersion: 1

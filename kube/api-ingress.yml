@@ -2,7 +2,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: consilium-api-ingress
-  namespace: consilium
+  namespace: $NAMESPACE
 spec:
   # tls:
   #   - hosts:
@@ -10,7 +10,7 @@ spec:
   #     secretName: consilium-secret-tls
   rules:
   # - host: api.kube.final.codyhowell.dev
-  - host: consilium.duckdns.org
+  - host: $PULL_REQUEST_NUMBER.consilium.duckdns.org
     http:
       paths:
       - path: /

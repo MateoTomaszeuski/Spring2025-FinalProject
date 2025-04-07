@@ -2,7 +2,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: consilium-grafana-pvc
-  namespace: consilium
+  namespace: $NAMESPACE
 spec:
   accessModes:
   # - ReadWriteOnce
