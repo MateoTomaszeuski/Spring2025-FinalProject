@@ -4,6 +4,10 @@ metadata:
   name: consilium-grafana-ingress
   namespace: $NAMESPACE
 spec:
+  tls:
+    - hosts:
+        - consilium.duckdns.org
+      secretName: consilium-secret-tls
   rules:
   # - host: grafana.kube.final.codyhowell.dev
   - host: $PULL_REQUEST_NUMBER-grafana.consilium.duckdns.org

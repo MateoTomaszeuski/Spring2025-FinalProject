@@ -5,6 +5,10 @@ metadata:
   namespace: $NAMESPACE
 spec:
   rules:
+  tls:
+    - hosts:
+        - consilium.duckdns.org
+      secretName: consilium-secret-tls
   - host: $PULL_REQUEST_NUMBER-zipkin.consilium.duckdns.org
     http:
       paths:
