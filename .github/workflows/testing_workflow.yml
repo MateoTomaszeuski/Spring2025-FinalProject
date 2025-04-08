@@ -56,6 +56,9 @@ jobs:
       - name: Stop Containers
         run: docker compose down -v
       
+      - name: Remove test image
+        run: docker rmi consilium_integration_test_container || true
+      
 
 
 # https://docs.github.com/en/actions/writing-workflows/choosing-when-your-workflow-runs/events-that-trigger-workflows#workflow_run
