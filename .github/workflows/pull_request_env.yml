@@ -30,11 +30,11 @@ jobs:
             .
 
       - name: run tests
-        run: docker run consilium_test_container
+        run: docker run consilium_test_containerå
 
   
   Integration_Test_Project:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latestå
     steps:
       - uses: actions/checkout@v4 # git clone
 
@@ -111,3 +111,5 @@ jobs:
               
             })
         
+
+            
