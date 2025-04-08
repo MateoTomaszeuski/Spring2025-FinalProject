@@ -17,7 +17,7 @@ jobs:
           uses: Ilshidur/action-discord@master
           with:
             args: |
-                The push made by: {{EVENT_PAYLOAD.actor.login}} made failed deploying.
+                THE PIPELINE BROKE! RUN FIX IT!
                 Commit message: {{ EVENT_PAYLOAD.head_commit.message }}
-                
+
             
