@@ -18,14 +18,19 @@ CREATE TABLE
   course (
     id int4 PRIMARY KEY GENERATED ALWAYS AS IDENTITY NOT NULL,
     account_email varchar(80) references "HowlDev.User" (email) NOT NULL,
-    course_name varchar(80)
+    course_name varchar(80) NOT NULL,
+    semester varchar(50) NOT NULL
   );
 
 CREATE TABLE
   assignment (
     id int4 PRIMARY KEY GENERATED ALWAYS AS IDENTITY NOT NULL,
     course_id int references course (id) NOT NULL,
-    assignment_name varchar(80)
+    assignment_name varchar(80), 
+    assignment_description varchar(300) NULL, 
+    due_date timestamp NULL, 
+    mark_started timestamp NULL, 
+    mark_complete timestamp NULL
   );
 
 CREATE TABLE

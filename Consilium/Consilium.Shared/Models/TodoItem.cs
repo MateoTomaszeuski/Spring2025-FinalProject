@@ -39,6 +39,7 @@ public partial class TodoItem : ObservableObject {
         {
             HasSubtasks = Subtasks.Count > 0;
         };
+        category = "";
     }
 
 
