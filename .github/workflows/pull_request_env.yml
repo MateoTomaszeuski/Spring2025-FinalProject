@@ -30,7 +30,7 @@ jobs:
             .
 
       - name: run tests
-        run: docker run consilium_test_containerå
+        run: docker run consilium_test_container
 
   
   Integration_Test_Project:
@@ -110,6 +110,3 @@ jobs:
               body: 'ApiUrl: https://pr-${{github.event.number}}.consilium.duckdns.org'
               
             })
-        
-
-            
