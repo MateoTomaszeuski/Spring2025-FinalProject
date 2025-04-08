@@ -108,6 +108,5 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               body: 'ApiUrl: https://pr-${{github.event.number}}.consilium.duckdns.org'
-              
             })
         
