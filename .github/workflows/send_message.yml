@@ -2,7 +2,7 @@ name: Send Message
 
 on:
   workflow_run:
-    workflows: [Test Project]
+    workflows: [Test Project, Build and deploy Api to Kubernetees, Azure Static Web Apps CI/CD, Build and deploy Api to Azure Web App]
     types: [completed]
 
 jobs:
