@@ -6,8 +6,6 @@ namespace Consilium.Shared.Models;
 public partial class TodoItem : ObservableObject {
     public int Id { get; set; } // this ID comes from the DB (not sure we even need it)
     public int? ParentId { get; set; }
-    public Guid TempId { get; set; } = Guid.NewGuid(); // id for the client side
-    public Guid? ParentTempId { get; set; } // for managing subtasks 
     public string? Title { get; set; }
     public int TodoListId { get; set; }
     public int? AssignmentId { get; set; }

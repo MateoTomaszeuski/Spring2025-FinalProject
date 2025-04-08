@@ -1,22 +1,36 @@
-﻿using Consilium.Shared.Models;
+﻿using Consilium.API.Controllers;
+using Consilium.Shared.Models;
 using Consilium.Shared.Services;
 using Consilium.Shared.ViewModels;
 using NSubstitute;
 using Shouldly;
 using System.Collections.ObjectModel;
+using System.Net.Http.Json;
 using System.Threading.Tasks;
+using TUnit.Assertions.AssertionBuilders.Wrappers;
 using TUnit.Assertions.Extensions;
 namespace Consilium.Tests;
 
 
 public class ToDoListVMTests {
     private readonly TodoListViewModel viewModel;
+    private readonly ToDoService service;
+
 
     public ToDoListVMTests() {
-        IToDoService service = Substitute.For<IToDoService>();
-        service.RemoveToDoAsync(0).Returns("Deleted successfully");
-        service.RemoveToDoAsync(1).Returns("Deleted successfully");
-        viewModel = new TodoListViewModel(service);
+        IHttpClientFactory factory = Substitute.For<IHttpClientFactory>();
+
+        // Configure client within factory
+        HttpClient client = Substitute.For<HttpClient>();
+        client.PostAsJsonAsync("/post", new { }).ReturnsForAnyArgs(new HttpResponseMessage(System.Net.HttpStatusCode.Created) { Content = new StringContent("1") });
+        factory.CreateClient().ReturnsForAnyArgs(client);
+
+
+        IPersistenceService service = Substitute.For<IPersistenceService>();
+        ToDoService s = new ToDoService(factory, service);
+        this.service = s;
+
+        viewModel = new TodoListViewModel(s);
     }
 
     [Test]
@@ -47,7 +61,6 @@ public class ToDoListVMTests {
     }
 
     [Test]
-
     public async Task CheckCorrectTodoItemIsAdded() {
         viewModel.NewTodoTitle = "Test Todo";
         viewModel.AddTodoCommand.Execute(null);
@@ -55,7 +68,6 @@ public class ToDoListVMTests {
     }
 
     [Test]
-
     public async Task CanAddMultipleItems() {
         viewModel.NewTodoTitle = "Test Todo";
         viewModel.AddTodoCommand.Execute(null);
@@ -122,10 +134,14 @@ public class ToDoListVMTests {
 
     [Test]
     public async Task CanAddSingleSubtask() {
-        viewModel.TodoItems = new ObservableCollection<TodoItem>() {
+        // Direct access to the service, because it's needed
+        service.TodoItems = new List<TodoItem>() {
             new TodoItem() { Title = "Task 1", Id = 1 },
             new TodoItem() { Title = "Task 2", Id = 2 }
         };
+
+        // Just had to be done, I guess
+        viewModel.TodoItems = new ObservableCollection<TodoItem>(service.TodoItems);
 
         viewModel.NewSubtaskTitle = "Subtask 1";
         viewModel.AddSubtaskCommand.Execute(viewModel.TodoItems[0]);

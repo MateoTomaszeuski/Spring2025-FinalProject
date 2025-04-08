@@ -16,9 +16,8 @@ public partial class TodoListViewModel : ObservableObject {
     }
     public async Task InitializeItemsAsync() {
         IsLoading = true;
-        //await ToDoService.InitializeTodosAsync();
-        //TodoItems = ToDoService.GetTodoItemsAsync();
-        await Task.CompletedTask;
+        await ToDoService.InitializeTodosAsync();
+        TodoItems = ToDoService.GetTodoItems();
         IsLoading = false;
     }
 
@@ -48,35 +47,19 @@ public partial class TodoListViewModel : ObservableObject {
 
 
     [RelayCommand]
-    private void AddTodo() {
+    private async Task AddTodo() {
         if (!string.IsNullOrWhiteSpace(NewTodoTitle)) {
-            TodoItems.Add(new TodoItem() { Title = NewTodoTitle, Category = NewTodoCategory });
+            await ToDoService.AddItemAsync(new TodoItem() { Title = NewTodoTitle, Category = NewTodoCategory });
+            TodoItems = ToDoService.GetTodoItems();
             NewTodoTitle = string.Empty;
         }
     }
 
-
-    // this method is for when the API/service is working (--Audrey)
-
-    //[RelayCommand]
-    //private async Task RemoveTodoAsync(TodoItem todoItem) {
-    //    if (todoItem != null) {
-    //        Console.WriteLine($"Removing Todo: {todoItem}");
-    //        int index = TodoItems.IndexOf(todoItem);
-    //        string localMessage = await ToDoService.RemoveToDoAsync(index);
-    //        Message = localMessage;
-    //        if (localMessage == "Deleted successfully") {
-    //            TodoItems.Remove(todoItem);
-    //    }
-    //}
-    //}
-
-
     [RelayCommand]
-    private void RemoveTodo(TodoItem todoItem) {
+    private async Task RemoveTodo(TodoItem todoItem) {
         if (todoItem != null) {
-            Console.WriteLine($"Removing Todo: {todoItem}");
-            TodoItems.Remove(todoItem);
+            await ToDoService.RemoveToDoAsync(todoItem.Id);
+            TodoItems = ToDoService.GetTodoItems();
         }
     }
 
@@ -123,24 +106,22 @@ public partial class TodoListViewModel : ObservableObject {
     }
 
     [RelayCommand]
-    private void AddSubtask(TodoItem parentTask) {
+    private async Task AddSubtask(TodoItem parentTask) {
         if (parentTask is null || string.IsNullOrWhiteSpace(NewSubtaskTitle)) return;
+        await ToDoService.AddItemAsync(new TodoItem { Title = NewSubtaskTitle, ParentId = parentTask.Id });
 
-        var subTask = new TodoItem { Title = NewSubtaskTitle, ParentTempId = parentTask.TempId };
-        parentTask.Subtasks.Add(subTask);
+        TodoItems = ToDoService.GetTodoItems();
 
         parentTask.IsExpanded = true;
         NewSubtaskTitle = string.Empty;
     }
 
     [RelayCommand]
-    private void RemoveSubtask(TodoItem subTask) {
-        if (subTask?.ParentTempId is null) return;
+    private async Task RemoveSubtask(TodoItem subTask) {
+        if (subTask?.ParentId is null) return;
 
-        var parent = TodoItems.FirstOrDefault(t => t.TempId == subTask.ParentTempId);
-        if (parent is null) return;
-
-        parent.Subtasks.Remove(subTask);
+        await ToDoService.RemoveToDoAsync(subTask.Id);
+        TodoItems = ToDoService.GetTodoItems();
     }
 
 }

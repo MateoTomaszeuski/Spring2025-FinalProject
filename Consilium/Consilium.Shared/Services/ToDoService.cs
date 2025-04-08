@@ -10,38 +10,43 @@ namespace Consilium.Shared.Services;
 public class ToDoService : IToDoService {
     private readonly HttpClient client;
     private readonly IPersistenceService service;
-    private List<TodoItem> todoItems;
+    /// <summary>
+    /// Used by tests to assign starting values. DO NOT USE DIRECTLY IN PRODUCTION.
+    /// </summary>
+    public List<TodoItem> TodoItems { get; set; }
 
     public ToDoService(IHttpClientFactory factory, IPersistenceService service) {
         client = factory.CreateClient("ApiClient");
         client.DefaultRequestHeaders.Add("Email-Auth_Email", "bob@example.com");
         this.service = service;
-        todoItems = new();
+        TodoItems = new();
     }
 
-    public ObservableCollection<TodoItem> GetTodoItemsAsync() {
-        return new(ListCollapser.CollapseList(todoItems));
+    public ObservableCollection<TodoItem> GetTodoItems() {
+        return new(ListCollapser.CollapseList(TodoItems));
     }
 
-    public async Task AddItem(TodoItem item) {
+    public async Task AddItemAsync(TodoItem item) {
         var response = await client.PostAsJsonAsync($"todo", item);
-        int id = Convert.ToInt16(response.Content.ReadAsStringAsync());
+        int id = Convert.ToInt16(await response.Content.ReadAsStringAsync());
         item.Id = id;
-        todoItems.Add(item);
+        TodoItems.Add(item);
     }
 
     /// <summary>
     /// Takes in an item with an adjusted CompletionDate and updates the item in the list with 
     /// that value.
     /// </summary>
-    public async Task UpdateItem(TodoItem item) {
+    public async Task UpdateItemAsync(TodoItem item) {
         var response = await client.PatchAsJsonAsync($"todo/update", item);
-        TodoItem listItem = todoItems.Where(a => a.Id == item.Id).First();
+        TodoItem listItem = TodoItems.Where(a => a.Id == item.Id).First();
         listItem.CompletionDate = item.CompletionDate;
     }
 
-    public async Task<string> RemoveToDoAsync(int itemIndex) {
-        var response = await client.DeleteAsync($"todo/remove/{itemIndex}");
+    public async Task<string> RemoveToDoAsync(int itemId) {
+        var response = await client.DeleteAsync($"todo/remove/{itemId}");
+
+        TodoItems.Remove(TodoItems.First(a => a.Id == itemId));
 
         if (response.IsSuccessStatusCode) {
             return "Deleted successfully";
@@ -52,6 +57,6 @@ public class ToDoService : IToDoService {
 
     public async Task InitializeTodosAsync() {
         var response = await client.GetFromJsonAsync<IEnumerable<TodoItem>>("todo");
-        todoItems = response == null ? new() : new(response);
+        TodoItems = response == null ? new() : new(response);
     }
 }
