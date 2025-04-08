@@ -110,4 +110,3 @@ jobs:
               body: 'ApiUrl: https://pr-${{github.event.number}}.consilium.duckdns.org'
               
             })
-        
