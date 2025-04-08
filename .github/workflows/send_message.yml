@@ -16,4 +16,8 @@ jobs:
             DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
           uses: Ilshidur/action-discord@master
           with:
-            args: 'The project {{ EVENT_PAYLOAD.repository.full_name }} failed deploying.'
+            args: |
+                The push made by: {{EVENT_PAYLOAD.actor.login}} made failed deploying.
+                Commit message: {{ EVENT_PAYLOAD.head_commit.message }}
+                
+            
