@@ -54,7 +54,7 @@ jobs:
         run: docker run --rm --network consilium_network consilium_integration_test_container
 
       - name: Stop Containers
-        run: docker compose down
+        run: docker compose down -v
       
 
 

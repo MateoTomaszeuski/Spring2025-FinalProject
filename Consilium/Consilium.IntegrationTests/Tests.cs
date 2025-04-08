@@ -7,7 +7,8 @@ public class Tests {
     [Test]
     public async Task HelloWorldCall() {
         var client = new HttpClient();
-        client.BaseAddress = new Uri("http://consilium-api:8080");
+        client.BaseAddress = new Uri("");
+        // client.BaseAddress = new Uri("http://consilium-api:8080");
 
         string response = await client.GetStringAsync("/");
 
