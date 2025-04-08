@@ -21,15 +21,15 @@ exporters:
 service:
   extensions: []
   pipelines:
-  metrics:
-    receivers: [otlp]
-    processors: []
-    exporters: [prometheus, debug]
-  logs:
-    receivers: [otlp]
-    processors: []
-    exporters: [otlphttp, debug]
-  traces:
-    receivers: [otlp]
-    processors: []
-    exporters: [zipkin, debug]
+    metrics:
+      receivers: [otlp]
+      processors: []
+      exporters: [prometheus, debug]
+    logs:
+      receivers: [otlp]
+      processors: []
+      exporters: [otlphttp, debug]
+    traces:
+      receivers: [otlp]
+      processors: []
+      exporters: [zipkin, debug]
