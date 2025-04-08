@@ -18,6 +18,6 @@ jobs:
           with:
             args: |
                 THE PIPELINE BROKE! RUN FIX IT!
-                Commit message: {{ EVENT_PAYLOAD.push.head_commit.message }}
+                Commit message: {{ EVENT_PAYLOAD.push.commits.message }}
 
             
