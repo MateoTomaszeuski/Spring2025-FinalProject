@@ -47,18 +47,18 @@ public partial class TodoListViewModel : ObservableObject {
 
 
     [RelayCommand]
-    private void AddTodo() {
+    private async Task AddTodo() {
         if (!string.IsNullOrWhiteSpace(NewTodoTitle)) {
-            ToDoService.AddItemAsync(new TodoItem() { Title = NewTodoTitle, Category = NewTodoCategory });
+            await ToDoService.AddItemAsync(new TodoItem() { Title = NewTodoTitle, Category = NewTodoCategory });
             TodoItems = ToDoService.GetTodoItems();
             NewTodoTitle = string.Empty;
         }
     }
 
     [RelayCommand]
-    private void RemoveTodo(TodoItem todoItem) {
+    private async Task RemoveTodo(TodoItem todoItem) {
         if (todoItem != null) {
-            ToDoService.RemoveToDoAsync(todoItem.Id);
+            await ToDoService.RemoveToDoAsync(todoItem.Id);
             TodoItems = ToDoService.GetTodoItems();
         }
     }
@@ -106,9 +106,9 @@ public partial class TodoListViewModel : ObservableObject {
     }
 
     [RelayCommand]
-    private void AddSubtask(TodoItem parentTask) {
+    private async Task AddSubtask(TodoItem parentTask) {
         if (parentTask is null || string.IsNullOrWhiteSpace(NewSubtaskTitle)) return;
-        ToDoService.AddItemAsync(new TodoItem { Title = NewSubtaskTitle, ParentId = parentTask.Id });
+        await ToDoService.AddItemAsync(new TodoItem { Title = NewSubtaskTitle, ParentId = parentTask.Id });
 
         TodoItems = ToDoService.GetTodoItems();
 
@@ -117,10 +117,10 @@ public partial class TodoListViewModel : ObservableObject {
     }
 
     [RelayCommand]
-    private void RemoveSubtask(TodoItem subTask) {
+    private async Task RemoveSubtask(TodoItem subTask) {
         if (subTask?.ParentId is null) return;
 
-        ToDoService.RemoveToDoAsync(subTask.Id);
+        await ToDoService.RemoveToDoAsync(subTask.Id);
         TodoItems = ToDoService.GetTodoItems();
     }
 
