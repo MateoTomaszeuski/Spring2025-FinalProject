@@ -1,0 +1,23 @@
+name: Send Message
+
+on:
+  workflow_run:
+    workflows: [Test Project, Build and deploy Api to Kubernetees, Azure Static Web Apps CI/CD, Build and deploy Api to Azure Web App]
+    types: [completed]
+
+jobs:
+  send_failure_messge:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'failure' }}
+   
+    steps:
+        - name: Discord notification
+          env:
+            DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          uses: Ilshidur/action-discord@master
+          with:
+            args: |
+                THE PIPELINE BROKE! RUN FIX IT!
+                Commit message: ${{ github.event.workflow_run.head_commit.message}}
+
+            

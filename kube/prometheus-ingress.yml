@@ -4,9 +4,13 @@ metadata:
   name: consilium-prometheus-ingress
   namespace: $NAMESPACE
 spec:
+  tls:
+    - hosts:
+        - consilium.duckdns.org
+      secretName: consilium-secret-tls
   rules:
   # - host: prometheus.kube.final.codyhowell.dev
-  - host: $PULL_REQUEST_NUMBER.prometheus.consilium.duckdns.org
+  - host: $PULL_REQUEST_NUMBER-prometheus.consilium.duckdns.org
     http:
       paths:
       - pathType: Prefix

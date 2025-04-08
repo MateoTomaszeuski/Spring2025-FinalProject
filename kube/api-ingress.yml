@@ -4,10 +4,10 @@ metadata:
   name: consilium-api-ingress
   namespace: $NAMESPACE
 spec:
-  # tls:
-  #   - hosts:
-  #       - consilium.duckdns.org
-  #     secretName: consilium-secret-tls
+  tls:
+    - hosts:
+        - consilium.duckdns.org
+      secretName: consilium-secret-tls
   rules:
   # - host: api.kube.final.codyhowell.dev
   - host: $PULL_REQUEST_NUMBER.consilium.duckdns.org

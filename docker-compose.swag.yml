@@ -1,0 +1,33 @@
+services:
+  swag:
+    image: lscr.io/linuxserver/swag:latest
+    container_name: swag
+    cap_add:
+      - NET_ADMIN
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Denver
+      - URL=consilium.duckdns.org
+      - VALIDATION=dns
+      - SUBDOMAINS=wildcard 
+      - DNSPLUGIN=duckdns
+      - dns_duckdns_token=ed68963f-3014-479d-aba7-6484727b28e8
+    volumes:
+      - ./swag-config:/config
+      - ./swag-default.conf:/config/nginx/site-confs/default.conf
+    ports:
+      - 443:443
+      - 80:80
+    restart: unless-stopped
+
+  webapp:
+    container_name: consilium-api
+    build:
+      context: .
+      dockerfile: ./Dockerfiles/Dockerfile
+    ports:
+      - 8080:8080
+    environment:
+      - DB_CONN="Host=db;Port=5432;Username=consilium-admin;Password=mypassword;Database=consiliumdb"
+      - OTEL_URL=http://consilium-otel-collector:4317
