@@ -1,0 +1,19 @@
+name: Send Message
+
+on:
+  workflow_run:
+    workflows: [Test Project]
+    types: [completed]
+
+jobs:
+  send_failure_messge:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'failure' }}
+   
+    steps:
+        - name: Discord notification
+          env:
+            DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          uses: Ilshidur/action-discord@master
+          with:
+            args: 'The project {{ EVENT_PAYLOAD.repository.full_name }} failed deploying.'
