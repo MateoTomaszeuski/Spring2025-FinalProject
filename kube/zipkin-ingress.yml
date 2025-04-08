@@ -4,11 +4,11 @@ metadata:
   name: consilium-zipkin-ingress
   namespace: $NAMESPACE
 spec:
-  rules:
   tls:
     - hosts:
         - consilium.duckdns.org
       secretName: consilium-secret-tls
+  rules:
   - host: $PULL_REQUEST_NUMBER-zipkin.consilium.duckdns.org
     http:
       paths:
