@@ -39,7 +39,16 @@ public class AssignmentsVmTest {
 
     [Test]
     public async Task WhenAssignmentIsMarkedComplete_CompletionDateIsNotNull() {
+        viewModel.Assignments = new ObservableCollection<Assignment> {
+            new Assignment { Name = "Math Homework", Description = "do math homework stuff", CourseId = 1 }
+        };
 
+        var assignment = viewModel.Assignments[0];
+        await Assert.That(assignment.DateCompleted).IsNull();
+
+        assignment.IsCompleted = true;
+
+        await Assert.That(assignment.DateCompleted).IsNotNull();
     }
 
 }
