@@ -31,7 +31,7 @@ public static class MauiProgram {
         builder.Services.AddHttpClient("ApiClient", client =>
         {
             if (DeviceInfo.Platform == DevicePlatform.Android || DeviceInfo.Platform == DevicePlatform.iOS) {
-                client.BaseAddress = new Uri("https://consilium-api-cpgdcqaxepbyc2gj.westus3-01.azurewebsites.net/");
+                client.BaseAddress = new Uri("https://main.consilium.duckdns.org/todo");
             } else {
                 client.BaseAddress = new Uri("http://localhost:5202");
             }
