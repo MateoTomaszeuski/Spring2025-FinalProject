@@ -39,7 +39,14 @@ public static class MauiProgram {
         });
 
 
-        return builder.Build();
+        var app = builder.Build();
+
+        using (var scope = app.Services.CreateScope()) {
+            var service = scope.ServiceProvider.GetRequiredService<IPersistenceService>();
+            service.OnStartup();
+        }
+
+        return app;
 
     }
 
