@@ -100,6 +100,7 @@ public partial class AssignmentsViewModel : ObservableObject {
     // delete assignment
     // add assignment
     // add to To-Do list
+    // view assignment details
 
 
 
