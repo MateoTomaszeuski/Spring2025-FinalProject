@@ -5,12 +5,11 @@ using System.Net.Http.Json;
 namespace Consilium.Shared.Services;
 
 public class LogInService : ILogInService {
-    private readonly HttpClient client;
+    private readonly IClientService client;
     private readonly IPersistenceService service;
 
-    public LogInService(IHttpClientFactory factory, IPersistenceService service) {
-        client = factory.CreateClient("ApiClient");
-        client.DefaultRequestHeaders.Add("Email-Auth_Email", "bob@example.com");
+    public LogInService(IClientService client, IPersistenceService service) {
+        this.client = client;
         this.service = service;
     }
 

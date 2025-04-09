@@ -14,19 +14,19 @@ public class ClientService : IClientService {
         client.DefaultRequestHeaders.Add("Email-Auth_Token", token);
     }
 
-    public async Task<HttpResponseMessage> Delete(string url) {
+    public async Task<HttpResponseMessage> DeleteAsync(string url) {
         return await client.DeleteAsync(url);
     }
 
-    public async Task<HttpResponseMessage> Get(string url) {
+    public async Task<HttpResponseMessage> GetAsync(string url) {
         return await client.GetAsync(url);
     }
 
-    public async Task<HttpResponseMessage> Patch(string url, object? content) {
+    public async Task<HttpResponseMessage> PatchAsync(string url, object? content) {
         return await client.PatchAsJsonAsync(url, content);
     }
 
-    public async Task<HttpResponseMessage> Post(string url, object? content) {
+    public async Task<HttpResponseMessage> PostAsync(string url, object? content) {
         return await client.PostAsJsonAsync(url, content);
     }
 }
