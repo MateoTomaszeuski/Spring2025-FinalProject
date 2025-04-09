@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Consilium.Shared.Models;
+using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -18,27 +19,78 @@ public partial class AssignmentsViewModel : ObservableObject {
     [ObservableProperty]
     private ObservableCollection<Assignment> assignments;
 
-    public AssignmentsViewModel() {
-
-        Assignment a1 = new() { Title = "Assignment 1", Description = "Assignment 1 Description", Category = "Homework", IsCompleted = false, CourseId = 1 };
-        Assignment a2 = new() { Title = "Assignment 2", Description = "Assignment 2 Description", Category = "Homework", IsCompleted = false, CourseId = 1 };
-        Assignment a3 = new() { Title = "Assignment 3", Description = "Assignment 3 Description", Category = "Homework", IsCompleted = false, CourseId = 2 };
-
-        Course c1 = new() { CourseName = "Math", CourseId = 1 };
-        Course c2 = new() { CourseName = "English", CourseId = 2 };
-        Courses = new() { c1, c2 };
-
-        Assignments = new() { a1, a2, a3 };
-    }
-
     [ObservableProperty]
-    private int selectedCourseId;
+    private Course selectedCourse;
 
-    [RelayCommand]
-    public void FilterOnCourseId() {
-        var filteredAssignments = Assignments.Where(a => a.CourseId == 1);
-        Assignments = new(filteredAssignments);
+    private List<Assignment> allAssignments; // could this get extracted to a service?
+
+    partial void OnSelectedCourseChanged(Course value) {
+        if (value is not null && allAssignments is not null && value.CourseId != -1) {
+            var newAssignments = FilterAssignmentsOnCourse(value);
+            Assignments = new ObservableCollection<Assignment>(newAssignments);
+        } else {
+            Assignments = new();
+        }
     }
 
+    private IEnumerable<Assignment> FilterAssignmentsOnCourse(Course course) {
+        return allAssignments.Where(a => a.CourseId == course.CourseId);
+    }
+
+    public AssignmentsViewModel() {
+        Courses = PopulateSampleCourses();
+        SelectedCourse = Courses[0];
+        allAssignments = PopulateSampleAssignments().ToList();
+        Assignments = new ObservableCollection<Assignment>(allAssignments.Where(a => a.CourseId == Courses[0].CourseId));
+    }
+
+    private ObservableCollection<Course> PopulateSampleCourses() {
+        return new ObservableCollection<Course> {
+            new Course { CourseId = -1, CourseName = "Select a course" },
+            new Course { CourseName = "Math", CourseId = 1 },
+            new Course { CourseName = "History", CourseId = 2 },
+            new Course { CourseName = "Science", CourseId = 3 }
+        };
+    }
+
+    private ObservableCollection<Assignment> PopulateSampleAssignments() {
+        var assignment1 = new Assignment {
+            Name = "Math Homework",
+            Description = "do math homework stuff",
+            CourseId = 1,
+            DueDate = new DateTime(2023, 11, 15),
+            DateStarted = new DateTime(2023, 11, 10),
+            DateCompleted = null
+        };
+
+        var assignment2 = new Assignment {
+            Name = "Math Homework 2",
+            Description = "do math homework stuff",
+            CourseId = 1,
+            DueDate = new DateTime(2023, 12, 1),
+            DateStarted = new DateTime(2023, 11, 20),
+            DateCompleted = null
+        };
+
+        var assignment3 = new Assignment {
+            Name = "History Essay",
+            Description = "write an essay",
+            CourseId = 2,
+            DueDate = new DateTime(2023, 11, 30),
+            DateStarted = new DateTime(2023, 11, 15),
+            DateCompleted = new DateTime(2023, 11, 25)
+        };
+
+        var assignment4 = new Assignment {
+            Name = "Science Project",
+            Description = "do sciency stuff",
+            CourseId = 3,
+            DueDate = new DateTime(2023, 11, 30),
+            DateStarted = new DateTime(2023, 11, 15),
+            DateCompleted = new DateTime(2023, 11, 25)
+        };
+
+        return new() { assignment1, assignment2, assignment3, assignment4 };
+    }
 
 }
