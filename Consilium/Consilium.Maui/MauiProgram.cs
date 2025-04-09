@@ -47,6 +47,7 @@ public static class MauiProgram {
         builder.Services.AddSingleton<StatsView>();
         builder.Services.AddSingleton<TodoListView>();
         builder.Services.AddSingleton<ToolsView>();
+        builder.Services.AddSingleton<ProfileView>();
 
         return builder;
     }
@@ -57,12 +58,14 @@ public static class MauiProgram {
         builder.Services.AddSingleton<StatsViewModel>();
         builder.Services.AddSingleton<TodoListViewModel>();
         builder.Services.AddSingleton<ToolsViewModel>();
+        builder.Services.AddSingleton<ProfileViewModel>();
 
         return builder;
     }
     public static MauiAppBuilder RegisterServices(this MauiAppBuilder builder) {
         builder.Services.AddSingleton<IToDoService, ToDoService>();
         builder.Services.AddSingleton<IPersistenceService, PersistenceService>();
+        builder.Services.AddSingleton<ILogInService, LogInService>();
 
 
         return builder;

@@ -50,6 +50,9 @@
         Icon="timer.png"
         ContentTemplate="{DataTemplate local:ToolsView}"
         Route="Tools" />
-
+    <ShellContent
+        Title="Login"
+        ContentTemplate="{DataTemplate local:ProfileView}"
+        Route="Profile" />
     </TabBar>
 </Shell>
