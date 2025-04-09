@@ -9,6 +9,9 @@ using System.Diagnostics;
 namespace Consilium.API.DBServices;
 
 public class DBService(IDbConnection conn) : IDBService {
+    public void AddAssignment(Assignment assignment, string email) {
+        throw new NotImplementedException();
+    }
     #region ToDos
     public int AddToDo(TodoItem Todo, string email) {
         string addItem = @"
@@ -24,6 +27,18 @@ public class DBService(IDbConnection conn) : IDBService {
             todoName = Todo.Title,
             completionDate = Todo.CompletionDate
         });
+    }
+
+    public void DeleteAssignment(int id, string email) {
+        throw new NotImplementedException();
+    }
+
+    public IEnumerable<Assignment> GetAllAssignments(string email) {
+        throw new NotImplementedException();
+    }
+
+    public IEnumerable<Assignment> GetIncompleteAssignments(string email) {
+        throw new NotImplementedException();
     }
 
     /// <summary>
@@ -44,6 +59,10 @@ public class DBService(IDbConnection conn) : IDBService {
         conn.Execute(removeItem, new { id, email });
     }
 
+    public void UpdateAssignment(Assignment assignment, string email) {
+        throw new NotImplementedException();
+    }
+
     public void UpdateToDo(TodoItem Todo, string email) {
         string updateItem = """"
                 update todoitem t set completion_date = @time where id = @id and account_email = @email
@@ -54,5 +73,8 @@ public class DBService(IDbConnection conn) : IDBService {
         }
         conn.Execute(updateItem, new { time = now, id = Todo.Id, email });
     }
-    #endregion 
+    #endregion
+    #region Assignments
+
+    #endregion
 }

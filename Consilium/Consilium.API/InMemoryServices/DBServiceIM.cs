@@ -7,6 +7,10 @@ public class DBServiceIM : IDBService {
         { "password", new List<TodoItem>() { new TodoItem() { Title = "lorem" } } }
     };
 
+    public void AddAssignment(Assignment assignment, string email) {
+        throw new NotImplementedException();
+    }
+
     public int AddToDo(TodoItem Todo, string username) {
         if (todos.ContainsKey(username)) {
             todos[username].Add(Todo);
@@ -16,7 +20,19 @@ public class DBServiceIM : IDBService {
         return 0;
     }
 
+    public void DeleteAssignment(int id, string email) {
+        throw new NotImplementedException();
+    }
+
+    public IEnumerable<Assignment> GetAllAssignments(string email) {
+        throw new NotImplementedException();
+    }
+
     public IEnumerable<User> GetAllUsers() {
+        throw new NotImplementedException();
+    }
+
+    public IEnumerable<Assignment> GetIncompleteAssignments(string email) {
         throw new NotImplementedException();
     }
 
@@ -40,6 +56,10 @@ public class DBServiceIM : IDBService {
             List<TodoItem> items = todos[username];
             items.Remove(items.First(a => a.Id == item));
         }
+    }
+
+    public void UpdateAssignment(Assignment assignment, string email) {
+        throw new NotImplementedException();
     }
 
     public void UpdateToDo(TodoItem Todo, string username) {
