@@ -37,5 +37,9 @@ public class AssignmentsVmTest {
     //    await Assert.That(viewModel.Assignments.Count).IsEqualTo(1);
     //}        
 
+    [Test]
+    public async Task WhenAssignmentIsMarkedComplete_CompletionDateIsNotNull() {
+
+    }
 
 }

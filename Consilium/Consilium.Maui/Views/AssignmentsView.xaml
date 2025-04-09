@@ -5,36 +5,74 @@
              Title="AssignmentsView">
     <ScrollView>
         <StackLayout Padding="20">
-            <Label Text="To-Do List" 
-            FontSize="27" 
-            FontAttributes="Bold" 
-            HorizontalOptions="Center" 
-            Margin="0,0,0,20"
+            <Label Text="Assignments" 
+                   FontSize="27" 
+                   FontAttributes="Bold" 
+                   HorizontalOptions="Center" 
+                   Margin="0,0,0,20"
             />
             <Picker
-            Title="Select a course"
-            ItemsSource="{Binding Courses}"
-            ItemDisplayBinding="{Binding CourseName}"
-            SelectedItem="{Binding SelectedCourse}"
-            Margin="10"
-            WidthRequest="150"/>
+                Title="Select a course"
+                ItemsSource="{Binding Courses}"
+                ItemDisplayBinding="{Binding CourseName}"
+                SelectedItem="{Binding SelectedCourse}"
+                Margin="10"
+                WidthRequest="160"/>
 
             <Border StrokeShape="RoundRectangle 10"
-           Padding="10"
-           Margin="0,20,0,0"
-           BackgroundColor="{AppThemeBinding Dark={StaticResource Dark-Dark}, Light={StaticResource Light-Light}}"
-           StrokeThickness="0">
+                    Padding="10"
+                    Margin="0,20,0,0"
+                    BackgroundColor="{AppThemeBinding Dark={StaticResource Dark-Dark}, Light={StaticResource Light-Light}}"
+                    StrokeThickness="0">
                 <CollectionView ItemsSource="{Binding Assignments}">
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
-                            <StackLayout Orientation="Horizontal" Padding="5">
-                                <Label Text="{Binding Name}" />
-                                <Label Text="{Binding CourseId}"/>
-                            </StackLayout>
-                        </DataTemplate>
+                            <Grid ColumnDefinitions="Auto, *, Auto"
+                                  Padding="10"
+                                  VerticalOptions="Center"
+                                  BackgroundColor="{AppThemeBinding Dark={StaticResource Dark-Dark}, Light={StaticResource Light-Light}}">  
+                                
+                                    <CheckBox Grid.Column="0"
+                                              IsChecked="{Binding IsCompleted}"
+                                              VerticalOptions="Center"
+                                              Margin="0,0,10,0"/>
+
+                                <StackLayout Grid.Column="1"
+                                             Spacing="2"
+                                             VerticalOptions="Center"
+                                             HorizontalOptions="FillAndExpand">
+                                    <Label Text="{Binding Name}"
+                                           TextColor="{AppThemeBinding Dark=White, Light=Black}"
+                                           FontAttributes="Bold"
+                                           FontSize="17"
+                                           LineBreakMode="TailTruncation"/> 
+                                    <Label Text="{Binding DueDate, StringFormat='Due: {0:MMM d}'}"
+                                           FontSize="14"
+                                           Opacity="0.6"
+                                           TextColor="{AppThemeBinding Dark=White, Light=Black}"/>
+                                    </StackLayout>
+
+                                <!-- assignment buttons on the right--> 
+                                <StackLayout Grid.Column="2"
+                                             Orientation="Horizontal"
+                                             Spacing="5"
+                                             HorizontalOptions="End"
+                                             VerticalOptions="Center">  
+                                    <Button Text="Start" />
+                                        <Button Text="Create To-Do" />
+                                    </StackLayout>
+                                </Grid>
+                            </DataTemplate>
+
                     </CollectionView.ItemTemplate>
                 </CollectionView>
             </Border>
+            
+            <!--this will open a popup form to input assignment details - including a date picker for due date, entry for the name, etc.-->
+            <Button Text="Create New Assignment"
+                    WidthRequest="450"
+                    Margin="15"/>
+            
         </StackLayout>
     </ScrollView>
 </ContentPage>

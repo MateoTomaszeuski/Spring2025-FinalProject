@@ -93,4 +93,19 @@ public partial class AssignmentsViewModel : ObservableObject {
         return new() { assignment1, assignment2, assignment3, assignment4 };
     }
 
+
+    // relay command methods:
+    // start assignment
+    // complete assignment
+    // delete assignment
+    // add assignment
+    // add to To-Do list
+
+
+
+    // once a student has started working on an assignment, do we want to give them the option to "pause" it?
+    // or is the button just there to mark the first time they started working on it?
+
+    // are we clearing assignments automatically when they are marked completed?
+    // or are we going to let the user hide it from the list?
 }

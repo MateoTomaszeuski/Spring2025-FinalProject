@@ -51,11 +51,3 @@ public partial class TodoItem : ObservableObject {
         return Id == other.Id;
     }
 }
-
-
-
-//Custom Categories not descriptions
-// need Nested Todo items 
-// add an assginment id wich can be empty
-// be able to sort by category
-// be able to sort by completion
