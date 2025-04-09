@@ -37,11 +37,11 @@ public class DBService(IDbConnection conn) : IDBService {
         return conn.Query<TodoItem>(items, new { email });
     }
 
-    public void RemoveToDo(TodoItem item, string email) {
+    public void RemoveToDo(int id, string email) {
         string removeItem = """"
             delete from todoitem t where t.id = @id and account_email = @email;
             """";
-        conn.Execute(removeItem, new { id = item.Id, email });
+        conn.Execute(removeItem, new { id, email });
     }
 
     public void UpdateToDo(TodoItem Todo, string email) {

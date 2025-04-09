@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 namespace Consilium.Shared.Models;
 
 public partial class TodoItem : ObservableObject {
-    public int Id { get; set; } // this ID comes from the DB (not sure we even need it)
+    public int Id { get; set; }
     public int? ParentId { get; set; }
     public string? Title { get; set; }
     public int TodoListId { get; set; }
@@ -14,8 +14,7 @@ public partial class TodoItem : ObservableObject {
     [ObservableProperty]
     private string? category;
 
-    [ObservableProperty]
-    public bool hasSubtasks;
+    public bool HasSubtasks { get => Subtasks.Count > 0; }
 
     [ObservableProperty]
     private bool isExpanded;
@@ -35,10 +34,10 @@ public partial class TodoItem : ObservableObject {
     }
 
     public TodoItem() {
-        Subtasks.CollectionChanged += (s, e) =>
-        {
-            HasSubtasks = Subtasks.Count > 0;
-        };
+        //Subtasks.CollectionChanged += (s, e) =>
+        //{
+        //    HasSubtasks = Subtasks.Count > 0;
+        //};
         category = "";
     }
 

@@ -4,6 +4,7 @@ using Consilium.Shared.Models;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Net.Http.Json;
+using System.Runtime.ExceptionServices;
 
 namespace Consilium.Shared.Services;
 
@@ -46,7 +47,11 @@ public class ToDoService : IToDoService {
     public async Task<string> RemoveToDoAsync(int itemId) {
         var response = await client.DeleteAsync($"todo/remove/{itemId}");
 
-        TodoItems.Remove(TodoItems.First(a => a.Id == itemId));
+        TodoItem child = TodoItems.First(a => itemId == a.Id);
+        TodoItem? parent = TodoItems.FirstOrDefault(a => child.ParentId == a.Id);
+        TodoItems.Remove(child);
+
+        parent?.Subtasks.Remove(child);
 
         if (response.IsSuccessStatusCode) {
             return "Deleted successfully";
