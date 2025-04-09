@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Maui;
 using Consilium.Maui.Views;
+using Consilium.Shared.Models;
 using Consilium.Shared.Services;
 using Consilium.Shared.ViewModels;
 using Microsoft.Extensions.Logging;
@@ -37,6 +38,7 @@ public static class MauiProgram {
             }
         });
 
+
         return builder.Build();
 
     }
@@ -66,7 +68,7 @@ public static class MauiProgram {
         builder.Services.AddSingleton<IToDoService, ToDoService>();
         builder.Services.AddSingleton<IPersistenceService, PersistenceService>();
         builder.Services.AddSingleton<ILogInService, LogInService>();
-
+        builder.Services.AddSingleton<IClientService, ClientService>();
 
         return builder;
     }

@@ -15,5 +15,6 @@ public partial class ProfileViewModel(ILogInService logInService, IPersistenceSe
         if (String.IsNullOrEmpty(EmailInput)) return;
 
         Token = await logInService.LogIn(EmailInput);
+        persistenceService.SaveToken(EmailInput, Token);
     }
 }

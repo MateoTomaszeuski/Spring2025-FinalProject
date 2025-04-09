@@ -4,7 +4,7 @@ using System.Text.Json;
 
 namespace Consilium.Shared.Services;
 
-public class PersistenceService : IPersistenceService {
+public class PersistenceService(IClientService clientService) : IPersistenceService {
 
     public TodoList? GetToDoLists() {
         string output = Preferences.Get("todo-list", "{}");
@@ -19,5 +19,13 @@ public class PersistenceService : IPersistenceService {
     public void SaveToken(string email, string token) {
         Preferences.Set("auth-header-email", email);
         Preferences.Set("auth-header-token", token);
+
+        clientService.UpdateHeaders(email, token);
+    }
+
+    public void OnStartup() {
+        string email = Preferences.Get("auth-header-email", String.Empty);
+        string token = Preferences.Get("auth-header-token", String.Empty);
+        clientService.UpdateHeaders(email, token);
     }
 }

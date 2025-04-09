@@ -9,17 +9,17 @@ using System.Runtime.ExceptionServices;
 namespace Consilium.Shared.Services;
 
 public class ToDoService : IToDoService {
-    private readonly HttpClient client;
-    private readonly IPersistenceService service;
+    private readonly IPersistenceService persistenceService;
+    private readonly IClientService client;
     /// <summary>
     /// Used by tests to assign starting values. DO NOT USE DIRECTLY IN PRODUCTION.
     /// </summary>
     public List<TodoItem> TodoItems { get; set; }
 
-    public ToDoService(IHttpClientFactory factory, IPersistenceService service) {
-        client = factory.CreateClient("ApiClient");
-        client.DefaultRequestHeaders.Add("Email-Auth_Email", "bob@example.com");
-        this.service = service;
+    public ToDoService(IPersistenceService persistenceService, IClientService client) {
+
+        this.persistenceService = persistenceService;
+        this.client = client;
         TodoItems = new();
     }
 
@@ -28,7 +28,7 @@ public class ToDoService : IToDoService {
     }
 
     public async Task AddItemAsync(TodoItem item) {
-        var response = await client.PostAsJsonAsync($"todo", item);
+        var response = await client.Post($"todo", item);
         int id = Convert.ToInt16(await response.Content.ReadAsStringAsync());
         item.Id = id;
         TodoItems.Add(item);
@@ -39,13 +39,13 @@ public class ToDoService : IToDoService {
     /// that value.
     /// </summary>
     public async Task UpdateItemAsync(TodoItem item) {
-        var response = await client.PatchAsJsonAsync($"todo/update", item);
+        var response = await client.Patch($"todo/update", item);
         TodoItem listItem = TodoItems.Where(a => a.Id == item.Id).First();
         listItem.CompletionDate = item.CompletionDate;
     }
 
     public async Task<string> RemoveToDoAsync(int itemId) {
-        var response = await client.DeleteAsync($"todo/remove/{itemId}");
+        var response = await client.Delete($"todo/remove/{itemId}");
 
         TodoItem child = TodoItems.First(a => itemId == a.Id);
         TodoItem? parent = TodoItems.FirstOrDefault(a => child.ParentId == a.Id);
@@ -61,7 +61,8 @@ public class ToDoService : IToDoService {
     }
 
     public async Task InitializeTodosAsync() {
-        var response = await client.GetFromJsonAsync<IEnumerable<TodoItem>>("todo");
-        TodoItems = response == null ? new() : new(response);
+        var response = await client.Get("todo");
+        IEnumerable<TodoItem>? items = await response.Content.ReadFromJsonAsync<IEnumerable<TodoItem>>();
+        TodoItems = items == null ? new() : new(items);
     }
 }
