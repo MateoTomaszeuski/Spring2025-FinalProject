@@ -35,9 +35,10 @@ public class DBServiceIM : IDBService {
         return new List<TodoItem>();
     }
 
-    public void RemoveToDo(TodoItem item, string username) {
+    public void RemoveToDo(int item, string username) {
         if (todos.ContainsKey(username)) {
-            todos[username].Remove(item);
+            List<TodoItem> items = todos[username];
+            items.Remove(items.First(a => a.Id == item));
         }
     }
 

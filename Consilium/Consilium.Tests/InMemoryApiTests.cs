@@ -51,7 +51,7 @@ public class InMemoryApiTests {
     public async Task InMemServiceCanRemoveItem() {
         TodoItem todo = new TodoItem() { Title = "Lorem" };
         service.AddToDo(todo, "cody");
-        service.RemoveToDo(todo, "cody");
+        service.RemoveToDo(todo.Id, "cody");
 
         List<TodoItem> items = service.GetToDos("cody").ToList();
         await Assert.That(items.Count).IsEqualTo(0);

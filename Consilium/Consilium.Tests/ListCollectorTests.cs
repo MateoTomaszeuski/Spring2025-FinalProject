@@ -10,7 +10,7 @@ public class ListCollectorTests {
             new TodoItem() {Id = 1}
         };
 
-        ListCollapser.CollapseList(items);
+        items = new(ListCollapser.CollapseList(items));
 
         await Assert.That(items[0].Id).IsEqualTo(1);
     }
@@ -22,7 +22,7 @@ public class ListCollectorTests {
             new TodoItem() {Id = 2}
         };
 
-        ListCollapser.CollapseList(items);
+        items = new(ListCollapser.CollapseList(items));
 
         await Assert.That(items[0].Id).IsEqualTo(1);
         await Assert.That(items[1].Id).IsEqualTo(2);
@@ -35,7 +35,7 @@ public class ListCollectorTests {
             new TodoItem() {Id = 2, ParentId = 1}
         };
 
-        ListCollapser.CollapseList(items);
+        items = new(ListCollapser.CollapseList(items));
 
         await Assert.That(items.Count).IsEqualTo(1);
         await Assert.That(items[0].Subtasks.Count).IsEqualTo(1);
@@ -57,7 +57,7 @@ public class ListCollectorTests {
             new TodoItem() {Id = 10}
         };
 
-        ListCollapser.CollapseList(items);
+        items = new(ListCollapser.CollapseList(items));
 
         await Assert.That(items.Count).IsEqualTo(5);
         await Assert.That(items[0].Subtasks.Count).IsEqualTo(2);
@@ -65,6 +65,5 @@ public class ListCollectorTests {
         await Assert.That(items[1].Subtasks.Count).IsEqualTo(2);
         await Assert.That(items[2].Id).IsEqualTo(6);
         await Assert.That(items[2].Subtasks.Count).IsEqualTo(1);
-
     }
 }
