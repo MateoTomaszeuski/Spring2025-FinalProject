@@ -22,8 +22,8 @@ spec:
             name: consilium-postgres-config
         - name: consilium-postgres-backups-pvc
       containers:
-      - name: consilium-postgreskubectl get pods -l app=<your-app-name>
-        Mounts:
+      - name: consilium-postgres
+        volumeMounts:
           - name: consilium-postgres-data
             mountPath: /var/lib/postgresql/data
           - name: consilium-init
