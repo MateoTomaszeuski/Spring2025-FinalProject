@@ -37,10 +37,11 @@ Share 3+ different blocking issues that you were stuck on for a while, and how y
 * **Solution:**
   - Workaround: use the code-behind for the tools logic instead of MVVM.
 
-#### 3. Issue
+#### 3. Emails can send to the sender, but no one else
 * **Description:** 
-  - lorem
+  - Our EmailService is set up and we've added configuration values for the SMTP server, the email sender details, and the app key password. When sending an email for authentication, an email is not sent to the user.
 * **Attempts To Fix:**
-  - lorem 
+  - We verified that the app key was being used to connect to the gmail account.
+  - We experimented by trying to send an authentication email to the sending email address itself (consiliumapp2026@gmail.com). This worked, but no other accounts receive emails. 
 * **Solution:**
-  - lorem
+  - It was in the spam folder. Is there a way to stop emails from going to our users' spam boxes?

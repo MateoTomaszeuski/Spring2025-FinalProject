@@ -14,5 +14,6 @@
 
 ## Sticking Points
 - multiple font families in a single MAUI element
+- email sender - can't send to email addresses other than itself
 
 ## What's Next
