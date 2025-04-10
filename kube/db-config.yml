@@ -45,3 +45,4 @@ data:
         todo_name varchar(80) NOT NULL, 
         completion_date timestamp NULL
       );
+      
