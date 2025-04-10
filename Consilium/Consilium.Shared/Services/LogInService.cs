@@ -29,7 +29,8 @@ public class LogInService : ILogInService {
     }
 
     public async Task<string> LogIn(string email) {
-        return await client.PostAsync($"/account?email={email}", null).Result.Content.ReadAsStringAsync();
+        var response = await client.PostAsync($"/account?email={email}", null);
+        return await response.Content.ReadAsStringAsync();
     }
 
     public async Task<bool> LogOut() {

@@ -10,8 +10,8 @@ public class ClientService : IClientService {
         client = factory.CreateClient("ApiClient");
     }
     public void UpdateHeaders(string email, string token) {
-        client.DefaultRequestHeaders.Add("Email-Auth_Email", email);
-        client.DefaultRequestHeaders.Add("Email-Auth_Token", token);
+        client.DefaultRequestHeaders.Add("Email-Auth_Email", email.Trim());
+        client.DefaultRequestHeaders.Add("Email-Auth_Token", token.Trim());
     }
 
     public async Task<HttpResponseMessage> DeleteAsync(string url) {
