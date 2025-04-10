@@ -1,0 +1,31 @@
+name: Restore Database
+
+on:
+  - workflow_dispatch
+
+jobs:
+  Restore:
+    runs-on: self-hosted
+    steps:
+      - name: Set Namespace
+        run: kubectl config set-context --current --namespace=consilium
+
+      - name: Get current pod name
+        id: get-pod
+        run: |
+          POD_NAME=$(kubectl get pods -l app=consilium-postgres -o jsonpath='{.items[0].metadata.name}')
+          echo "POD_NAME=$POD_NAME" >> $GITHUB_ENV
+
+      - name: Restore from newest backup
+        run: |
+          kubectl exec -i $POD_NAME -- bash -c '
+            BACKUP_DIR="/var/backups"
+            NEWEST_BACKUP=$(ls -1t "$BACKUP_DIR"/*_backup.sql 2>/dev/null | head -n 1)
+            if [ -f "$NEWEST_BACKUP" ]; then
+              echo "Restoring from $NEWEST_BACKUP..."
+              psql -U consilium-admin consiliumdb < "$NEWEST_BACKUP"
+            else
+              echo "No backup file found to restore."
+              exit 1
+            fi
+          '
