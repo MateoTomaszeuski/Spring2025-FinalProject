@@ -20,13 +20,16 @@ spec:
         - name: consilium-init
           configMap:
             name: consilium-postgres-config
+        - name: consilium-postgres-backups-pvc
       containers:
-      - name: consilium-postgres
-        volumeMounts:
+      - name: consilium-postgreskubectl get pods -l app=<your-app-name>
+        Mounts:
           - name: consilium-postgres-data
             mountPath: /var/lib/postgresql/data
           - name: consilium-init
             mountPath: /docker-entrypoint-initdb.d
+          - name: consilium-postgres-data-backup
+            mountPath: /var/backups
         image: postgres:16
         ports:
         - containerPort: 5432
