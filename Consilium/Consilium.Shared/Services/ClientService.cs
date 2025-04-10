@@ -9,10 +9,10 @@ public class ClientService : IClientService {
     public ClientService(IHttpClientFactory factory) {
         client = factory.CreateClient("ApiClient");
     }
-    public void UpdateHeaders(string email, string token) 
-        {
-        client.DefaultRequestHeaders.Add("Email-Auth_Email", email.Trim());
-        client.DefaultRequestHeaders.Add("Email-Auth_Token", token.Trim());
+
+    public void UpdateHeaders(string email, string token) {
+        client.DefaultRequestHeaders.Add("Email-Auth_Email", email);
+        client.DefaultRequestHeaders.Add("Email-Auth_Token", token);
     }
 
     public async Task<HttpResponseMessage> DeleteAsync(string url) {
