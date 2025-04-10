@@ -25,7 +25,7 @@ public class AccountController : ControllerBase {
     [HttpGet("validate")]
     public IResult ValidateAccount([FromQuery] string email, [FromQuery] string token) {
         service.Validate(email, token);
-        return Results.Redirect("final.codyhowell.dev/signedin");
+        return Results.Redirect("https://final.codyhowell.dev/signedin");
     }
 
     [HttpGet("valid")]

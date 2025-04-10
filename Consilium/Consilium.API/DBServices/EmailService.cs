@@ -21,7 +21,9 @@ public class EmailService(IConfiguration config) : IEmailService {
         emailMessage.Subject = "Confirm your email";
 
         emailMessage.Body = new TextPart("html") {
-            Text = $"Please confirm your account by clicking <a href='{link}'>here</a>."
+            Text = @$"
+                Please confirm your account by clicking <a href='{link}'>here</a>.
+            "
         };
 
         using var client = new MailKit.Net.Smtp.SmtpClient();
