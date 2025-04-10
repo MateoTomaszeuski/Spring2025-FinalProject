@@ -12,7 +12,7 @@ public class AccountController : ControllerBase {
 
     public AccountController(AuthService service) => this.service = service;
 
-    [HttpGet]
+    [HttpGet("all")]
     public IEnumerable<EmailAccount> GetAllAccounts() {
         return service.GetAllUsers();
     }
@@ -28,11 +28,32 @@ public class AccountController : ControllerBase {
         return Results.Redirect("final.codyhowell.dev/signedin");
     }
 
-    [HttpGet("global/signout")]
-    public IResult SignOutOfAccounts() {
-        string email = Request.Headers["Email-Auth_Email"]!; // Cody - This is validated in IdentityMiddleware to not be null
+    [HttpGet("valid")]
+    public IResult ValidateAccount() {
+        return Results.Ok();
+    }
+
+    [HttpGet("signout/global")]
+    public IResult SignOutOfAllAccounts() {
+        string email = Request.Headers["Email-Auth_Email"]!; // These are validated in middleware to not be null
         service.GlobalSignOut(email);
         return Results.Ok("Done!");
     }
 
+    [HttpGet("signout")]
+    public IResult SignOutOfAccount() {
+        string email = Request.Headers["Email-Auth_Email"]!;
+        string key = Request.Headers["Email-Auth_Key"]!;
+
+        service.KeySignOut(email, key);
+        return Results.Ok("Done!");
+    }
+
+    [HttpDelete("delete")]
+    public IResult DeleteAccount() {
+        string email = Request.Headers["Email-Auth_Email"]!;
+
+        service.DeleteUser(email);
+        return Results.Ok("Done!");
+    }
 }
