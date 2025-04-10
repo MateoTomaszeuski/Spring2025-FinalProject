@@ -8,4 +8,4 @@ public interface IToDoService {
     Task InitializeTodosAsync();
     Task AddItemAsync(TodoItem item);
     Task UpdateItemAsync(TodoItem item);
-}  
+}
