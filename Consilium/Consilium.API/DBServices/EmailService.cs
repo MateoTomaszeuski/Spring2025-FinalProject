@@ -22,7 +22,16 @@ public class EmailService(IConfiguration config) : IEmailService {
         emailMessage.Subject = "Confirm your email";
 
         emailMessage.Body = new TextPart("html") {
-            Text = $"Please confirm your account by clicking <a href='{link}'>here</a>."
+            Text = $"""
+            <h1> Welcome To Consilium</h1>
+            <p> An account token has been associated to this email</p>
+            <p> Please confirm your account by clicking <a href='{link}'>here</a>. </p>
+            <p><strong> If this was not you, please ignore this email</strong></p>
+            <br/>
+            <br/>
+            <br/>
+            <p> Thank You - Consilium</p>
+            """
         };
 
         using var client = new MailKit.Net.Smtp.SmtpClient();
