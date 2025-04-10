@@ -82,6 +82,7 @@ if (app.Environment.IsDevelopment()) {
     app.UseSwaggerUI();
 }
 
+// testing api
 //app.UseMiddleware<IdentityMiddleware>();
 app.UseRouting();
 
