@@ -6,8 +6,11 @@
              Title="ToolsView">
 
     <VerticalStackLayout>
-        <ScrollView>
-            <HorizontalStackLayout>
+        <ScrollView Orientation="Horizontal">
+            <Border Padding="10"
+                    BackgroundColor="{AppThemeBinding Dark={StaticResource Dark-Dark}, Light={StaticResource Light-Light}}"
+                    StrokeThickness="0">
+                <HorizontalStackLayout Spacing="5">
                 <Button
                     Text="Notes"
                     Command="{Binding ChangeToolCommand}"
@@ -23,6 +26,7 @@
                     Command="{Binding ChangeToolCommand}"
                     CommandParameter="Pomodoro"/>
             </HorizontalStackLayout>
+            </Border>
         </ScrollView>
 
         <tools:CalculatorView IsVisible="{Binding CalculatorActive}"/>

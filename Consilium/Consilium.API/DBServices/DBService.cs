@@ -9,6 +9,9 @@ using System.Diagnostics;
 namespace Consilium.API.DBServices;
 
 public class DBService(IDbConnection conn) : IDBService {
+    public void AddAssignment(Assignment assignment, string email) {
+        throw new NotImplementedException();
+    }
     #region ToDos
     public int AddToDo(TodoItem Todo, string email) {
         string addItem = @"
@@ -26,6 +29,18 @@ public class DBService(IDbConnection conn) : IDBService {
         });
     }
 
+    public void DeleteAssignment(int id, string email) {
+        throw new NotImplementedException();
+    }
+
+    public IEnumerable<Assignment> GetAllAssignments(string email) {
+        throw new NotImplementedException();
+    }
+
+    public IEnumerable<Assignment> GetIncompleteAssignments(string email) {
+        throw new NotImplementedException();
+    }
+
     /// <summary>
     /// Retrieves the filled To-Do list. 
     /// </summary>
@@ -37,11 +52,15 @@ public class DBService(IDbConnection conn) : IDBService {
         return conn.Query<TodoItem>(items, new { email });
     }
 
-    public void RemoveToDo(TodoItem item, string email) {
+    public void RemoveToDo(int id, string email) {
         string removeItem = """"
             delete from todoitem t where t.id = @id and account_email = @email;
             """";
-        conn.Execute(removeItem, new { id = item.Id, email });
+        conn.Execute(removeItem, new { id, email });
+    }
+
+    public void UpdateAssignment(Assignment assignment, string email) {
+        throw new NotImplementedException();
     }
 
     public void UpdateToDo(TodoItem Todo, string email) {
@@ -54,5 +73,8 @@ public class DBService(IDbConnection conn) : IDBService {
         }
         conn.Execute(updateItem, new { time = now, id = Todo.Id, email });
     }
-    #endregion 
+    #endregion
+    #region Assignments
+
+    #endregion
 }

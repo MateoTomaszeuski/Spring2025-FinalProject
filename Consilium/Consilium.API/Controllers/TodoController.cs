@@ -36,8 +36,8 @@ public class todoController : ControllerBase {
         return Results.Ok(result);
     }
 
-    [HttpDelete("remove", Name = "RemoveTodos")]
-    public IResult Remove(TodoItem item) {
+    [HttpDelete("remove/{item}", Name = "RemoveTodos")]
+    public IResult Remove(int item) {
         try {
             string username = Request.Headers["Email-Auth_Email"]!;
             service.RemoveToDo(item, username);

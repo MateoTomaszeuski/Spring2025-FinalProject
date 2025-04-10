@@ -99,8 +99,10 @@ public partial class AssignmentsViewModel : ObservableObject {
     // complete assignment
     // delete assignment
     // add assignment
-    // add to To-Do list
+
+
     // view assignment details
+    // add to To-Do list
 
 
 

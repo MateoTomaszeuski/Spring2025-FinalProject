@@ -1,9 +1,10 @@
 using Consilium.Shared.ViewModels;
+
 namespace Consilium.Maui.Views;
-public partial class DashboardView : ContentPage {
-    public DashboardView(DashboardViewModel vm) {
+
+public partial class ProfileView : ContentPage {
+    public ProfileView(ProfileViewModel vm) {
         InitializeComponent();
         BindingContext = vm;
-
     }
 }
