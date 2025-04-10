@@ -114,3 +114,5 @@ The following configuration values should be set in user secrets:
 
 Getting the app key from Google (if you're using a gmail account):
 https://security.google.com/settings/security/apppasswords
+
+(NOTE: Two-Step Verification must be set up for your account in order to generate an app password.)
