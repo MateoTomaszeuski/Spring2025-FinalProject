@@ -20,7 +20,9 @@ spec:
         - name: consilium-init
           configMap:
             name: consilium-postgres-config
-        - name: consilium-postgres-backups-pvc
+        - name: consilium-postgres-backups
+          persistentVolumeClaim:
+            claimName: consilium-postgres-backups-pvc
       containers:
       - name: consilium-postgres
         volumeMounts:
@@ -28,7 +30,7 @@ spec:
             mountPath: /var/lib/postgresql/data
           - name: consilium-init
             mountPath: /docker-entrypoint-initdb.d
-          - name: consilium-postgres-data-backup
+          - name: consilium-postgres-backups
             mountPath: /var/backups
         image: postgres:16
         ports:
