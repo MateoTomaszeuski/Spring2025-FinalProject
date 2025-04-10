@@ -8,8 +8,7 @@ public class EmailService(IConfiguration config) : IEmailService {
         string link = $"http://localhost:5202/account/validate?email={email}&token={validationToken}";
         Console.WriteLine(link);
 
-        await Task.CompletedTask;
-        //await SendEmail(email, link);
+        await SendEmail(email, link);
     }
 
     private async Task SendEmail(string email, string link) {

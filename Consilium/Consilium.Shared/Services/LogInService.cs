@@ -13,7 +13,27 @@ public class LogInService : ILogInService {
         this.service = service;
     }
 
+    public async Task<bool> DeleteAccount() {
+        var response = await client.DeleteAsync($"/account/delete");
+        return response.IsSuccessStatusCode;
+    }
+
+    public async Task<bool> GlobalLogOut() {
+        var response = await client.GetAsync($"/account/signout/global");
+        return response.IsSuccessStatusCode;
+    }
+
+    public async Task<bool> IsValidLogIn() {
+        var response = await client.GetAsync($"/account/valid");
+        return response.IsSuccessStatusCode;
+    }
+
     public async Task<string> LogIn(string email) {
         return await client.PostAsync($"/account?email={email}", null).Result.Content.ReadAsStringAsync();
+    }
+
+    public async Task<bool> LogOut() {
+        var response = await client.GetAsync($"/account/signout");
+        return response.IsSuccessStatusCode;
     }
 }

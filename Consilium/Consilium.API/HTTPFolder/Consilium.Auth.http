@@ -1,29 +1,10 @@
 @Consilium = http://localhost:5202
+@email = codyhowell44@gmail.com
+@key = kwqXs7yPVrfkGnqfrL1m
 
+###
+GET {{Consilium}}/account
+###
+POST {{Consilium}}/account?email={{email}}
 
-###
-GET {{Consilium}}/todo
-Consilium-User: password
-###
-PATCH {{Consilium}}/todo/update/?index=0
-Consilium-User: cody
-Content-Type: application/json
-  {
-    "title": "New",
-    "description": null,
-    "category": null,
-    "isCompleted": false,
-    "subTasks": []
-  }
-###
-POST {{Consilium}}/todo
-Consilium-User: password
-Content-Type: application/json
-  {
-    "title": "Addition",
-    "description": null,
-    "category": null,
-    "isCompleted": false,
-    "subTasks": []
-  }
 
