@@ -20,6 +20,11 @@ public partial class ProfileViewModel(ILogInService logInService, IPersistenceSe
         Token = await logInService.LogIn(EmailInput);
         persistenceService.SaveToken(EmailInput, Token);
 
-        // if the call returns "too many tokens" message, show an error message (snackbar or toast notification)
+        if (Token == "Too many unauthorized keys")
+            Message = Token;
+        else {
+            Message = "Success!";
+        }
+        // rather than just a label, we can make the login feedback snackbar or toast notifications
     }
 }

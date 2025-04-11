@@ -18,6 +18,8 @@
                IsTextPredictionEnabled="False"
                Completed="EmailEntry_Completed"/>
         <Button Text="Log In" Command="{Binding LogInCommand}" Clicked="Button_Clicked"/>
+        <Label Text=""/>
+        <Label Text="{Binding Message}"/>
 
     </VerticalStackLayout>
 </ContentPage>
