@@ -1,8 +1,10 @@
 ﻿using CommunityToolkit.Maui;
+using Consilium.Maui.Controls;
 using Consilium.Maui.Views;
 using Consilium.Shared.Models;
 using Consilium.Shared.Services;
 using Consilium.Shared.ViewModels;
+using Consilium.Shared.ViewModels.controls;
 using Microsoft.Extensions.Logging;
 
 namespace Consilium.Maui;
@@ -59,7 +61,7 @@ public static class MauiProgram {
         builder.Services.AddSingleton<TodoListView>();
         builder.Services.AddSingleton<ToolsView>();
         builder.Services.AddSingleton<ProfileView>();
-
+        builder.Services.AddSingleton<CalculatorView>();
         return builder;
     }
 
@@ -70,6 +72,7 @@ public static class MauiProgram {
         builder.Services.AddSingleton<TodoListViewModel>();
         builder.Services.AddSingleton<ToolsViewModel>();
         builder.Services.AddSingleton<ProfileViewModel>();
+        builder.Services.AddSingleton<CalculatorViewModel>();
 
         return builder;
     }

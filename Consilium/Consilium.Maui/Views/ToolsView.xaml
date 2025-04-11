@@ -12,27 +12,33 @@
                     StrokeThickness="0"
                     HorizontalOptions="StartAndExpand">
                 <HorizontalStackLayout Spacing="5">
-                <Button
+                    <Button
                     Text="Notes"
                     Command="{Binding ChangeToolCommand}"
                     CommandParameter="Notes"/>
 
-                <Button
+                    <Button
                     Text="Calculator"
                     Command="{Binding ChangeToolCommand}"
                     CommandParameter="Calculator"/>
 
-                <Button
+                    <Button
                     Text="Pomodoro"
                     Command="{Binding ChangeToolCommand}"
                     CommandParameter="Pomodoro"/>
-            </HorizontalStackLayout>
+                </HorizontalStackLayout>
             </Border>
         </ScrollView>
 
-        <tools:CalculatorView IsVisible="{Binding CalculatorActive}"/>
-        <tools:NotesView IsVisible="{Binding NotesActive}"/>
-        <tools:PomodoroView IsVisible="{Binding PomodoroActive}"/>
-
+        <VerticalStackLayout IsVisible="{Binding NotesActive}">
+            <tools:NotesView />
+        </VerticalStackLayout>
+        <VerticalStackLayout IsVisible="{Binding CalculatorActive}">
+            <tools:CalculatorView/>
+        </VerticalStackLayout>
+        <VerticalStackLayout IsVisible="{Binding PomodoroActive}">
+            <tools:PomodoroView/>
+        </VerticalStackLayout>
+        
     </VerticalStackLayout>
 </ContentPage>
