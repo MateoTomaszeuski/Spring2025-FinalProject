@@ -29,7 +29,7 @@
                         HeightRequest="40"
                         VerticalOptions="Center"/>
             </StackLayout>
-            <Button Text="Add Todo"
+            <Button Text="Add To-Do"
                 Command="{Binding AddTodoCommand}"
                     Margin="0,0,0,30"/>
             <StackLayout Orientation="Horizontal" 

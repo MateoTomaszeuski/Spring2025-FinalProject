@@ -9,7 +9,8 @@
         <ScrollView Orientation="Horizontal">
             <Border Padding="10"
                     BackgroundColor="{AppThemeBinding Dark={StaticResource Dark-Dark}, Light={StaticResource Light-Light}}"
-                    StrokeThickness="0">
+                    StrokeThickness="0"
+                    HorizontalOptions="StartAndExpand">
                 <HorizontalStackLayout Spacing="5">
                 <Button
                     Text="Notes"

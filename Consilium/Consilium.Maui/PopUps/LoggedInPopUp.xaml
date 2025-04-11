@@ -4,17 +4,24 @@
              x:Class="Consilium.Maui.PopUps.LoggedInPopUp"
              xmlns:toolkit="clr-namespace:CommunityToolkit.Maui.Views;assembly=CommunityToolkit.Maui">
     <VerticalStackLayout>
-        <Label 
-            Text="Welcome to Consilium"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-        <Label 
-            Text="Check your email to validate your account!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-        <Label 
-            Text="If you can't see the email, check your spam!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+        <Border
+            BackgroundColor="{AppThemeBinding Dark={StaticResource Dark-Dark}, Light={StaticResource Light-Light}}"
+            StrokeThickness="0"
+            Padding="15">
+            <VerticalStackLayout>
+                <Label 
+                    Text="Welcome to Consilium!&#10;"
+                    VerticalOptions="Center" 
+                    HorizontalOptions="Center" />
+                <Label 
+                    Text="Check your email to validate your account."
+                    VerticalOptions="Center" 
+                    HorizontalOptions="Center" />
+                <Label 
+                    Text="If you can't see the email, check your spam folder."
+                    VerticalOptions="Center" 
+                    HorizontalOptions="Center" />
+            </VerticalStackLayout>
+        </Border>
     </VerticalStackLayout>
 </toolkit:Popup>

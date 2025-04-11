@@ -3,16 +3,20 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Consilium.Maui.Views.ProfileView"
              Title="ProfileView">
-    <VerticalStackLayout>
+    <VerticalStackLayout
+        Margin="0,20,0,0"
+        MaximumWidthRequest="650"
+        Spacing="10">
         <Label 
-            Text="Email:"
+            Text="Enter your email:"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
-        <Entry Text="{Binding EmailInput}"/>
+        <Entry Text="{Binding EmailInput}"
+               Keyboard="Email"
+               TextTransform="None"
+               IsTextPredictionEnabled="False"
+               Completed="EmailEntry_Completed"/>
         <Button Text="Log In" Command="{Binding LogInCommand}" Clicked="Button_Clicked"/>
-        <Label 
-            Text="{Binding Token}"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+
     </VerticalStackLayout>
 </ContentPage>

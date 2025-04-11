@@ -14,6 +14,16 @@
 
 ## Sticking Points
 - multiple font families in a single MAUI element
-- email sender - can't send to email addresses other than itself
+- wanted to find a way for emails not to show up in spam folders as often 
+
 
 ## What's Next
+
+---
+# Demo Outline
+Cody: Show auth in action!
+Audrey: Show basic outline for Assignments page.
+Audrey: Show improvements to the To-Do page.
+Audrey: Sticking point for mixing font families in a MAUI control.
+Mateo: Sticking point and solution for preventing emails from showing up in spam.
+Taft: What's next?

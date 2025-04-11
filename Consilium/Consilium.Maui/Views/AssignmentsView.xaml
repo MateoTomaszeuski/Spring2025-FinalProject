@@ -71,7 +71,7 @@
                                                      Spacing="5"
                                                      Margin="0,5,0,0">
                                             <Button Text="Start" />
-                                            <Button Text="Create To-Do" />
+                                            <Button Text="Add To-Do" />
                                         </StackLayout>
                                     </StackLayout>
                                 </Border>
