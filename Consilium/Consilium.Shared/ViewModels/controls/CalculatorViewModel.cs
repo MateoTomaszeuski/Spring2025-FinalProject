@@ -2,6 +2,5 @@
 
 namespace Consilium.Shared.ViewModels.controls;
 
-public partial class CalculatorViewModel : ObservableObject
-{
+public partial class CalculatorViewModel : ObservableObject {
 }
