@@ -48,10 +48,12 @@ public class ToDoService : IToDoService {
         var response = await client.DeleteAsync($"todo/remove/{itemId}");
 
         TodoItem child = TodoItems.First(a => itemId == a.Id);
-        TodoItem? parent = TodoItems.FirstOrDefault(a => child.ParentId == a.Id);
+        List<TodoItem> parent = new(TodoItems.Where(a => child.ParentId == a.Id));
         TodoItems.Remove(child);
 
-        parent?.Subtasks.Remove(child);
+        foreach (TodoItem item in parent) {
+            await RemoveToDoAsync(item.Id);
+        }
 
         if (response.IsSuccessStatusCode) {
             return "Deleted successfully";
