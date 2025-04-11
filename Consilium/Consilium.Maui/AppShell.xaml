@@ -41,15 +41,15 @@
         ContentTemplate="{DataTemplate local:AssignmentsView}"
         Route="Assignments" />
     <ShellContent
-        Title="Stats"
-        Icon="graph.png"
-        ContentTemplate="{DataTemplate local:StatsView}"
-        Route="Stats" />
-    <ShellContent
         Title="Tools"
         Icon="timer.png"
         ContentTemplate="{DataTemplate local:ToolsView}"
         Route="Tools" />
+    <ShellContent
+        Title="Stats"
+        Icon="graph.png"
+        ContentTemplate="{DataTemplate local:StatsView}"
+        Route="Stats" />
     <ShellContent
         Title="Login"
         ContentTemplate="{DataTemplate local:ProfileView}"

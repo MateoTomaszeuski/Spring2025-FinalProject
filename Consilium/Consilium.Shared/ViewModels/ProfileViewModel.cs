@@ -11,7 +11,7 @@ public partial class ProfileViewModel(ILogInService logInService, IPersistenceSe
     private string token = String.Empty;
 
     [ObservableProperty]
-    private string message;
+    private string? message;
 
     [RelayCommand]
     private async Task LogIn() {
