@@ -4,7 +4,6 @@
              x:Class="Consilium.Maui.Views.ProfileView"
              Title="ProfileView">
     <VerticalStackLayout>
-        <Label Text="You feel like being more fancy? Do you need to have an account? well you are in the right place dummy"/>
         <Label 
             Text="Email:"
             VerticalOptions="Center" 

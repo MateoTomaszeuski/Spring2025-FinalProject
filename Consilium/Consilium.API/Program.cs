@@ -55,7 +55,6 @@ ActivitySource? activitySource = new ActivitySource(serviceName);
 
 
 string connString = builder.Configuration["DB_CONN"] ?? throw new Exception("No connection string was found.");
-Console.WriteLine("Connection String: " + connString);
 builder.Services.AddSingleton<IDbConnection>(provider =>
 {
     return new NpgsqlConnection(connString);
