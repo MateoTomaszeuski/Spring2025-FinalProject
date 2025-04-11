@@ -44,4 +44,4 @@ Share 3+ different blocking issues that you were stuck on for a while, and how y
   - We verified that the app key was being used to connect to the gmail account.
   - We experimented by trying to send an authentication email to the sending email address itself (consiliumapp2026@gmail.com). This worked, but no other accounts receive emails. 
 * **Solution:**
-  - It was in the spam folder. Is there a way to stop emails from going to our users' spam boxes?
+  - It was in the spam folder. We found a few tips to (try to) prevent emails from going to the spam folder. We used html in our email instead of just including a sketchy link.
