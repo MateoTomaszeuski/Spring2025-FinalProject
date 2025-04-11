@@ -8,7 +8,8 @@
  - hard to understand that is needde to login
  - cap To-Do
  - Sort by completion with just subtasks doesnt work
-
+ - app creashed after deleting todo
+ 
 
 ## Feature Suggestions
  - Auth is set in localhost
