@@ -9,6 +9,8 @@
  - cap To-Do
  - Sort by completion with just subtasks doesnt work
  - app creashed after deleting todo
+    - Realized that was a clicked login again, closed the app and reopened, which broke the token
+    - Basically deactivate login once logged in
  
 
 ## Feature Suggestions
