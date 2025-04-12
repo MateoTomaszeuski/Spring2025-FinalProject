@@ -95,6 +95,9 @@ public partial class TodoListViewModel : ObservableObject {
         if (!string.IsNullOrWhiteSpace(NewTodoTitle)) {
             await ToDoService.AddItemAsync(new TodoItem() { Title = NewTodoTitle, Category = NewTodoCategory });
             TodoItems = ToDoService.GetTodoItems();
+
+            // reapply the filter so users can see the list as they had it before
+            OnSelectedCategoryChanged(SelectedCategory);
             NewTodoTitle = string.Empty;
         }
     }
