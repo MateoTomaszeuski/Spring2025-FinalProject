@@ -110,7 +110,7 @@ public partial class TodoListViewModel : ObservableObject {
         }
     }
 
-   
+
     [RelayCommand]
     private void ToggleSubtaskVisibility(TodoItem parentTask) {
         if (parentTask == null) return;
