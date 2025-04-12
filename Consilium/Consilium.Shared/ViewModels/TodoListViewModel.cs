@@ -63,7 +63,7 @@ public partial class TodoListViewModel : ObservableObject {
     private bool categoryIsSortedAscending;
 
     [ObservableProperty]
-    private string selectedCategory = "Misc.";
+    private string selectedCategory = "All";
 
     partial void OnSelectedCategoryChanged(string value) {
         if (value == "All") {
@@ -107,27 +107,7 @@ public partial class TodoListViewModel : ObservableObject {
         }
     }
 
-    [RelayCommand]
-    private void FilterByCategory() {
-        if (SelectedCategory == "All") {
-            TodoItems = ToDoService.GetTodoItems();
-        } else {
-            TodoItems = ToDoService.GetTodosFilteredByCategory(SelectedCategory);
-        }
-    }
-
-    [RelayCommand]
-    private void SortByCategory() {
-        TodoItems = ToDoService.GetTodosSortedByCategory(!CategoryIsSortedAscending);
-        CategoryIsSortedAscending = !CategoryIsSortedAscending;
-    }
-
-    [RelayCommand]
-    private void SortByCompletion() {
-        TodoItems = ToDoService.GetTodosSortedByCompletion();
-        CategoryIsSortedAscending = false;
-    }
-
+   
     [RelayCommand]
     private void ToggleSubtaskVisibility(TodoItem parentTask) {
         if (parentTask == null) return;

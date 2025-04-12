@@ -104,36 +104,6 @@ public class ToDoListVMTests {
     }
 
     [Test]
-    public async Task CanSortTodoItemByCategory() {
-        viewModel.NewTodoTitle = "Test Todo";
-        viewModel.NewTodoCategory = "Test Category A";
-        viewModel.AddTodoCommand.Execute(null);
-        viewModel.NewTodoTitle = "Test Todo 2";
-        viewModel.NewTodoCategory = "Test Category B";
-        viewModel.AddTodoCommand.Execute(null);
-        viewModel.SortByCategoryCommand.Execute(null);
-        await Assert.That(viewModel.TodoItems[0].Category).IsEqualTo("Test Category A");
-        await Assert.That(viewModel.TodoItems[1].Category).IsEqualTo("Test Category B");
-    }
-
-    [Test]
-    public async Task CanSortTodoItemsByCategory() {
-        viewModel.NewTodoTitle = "Task 1";
-        viewModel.NewTodoCategory = "Work";
-        viewModel.AddTodoCommand.Execute(null);
-        viewModel.NewTodoTitle = "Task 2";
-        viewModel.NewTodoCategory = "Personal";
-        viewModel.AddTodoCommand.Execute(null);
-        viewModel.NewTodoTitle = "Task 3";
-        viewModel.NewTodoCategory = "School";
-        viewModel.AddTodoCommand.Execute(null);
-        viewModel.SortByCategoryCommand.Execute(null);
-        await Assert.That(viewModel.TodoItems[0].Category).IsEqualTo("Personal");
-        await Assert.That(viewModel.TodoItems[1].Category).IsEqualTo("School");
-        await Assert.That(viewModel.TodoItems[2].Category).IsEqualTo("Work");
-    }
-
-    [Test]
     public async Task CanAddSingleSubtask() {
         // Direct access to the service, because it's needed
         service.TodoItems = new List<TodoItem>() {
@@ -182,16 +152,17 @@ public class ToDoListVMTests {
     }
 
     [Test]
-    public async Task WhenSortedOnce_SortByAscendingCategory() {
-        var testingItems = new ObservableCollection<TodoItem>() {
+    public async Task CanSortByAscendingCategory() {
+        var testItems = new List<TodoItem>() {
             new TodoItem() { Title = "Task 1", Id = 1, Category="Banana" },
             new TodoItem() { Title = "Task 2", Id = 2, Category="Apple" }
         };
 
-        service.TodoItems = testingItems.ToList();
+        service.TodoItems = testItems;
+        viewModel.SelectedSortOption = "Category Descending";
         viewModel.TodoItems = new ObservableCollection<TodoItem>(service.TodoItems);
 
-        viewModel.SortByCategoryCommand.Execute(null);
+        viewModel.SelectedSortOption = "Category Ascending";
 
         await Assert.That(viewModel.CategoryIsSortedAscending).IsTrue();
         await Assert.That(viewModel.TodoItems[0].Category).IsEqualTo("Apple");
@@ -206,10 +177,12 @@ public class ToDoListVMTests {
             new() { Title = "Task 3", Id = 3, Category="Apple" }
         };
 
+
         service.TodoItems = testItems;
+        viewModel.SelectedSortOption = "Category Descending";
         viewModel.TodoItems = new ObservableCollection<TodoItem>(service.TodoItems);
 
-        viewModel.SortByCategoryCommand.Execute(null);
+        viewModel.SelectedSortOption = "Category Ascending";
 
         await Assert.That(viewModel.CategoryIsSortedAscending).IsTrue();
         await Assert.That(viewModel.TodoItems[0].Category).IsEqualTo("Apple");
@@ -217,25 +190,6 @@ public class ToDoListVMTests {
         await Assert.That(viewModel.TodoItems[2].Category).IsEqualTo("Cookie");
     }
 
-    [Test]
-    public async Task WhenCategoryIsSorted_SortingAgainReversesOrder() {
-        var testItems = new List<TodoItem> {
-            new() { Title = "Task 1", Id = 1, Category="Banana" },
-            new() { Title = "Task 2", Id = 2, Category="Cookie" },
-            new() { Title = "Task 3", Id = 3, Category="Apple" }
-        };
-
-        service.TodoItems = testItems;
-        viewModel.TodoItems = new ObservableCollection<TodoItem>(service.TodoItems);
-
-        viewModel.SortByCategoryCommand.Execute(null);
-        viewModel.SortByCategoryCommand.Execute(null);
-
-        await Assert.That(viewModel.CategoryIsSortedAscending).IsFalse();
-        await Assert.That(viewModel.TodoItems[0].Category).IsEqualTo("Cookie");
-        await Assert.That(viewModel.TodoItems[1].Category).IsEqualTo("Banana");
-        await Assert.That(viewModel.TodoItems[2].Category).IsEqualTo("Apple");
-    }
 
     [Test]
     public async Task CanFilterToDosByCategory() {
@@ -247,11 +201,12 @@ public class ToDoListVMTests {
         };
 
         service.TodoItems = testItems;
+        viewModel.SelectedCategory = "All";
         viewModel.TodoItems = new ObservableCollection<TodoItem>(service.TodoItems);
+        viewModel.SelectedCategory = "School";
 
-        viewModel.FilterByCategoryCommand.Execute("School");
         await Assert.That(viewModel.TodoItems.Count).IsEqualTo(2);
         await Assert.That(viewModel.TodoItems[0].Category).IsEqualTo("School");
-        await Assert.That(viewModel.TodoItems[2].Category).IsEqualTo("School");
+        await Assert.That(viewModel.TodoItems[1].Category).IsEqualTo("School");
     }
 }
