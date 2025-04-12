@@ -10,17 +10,17 @@
                    FontSize="27" 
                    FontAttributes="Bold" 
                    HorizontalOptions="Center" 
-                   Margin="0,0,0,20"
-                   />
+                   Margin="0,0,0,20"/>
+            
             <StackLayout Orientation="Horizontal" Spacing="10" Margin="0,0,0,10">
                 <Entry Placeholder="Enter a new task"
-                   Text="{Binding NewTodoTitle}"
-                   BackgroundColor="{AppThemeBinding Dark={StaticResource Gray100}, Light=White}"
-                   TextColor="Black"
-                   HorizontalOptions="FillAndExpand"
-                   HeightRequest="40"
-                   VerticalOptions="Center"
-                   Completed="NewTodoTitle_Completed"
+                       Text="{Binding NewTodoTitle}"
+                       BackgroundColor="{AppThemeBinding Dark={StaticResource Gray100}, Light=White}"
+                       TextColor="Black"
+                       HorizontalOptions="FillAndExpand"
+                       HeightRequest="40"
+                       VerticalOptions="Center"
+                       Completed="NewTodoTitle_Completed"
                    />
                 <Picker ItemsSource="{Binding Source={RelativeSource AncestorType={x:Type ViewModels:TodoListViewModel}}, Path=Categories}"
                         SelectedItem="{Binding NewTodoCategory}"
@@ -163,8 +163,8 @@
                                                    HorizontalOptions="FillAndExpand"
                                                    MinimumWidthRequest="300"
                                                    Margin="5,0,10,0"
-                                                   Completed="NewSubtaskTitle_Completed"
-                                                   />
+                                                   Completed="NewSubtaskTitle_Completed"/>
+
                                             <Button Text="{StaticResource CheckIcon}"
                                                     FontFamily="FontAwesomeSolid"
                                                     Command="{Binding Source={RelativeSource AncestorType={x:Type ViewModels:TodoListViewModel}}, Path=AddSubtaskCommand}"
