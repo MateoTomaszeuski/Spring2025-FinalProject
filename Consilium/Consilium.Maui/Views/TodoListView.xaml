@@ -5,7 +5,6 @@
              xmlns:ViewModels="clr-namespace:Consilium.Shared.ViewModels;assembly=Consilium.Shared"
              Title="TodoListView">
     <ScrollView>
-
         <StackLayout Padding="20">
             <Label Text="To-Do List" 
                    FontSize="27" 
@@ -114,7 +113,7 @@
                                         </Grid>
 
 
-                                        <Button Text="Add Subtasks"
+                                        <Button Text="Add Subtask"
                                                 Command="{Binding Source={RelativeSource AncestorType={x:Type ViewModels:TodoListViewModel}}, Path=ToggleSubtaskEntryVisibilityCommand}"
                                                 CommandParameter="{Binding .}"
                                                 TextColor="White"
@@ -125,7 +124,7 @@
                                                     <VisualStateGroup>
                                                         <VisualState x:Name="Default">
                                                             <VisualState.Setters>
-                                                                <Setter Property="Text" Value="Add Subtasks" />
+                                                                <Setter Property="Text" Value="Add Subtask" />
                                                             </VisualState.Setters>
                                                         </VisualState>
                                                         <VisualState x:Name="Mobile">
@@ -142,7 +141,7 @@
                                                                 <AdaptiveTrigger MinWindowWidth="600" />
                                                             </VisualState.StateTriggers>
                                                             <VisualState.Setters>
-                                                                <Setter Property="Text" Value="Add Subtasks" />
+                                                                <Setter Property="Text" Value="Add Subtask" />
                                                             </VisualState.Setters>
                                                         </VisualState>
                                                     </VisualStateGroup>
