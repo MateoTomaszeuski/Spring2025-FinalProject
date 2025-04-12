@@ -39,16 +39,19 @@
                          HorizontalOptions="End"
                          Opacity="0.8">
 
-                <Picker Title="Filter by"
-                        ItemsSource="{Binding FilterCategories}"
-                        SelectedItem="{Binding SelectedCategory}"
-                        Margin="5"
-                        MaximumWidthRequest="130" />
-                <Picker Title="Sort by"
-                        ItemsSource="{Binding SortOptions}"
-                        SelectedItem="{Binding SelectedSortOption}"
-                        Margin="5"
-                        MaximumWidthRequest="130" />
+                <StackLayout Spacing="5" Margin="5">
+                    <Label Text="Filter by" FontSize="13" Opacity="0.7" />
+                    <Picker ItemsSource="{Binding FilterCategories}"
+                            SelectedItem="{Binding SelectedCategory}"
+                            WidthRequest="130" />
+                </StackLayout>
+
+                <StackLayout Spacing="5" Margin="5">
+                    <Label Text="Sort by" FontSize="13" Opacity="0.7" />
+                    <Picker ItemsSource="{Binding SortOptions}"
+                            SelectedItem="{Binding SelectedSortOption}"
+                            WidthRequest="130" />
+                </StackLayout>
             </StackLayout>
 
             <Border StrokeShape="RoundRectangle 10"
@@ -163,7 +166,7 @@
                                                    Margin="5,0,10,0"
                                                    Completed="NewSubtaskTitle_Completed"
                                                    />
-                                            <Button Text="&#xf00c;"
+                                            <Button Text="{StaticResource CheckIcon}"
                                                     FontFamily="FontAwesomeSolid"
                                                     Command="{Binding Source={RelativeSource AncestorType={x:Type ViewModels:TodoListViewModel}}, Path=AddSubtaskCommand}"
                                                     CommandParameter="{Binding .}"
