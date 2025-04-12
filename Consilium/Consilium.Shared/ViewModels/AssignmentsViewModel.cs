@@ -22,7 +22,7 @@ public partial class AssignmentsViewModel : ObservableObject {
     [ObservableProperty]
     private Course selectedCourse;
 
-    private List<Assignment> allAssignments; // could this get extracted to a service?
+    private List<Assignment> allAssignments; // this would go in the service
 
     partial void OnSelectedCourseChanged(Course value) {
         if (value is not null && allAssignments is not null && value.CourseId != -1) {

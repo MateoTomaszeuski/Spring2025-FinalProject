@@ -30,57 +30,25 @@
                         VerticalOptions="Center"/>
             </StackLayout>
             <Button Text="Add To-Do"
-                Command="{Binding AddTodoCommand}"
+                    Command="{Binding AddTodoCommand}"
                     Margin="0,0,0,30"/>
+
+
             <StackLayout Orientation="Horizontal" 
-                         Spacing="10" 
+                         Spacing="0" 
                          HorizontalOptions="End"
                          Opacity="0.8">
-                <Label Text="Sort By:"
-                       HorizontalTextAlignment="Center"
-                       VerticalTextAlignment="Center"/>
-                <Border Stroke="{AppThemeBinding Light=Gray, Dark=White}"
-                        StrokeThickness="0"
-                        BackgroundColor="#719984"
-                        StrokeShape="RoundRectangle 10"
-                        Padding="10"
-                        Opacity="0.9">  
-                    <Grid>
-                        <Grid.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding SortByCategoryCommand}" />
-                        </Grid.GestureRecognizers>
 
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
-
-                        <Label Grid.Column="0"
-                               Text="Category"
-                               FontSize="14"
-                               VerticalOptions="Center"
-                               TextColor="White"/>
-
-                        <Label Grid.Column="1"
-                               Text="{StaticResource CaretUpIcon}"
-                               FontFamily="FontAwesomeSolid"
-                               FontSize="14"
-                               Margin="5,0,0,0"
-                               VerticalOptions="Center"
-                               TextColor="White">   
-                            <Label.Triggers>
-                                <DataTrigger TargetType="Label"
-                                             Binding="{Binding CategoryIsSortedAscending}"
-                                             Value="True">
-                                    <Setter Property="Text" Value="{StaticResource CaretDownIcon}" />
-                                </DataTrigger>
-                            </Label.Triggers>
-                        </Label>
-                    </Grid>
-                </Border>
-
-                <Button Text="Completion"
-                    Command="{Binding SortByCompletionCommand}" />
+                <Picker Title="Filter by"
+                        ItemsSource="{Binding FilterCategories}"
+                        SelectedItem="{Binding SelectedCategory}"
+                        Margin="5"
+                        MaximumWidthRequest="130" />
+                <Picker Title="Sort by"
+                        ItemsSource="{Binding SortOptions}"
+                        SelectedItem="{Binding SelectedSortOption}"
+                        Margin="5"
+                        MaximumWidthRequest="130" />
             </StackLayout>
 
             <Border StrokeShape="RoundRectangle 10"
@@ -91,11 +59,11 @@
                 <StackLayout>
 
                     <ActivityIndicator 
-                    IsRunning="{Binding IsLoading}" 
-                    IsVisible="{Binding IsLoading}" 
-                    Color="{AppThemeBinding Light={StaticResource Dark-Green}, Dark=White}" 
-                    HorizontalOptions="Center" 
-                    VerticalOptions="Center"/>
+                        IsRunning="{Binding IsLoading}" 
+                        IsVisible="{Binding IsLoading}" 
+                        Color="{AppThemeBinding Light={StaticResource Dark-Green}, Dark=White}" 
+                        HorizontalOptions="Center" 
+                        VerticalOptions="Center"/>
 
                     <CollectionView ItemsSource="{Binding TodoItems}">
                         <CollectionView.ItemTemplate>
@@ -130,6 +98,7 @@
                                                 </Button.Triggers>
 
                                             </Button>
+                                            
                                             <Label Text="{Binding Category}"
                                                    FontSize="14"
                                                    VerticalTextAlignment="End"
@@ -194,7 +163,7 @@
                                                    Margin="5,0,10,0"
                                                    Completed="NewSubtaskTitle_Completed"
                                                    />
-                                            <Button Text="{StaticResource CheckIcon}"
+                                            <Button Text="&#xf00c;"
                                                     FontFamily="FontAwesomeSolid"
                                                     Command="{Binding Source={RelativeSource AncestorType={x:Type ViewModels:TodoListViewModel}}, Path=AddSubtaskCommand}"
                                                     CommandParameter="{Binding .}"

@@ -236,4 +236,22 @@ public class ToDoListVMTests {
         await Assert.That(viewModel.TodoItems[1].Category).IsEqualTo("Banana");
         await Assert.That(viewModel.TodoItems[2].Category).IsEqualTo("Apple");
     }
+
+    [Test]
+    public async Task CanFilterToDosByCategory() {
+        var testItems = new List<TodoItem> {
+            new() { Title = "Task 1", Id = 1, Category="School" },
+            new() { Title = "Task 2", Id = 2, Category="Work" },
+            new() { Title = "Task 3", Id = 3, Category="Work" },
+            new() { Title = "Task 4", Id = 4, Category="School" }
+        };
+
+        service.TodoItems = testItems;
+        viewModel.TodoItems = new ObservableCollection<TodoItem>(service.TodoItems);
+
+        viewModel.FilterByCategoryCommand.Execute("School");
+        await Assert.That(viewModel.TodoItems.Count).IsEqualTo(2);
+        await Assert.That(viewModel.TodoItems[0].Category).IsEqualTo("School");
+        await Assert.That(viewModel.TodoItems[2].Category).IsEqualTo("School");
+    }
 }

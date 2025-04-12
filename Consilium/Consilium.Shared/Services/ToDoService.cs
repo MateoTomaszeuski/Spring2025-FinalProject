@@ -80,7 +80,7 @@ public class ToDoService : IToDoService {
         return new(ListCollapser.CollapseList(sorted));
     }
 
-    public ObservableCollection<TodoItem> GetFilteredByCategory(string category) {
+    public ObservableCollection<TodoItem> GetTodosFilteredByCategory(string category) {
         var filtered = TodoItems.Where(item => item.Category == category);
         return new(ListCollapser.CollapseList(filtered));
     }

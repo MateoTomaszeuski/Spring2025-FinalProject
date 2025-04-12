@@ -9,6 +9,9 @@ public partial class TodoListViewModel : ObservableObject {
     private IToDoService ToDoService;
     private HttpClient client;
     public TodoListViewModel(IToDoService toDoService) {
+        Categories = new ObservableCollection<string>() { "Misc.", "School", "Work" };
+        FilterCategories = new ObservableCollection<string>(Categories.Append("All"));
+        SelectedSortOption = SortOptions[0];
         NewTodoCategory = Categories[0];
         client = new();
         TodoItems = new();
@@ -21,8 +24,22 @@ public partial class TodoListViewModel : ObservableObject {
         IsLoading = false;
     }
 
+    public ObservableCollection<string> SortOptions { get; } = new() {
+        "Category Ascending",
+        "Category Descending",
+        "Completion"
+    };
+
     [ObservableProperty]
-    private ObservableCollection<string> categories = new ObservableCollection<string>() { "Misc.", "School", "Work" };
+    private string selectedSortOption;
+
+    [ObservableProperty]
+    private ObservableCollection<string> categories;
+
+
+    // appending an additional option so that they can go back to the unfiltered view
+    [ObservableProperty]
+    private ObservableCollection<string> filterCategories;
 
     [ObservableProperty]
     private bool isLoading;
@@ -45,6 +62,33 @@ public partial class TodoListViewModel : ObservableObject {
     [ObservableProperty]
     private bool categoryIsSortedAscending;
 
+    [ObservableProperty]
+    private string selectedCategory = "Misc.";
+
+    partial void OnSelectedCategoryChanged(string value) {
+        if (value == "All") {
+            TodoItems = ToDoService.GetTodoItems(); // unfiltered
+        } else if (!string.IsNullOrWhiteSpace(value)) {
+            TodoItems = ToDoService.GetTodosFilteredByCategory(value);
+        }
+    }
+
+    partial void OnSelectedSortOptionChanged(string value) {
+        if (TodoItems is null || TodoItems.Count < 1) return;
+        switch (value) {
+            case "Category Ascending":
+                TodoItems = ToDoService.GetTodosSortedByCategory(true);
+                CategoryIsSortedAscending = true;
+                break;
+            case "Category Descending":
+                TodoItems = ToDoService.GetTodosSortedByCategory(false);
+                CategoryIsSortedAscending = false;
+                break;
+            case "Completion":
+                TodoItems = ToDoService.GetTodosSortedByCompletion();
+                break;
+        }
+    }
 
     [RelayCommand]
     private async Task AddTodo() {
@@ -60,6 +104,15 @@ public partial class TodoListViewModel : ObservableObject {
         if (todoItem != null) {
             await ToDoService.RemoveToDoAsync(todoItem.Id);
             TodoItems = ToDoService.GetTodoItems();
+        }
+    }
+
+    [RelayCommand]
+    private void FilterByCategory() {
+        if (SelectedCategory == "All") {
+            TodoItems = ToDoService.GetTodoItems();
+        } else {
+            TodoItems = ToDoService.GetTodosFilteredByCategory(SelectedCategory);
         }
     }
 
