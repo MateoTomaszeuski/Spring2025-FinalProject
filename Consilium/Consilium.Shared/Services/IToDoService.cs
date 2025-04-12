@@ -8,4 +8,7 @@ public interface IToDoService {
     Task InitializeTodosAsync();
     Task AddItemAsync(TodoItem item);
     Task UpdateItemAsync(TodoItem item);
+    ObservableCollection<TodoItem> GetTodosSortedByCategory(bool ascending);
+    ObservableCollection<TodoItem> GetTodosSortedByCompletion();
+    ObservableCollection<TodoItem> GetFilteredByCategory(string category);
 }

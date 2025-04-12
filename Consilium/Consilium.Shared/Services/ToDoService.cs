@@ -67,4 +67,21 @@ public class ToDoService : IToDoService {
         IEnumerable<TodoItem>? items = await response.Content.ReadFromJsonAsync<IEnumerable<TodoItem>>();
         TodoItems = items == null ? new() : new(items);
     }
+
+    public ObservableCollection<TodoItem> GetTodosSortedByCategory(bool ascending = true) {
+        var sorted = ascending
+            ? TodoItems.OrderBy(item => item.Category)
+            : TodoItems.OrderByDescending(item => item.Category);
+        return new(ListCollapser.CollapseList(sorted));
+    }
+
+    public ObservableCollection<TodoItem> GetTodosSortedByCompletion() {
+        var sorted = TodoItems.OrderBy(item => item.IsCompleted);
+        return new(ListCollapser.CollapseList(sorted));
+    }
+
+    public ObservableCollection<TodoItem> GetFilteredByCategory(string category) {
+        var filtered = TodoItems.Where(item => item.Category == category);
+        return new(ListCollapser.CollapseList(filtered));
+    }
 }

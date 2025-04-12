@@ -183,10 +183,13 @@ public class ToDoListVMTests {
 
     [Test]
     public async Task WhenSortedOnce_SortByAscendingCategory() {
-        viewModel.TodoItems = new ObservableCollection<TodoItem>() {
+        var testingItems = new ObservableCollection<TodoItem>() {
             new TodoItem() { Title = "Task 1", Id = 1, Category="Banana" },
             new TodoItem() { Title = "Task 2", Id = 2, Category="Apple" }
         };
+
+        service.TodoItems = testingItems.ToList();
+        viewModel.TodoItems = new ObservableCollection<TodoItem>(service.TodoItems);
 
         viewModel.SortByCategoryCommand.Execute(null);
 
@@ -197,11 +200,14 @@ public class ToDoListVMTests {
 
     [Test]
     public async Task AscendingSortWorksForThreeItemsWithDistinctCategories() {
-        viewModel.TodoItems = new ObservableCollection<TodoItem>() {
-            new TodoItem() { Title = "Task 1", Id = 1, Category="Banana" },
-            new TodoItem() { Title = "Task 2", Id = 2, Category="Cookie" },
-            new TodoItem() { Title = "Task 2", Id = 2, Category="Apple" }
+        var testItems = new List<TodoItem> {
+            new() { Title = "Task 1", Id = 1, Category="Banana" },
+            new() { Title = "Task 2", Id = 2, Category="Cookie" },
+            new() { Title = "Task 3", Id = 3, Category="Apple" }
         };
+
+        service.TodoItems = testItems;
+        viewModel.TodoItems = new ObservableCollection<TodoItem>(service.TodoItems);
 
         viewModel.SortByCategoryCommand.Execute(null);
 
@@ -213,11 +219,14 @@ public class ToDoListVMTests {
 
     [Test]
     public async Task WhenCategoryIsSorted_SortingAgainReversesOrder() {
-        viewModel.TodoItems = new ObservableCollection<TodoItem>() {
-            new TodoItem() { Title = "Task 1", Id = 1, Category="Banana" },
-            new TodoItem() { Title = "Task 2", Id = 2, Category="Cookie" },
-            new TodoItem() { Title = "Task 2", Id = 2, Category="Apple" }
+        var testItems = new List<TodoItem> {
+            new() { Title = "Task 1", Id = 1, Category="Banana" },
+            new() { Title = "Task 2", Id = 2, Category="Cookie" },
+            new() { Title = "Task 3", Id = 3, Category="Apple" }
         };
+
+        service.TodoItems = testItems;
+        viewModel.TodoItems = new ObservableCollection<TodoItem>(service.TodoItems);
 
         viewModel.SortByCategoryCommand.Execute(null);
         viewModel.SortByCategoryCommand.Execute(null);

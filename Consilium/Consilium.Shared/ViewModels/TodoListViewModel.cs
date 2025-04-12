@@ -65,19 +65,13 @@ public partial class TodoListViewModel : ObservableObject {
 
     [RelayCommand]
     private void SortByCategory() {
-        if (CategoryIsSortedAscending) {
-            TodoItems = [.. TodoItems.OrderByDescending(item => item.Category)];
-            CategoryIsSortedAscending = false;
-        } else {
-            TodoItems = [.. TodoItems.OrderBy(item => item.Category)];
-            CategoryIsSortedAscending = true;
-        }
+        TodoItems = ToDoService.GetTodosSortedByCategory(!CategoryIsSortedAscending);
+        CategoryIsSortedAscending = !CategoryIsSortedAscending;
     }
 
     [RelayCommand]
     private void SortByCompletion() {
-        // ascending - puts complete items at the end
-        TodoItems = [.. TodoItems.OrderBy(item => item.IsCompleted)];
+        TodoItems = ToDoService.GetTodosSortedByCompletion();
         CategoryIsSortedAscending = false;
     }
 
