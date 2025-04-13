@@ -36,7 +36,10 @@ class Header extends React.Component {
         <div className="header-content">
 
           <Link to="/" className='headerNav'>
-            <h1 id="header-title">Consilium</h1>
+            <div className="logo-title">
+              <img src="/consilium-logo-white.svg" alt="Consilium logo" className="logo" />
+              <h1 id="header-title">onsilium</h1>
+            </div>
           </Link>
 
           <nav className='navElements'>

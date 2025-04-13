@@ -41,10 +41,6 @@ header {
   width: 100%;
 }
 
-#header-title {
-  padding-left: 10px;
-}
-
 .header-content {
   display: flex;
   align-items: center;
@@ -79,6 +75,16 @@ header {
   font-weight: 600;
 }
 
+.logo {
+  height: 50px;
+  display: block;
+}
+
+.logo-title {
+  display: flex;
+  align-items: center;
+  padding-left:10px;
+}
 
 #download-button {
   background-color: var(--dark-green);
