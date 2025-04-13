@@ -37,8 +37,19 @@ h1 {
 header {
   background-color: var(--mid-green);
   color: white;
-  padding: 20px;
+  padding: 20px 0px 20px 0px;
   width: 100%;
+}
+
+#header-title {
+  padding-left: 10px;
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
 }
 
 .header-top {
@@ -47,24 +58,11 @@ header {
   justify-content: space-between;
 }
 
-/* header .navElements {
-  display:flex;
-  align-items: center;
-  justify-content: flex-end;
-  margin-right: 10px;
-  width: 100%;
-}
-
-header .navElements ul {
-  list-style-type: none;
-  align-self: flex-end;
-  align-items: flex-end;
-} */
 
 .navElements {
   display: flex;
-  align-items: center;
-  justify-content: flex-end;
+  /* padding-right: 15px; */
+
 }
 
 .navElements ul {
@@ -72,7 +70,7 @@ header .navElements ul {
   flex-wrap: wrap;
   list-style: none;
   padding: 0;
-  margin: 10px 0 0;
+  margin: 0;
 }
 
 .navElements li {
@@ -81,13 +79,6 @@ header .navElements ul {
   font-weight: 600;
 }
 
-/* header .navElements li{
-  display: inline;
-  margin: 0 10px;
-  font-size: 18px;
-  font-weight:600;
-  margin-right:15px;
-} */
 
 #download-button {
   background-color: var(--dark-green);
@@ -96,6 +87,7 @@ header .navElements ul {
   padding: 10px 20px;
   border-radius: 12px;
   text-decoration: none;
+  white-space: nowrap;
 }
 
 #download-button:hover {
@@ -111,7 +103,6 @@ a {
 
 #content {
   padding: 0 20px;
-  
 }
 
 #pomodoro-display {
@@ -196,29 +187,35 @@ a {
 }
 
 @media screen and (max-width: 768px) {
-  header {
-    display: flex;
+  .header-content {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: stretch; 
+  }
+
+  .navElements {
+    /* width: 100%; */
+    display: flex;
+    justify-content: flex-end;
+    padding-top:10px;
   }
 
   .navElements ul {
-    flex-direction: row;      /* stay horizontal */
-    justify-content: flex-start;
+    display: flex;
     flex-wrap: wrap;
-    margin-top: 10px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
   }
 
   .navElements li {
-    margin: 5px 10px 5px 0;
+    flex-shrink: 1;
+    max-width: 100%;
+    font-size: 16px;
+    font-weight: 600;
   }
 
   h1 {
     font-size: 32px;
-  }
-
-  #download-button {
-    font-size: 16px;
-    padding: 8px 14px;
   }
 }

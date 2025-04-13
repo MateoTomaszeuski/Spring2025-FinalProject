@@ -33,18 +33,21 @@ class Header extends React.Component {
   render() {
     return (
       <header>
-        <Link to="/" className='headerNav'>
-          <h1>Consilium</h1>
-        </Link>
+        <div className="header-content">
 
-        <nav className='navElements'>
-          <ul>
-            <li><Link to="/" className='headerNav'>Home</Link></li>
-            <li><Link to="/demo" className='headerNav'>Demo</Link></li>
-            <li><Link to="/docs" className='headerNav'>Docs</Link></li>
-            <li><a id="download-button" href='https://youtu.be/dQw4w9WgXcQ?si=cxQcwxCL5z5MN--Q' target='_blank'>Download Now!</a></li>
-          </ul>
-        </nav>
+          <Link to="/" className='headerNav'>
+            <h1 id="header-title">Consilium</h1>
+          </Link>
+
+          <nav className='navElements'>
+            <ul>
+              <li><Link to="/" className='headerNav'>Home</Link></li>
+              <li><Link to="/demo" className='headerNav'>Demo</Link></li>
+              <li><Link to="/docs" className='headerNav'>Docs</Link></li>
+              <li><a id="download-button" href='https://youtu.be/dQw4w9WgXcQ?si=cxQcwxCL5z5MN--Q' target='_blank'>Download Now!</a></li>
+            </ul>
+          </nav>
+        </div>
       </header>
     )
   }
