@@ -25,7 +25,11 @@ jobs:
             BACKUP_DIR="/var/backups"
             NEWEST_BACKUP=$(ls -1t "$BACKUP_DIR"/*_backup.sql 2>/dev/null | head -n 1)
             if [ -f "$NEWEST_BACKUP" ]; then
-              echo "Restoring from $NEWEST_BACKUP..."
+            
+            echo "Wiping the database..."
+            psql -U consilium-admin -d consiliumdb -c "DROP SCHEMA public CASCADE; CREATE SCHEMA public;"
+
+            echo "Restoring from $NEWEST_BACKUP..."
               psql -U consilium-admin consiliumdb < "$NEWEST_BACKUP"
             else
               echo "No backup file found to restore."
