@@ -40,5 +40,11 @@ jobs:
             echo "Script finished at: $(date +"%F %T.%3N")"
 
             DOWN_TIME=$(( END_TIME - START_TIME ))
-            echo "Time DB was down: ${DOWN_TIME} seconds"
+            MINUTES=$(( DOWN_TIME / 60000 ))
+            REMAINDER=$(( DOWN_TIME % 60000 ))
+            SECONDS=$(( REMAINDER / 1000 ))
+            MILLISECONDS=$(( REMAINDER % 1000 ))
+            
+            # Print formatted downtime as mm:ss:ms with appropriate padding
+            printf "Time DB was down: %02d:%02d:%03d\n" "$MINUTES" "$SECONDS" "$MILLISECONDS"
             '
