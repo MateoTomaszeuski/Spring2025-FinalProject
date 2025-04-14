@@ -18,3 +18,8 @@ Content-Type: application/json
     "DateCompleted": "2025-04-14T17:00:00"
 }
 
+###
+Get {{Consilium}}/assignment
+Email-Auth_Email: {{email}}
+Email-Auth_ApiKey: {{key}}
+

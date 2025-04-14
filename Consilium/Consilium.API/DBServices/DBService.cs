@@ -79,7 +79,11 @@ public class DBService(IDbConnection conn) : IDBService {
     }
 
     public IEnumerable<Assignment> GetAllAssignments(string email) {
-        throw new NotImplementedException();
+        string getAssignments = """""
+        SELECT * from course c  inner join assignment a on (a.course_id=c.id) 
+        where account_email = @email;
+        """"";
+        return conn.Query<Assignment>(getAssignments, new { email });
     }
 
     public IEnumerable<Assignment> GetIncompleteAssignments(string email) {

@@ -12,8 +12,10 @@ public class AssignmentController : ControllerBase {
     public AssignmentController(IDBService service) => this.service = service;
 
     [HttpGet]
-    public void GetAllAssignments() {
+    public IEnumerable<Assignment> GetAllAssignments() {
         string username = Request.Headers["Email-Auth_Email"]!;
+        return service.GetAllAssignments(username);
+
     }
 
     [HttpPost]

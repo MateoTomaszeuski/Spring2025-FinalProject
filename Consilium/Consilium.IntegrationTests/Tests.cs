@@ -11,6 +11,6 @@ public class Tests {
 
         string response = await client.GetStringAsync("/health");
 
-        await Assert.That(response).IsEqualTo("healthy");
+        await Assert.That(response).IsEqualTo("\"healthy\"");
     }
 }
