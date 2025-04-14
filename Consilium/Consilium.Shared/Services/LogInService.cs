@@ -35,6 +35,8 @@ public class LogInService : ILogInService {
 
     public async Task<bool> LogOut() {
         var response = await client.GetAsync($"/account/signout");
+        service.DeleteToken();
+        client.UpdateHeaders(string.Empty,string.Empty);
         return response.IsSuccessStatusCode;
     }
 }
