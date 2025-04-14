@@ -18,8 +18,7 @@ CREATE TABLE
   course (
     id int4 PRIMARY KEY GENERATED ALWAYS AS IDENTITY NOT NULL,
     account_email varchar(80) references "HowlDev.User" (email) NOT NULL,
-    course_name varchar(80) NOT NULL,
-    semester varchar(50) NOT NULL
+    course_name varchar(80) NOT NULL
   );
 
 CREATE TABLE
