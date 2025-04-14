@@ -9,9 +9,7 @@ using System.Diagnostics;
 namespace Consilium.API.DBServices;
 
 public class DBService(IDbConnection conn) : IDBService {
-    public void AddAssignment(Assignment assignment, string email) {
-        throw new NotImplementedException();
-    }
+
     #region ToDos
     public int AddToDo(TodoItem Todo, string email) {
         string addItem = @"
@@ -27,18 +25,6 @@ public class DBService(IDbConnection conn) : IDBService {
             todoName = Todo.Title,
             completionDate = Todo.CompletionDate
         });
-    }
-
-    public void DeleteAssignment(int id, string email) {
-        throw new NotImplementedException();
-    }
-
-    public IEnumerable<Assignment> GetAllAssignments(string email) {
-        throw new NotImplementedException();
-    }
-
-    public IEnumerable<Assignment> GetIncompleteAssignments(string email) {
-        throw new NotImplementedException();
     }
 
     /// <summary>
@@ -76,5 +62,39 @@ public class DBService(IDbConnection conn) : IDBService {
     #endregion
     #region Assignments
 
+    public int AddAssignment(Assignment assignment, string email) {
+        if (!CanAdjustCourse(assignment.CourseId, email)) return;
+
+        string addAssignment = """"
+            INSERT INTO assignment
+            (course_id, assignment_name, assignment_description, due_date, mark_started, mark_complete)
+            VALUES (@course_id, @assignment_name, @assignment_description, @due_date, @mark_started, @mark_complete)
+            returning id
+            """";
+        conn.Execute(addAssignment, assignment);
+
+
+    }
+
+    public void DeleteAssignment(int id, string email) {
+        throw new NotImplementedException();
+    }
+
+    public IEnumerable<Assignment> GetAllAssignments(string email) {
+        throw new NotImplementedException();
+    }
+
+    public IEnumerable<Assignment> GetIncompleteAssignments(string email) {
+        throw new NotImplementedException();
+    }
     #endregion
+
+    private bool CanAdjustCourse(int courseId, string email) {
+        string OwnsCourse = """""
+          SELECT account_email from course where id = @course_id
+        """"";
+
+        string dbEmail = conn.QuerySingle<string>(OwnsCourse, new { courseId });
+        return dbEmail == email;
+    }
 }

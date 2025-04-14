@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 namespace Consilium.Shared.Models;
 
 public partial class Assignment : ObservableObject {
+    public int Id { get; set; }
     public string? Name { get; set; }
     public string? Description { get; set; }
     public int CourseId { get; set; }

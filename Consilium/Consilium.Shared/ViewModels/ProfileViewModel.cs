@@ -44,7 +44,7 @@ public partial class ProfileViewModel : ObservableObject {
     }
     [RelayCommand]
     private async Task LogOut() {
-        
+
         await logInService.LogOut();
         LoggedIn = await persistenceService.CheckStatus();
         ShowLoggedIn = !LoggedIn;

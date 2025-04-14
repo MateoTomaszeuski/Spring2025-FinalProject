@@ -15,4 +15,12 @@ public class AssignmentController : ControllerBase {
     public void GetAllAssignments() {
         string username = Request.Headers["Email-Auth_Email"]!;
     }
+
+    [HttpPost]
+    public IResult PostAssignment(Assignment assignment) {
+        string username = Request.Headers["Email-Auth_Email"]!;
+        service.AddAssignment(assignment, username);
+
+        return Results.Ok(assignment.Id);
+    }
 }
