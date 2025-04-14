@@ -72,6 +72,12 @@
                                                      Margin="0,5,0,0">
                                             <Button Text="Start" />
                                             <Button Text="Add To-Do" />
+                                            <Button Text="{StaticResource TrashIcon}"
+                                                    FontFamily="FontAwesomeSolid"
+                                                    CommandParameter="{Binding .}"
+                                                    BackgroundColor="#7a2b35"
+                                                    TextColor="White" />
+                                                    <!--Command="{Binding x:DataType='ViewModels:AssignmentsViewModel', Source={RelativeSource AncestorType={x:Type ViewModels:AssignmentsViewModel}}, Path=RemoveAssignmentCommand}"-->
                                         </StackLayout>
                                     </StackLayout>
                                 </Border>
