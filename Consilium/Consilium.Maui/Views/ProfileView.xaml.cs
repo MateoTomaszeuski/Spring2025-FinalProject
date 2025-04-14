@@ -1,5 +1,7 @@
 using CommunityToolkit.Maui.Views;
+using CommunityToolkit.Mvvm.Messaging;
 using Consilium.Maui.PopUps;
+using Consilium.Shared.Services;
 using Consilium.Shared.ViewModels;
 
 namespace Consilium.Maui.Views;
@@ -11,10 +13,15 @@ public partial class ProfileView : ContentPage {
         this.vm = vm;
         InitializeComponent();
         BindingContext = vm;
-    }
 
-    private void Button_Clicked(object sender, EventArgs e) {
-        this.ShowPopup(new LoggedInPopUp());
+        Appearing += async (s, e) =>
+        {
+            await vm.InitializeAsync();
+        };
+        WeakReferenceMessenger.Default.Register<ShowPopupMessage>(this, (r, m) =>
+        {
+            this.ShowPopup(new LoggedInPopUp());
+        });
     }
 
     private void EmailEntry_Completed(object sender, EventArgs e) {

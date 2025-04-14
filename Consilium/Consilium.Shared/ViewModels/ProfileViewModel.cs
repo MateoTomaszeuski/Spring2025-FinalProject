@@ -1,9 +1,18 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using Consilium.Shared.Services;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Consilium.Shared.ViewModels;
-public partial class ProfileViewModel(ILogInService logInService, IPersistenceService persistenceService) : ObservableObject {
+public partial class ProfileViewModel : ObservableObject {
+    public ProfileViewModel(ILogInService logInService, IPersistenceService persistenceService) {
+        this.logInService = logInService;
+        this.persistenceService = persistenceService;
+    }
+
+    [ObservableProperty]
+    private bool loggedIn;
     [ObservableProperty]
     private string emailInput = String.Empty;
 
@@ -12,6 +21,8 @@ public partial class ProfileViewModel(ILogInService logInService, IPersistenceSe
 
     [ObservableProperty]
     private string? message;
+    private readonly ILogInService logInService;
+    private readonly IPersistenceService persistenceService;
 
     [RelayCommand]
     private async Task LogIn() {
@@ -24,7 +35,16 @@ public partial class ProfileViewModel(ILogInService logInService, IPersistenceSe
             Message = Token;
         else {
             Message = "Success!";
+            ShowLoggedInPopup();
         }
+        LoggedIn = await persistenceService.CheckStatus();
         // rather than just a label, we can make the login feedback snackbar or toast notifications
+    }
+    [RelayCommand]
+    private void ShowLoggedInPopup() {
+        WeakReferenceMessenger.Default.Send(new ShowPopupMessage());
+    }
+    public async Task InitializeAsync() {
+        LoggedIn = await persistenceService.CheckStatus();
     }
 }

@@ -17,7 +17,7 @@
                TextTransform="None"
                IsTextPredictionEnabled="False"
                Completed="EmailEntry_Completed"/>
-        <Button Text="Log In" Command="{Binding LogInCommand}" Clicked="Button_Clicked"/>
+        <Button Text="Log In" Command="{Binding LogInCommand}" />
         <Label Text=""/>
         <Label Text="{Binding Message}"/>
 

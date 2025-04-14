@@ -5,7 +5,6 @@ using System.Text.Json;
 namespace Consilium.Shared.Services;
 
 public class PersistenceService(IClientService clientService) : IPersistenceService {
-    public bool loggedIn { get; set; }
     public TodoList? GetToDoLists() {
         string output = Preferences.Get("todo-list", "{}");
         return JsonSerializer.Deserialize<TodoList>(output);
