@@ -19,6 +19,9 @@ jobs:
       - name: Restore from newest backup
         run: |
           kubectl exec -i $POD_NAME -- bash -c '
+            START_TIME=$(date +%s)
+            echo "Script started at: $(date +"%F %T")"
+
             BACKUP_DIR="/var/backups"
             NEWEST_BACKUP=$(ls -1t "$BACKUP_DIR"/*_backup.sql 2>/dev/null | head -n 1)
             if [ -f "$NEWEST_BACKUP" ]; then
@@ -28,4 +31,10 @@ jobs:
               echo "No backup file found to restore."
               exit 1
             fi
-          '
+          
+            END_TIME=$(date +%s)
+            echo "Script finished at: $(date +"%F %T")"
+
+            DOWN_TIME=$(( END_TIME - START_TIME ))
+            echo "Time DB was down: ${DOWN_TIME} seconds"
+            '
