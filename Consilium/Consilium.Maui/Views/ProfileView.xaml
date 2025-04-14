@@ -21,6 +21,9 @@
             IsVisible="{Binding ShowLoggedIn}"/>
         <Button Text="Log In" Command="{Binding LogInCommand}"
             IsVisible="{Binding ShowLoggedIn}" />
+        
+        <Button Text="Log Out" Command="{Binding LogOutCommand}"
+            IsVisible="{Binding LoggedIn}" />
         <Label Text=""/>
         <Label Text="{Binding Message}"/>
 

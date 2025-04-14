@@ -43,6 +43,16 @@ public partial class ProfileViewModel : ObservableObject {
         // rather than just a label, we can make the login feedback snackbar or toast notifications
     }
     [RelayCommand]
+    private async Task LogOut() {
+        
+        await logInService.LogOut();
+        LoggedIn = await persistenceService.CheckStatus();
+        ShowLoggedIn = !LoggedIn;
+        if (LoggedIn) Message = "You successfully Logged Out!";
+
+        // rather than just a label, we can make the login feedback snackbar or toast notifications
+    }
+    [RelayCommand]
     private void ShowLoggedInPopup() {
         WeakReferenceMessenger.Default.Send(new ShowPopupMessage());
     }
