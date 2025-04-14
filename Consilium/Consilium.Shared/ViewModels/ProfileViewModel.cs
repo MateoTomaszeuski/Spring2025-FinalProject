@@ -38,7 +38,7 @@ public partial class ProfileViewModel : ObservableObject {
         if (Token != "Too many unauthorized keys") {
             ShowLoggedInPopup();
             LoggedIn = true;
-        } 
+        }
         ShowLoggedIn = !LoggedIn;
         if (LoggedIn) Message = "You successfully Logged In!";
 
