@@ -4,8 +4,8 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:Consilium.Maui.Views"
-    Shell.FlyoutBehavior="Flyout"
-    Title="Consilium.Maui"
+    Shell.FlyoutBehavior="Disabled"
+    Title="Consilium"
     Shell.BackgroundColor="#1F2A24"
     Shell.TabBarBackgroundColor="#1F2A24"
     Shell.TabBarForegroundColor="{StaticResource White}"
@@ -17,42 +17,43 @@
     FlyoutBackground="{AppThemeBinding Light={StaticResource Light-Light}, Dark={StaticResource Dark-Green}}"
     Shell.NavBarIsVisible="False">
     <Shell.TitleView>
-        <Label FontFamily="Inter"/>
+            <Label 
+               FontFamily="Inter" />
     </Shell.TitleView>
 
     <TabBar>
-        
+
         <!--If we decide we don't want the text titles on the tabs (just icons): -->
         <!--https://stackoverflow.com/questions/76436217/how-do-i-delete-the-awkward-empty-space-under-icon-in-tabbar-in-net-maui-->
-        
-    <ShellContent
+
+        <ShellContent
         Title="Dashboard"
         Icon="home.png"
         ContentTemplate="{DataTemplate local:DashboardView}"
         Route="Dashboard" />
-    <ShellContent
+        <ShellContent
         Title="TodoList"
         Icon="checklist.png"
         ContentTemplate="{DataTemplate local:TodoListView}"
         Route="TodoList" />
-    <ShellContent
+        <ShellContent
         Title="Assignments"
         Icon="assignment.png"
         ContentTemplate="{DataTemplate local:AssignmentsView}"
         Route="Assignments" />
-    <ShellContent
+        <ShellContent
         Title="Tools"
         Icon="timer.png"
         ContentTemplate="{DataTemplate local:ToolsView}"
         Route="Tools" />
-    <ShellContent
+        <ShellContent
         Title="Stats"
         Icon="graph.png"
         ContentTemplate="{DataTemplate local:StatsView}"
         Route="Stats" />
-    <ShellContent
+        <ShellContent
         Title="Login"
         ContentTemplate="{DataTemplate local:ProfileView}"
-        Route="Profile" />  
+        Route="Profile" />
     </TabBar>
 </Shell>
