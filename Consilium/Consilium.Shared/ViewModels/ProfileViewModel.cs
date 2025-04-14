@@ -13,7 +13,10 @@ public partial class ProfileViewModel : ObservableObject {
     }
 
     [ObservableProperty]
-    private bool loggedIn;
+    private bool loggedIn = false;
+    [ObservableProperty]
+    private bool showLoggedIn;
+
     [ObservableProperty]
     private string emailInput = String.Empty;
 
@@ -34,8 +37,9 @@ public partial class ProfileViewModel : ObservableObject {
 
         if (Token != "Too many unauthorized keys") ShowLoggedInPopup();
         LoggedIn = await persistenceService.CheckStatus();
+        ShowLoggedIn = !LoggedIn;
+        if (LoggedIn) Message = "You successfully Logged In!";
 
-        if(LoggedIn) Message = "You successfully Logged In!";
         // rather than just a label, we can make the login feedback snackbar or toast notifications
     }
     [RelayCommand]
@@ -44,5 +48,6 @@ public partial class ProfileViewModel : ObservableObject {
     }
     public async Task InitializeAsync() {
         LoggedIn = await persistenceService.CheckStatus();
+        ShowLoggedIn = !LoggedIn;
     }
 }

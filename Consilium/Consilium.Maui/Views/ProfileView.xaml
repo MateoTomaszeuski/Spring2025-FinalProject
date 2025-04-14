@@ -12,15 +12,15 @@
             Text="Enter your email:"
             VerticalOptions="Center" 
             HorizontalOptions="Center" 
-            IsVisible="{Binding LoggedIn}"/>
+            IsVisible="{Binding ShowLoggedIn}"/>
         <Entry Text="{Binding EmailInput}"
                Keyboard="Email"
                TextTransform="None"
                IsTextPredictionEnabled="False"
                Completed="EmailEntry_Completed"
-            IsVisible="{Binding LoggedIn}"/>
+            IsVisible="{Binding ShowLoggedIn}"/>
         <Button Text="Log In" Command="{Binding LogInCommand}"
-            IsVisible="{Binding LoggedIn}" />
+            IsVisible="{Binding ShowLoggedIn}" />
         <Label Text=""/>
         <Label Text="{Binding Message}"/>
 
