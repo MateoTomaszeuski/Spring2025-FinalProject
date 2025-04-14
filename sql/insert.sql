@@ -10,10 +10,10 @@
     ('bob@example.com', 'APIKEY0987654321', 'TOKENVALID09876543210987654321', NULL);
 
     -- Insert mock data into course
-    INSERT INTO course (account_email, course_name, semester) VALUES
-    ('alice@example.com', 'Database Systems', 'Spring 2025'),
-    ('bob@example.com', 'Software Engineering', 'Spring 2025'),
-    ('charlie@example.com', 'Computer Networks', 'Spring 2025');
+    INSERT INTO course (account_email, course_name) VALUES
+    ('alice@example.com', 'Database Systems'),
+    ('bob@example.com', 'Software Engineering'),
+    ('charlie@example.com', 'Computer Networks');
 
     -- Insert mock data into assignment
     INSERT INTO assignment (course_id, assignment_name) VALUES

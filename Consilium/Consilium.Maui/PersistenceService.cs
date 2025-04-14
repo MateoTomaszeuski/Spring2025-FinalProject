@@ -26,8 +26,6 @@ public class PersistenceService(IClientService clientService) : IPersistenceServ
         string email = Preferences.Get("auth-header-email", String.Empty);
         string token = Preferences.Get("auth-header-token", String.Empty);
         clientService.UpdateHeaders(email, token);
-
-        loggedIn = await CheckStatus();
     }
 
     public async Task<bool> CheckStatus() {
