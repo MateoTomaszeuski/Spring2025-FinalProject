@@ -7,6 +7,6 @@ public interface IPersistenceService {
     void SaveList(TodoList list);
     void SaveToken(string email, string token);
     void DeleteToken();
-    Task OnStartup();
+    void OnStartup();
     Task<bool> CheckStatus();
 }
