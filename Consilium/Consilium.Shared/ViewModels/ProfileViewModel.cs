@@ -22,7 +22,6 @@ public partial class ProfileViewModel : ObservableObject {
     private bool showLogOut = false;
     [ObservableProperty]
     private string emailInput = String.Empty;
-
     [ObservableProperty]
     private string token = String.Empty;
 
@@ -41,11 +40,11 @@ public partial class ProfileViewModel : ObservableObject {
         if (Token != "Too many unauthorized keys") {
             ShowLoggedInPopup();
             LoggedIn = true;
+            ShowLoggedIn = !LoggedIn;
+            ShowUnAuthorized = !await persistenceService.CheckStatus();
+            ShowLogOut = LoggedIn && !ShowUnAuthorized;
+            Message = "You successfully Logged In!";
         }
-        ShowLoggedIn = !LoggedIn;
-        if (LoggedIn) Message = "You successfully Logged In!";
-
-        // rather than just a label, we can make the login feedback snackbar or toast notifications
     }
     [RelayCommand]
     private async Task LogOut() {
@@ -55,6 +54,11 @@ public partial class ProfileViewModel : ObservableObject {
         if (!LoggedIn) Message = "You successfully Logged Out!";
 
         // rather than just a label, we can make the login feedback snackbar or toast notifications
+    }
+    [RelayCommand]
+    private async Task CheckUnAuthorized() {
+        ShowUnAuthorized = !await persistenceService.CheckStatus();
+        ShowLogOut = LoggedIn && !ShowUnAuthorized;
     }
     [RelayCommand]
     private void ShowLoggedInPopup() {
