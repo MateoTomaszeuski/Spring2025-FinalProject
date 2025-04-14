@@ -28,6 +28,10 @@ public class AccountController : ControllerBase {
         return Results.Redirect("https://final.codyhowell.dev/signedin");
     }
 
+    /// <summary>
+    /// Will either return 
+    /// </summary>
+    /// <returns></returns>
     [HttpGet("valid")]
     public IResult ValidateAccount() {
         return Results.Ok();

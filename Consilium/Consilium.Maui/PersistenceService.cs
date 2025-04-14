@@ -5,7 +5,7 @@ using System.Text.Json;
 namespace Consilium.Shared.Services;
 
 public class PersistenceService(IClientService clientService) : IPersistenceService {
-
+    public bool loggedIn { get; set; }
     public TodoList? GetToDoLists() {
         string output = Preferences.Get("todo-list", "{}");
         return JsonSerializer.Deserialize<TodoList>(output);
@@ -23,9 +23,22 @@ public class PersistenceService(IClientService clientService) : IPersistenceServ
         clientService.UpdateHeaders(email, token);
     }
 
-    public void OnStartup() {
+    public async Task OnStartup() {
         string email = Preferences.Get("auth-header-email", String.Empty);
         string token = Preferences.Get("auth-header-token", String.Empty);
         clientService.UpdateHeaders(email, token);
+
+        loggedIn = await CheckStatus();
+    }
+
+    public async Task<bool> CheckStatus() {
+        try {
+            var response = await clientService.GetAsync("/account/valid");
+            return response.IsSuccessStatusCode;
+        } catch {
+            string email = Preferences.Get("auth-header-email", String.Empty);
+            string token = Preferences.Get("auth-header-token", String.Empty);
+            return !string.IsNullOrEmpty(email) && !string.IsNullOrEmpty(token);
+        }
     }
 }

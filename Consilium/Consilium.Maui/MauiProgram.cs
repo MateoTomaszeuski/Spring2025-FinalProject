@@ -10,7 +10,7 @@ using Microsoft.Extensions.Logging;
 namespace Consilium.Maui;
 
 public static class MauiProgram {
-    public static MauiApp CreateMauiApp() {
+    public static async Task<MauiApp> CreateMauiApp() {
         var builder = MauiApp.CreateBuilder();
         builder
             .UseMauiApp<App>()
@@ -47,7 +47,7 @@ public static class MauiProgram {
 
         using (var scope = app.Services.CreateScope()) {
             var service = scope.ServiceProvider.GetRequiredService<IPersistenceService>();
-            service.OnStartup();
+            await service.OnStartup();
         }
 
         return app;
