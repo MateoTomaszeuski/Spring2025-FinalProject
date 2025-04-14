@@ -53,6 +53,6 @@
     <ShellContent
         Title="Login"
         ContentTemplate="{DataTemplate local:ProfileView}"
-        Route="Profile" />
+        Route="Profile" />  
     </TabBar>
 </Shell>
