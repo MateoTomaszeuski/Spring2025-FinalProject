@@ -63,7 +63,7 @@ public class DBService(IDbConnection conn) : IDBService {
     #region Assignments
 
     public int AddAssignment(Assignment assignment, string email) {
-        if (!CanAdjustCourse(assignment.CourseId, email)) return;
+        if (!CanAdjustCourse(assignment.CourseId, email)) return -1;
 
         string addAssignment = """"
             INSERT INTO assignment
@@ -71,9 +71,7 @@ public class DBService(IDbConnection conn) : IDBService {
             VALUES (@course_id, @assignment_name, @assignment_description, @due_date, @mark_started, @mark_complete)
             returning id
             """";
-        conn.Execute(addAssignment, assignment);
-
-
+        return conn.QuerySingle<int>(addAssignment, assignment);
     }
 
     public void DeleteAssignment(int id, string email) {
@@ -91,7 +89,7 @@ public class DBService(IDbConnection conn) : IDBService {
 
     private bool CanAdjustCourse(int courseId, string email) {
         string OwnsCourse = """""
-          SELECT account_email from course where id = @course_id
+          SELECT account_email from course where id = @courseid
         """"";
 
         string dbEmail = conn.QuerySingle<string>(OwnsCourse, new { courseId });

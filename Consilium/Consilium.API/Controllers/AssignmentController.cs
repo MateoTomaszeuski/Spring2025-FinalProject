@@ -19,8 +19,12 @@ public class AssignmentController : ControllerBase {
     [HttpPost]
     public IResult PostAssignment(Assignment assignment) {
         string username = Request.Headers["Email-Auth_Email"]!;
-        service.AddAssignment(assignment, username);
+        int value = service.AddAssignment(assignment, username);
 
-        return Results.Ok(assignment.Id);
+        if (value == -1) {
+            return Results.Unauthorized();
+        } else {
+            return Results.Ok(value);
+        }
     }
 }

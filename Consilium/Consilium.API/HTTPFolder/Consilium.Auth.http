@@ -1,8 +1,8 @@
-# @Consilium = http://localhost:5202
-@Consilium = https://api.final.codyhowell.dev
+@Consilium = http://localhost:5202
+# @Consilium = https://api.final.codyhowell.dev
 
 @email = codyhowell44@gmail.com
-@key = kwqXs7yPVrfkGnqfrL1m
+@key = K4Yhc36WuskTT74007kT
 
 ###
 GET {{Consilium}}/account

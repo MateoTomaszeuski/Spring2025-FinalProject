@@ -68,4 +68,8 @@ public class DBServiceIM : IDBService {
             todos[username][index] = Todo;
         }
     }
+
+    int IDBService.AddAssignment(Assignment assignment, string email) {
+        throw new NotImplementedException();
+    }
 }

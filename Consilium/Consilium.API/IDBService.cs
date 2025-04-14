@@ -13,7 +13,7 @@ public interface IDBService {
     #region Assignments
     public IEnumerable<Assignment> GetIncompleteAssignments(string email);
     public IEnumerable<Assignment> GetAllAssignments(string email);
-    public void AddAssignment(Assignment assignment, string email);
+    public int AddAssignment(Assignment assignment, string email);
     public void UpdateAssignment(Assignment assignment, string email);
     public void DeleteAssignment(int id, string email);
     #endregion
