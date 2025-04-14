@@ -25,6 +25,8 @@ public class PersistenceService(IClientService clientService) : IPersistenceServ
     public void DeleteToken() {
         Preferences.Set("auth-header-email", string.Empty);
         Preferences.Set("auth-header-token", string.Empty);
+        clientService.UpdateHeaders(string.Empty, string.Empty);
+
     }
 
     public void OnStartup() {
