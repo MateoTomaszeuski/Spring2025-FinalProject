@@ -16,7 +16,10 @@ public partial class ProfileViewModel : ObservableObject {
     private bool loggedIn = false;
     [ObservableProperty]
     private bool showLoggedIn;
-
+    [ObservableProperty]
+    private bool showUnAuthorized = false;
+    [ObservableProperty]
+    private bool showLogOut = false;
     [ObservableProperty]
     private string emailInput = String.Empty;
 
@@ -47,9 +50,9 @@ public partial class ProfileViewModel : ObservableObject {
     [RelayCommand]
     private async Task LogOut() {
 
-        LoggedIn = !await logInService.LogOut();
+        LoggedIn = await logInService.LogOut();
         ShowLoggedIn = !LoggedIn;
-        if (LoggedIn) Message = "You successfully Logged Out!";
+        if (!LoggedIn) Message = "You successfully Logged Out!";
 
         // rather than just a label, we can make the login feedback snackbar or toast notifications
     }
