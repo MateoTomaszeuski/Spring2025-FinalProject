@@ -11,13 +11,16 @@
         <Label 
             Text="Enter your email:"
             VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+            HorizontalOptions="Center" 
+            IsVisible="{Binding LoggedIn}"/>
         <Entry Text="{Binding EmailInput}"
                Keyboard="Email"
                TextTransform="None"
                IsTextPredictionEnabled="False"
-               Completed="EmailEntry_Completed"/>
-        <Button Text="Log In" Command="{Binding LogInCommand}" />
+               Completed="EmailEntry_Completed"
+            IsVisible="{Binding LoggedIn}"/>
+        <Button Text="Log In" Command="{Binding LogInCommand}"
+            IsVisible="{Binding LoggedIn}" />
         <Label Text=""/>
         <Label Text="{Binding Message}"/>
 
