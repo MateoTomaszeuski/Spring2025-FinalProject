@@ -19,7 +19,7 @@ jobs:
       - name: Restore from newest backup
         run: |
           kubectl exec -i $POD_NAME -- bash -c '
-            START_TIME=$(date +%s)
+            START_TIME=$(date +%s%3N)
             echo "Script started at: $(date +"%F %T.%3N")"
 
             BACKUP_DIR="/var/backups"
@@ -36,7 +36,7 @@ jobs:
               exit 1
             fi
           
-            END_TIME=$(date +%s)
+            END_TIME=$(date +%s%3N)
             echo "Script finished at: $(date +"%F %T.%3N")"
 
             DOWN_TIME=$(( END_TIME - START_TIME ))
