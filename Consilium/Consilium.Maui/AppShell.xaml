@@ -16,11 +16,10 @@
     FlyoutBackgroundColor="{StaticResource Light-Back}"
     FlyoutBackground="{AppThemeBinding Light={StaticResource Light-Light}, Dark={StaticResource Dark-Green}}"
     Shell.NavBarIsVisible="False">
-    <Shell.TitleView>
-            <Label 
-               FontFamily="Inter" />
-    </Shell.TitleView>
 
+    <Shell.TitleView>
+        <Label FontFamily="Inter"/>
+    </Shell.TitleView>
     <TabBar>
 
         <!--If we decide we don't want the text titles on the tabs (just icons): -->
@@ -55,5 +54,10 @@
         Title="Login"
         ContentTemplate="{DataTemplate local:ProfileView}"
         Route="Profile" />
+
+        <ShellContent
+        Title="Messges"
+        ContentTemplate="{DataTemplate local:MessagesView}"
+        Route="Messages" />
     </TabBar>
 </Shell>
