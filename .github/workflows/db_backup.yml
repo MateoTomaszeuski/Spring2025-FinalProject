@@ -16,7 +16,7 @@ jobs:
             POD_NAME=$(kubectl get pods -l app=consilium-postgres -o jsonpath='{.items[0].metadata.name}')
             echo "POD_NAME=$POD_NAME" >> $GITHUB_ENV
   
-        - name: Delete Oldest Back Up
+        - name: Delete Oldest Back Up & Create New Back Up
           run: |
             kubectl exec -it $POD_NAME -- bash -c '
               BACKUP_DIR="/var/backups"
