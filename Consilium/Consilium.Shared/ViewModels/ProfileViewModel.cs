@@ -35,8 +35,10 @@ public partial class ProfileViewModel : ObservableObject {
         Token = await logInService.LogIn(EmailInput);
         persistenceService.SaveToken(EmailInput, Token);
 
-        if (Token != "Too many unauthorized keys") ShowLoggedInPopup();
-        else LoggedIn = true;
+        if (Token != "Too many unauthorized keys") {
+            ShowLoggedInPopup();
+            LoggedIn = true;
+        } 
         ShowLoggedIn = !LoggedIn;
         if (LoggedIn) Message = "You successfully Logged In!";
 
@@ -45,7 +47,7 @@ public partial class ProfileViewModel : ObservableObject {
     [RelayCommand]
     private async Task LogOut() {
 
-        LoggedIn = !await logInService.LogOut(); 
+        LoggedIn = !await logInService.LogOut();
         ShowLoggedIn = !LoggedIn;
         if (LoggedIn) Message = "You successfully Logged Out!";
 
