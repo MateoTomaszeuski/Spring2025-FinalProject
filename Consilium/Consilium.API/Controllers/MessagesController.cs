@@ -25,6 +25,8 @@ public class MessagesController : ControllerBase {
 
     [HttpPost]
     public async Task<string> PostNewMessage(Message message) {
+        string username = Request.Headers["Email-Auth_Email"]!;
+        message.Sender = username;
         return await service.AddMessage(message);
     }
 
