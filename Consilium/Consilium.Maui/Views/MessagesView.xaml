@@ -4,9 +4,20 @@
              x:Class="Consilium.Maui.Views.MessagesView"
              Title="MessagesView">
     <VerticalStackLayout>
-        <Label 
-            Text="MEssages View!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+        <Label Text="{Binding ConversationWith}"/>
+        <ScrollView>
+            <StackLayout>
+                <CollectionView ItemsSource="{Binding AllMessages}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Label Text="{Binding Content}" />
+                            <Label Text="{Binding TimeSent}" />
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </StackLayout>
+        </ScrollView>
+        <Entry Text="{Binding MessageContent}" Placeholder="Type your message here" />
+        <Button Text="Send" Command="{Binding SendMessageCommand}" />
     </VerticalStackLayout>
 </ContentPage>

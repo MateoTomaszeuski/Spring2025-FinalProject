@@ -41,6 +41,10 @@
             ContentTemplate="{DataTemplate local:AssignmentsView}"
             Route="Assignments" />
         <ShellContent
+            Title="Messages"
+            ContentTemplate="{DataTemplate local:MessagesView}"
+            Route="Messages" />
+        <ShellContent
             Title="Tools"
             Icon="timer.png"
             ContentTemplate="{DataTemplate local:ToolsView}"
@@ -51,13 +55,8 @@
             ContentTemplate="{DataTemplate local:StatsView}"
             Route="Stats" />
         <ShellContent
-            Title="Login"
+            Title="Profile"
             ContentTemplate="{DataTemplate local:ProfileView}"
             Route="Profile" />
-
-        <ShellContent
-            Title="Messages"
-            ContentTemplate="{DataTemplate local:MessagesView}"
-            Route="Messages" />
     </TabBar>
 </Shell>
