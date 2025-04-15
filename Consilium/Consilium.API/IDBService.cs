@@ -21,6 +21,7 @@ public interface IDBService {
     IEnumerable<string> GetConversations(string username);
     IEnumerable<Message> GetMessages(string username, string otherUser);
     Task<string> AddMessage(Message message);
+    bool CheckUser(string otherUser);
     IEnumerable<bool> CheckUser(string otherUser);
     IEnumerable<Course> GetAllCourses(string username);
     #endregion

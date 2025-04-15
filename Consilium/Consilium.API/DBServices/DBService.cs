@@ -179,7 +179,7 @@ public class DBService(IDbConnection conn) : IDBService {
         return Task.FromResult(conn.QuerySingle<string>(addMessage, new { sender, receiver, content, timeSent }));
     }
 
-    public IEnumerable<bool> CheckUser(string otherUser) {
+    public bool CheckUser(string otherUser) {
         string getUser = """"
             SELECT EXISTS (
                 SELECT 1
@@ -187,12 +187,7 @@ public class DBService(IDbConnection conn) : IDBService {
                 WHERE email = @otherUser
             );
             """";
-        var query = conn.Query<string>(getUser, new { otherUser });
-        if (query.Count() == 0) {
-            return new List<bool> { false };
-        } else {
-            return new List<bool> { true };
-        }
+        return conn.Query<bool>(getUser, new { otherUser }).First();
     }
 
     public IEnumerable<Course> GetAllCourses(string username) {
