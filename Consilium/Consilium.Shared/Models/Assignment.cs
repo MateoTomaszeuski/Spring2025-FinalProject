@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,12 +20,20 @@ public partial class Assignment : ObservableObject {
     [ObservableProperty]
     private bool isCompleted;
 
+    [ObservableProperty]
+    private bool descriptionIsExpanded;
+
     partial void OnIsCompletedChanged(bool value) {
         if (value) {
             DateCompleted = DateTime.Now;
         } else {
             DateCompleted = null;
         }
+    }
+
+    [RelayCommand]
+    public void ToggleDescription() {
+        DescriptionIsExpanded = !DescriptionIsExpanded;
     }
 
 

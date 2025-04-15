@@ -57,7 +57,7 @@ public partial class ProfileViewModel : ObservableObject {
     [RelayCommand]
     private async Task CheckUnAuthorized() {
         ShowUnAuthorized = !await persistenceService.CheckAuthStatus() && LoggedIn;
-        ShowLogOut = LoggedIn ;
+        ShowLogOut = LoggedIn;
     }
     [RelayCommand]
     private void ShowLoggedInPopup() {
