@@ -4,7 +4,7 @@ using Consilium.Shared.Services;
 using System.Collections.ObjectModel;
 
 namespace Consilium.Shared.ViewModels;
-public partial class ChatViewModel(MessageService messageService) : ObservableObject {
+public partial class ChatViewModel(IMessageService messageService) : ObservableObject {
 
     [ObservableProperty]
     private ObservableCollection<string> conversations = new();
@@ -15,8 +15,7 @@ public partial class ChatViewModel(MessageService messageService) : ObservableOb
     [ObservableProperty]
     private bool showChat = false;
 
-    [RelayCommand]
-    private async Task InitConversations() {
+    public async Task InitConversations() {
         Conversations = new(await messageService.GetConversations());
     }
     [RelayCommand]

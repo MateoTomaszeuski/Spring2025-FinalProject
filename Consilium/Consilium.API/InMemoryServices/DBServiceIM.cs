@@ -11,6 +11,10 @@ public class DBServiceIM : IDBService {
         throw new NotImplementedException();
     }
 
+    public Task<string> AddMessage(Message message) {
+        throw new NotImplementedException();
+    }
+
     public int AddToDo(TodoItem Todo, string username) {
         if (todos.ContainsKey(username)) {
             todos[username].Add(Todo);
@@ -32,7 +36,15 @@ public class DBServiceIM : IDBService {
         throw new NotImplementedException();
     }
 
+    public IEnumerable<string> GetConversations(string username) {
+        throw new NotImplementedException();
+    }
+
     public IEnumerable<Assignment> GetIncompleteAssignments(string email) {
+        throw new NotImplementedException();
+    }
+
+    public IEnumerable<Message> GetMessages(string username, string otherUser) {
         throw new NotImplementedException();
     }
 

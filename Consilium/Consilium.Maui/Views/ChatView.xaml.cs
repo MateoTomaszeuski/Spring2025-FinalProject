@@ -8,5 +8,9 @@ public partial class ChatView : ContentPage
 	{
 		InitializeComponent();
 		BindingContext = vm;
-	}
+        Appearing += async (s, e) =>
+        {
+            await vm.InitConversations();
+        };
+    }
 }

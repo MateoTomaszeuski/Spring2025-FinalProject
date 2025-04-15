@@ -41,9 +41,9 @@
             ContentTemplate="{DataTemplate local:AssignmentsView}"
             Route="Assignments" />
         <ShellContent
-            Title="Messages"
-            ContentTemplate="{DataTemplate local:MessagesView}"
-            Route="Messages" />
+            Title="Chat"
+            ContentTemplate="{DataTemplate local:ChatView}"
+            Route="Chat" />
         <ShellContent
             Title="Tools"
             Icon="timer.png"

@@ -5,6 +5,16 @@
              xmlns:tools="clr-namespace:Consilium.Maui.Controls"
              Title="ChatView">
     <VerticalStackLayout>
+        <CollectionView ItemsSource="{Binding Conversations}" IsVisible="{Binding ShowConversations}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout>
+                        <Label Text="{Binding .}"/>
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        
         <VerticalStackLayout IsVisible="{Binding ShowChat}">
             <tools:MessagesView/>
         </VerticalStackLayout>
