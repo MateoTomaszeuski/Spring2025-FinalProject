@@ -10,13 +10,13 @@
                 <DataTemplate>
                     <Grid ColumnDefinitions=".5*,.5*">
                         <StackLayout x:Name="MessageContainer"
-                                  Grid.Column="0">
+                                     Grid.Column="0">
                             <StackLayout.Triggers>
                                 <DataTrigger TargetType="StackLayout"
-                                          Binding="{Binding Sender}"
-                                          Value="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.MyUserName}">
+                                             Binding="{Binding IsMyMessage}"
+                                             Value="True">
                                     <Setter Property="Grid.Column"
-                                         Value="1"/>
+                                            Value="1"/>
                                 </DataTrigger>
                             </StackLayout.Triggers>
                             <Label Text="{Binding Content}"/>
@@ -28,8 +28,8 @@
         </CollectionView>
 
         <Entry Text="{Binding MessageContent}"
-            Placeholder="Type your message here"/>
+               Placeholder="Type your message here"/>
         <Button Text="Send"
-             Command="{Binding SendMessageCommand}"/>
+                Command="{Binding SendMessageCommand}"/>
     </VerticalStackLayout>
 </ContentView>

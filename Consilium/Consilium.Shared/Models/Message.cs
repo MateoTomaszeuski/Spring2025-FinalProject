@@ -6,4 +6,5 @@ public class Message {
     public string Receiver { get; set; } = string.Empty;
     public string Content { get; set; } = string.Empty;
     public DateTime TimeSent { get; set; }
+    public bool? IsMyMessage { get; set; }
 }

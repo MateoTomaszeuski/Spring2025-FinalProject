@@ -9,14 +9,14 @@ namespace Consilium.Shared.ViewModels;
 
 public partial class MessagesViewModel : ObservableObject {
     public MessagesViewModel(IMessageService messageService, IPersistenceService persistenceService) {
-        this.messageService = messageService;       
+        this.messageService = messageService;
         messageService.PropertyChanged += MessageService_PropertyChanged;
         MyUserName = persistenceService.GetUserName();
     }
 
     private async void MessageService_PropertyChanged(object? sender, PropertyChangedEventArgs e) {
-       if(e.PropertyName == nameof( messageService.CurrentChat) ) {
-            if(messageService.CurrentChat != null) {
+        if (e.PropertyName == nameof(messageService.CurrentChat)) {
+            if (messageService.CurrentChat != null) {
                 ConversationWith = messageService.CurrentChat;
                 await InitializeMessagesAsync();
             }
@@ -54,6 +54,7 @@ public partial class MessagesViewModel : ObservableObject {
         var messages = await messageService.InitializeMessagesAsync(ConversationWith);
         AllMessages.Clear();
         foreach (var message in messages) {
+            message.IsMyMessage = message.Sender == MyUserName;
             AllMessages.Add(message);
         }
     }
