@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Consilium.Maui.Controls.MessagesView">
     <VerticalStackLayout>
-        <Label Text="{Binding ConversationWith}"/>
+        <Label x:Name="ConversationLabel" Text="{Binding ConversationWith}"/>
 
         <CollectionView ItemsSource="{Binding AllMessages}">
             <CollectionView.ItemTemplate>
