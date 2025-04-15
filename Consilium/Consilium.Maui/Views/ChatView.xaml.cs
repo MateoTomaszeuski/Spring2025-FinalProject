@@ -1,9 +1,12 @@
+using Consilium.Shared.ViewModels;
+
 namespace Consilium.Maui.Views;
 
 public partial class ChatView : ContentPage
 {
-	public ChatView()
+	public ChatView(ChatViewModel vm)
 	{
 		InitializeComponent();
+		BindingContext = vm;
 	}
 }

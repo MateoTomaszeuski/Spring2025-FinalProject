@@ -63,6 +63,7 @@ public static class MauiProgram {
         builder.Services.AddSingleton<ProfileView>();
         builder.Services.AddSingleton<CalculatorView>();
         builder.Services.AddSingleton<MessagesView>();
+        builder.Services.AddSingleton<ChatView>();
 
         return builder;
     }
@@ -76,6 +77,7 @@ public static class MauiProgram {
         builder.Services.AddSingleton<ProfileViewModel>();
         builder.Services.AddSingleton<CalculatorViewModel>();
         builder.Services.AddSingleton<MessagesViewModel>();
+        builder.Services.AddSingleton<ChatViewModel>();
 
         return builder;
     }
