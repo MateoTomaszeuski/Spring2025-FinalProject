@@ -16,12 +16,15 @@ public partial class Assignment : ObservableObject {
     public DateTime? DueDate { get; set; }
     public DateTime? DateStarted { get; set; }
     public DateTime? DateCompleted { get; set; }
+    public bool HasDescription => !String.IsNullOrEmpty(Description);
 
     [ObservableProperty]
     private bool isCompleted;
 
     [ObservableProperty]
     private bool descriptionIsExpanded;
+
+  
 
     partial void OnIsCompletedChanged(bool value) {
         if (value) {

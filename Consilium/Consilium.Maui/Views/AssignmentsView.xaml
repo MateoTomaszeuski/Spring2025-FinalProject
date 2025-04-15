@@ -64,13 +64,15 @@
                                         </Grid>
 
                                         <!-- button will say "see details" or "see less"-->
-                                        <StackLayout Padding="10" Spacing="5">
+                                        <StackLayout Spacing="0">
                                             <Button Text="{Binding DescriptionIsExpanded, Converter={StaticResource SeeMoreSeeLessConverter}}"
                                                     Command="{Binding ToggleDescriptionCommand}"
                                                     CommandParameter="{Binding .}"
-                                                    HorizontalOptions="StartAndExpand"
+                                                    HorizontalOptions="Start"
+                                                    Margin="40,0,0,0"
                                                     TextColor="{AppThemeBinding Dark=White, Light=Black}"
-                                                    BackgroundColor="Transparent" />
+                                                    BackgroundColor="Transparent"
+                                                    IsVisible="{Binding HasDescription}"/>
 
                                             <!-- full description (visible when expanded) -->
                                             <Label Text="{Binding Description}"
