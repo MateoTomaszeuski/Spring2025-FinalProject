@@ -26,3 +26,5 @@
     ('alice@example.com', 'Something', NULL, 1, 'Finish database schema'),
     ('bob@example.com', 'Something else', NULL, NULL, 'Buy milk'),
     ('charlie@example.com', 'Lorem', NULL, 2, 'Write design patterns summary');
+
+   
