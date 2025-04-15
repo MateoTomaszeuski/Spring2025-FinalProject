@@ -49,4 +49,8 @@ public partial class TodoItem : ObservableObject {
 
         return Id == other.Id;
     }
+
+    public override string ToString() {
+        return $"Id: {Id}, Parent: {(ParentId is null ? ParentId : "null")}, Title: {Title}";
+    }
 }

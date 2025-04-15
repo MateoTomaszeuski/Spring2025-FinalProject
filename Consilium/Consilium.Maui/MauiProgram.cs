@@ -34,12 +34,9 @@ public static class MauiProgram {
         builder.Services.AddHttpClient("ApiClient", client =>
         {
             client.BaseAddress = new Uri("https://consilium-api-cpgdcqaxepbyc2gj.westus3-01.azurewebsites.net/");
-
-            //if (DeviceInfo.Platform == DevicePlatform.Android || DeviceInfo.Platform == DevicePlatform.iOS) {
-            //    client.BaseAddress = new Uri("https://consilium-api-cpgdcqaxepbyc2gj.westus3-01.azurewebsites.net/");
-            //} else {
-            //    client.BaseAddress = new Uri("http://localhost:5202");
-            //}
+#if DEBUG
+            client.BaseAddress = new Uri("http://localhost:5202");
+#endif
         });
 
 
