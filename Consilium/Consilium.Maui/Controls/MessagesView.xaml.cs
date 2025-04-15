@@ -9,9 +9,9 @@ public partial class MessagesView : ContentView {
     }
 
     public static readonly BindableProperty ConversationWithProperty = BindableProperty.Create(
-        propertyName: nameof(ConversationWith),
-        returnType: typeof(string),
-        declaringType: typeof(MessagesView),
+        nameof(ConversationWith),
+        typeof(string),
+        typeof(MessagesView),
         propertyChanged: (bindable, oldValue, newValue) =>
         {
             var control = (MessagesView)bindable;
@@ -20,7 +20,7 @@ public partial class MessagesView : ContentView {
     );
 
     public string ConversationWith {
-        get => (string)GetValue(ConversationWithProperty);
+        get => GetValue(ConversationWithProperty) as string;
         set => SetValue(ConversationWithProperty, value);
     }
 }
