@@ -31,7 +31,5 @@
             Placeholder="Type your message here"/>
         <Button Text="Send"
              Command="{Binding SendMessageCommand}"/>
-        <Button Text="Send"
-             Command="{Binding SendMessageAsOtherCommand}"/>
     </VerticalStackLayout>
 </ContentView>
