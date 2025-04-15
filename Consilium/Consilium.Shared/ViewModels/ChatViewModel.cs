@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using Consilium.Shared.Services;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 
 namespace Consilium.Shared.ViewModels;
 public partial class ChatViewModel(IMessageService messageService) : ObservableObject {
@@ -24,6 +25,7 @@ public partial class ChatViewModel(IMessageService messageService) : ObservableO
     public async Task InitConversations() {
         Conversations = new(await messageService.GetConversations());
     }
+
     [RelayCommand]
     private void SelectConversation(string conversation) {
         if (Conversations.Contains(conversation)) {
@@ -32,29 +34,34 @@ public partial class ChatViewModel(IMessageService messageService) : ObservableO
             ShowChat = true;
         }
     }
+
     [RelayCommand]
     private void Back() {
         ShowConversations = true;
         ShowChat = false;
         messageService.CurrentChat = string.Empty;
     }
+
     [RelayCommand]
     private void ActivateNewConversation() {
         IsCreatingNewConversation = true;
         IsNotCreatingNewConversation = false;
     }
+
     [RelayCommand]
-    private void CreateConversation() {
+    private async Task CreateConversation() {
         if (string.IsNullOrWhiteSpace(NewConversationName)) {
             return;
         }
         if (Conversations.Contains(NewConversationName)) {
             return;
         }
-        Conversations.Add(NewConversationName);
-        SelectConversation(NewConversationName);
+        if (await messageService.CheckUser(NewConversationName)) {
+            Conversations.Add(NewConversationName);
+            SelectConversation(NewConversationName);
 
-        IsCreatingNewConversation = false;
-        IsNotCreatingNewConversation = true;
+            IsCreatingNewConversation = false;
+            IsNotCreatingNewConversation = true;
+        }
     }
 }

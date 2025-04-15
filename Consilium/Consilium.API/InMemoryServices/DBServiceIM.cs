@@ -24,6 +24,10 @@ public class DBServiceIM : IDBService {
         return 0;
     }
 
+    public IEnumerable<bool> CheckUser(string otherUser) {
+        throw new NotImplementedException();
+    }
+
     public void DeleteAssignment(int id, string email) {
         throw new NotImplementedException();
     }

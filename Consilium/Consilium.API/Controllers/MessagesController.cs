@@ -22,6 +22,10 @@ public class MessagesController : ControllerBase {
         string username = Request.Headers["Email-Auth_Email"]!;
         return service.GetMessages(username, otherUser);
     }
+    [HttpGet("/check/{otherUser}")]
+    public IEnumerable<bool> GetUser(string otherUser) {
+        return service.CheckUser(otherUser);
+    }
 
     [HttpPost]
     public async Task<string> PostNewMessage(Message message) {

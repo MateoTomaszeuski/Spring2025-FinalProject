@@ -45,4 +45,9 @@ public class MessageService : IMessageService, INotifyPropertyChanged {
         var response = await client.PostAsync($"/messages", message);
         return response.IsSuccessStatusCode;
     }
+
+    public async Task<bool> CheckUser(string newConversationName) {
+        var response = await client.Get($"/check/{newConversationName}");
+        return response.Content.ReadFromJsonAsync<bool>();
+    }
 }
