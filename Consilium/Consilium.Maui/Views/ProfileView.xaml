@@ -51,7 +51,10 @@
                    HorizontalOptions="Center" 
                    VerticalOptions="Center" 
                    FontSize="18" />
-            <Label Text="{Binding Username}" />
+            <Label Text="{Binding Username}" 
+                   HorizontalOptions="Center" 
+                   VerticalOptions="Center" 
+                   FontSize="14" />
             <Button Text="Log Out"
                     Command="{Binding LogOutCommand}"/>
 
