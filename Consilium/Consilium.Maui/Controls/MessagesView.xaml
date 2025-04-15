@@ -14,7 +14,7 @@
                             <StackLayout.Triggers>
                                 <DataTrigger TargetType="StackLayout"
                                           Binding="{Binding Sender}"
-                                          Value="{Binding MyUserName}">
+                                          Value="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.MyUserName}">
                                     <Setter Property="Grid.Column"
                                          Value="1"/>
                                 </DataTrigger>
