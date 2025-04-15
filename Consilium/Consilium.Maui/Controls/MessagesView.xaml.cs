@@ -18,7 +18,8 @@ public partial class MessagesView : ContentView {
         var control = (MessagesView)bindable;
         // Update the view model's property if the BindingContext is of type MessagesViewModel.
         if (control.BindingContext is MessagesViewModel viewModel) {
-            viewModel.ConversationWith = newValue as string;
+            // viewModel.ConversationWith = newValue as string;
+            control.ConversationLabel.Text = $"Chat with {viewModel.ConversationWith}";
         }
     }
     public string ConversationWith {
