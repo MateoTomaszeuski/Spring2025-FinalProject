@@ -10,14 +10,19 @@
                 <CollectionView ItemsSource="{Binding AllMessages}">
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
-                            <Label Text="{Binding Content}" />
-                            <Label Text="{Binding TimeSent}" />
+                            <StackLayout>
+
+                                <Label Text="{Binding Content}"/>
+                                <Label Text="{Binding TimeSent}"/>
+                            </StackLayout>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
             </StackLayout>
         </ScrollView>
-        <Entry Text="{Binding MessageContent}" Placeholder="Type your message here" />
-        <Button Text="Send" Command="{Binding SendMessageCommand}" />
+        <Entry Text="{Binding MessageContent}"
+                Placeholder="Type your message here"/>
+        <Button Text="Send"
+                Command="{Binding SendMessageCommand}"/>
     </VerticalStackLayout>
 </ContentPage>

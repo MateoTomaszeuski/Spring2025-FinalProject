@@ -7,13 +7,13 @@ namespace Consilium.Shared.ViewModels;
 
 public partial class MessagesViewModel : ObservableObject {
     [ObservableProperty]
-    private ObservableCollection<Message> allMessges = new(); 
-    
+    private ObservableCollection<Message> allMessges = new();
+
     [ObservableProperty]
     private string conversationWith = "string.Empty";
     [ObservableProperty]
     private string messageContent = string.Empty;
-    
+
     [RelayCommand]
     public void SendMessageC() {
         var message = new Message {
