@@ -1,0 +1,15 @@
+[
+  {
+    "Name": "Maui and Api",
+    "Projects": [
+      {
+        "Path": "Consilium.Maui\\Consilium.Maui.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "Consilium.API\\Consilium.API.csproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]
