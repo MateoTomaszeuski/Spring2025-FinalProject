@@ -37,7 +37,7 @@ public partial class MessagesViewModel : ObservableObject {
     [RelayCommand]
     public async Task SendMessage() {
         var message = new Message {
-            Sender = "Me",
+            Sender = MyUserName,
             Receiver = ConversationWith,
             Content = MessageContent,
             TimeSent = DateTime.Now
@@ -51,11 +51,13 @@ public partial class MessagesViewModel : ObservableObject {
 
     [RelayCommand]
     public async Task InitializeMessagesAsync() {
-        var messages = await messageService.InitializeMessagesAsync(ConversationWith);
-        AllMessages.Clear();
-        foreach (var message in messages) {
-            message.IsMyMessage = message.Sender == MyUserName;
-            AllMessages.Add(message);
+        if (!string.IsNullOrEmpty(ConversationWith)) {
+            var messages = await messageService.InitializeMessagesAsync(ConversationWith);
+            AllMessages.Clear();
+            foreach (var message in messages) {
+                message.IsMyMessage = message.Sender == MyUserName;
+                AllMessages.Add(message);
+            }
         }
     }
 }

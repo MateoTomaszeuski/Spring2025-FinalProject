@@ -26,4 +26,10 @@ public partial class ChatViewModel(IMessageService messageService) : ObservableO
             ShowChat = true;
         }
     }
+    [RelayCommand]
+    private void Back() {
+        ShowConversations = true;
+        ShowChat = false;
+        messageService.CurrentChat = string.Empty;
+    }
 }

@@ -20,6 +20,8 @@
         </CollectionView>
         
         <VerticalStackLayout IsVisible="{Binding ShowChat}">
+            <Button Text="Back"
+                    Command="{Binding BackCommand}"/>
             <tools:MessagesView/>
         </VerticalStackLayout>
     </VerticalStackLayout>
