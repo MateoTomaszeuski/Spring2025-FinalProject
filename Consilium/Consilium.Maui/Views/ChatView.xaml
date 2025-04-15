@@ -20,7 +20,7 @@
         </CollectionView>
         
         <VerticalStackLayout IsVisible="{Binding ShowChat}">
-            <tools:MessagesView ConversationWith="{Binding SelectedConversation}"/>
+            <tools:MessagesView/>
         </VerticalStackLayout>
     </VerticalStackLayout>
 </ContentPage>

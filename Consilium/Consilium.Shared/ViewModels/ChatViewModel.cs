@@ -11,7 +11,7 @@ public partial class ChatViewModel(IMessageService messageService) : ObservableO
     [ObservableProperty]
     private bool showConversations = true;
     [ObservableProperty]
-    private string selectedConversation = string.Empty;
+    private string selectedConversation;
     [ObservableProperty]
     private bool showChat = false;
 
@@ -21,7 +21,7 @@ public partial class ChatViewModel(IMessageService messageService) : ObservableO
     [RelayCommand]
     private void SelectConversation(string conversation) {
         if (Conversations.Contains(conversation)) {
-            SelectedConversation = conversation;
+            messageService.CurrentChat = conversation;
             ShowConversations = false;
             ShowChat = true;
         }

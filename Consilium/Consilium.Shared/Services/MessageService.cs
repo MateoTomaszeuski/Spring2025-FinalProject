@@ -1,16 +1,35 @@
 using Consilium.Shared.Models;
 using Consilium.Shared.ViewModels;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Net.Http.Json;
 
 namespace Consilium.Shared.Services;
 
-public class MessageService : IMessageService {
+public class MessageService : IMessageService, INotifyPropertyChanged {
     private readonly IClientService client;
 
     public MessageService(IClientService client) {
         this.client = client;
+    }
+
+    private string _currentChat;
+
+    public string CurrentChat {
+        get => _currentChat;
+        set {
+            if (_currentChat != value) {
+                _currentChat = value;
+                OnPropertyChanged(nameof(CurrentChat));
+            }
+        }
+    }
+
+    public event PropertyChangedEventHandler? PropertyChanged;
+
+    protected virtual void OnPropertyChanged(string propertyName) {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
     public async Task<IEnumerable<string>> GetConversations() {
         var response = await client.GetAsync($"/messages/all");

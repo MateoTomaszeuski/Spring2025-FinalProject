@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Consilium.Maui.Controls.MessagesView">
     <VerticalStackLayout>
-        <Label x:Name="ConversationLabel" Text="{Binding ConversationWith}"/>
+        <Label Text="{Binding ConversationWith}"/>
 
         <CollectionView ItemsSource="{Binding AllMessages}">
             <CollectionView.ItemTemplate>
@@ -14,7 +14,7 @@
                             <StackLayout.Triggers>
                                 <DataTrigger TargetType="StackLayout"
                                           Binding="{Binding Sender}"
-                                          Value="Me">
+                                          Value="{Binding MyUserName}">
                                     <Setter Property="Grid.Column"
                                          Value="1"/>
                                 </DataTrigger>
