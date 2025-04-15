@@ -1,36 +1,65 @@
-<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Consilium.Maui.Views.ProfileView"
              Title="ProfileView">
+
     <VerticalStackLayout
         Margin="0,20,0,0"
         MaximumWidthRequest="650"
-        Spacing="10"
+        Spacing="20"
         Padding="15">
-        <Label 
-            Text="Enter your email:"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" 
-            IsVisible="{Binding ShowLogIn}"/>
-        <Entry Text="{Binding EmailInput}"
-               Keyboard="Email"
-               TextTransform="None"
-               IsTextPredictionEnabled="False"
-               Completed="EmailEntry_Completed"
-            IsVisible="{Binding ShowLogIn}"/>
-        
-        <Button Text="Log In" Command="{Binding LogInCommand}"
-            IsVisible="{Binding ShowLogIn}" />
-        
-        <Label Text="Your account hasn't been Validated. Go check your email" IsVisible="{Binding ShowUnAuthorized}" />
-        <Button Text="Check Validation" Command="{Binding CheckUnAuthorizedCommand}"
-                IsVisible="{Binding ShowUnAuthorized}" />
 
-        <Button Text="Log Out" Command="{Binding LogOutCommand}"
-            IsVisible="{Binding ShowLogOut}" />
-        <Label Text=""/>
-        <Label Text="{Binding Message}"/>
+        <!-- Login Section -->
+        <StackLayout Spacing="10" IsVisible="{Binding ShowLogIn}">
+            <Label 
+                Text="Enter your email to log in:"
+                VerticalOptions="Center" 
+                HorizontalOptions="Start" 
+                FontSize="18" />
 
+            <Entry Text="{Binding EmailInput}"
+                   Keyboard="Email"
+                   TextTransform="None"
+                   IsTextPredictionEnabled="False"
+                   Completed="EmailEntry_Completed"
+                   Placeholder="Enter your email"
+                   BackgroundColor="{StaticResource Light-Back}"
+                   TextColor="Black"/>
+
+            <Button Text="Log In"
+                    Command="{Binding LogInCommand}"
+                    Padding="10"
+                    CornerRadius="5" />
+        </StackLayout>
+
+        <StackLayout Spacing="10" IsVisible="{Binding ShowUnAuthorized}" Orientation="Horizontal">
+            <Label Text="Your account hasn't been validated. Please check your email for a validation link. If you don't see the email, remember to check your spam folder."
+                   HorizontalOptions="FillAndExpand" 
+                   VerticalOptions="Center" 
+                   FontSize="15" 
+                   />
+
+            <Button Text="{StaticResource RefreshArrowsIcon}"
+                    FontFamily="FontAwesomeSolid"
+                    Command="{Binding CheckUnAuthorizedCommand}"
+                    />
+        </StackLayout>
+
+        <!-- if you're logged in, you see this -->
+        <StackLayout Spacing="20" IsVisible="{Binding ShowLogOut}">
+            <Button Text="Log Out"
+                    Command="{Binding LogOutCommand}"/>
+
+            <Button Text="Sign Out of All Accounts"
+                    Command="{Binding SignOutAllAccountsCommand}"
+                    BackgroundColor="{StaticResource Dark-Red}"/>
+
+        </StackLayout>
+
+        <StackLayout Spacing="10" IsVisible="{Binding ShowFeedback}">
+            <Label Text="{Binding Message}" 
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"/>
+        </StackLayout>
     </VerticalStackLayout>
 </ContentPage>

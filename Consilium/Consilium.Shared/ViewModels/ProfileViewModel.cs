@@ -54,6 +54,13 @@ public partial class ProfileViewModel : ObservableObject {
         if (!LoggedIn) Message = "You successfully Logged Out!";
         ShowLogOut = LoggedIn;
     }
+
+    [RelayCommand]
+    private async Task SignOutAllAccounts() {
+        await logInService.GlobalLogOut();
+        LoggedIn = false;
+    }
+
     [RelayCommand]
     private async Task CheckUnAuthorized() {
         ShowUnAuthorized = !await persistenceService.CheckAuthStatus() && LoggedIn;

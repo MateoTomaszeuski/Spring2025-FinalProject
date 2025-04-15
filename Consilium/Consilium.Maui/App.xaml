@@ -17,6 +17,7 @@
             <x:String x:Key="XIcon">&#xf00d;</x:String>
             <x:String x:Key="CaretDownIcon">&#xf0d7;</x:String>
             <x:String x:Key="CaretUpIcon">&#xf0d8;</x:String>
+            <x:String x:Key="RefreshArrowsIcon">&#xf021;</x:String>
 
             <converters:InverseBoolConverter x:Key="InverseBoolConverter"/>
             <converters:SeeMoreSeeLessConverter x:Key="SeeMoreSeeLessConverter" />
