@@ -47,7 +47,7 @@ public class MessageService : IMessageService, INotifyPropertyChanged {
     }
 
     public async Task<bool> CheckUser(string newConversationName) {
-        var response = await client.Get($"/check/{newConversationName}");
-        return response.Content.ReadFromJsonAsync<bool>();
+        var response = await client.GetAsync($"/check/{newConversationName}");
+        return await response.Content.ReadFromJsonAsync<bool>();
     }
 }
