@@ -6,10 +6,10 @@
     <VerticalStackLayout>
         <Label Text="{Binding ConversationWith}"/>
 
-        <Grid ColumnDefinitions="*,*">
-            <CollectionView ItemsSource="{Binding AllMessages}">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
+        <CollectionView ItemsSource="{Binding AllMessages}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid ColumnDefinitions=".5*,.5*">
                         <StackLayout x:Name="MessageContainer"
                                      Grid.Column="0">
                             <StackLayout.Triggers>
@@ -24,14 +24,16 @@
                             <Label Text="{Binding Content}"/>
                             <Label Text="{Binding TimeSent}"/>
                         </StackLayout>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-        </Grid>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
 
         <Entry Text="{Binding MessageContent}"
                Placeholder="Type your message here"/>
         <Button Text="Send"
                 Command="{Binding SendMessageCommand}"/>
+        <Button Text="Send"
+                Command="{Binding SendMessageAsOtherCommand}"/>
     </VerticalStackLayout>
 </ContentPage>

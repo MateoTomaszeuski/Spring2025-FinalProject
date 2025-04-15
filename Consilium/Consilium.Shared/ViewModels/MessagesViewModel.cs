@@ -25,4 +25,15 @@ public partial class MessagesViewModel : ObservableObject {
         MessageContent = string.Empty;
         AllMessages.Add(message);
     }
+    [RelayCommand]
+    public void SendMessageAsOther() {
+        var message = new Message {
+            Sender = "Other",
+            Receiver = ConversationWith,
+            Content = MessageContent,
+            TimeSent = DateTime.Now
+        };
+        MessageContent = string.Empty;
+        AllMessages.Add(message);
+    }
 }
