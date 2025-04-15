@@ -5,7 +5,9 @@ using System.Net.Http.Json;
 
 namespace Consilium.Shared.Services;
 
-public class AssignmentService(ClientService clientService) : IAssignmentService {
+//public class AssignmentService(ClientService clientService) : IAssignmentService {
+public class AssignmentService : IAssignmentService {
+
     public List<Assignment> AllAssignments { get; set; } = new();
 
     public Task AddAssignmentAsync(Assignment a) {
