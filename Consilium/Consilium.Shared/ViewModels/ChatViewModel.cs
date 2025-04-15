@@ -41,7 +41,11 @@ public partial class ChatViewModel(IMessageService messageService) : ObservableO
     private void Back() {
         ShowConversations = true;
         ShowChat = false;
+        NewConversationName = string.Empty;
         messageService.CurrentChat = string.Empty;
+        IsCreatingNewConversation = false;
+        IsNotCreatingNewConversation = true;
+
     }
 
     [RelayCommand]
@@ -52,9 +56,10 @@ public partial class ChatViewModel(IMessageService messageService) : ObservableO
 
     [RelayCommand]
     private async Task CreateConversation() {
+        var uservalid = await messageService.CheckUser(NewConversationName);
         if (string.IsNullOrWhiteSpace(NewConversationName)
             || Conversations.Contains(NewConversationName)
-            || await messageService.CheckUser(NewConversationName)) {
+            || !uservalid) {
             DisplayMessage = "Invalid conversation name or user does not exist.";
             return;
         }

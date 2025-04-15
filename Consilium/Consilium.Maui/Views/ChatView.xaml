@@ -14,6 +14,8 @@
            
             <VerticalStackLayout
                     IsVisible="{Binding IsCreatingNewConversation}">
+                <Button Text="Back"
+         Command="{Binding BackCommand}"/>
                 <Label Text="New Conversation"
                        HorizontalOptions="Center"/>
                 <Entry Text="{Binding NewConversationName}"

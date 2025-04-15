@@ -23,7 +23,7 @@ public class MessagesController : ControllerBase {
         return service.GetMessages(username, otherUser);
     }
     [HttpGet("/check/{otherUser}")]
-    public IEnumerable<bool> GetUser(string otherUser) {
+    public bool GetUser(string otherUser) {
         return service.CheckUser(otherUser);
     }
 
