@@ -11,6 +11,7 @@
             <Button Text="New Conversation"
                     Command="{Binding ActivateNewConversationCommand}"
                     IsVisible="{Binding IsNotCreatingNewConversation}"/>
+           
             <VerticalStackLayout
                     IsVisible="{Binding IsCreatingNewConversation}">
                 <Label Text="New Conversation"
@@ -20,8 +21,9 @@
                        HorizontalOptions="Center"/>
                 <Button Text="Create"
                         Command="{Binding CreateConversationCommand}"/>
-
+                <Label Text="{Binding DisplayMessage}"/>
             </VerticalStackLayout>
+
             <CollectionView ItemsSource="{Binding Conversations}"
                             IsVisible="{Binding IsNotCreatingNewConversation}">
                 <CollectionView.ItemTemplate>
@@ -43,5 +45,6 @@
                     Command="{Binding BackCommand}"/>
             <tools:MessagesView/>
         </VerticalStackLayout>
+        
     </VerticalStackLayout>
 </ContentPage>

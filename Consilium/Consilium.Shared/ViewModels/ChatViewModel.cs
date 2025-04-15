@@ -22,6 +22,8 @@ public partial class ChatViewModel(IMessageService messageService) : ObservableO
     private bool isCreatingNewConversation = false;
     [ObservableProperty]
     private string newConversationName = string.Empty;
+    [ObservableProperty]
+    private string displayMessage = string.Empty;
     public async Task InitConversations() {
         Conversations = new(await messageService.GetConversations());
     }
@@ -50,18 +52,17 @@ public partial class ChatViewModel(IMessageService messageService) : ObservableO
 
     [RelayCommand]
     private async Task CreateConversation() {
-        if (string.IsNullOrWhiteSpace(NewConversationName)) {
+        if (string.IsNullOrWhiteSpace(NewConversationName)
+            || Conversations.Contains(NewConversationName)
+            || await messageService.CheckUser(NewConversationName)) {
+            DisplayMessage = "Invalid conversation name or user does not exist.";
             return;
         }
-        if (Conversations.Contains(NewConversationName)) {
-            return;
-        }
-        if (await messageService.CheckUser(NewConversationName)) {
-            Conversations.Add(NewConversationName);
-            SelectConversation(NewConversationName);
+        Conversations.Add(NewConversationName);
+        SelectConversation(NewConversationName);
 
-            IsCreatingNewConversation = false;
-            IsNotCreatingNewConversation = true;
-        }
+        IsCreatingNewConversation = false;
+        IsNotCreatingNewConversation = true;
+
     }
 }
