@@ -4,13 +4,12 @@ using System.Threading.Tasks;
 
 namespace Consilium.IntegrationTests;
 
-public class Tests {
+public class Tests : IDisposable {
     private readonly HttpClient client;
     public Tests() {
         client = new HttpClient();
-        client.BaseAddress = new Uri("http://localhost:8080");
-        //client.BaseAddress = new Uri("http://consilium-api:8080");
-
+        //client.BaseAddress = new Uri("http://localhost:8080");
+        client.BaseAddress = new Uri("http://consilium-api:8080");
     }
 
     [Test]
@@ -35,5 +34,9 @@ public class Tests {
         var response2 = await client.GetAsync("/account/valid");
 
         await Assert.That(response2.IsSuccessStatusCode).IsEqualTo(true);
+    }
+
+    public void Dispose() {
+        client.Dispose();
     }
 }
