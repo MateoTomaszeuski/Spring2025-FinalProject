@@ -5,20 +5,39 @@
              xmlns:tools="clr-namespace:Consilium.Maui.Controls"
              Title="ChatView">
     <VerticalStackLayout>
-        <CollectionView ItemsSource="{Binding Conversations}" IsVisible="{Binding ShowConversations}">
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <StackLayout>
-                        <Label Text="{Binding .}"/>
-                        <Button Text="Select"
-                                Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.SelectConversationCommand}"
-                                CommandParameter="{Binding .}"/>
+        <VerticalStackLayout
+            IsVisible="{Binding ShowConversations}">
 
-                    </StackLayout>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
-        
+            <Button Text="New Conversation"
+                    Command="{Binding ActivateNewConversationCommand}"
+                    IsVisible="{Binding IsNotCreatingNewConversation}"/>
+            <VerticalStackLayout
+                    IsVisible="{Binding IsCreatingNewConversation}">
+                <Label Text="New Conversation"
+                       HorizontalOptions="Center"/>
+                <Entry Text="{Binding NewConversationName}"
+                       Placeholder="Enter user email"
+                       HorizontalOptions="Center"/>
+                <Button Text="Create"
+                        Command="{Binding CreateConversationCommand}"/>
+
+            </VerticalStackLayout>
+            <CollectionView ItemsSource="{Binding Conversations}"
+                            IsVisible="{Binding IsNotCreatingNewConversation}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout>
+                            <Label Text="{Binding .}"/>
+                            <Button Text="Select"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.SelectConversationCommand}"
+                                    CommandParameter="{Binding .}"/>
+
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
+
         <VerticalStackLayout IsVisible="{Binding ShowChat}">
             <Button Text="Back"
                     Command="{Binding BackCommand}"/>

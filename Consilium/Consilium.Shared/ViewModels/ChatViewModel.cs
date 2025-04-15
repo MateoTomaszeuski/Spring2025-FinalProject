@@ -14,7 +14,13 @@ public partial class ChatViewModel(IMessageService messageService) : ObservableO
     private string selectedConversation = string.Empty;
     [ObservableProperty]
     private bool showChat = false;
+    [ObservableProperty]
+    private bool isNotCreatingNewConversation = true;
 
+    [ObservableProperty]
+    private bool isCreatingNewConversation = false;
+    [ObservableProperty]
+    private string newConversationName = string.Empty;
     public async Task InitConversations() {
         Conversations = new(await messageService.GetConversations());
     }
@@ -31,5 +37,24 @@ public partial class ChatViewModel(IMessageService messageService) : ObservableO
         ShowConversations = true;
         ShowChat = false;
         messageService.CurrentChat = string.Empty;
+    }
+    [RelayCommand]
+    private void ActivateNewConversation() {
+        IsCreatingNewConversation = true;
+        IsNotCreatingNewConversation = false;
+    }
+    [RelayCommand]
+    private void CreateNewConversation() {
+        if (string.IsNullOrWhiteSpace(NewConversationName)) {
+            return;
+        }
+        if (Conversations.Contains(NewConversationName)) {
+            return;
+        }
+        Conversations.Add(NewConversationName);
+        SelectConversation(NewConversationName);
+
+        IsCreatingNewConversation = false;
+        IsNotCreatingNewConversation = true;
     }
 }
