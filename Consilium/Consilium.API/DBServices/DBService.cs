@@ -188,6 +188,5 @@ public class DBService(IDbConnection conn) : IDBService {
             );
             """";
         return conn.Query<bool>(getUser, new { otherUser }).First();
-
     }
 }

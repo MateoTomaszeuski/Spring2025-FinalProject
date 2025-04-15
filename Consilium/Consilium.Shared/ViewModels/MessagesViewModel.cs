@@ -40,7 +40,8 @@ public partial class MessagesViewModel : ObservableObject {
             Sender = MyUserName,
             Receiver = ConversationWith,
             Content = MessageContent,
-            TimeSent = DateTime.Now
+            TimeSent = DateTime.Now,
+            IsMyMessage = true
         };
         var sent = await messageService.SendMessageAsync(message);
         if (sent) {
