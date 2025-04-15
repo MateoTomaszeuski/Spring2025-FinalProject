@@ -24,7 +24,7 @@ public partial class Assignment : ObservableObject {
     [ObservableProperty]
     private bool descriptionIsExpanded;
 
-  
+
 
     partial void OnIsCompletedChanged(bool value) {
         if (value) {

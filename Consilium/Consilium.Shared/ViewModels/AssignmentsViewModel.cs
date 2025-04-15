@@ -72,8 +72,7 @@ public partial class AssignmentsViewModel : ObservableObject {
             DateCompleted = null
         };
 
-        var assignment3 = new Assignment
-        {
+        var assignment3 = new Assignment {
             Name = "History Essay",
             Description = """
             Four score and seven years ago our fathers brought forth on this continent a new nation, conceived in liberty, and dedicated to the proposition that all men are created equal. 
