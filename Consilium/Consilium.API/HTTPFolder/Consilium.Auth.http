@@ -1,8 +1,9 @@
-@Consilium = http://localhost:5202
+@Consilium = https://consilium-api-cpgdcqaxepbyc2gj.westus3-01.azurewebsites.net
+# @Consilium = http://localhost:5202
 # @Consilium = https://api.final.codyhowell.dev
 
-@email = codyhowell44@gmail.com
-@key = mlurQfsQ_lsMe4Cp7oWn
+@email = tomaszeuskim@gmail.com
+@key = 1MzeyKmpW2pdQEEOvgLE
 
 ###
 POST {{Consilium}}/account?email={{email}}

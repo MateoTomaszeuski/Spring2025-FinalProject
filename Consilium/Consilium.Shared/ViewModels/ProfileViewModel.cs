@@ -42,24 +42,22 @@ public partial class ProfileViewModel : ObservableObject {
             LoggedIn = true;
             ShowLogIn = false;
             ShowUnAuthorized = !await persistenceService.CheckAuthStatus();
-            ShowLogOut = LoggedIn && !ShowUnAuthorized;
+            ShowLogOut = LoggedIn;
             Message = "You successfully Logged In!";
         }
     }
     [RelayCommand]
     private async Task LogOut() {
-
-        LoggedIn = await logInService.LogOut();
+        await logInService.LogOut();
+        LoggedIn = false;
         ShowLogIn = !LoggedIn;
         if (!LoggedIn) Message = "You successfully Logged Out!";
-        ShowLogOut = LoggedIn && !ShowUnAuthorized;
-
-        // rather than just a label, we can make the login feedback snackbar or toast notifications
+        ShowLogOut = LoggedIn;
     }
     [RelayCommand]
     private async Task CheckUnAuthorized() {
         ShowUnAuthorized = !await persistenceService.CheckAuthStatus() && LoggedIn;
-        ShowLogOut = LoggedIn && !ShowUnAuthorized;
+        ShowLogOut = LoggedIn ;
     }
     [RelayCommand]
     private void ShowLoggedInPopup() {
@@ -69,6 +67,6 @@ public partial class ProfileViewModel : ObservableObject {
         LoggedIn = persistenceService.CheckLoginStatus();
         ShowUnAuthorized = !await persistenceService.CheckAuthStatus() && LoggedIn;
         ShowLogIn = !LoggedIn;
-        ShowLogOut = LoggedIn && !ShowUnAuthorized;
+        ShowLogOut = LoggedIn;
     }
 }

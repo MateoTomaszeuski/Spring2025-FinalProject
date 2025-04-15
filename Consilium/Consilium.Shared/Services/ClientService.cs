@@ -13,7 +13,7 @@ public class ClientService : IClientService {
     public void UpdateHeaders(string email, string token) {
         client.DefaultRequestHeaders.Clear();
         client.DefaultRequestHeaders.Add("Email-Auth_Email", email);
-        client.DefaultRequestHeaders.Add("Email-Auth_Token", token);
+        client.DefaultRequestHeaders.Add("Email-Auth_ApiKey", token);
     }
 
     public async Task<HttpResponseMessage> DeleteAsync(string url) {
