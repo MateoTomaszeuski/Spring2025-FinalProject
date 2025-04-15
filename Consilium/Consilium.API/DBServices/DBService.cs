@@ -183,7 +183,7 @@ public class DBService(IDbConnection conn) : IDBService {
         string getUser = """"
             SELECT EXISTS (
                 SELECT 1
-                FROM account
+                FROM "HowlDev.User"
                 WHERE email = @otherUser
             );
             """";
