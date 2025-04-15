@@ -51,4 +51,11 @@ public class AssignmentController : ControllerBase {
 
         return Results.Ok();
     }
+
+    [HttpGet("courses")]
+    public IEnumerable<Course> GetAllCourses() {
+        string username = Request.Headers["Email-Auth_Email"]!;
+        return service.GetAllCourses(username);
+
+    }
 }

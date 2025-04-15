@@ -84,6 +84,7 @@ public static class MauiProgram {
         builder.Services.AddSingleton<ILogInService, LogInService>();
         builder.Services.AddSingleton<IClientService, ClientService>();
         builder.Services.AddSingleton<IMessageService, MessageService>();
+        builder.Services.AddSingleton<IAssignmentService, AssignmentService>();
 
         return builder;
     }

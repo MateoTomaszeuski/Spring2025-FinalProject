@@ -36,6 +36,10 @@ public class DBServiceIM : IDBService {
         throw new NotImplementedException();
     }
 
+    public IEnumerable<Course> GetAllCourses(string username) {
+        throw new NotImplementedException();
+    }
+
     public IEnumerable<User> GetAllUsers() {
         throw new NotImplementedException();
     }

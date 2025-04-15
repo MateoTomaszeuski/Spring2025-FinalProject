@@ -7,7 +7,9 @@ using System.Threading.Tasks;
 
 namespace Consilium.Shared.Services;
 
-interface IAssignmentService {
+public interface IAssignmentService {
+    List<Assignment> AllAssignments { get; set; }
+    Task<IEnumerable<Course>> GetAllCourses();
     Task AddAssignmentAsync(Assignment a);
     Task DeleteAssignmentAsync(int assignmentId);
     Task<IEnumerable<Assignment>> GetAllAssignmentsAsync();

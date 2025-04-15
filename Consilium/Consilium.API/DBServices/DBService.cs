@@ -194,4 +194,8 @@ public class DBService(IDbConnection conn) : IDBService {
             return new List<bool> { true };
         }
     }
+
+    public IEnumerable<Course> GetAllCourses(string username) {
+        throw new NotImplementedException();
+    }
 }
