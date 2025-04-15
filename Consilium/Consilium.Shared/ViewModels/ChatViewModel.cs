@@ -11,7 +11,7 @@ public partial class ChatViewModel(IMessageService messageService) : ObservableO
     [ObservableProperty]
     private bool showConversations = true;
     [ObservableProperty]
-    private string selectedConversation;
+    private string selectedConversation = string.Empty;
     [ObservableProperty]
     private bool showChat = false;
 

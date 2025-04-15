@@ -14,7 +14,7 @@ public class MessageService : IMessageService, INotifyPropertyChanged {
         this.client = client;
     }
 
-    private string _currentChat;
+    private string _currentChat = string.Empty;
 
     public string CurrentChat {
         get => _currentChat;
