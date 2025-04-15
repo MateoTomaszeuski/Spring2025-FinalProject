@@ -81,10 +81,15 @@
 		<PackageReference Include="Microsoft.Extensions.Http" Version="9.0.3" />
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.0" />
+		<PackageReference Include="Syncfusion.Maui.Calendar" Version="29.1.38" />
+		<PackageReference Include="Syncfusion.Maui.Core" Version="29.1.38" />
 	</ItemGroup>
 
 	<ItemGroup>
 	  <MauiXaml Update="Controls\CalculatorView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Controls\Calendar.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Controls\MessagesView.xaml">

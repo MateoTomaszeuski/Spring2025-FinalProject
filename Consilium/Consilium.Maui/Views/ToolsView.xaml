@@ -26,6 +26,10 @@
                     Text="Pomodoro"
                     Command="{Binding ChangeToolCommand}"
                     CommandParameter="Pomodoro"/>
+                    <Button 
+                        Text="Calendar"
+                        Command="{Binding ChangeToolCommand}"
+                        CommandParameter="Calendar"/>
                 </HorizontalStackLayout>
             </Border>
         </ScrollView>
@@ -39,6 +43,9 @@
         <VerticalStackLayout IsVisible="{Binding PomodoroActive}">
             <tools:PomodoroView/>
         </VerticalStackLayout>
-        
+        <VerticalStackLayout IsVisible="{Binding CalendarActive}">
+            <tools:Calendar/>
+        </VerticalStackLayout>
+
     </VerticalStackLayout>
 </ContentPage>

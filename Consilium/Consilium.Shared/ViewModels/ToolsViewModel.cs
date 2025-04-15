@@ -11,11 +11,14 @@ public partial class ToolsViewModel : ObservableObject {
     private bool calculatorActive = false;
     [ObservableProperty]
     private bool pomodoroActive = false;
+    [ObservableProperty]
+    private bool calendarActive = false;
 
     [RelayCommand]
     public void ChangeTool(string tool) {
         NotesActive = "Notes" == tool;
         CalculatorActive = "Calculator" == tool;
         PomodoroActive = "Pomodoro" == tool;
+        CalendarActive = "Calendar" == tool;
     }
 }
