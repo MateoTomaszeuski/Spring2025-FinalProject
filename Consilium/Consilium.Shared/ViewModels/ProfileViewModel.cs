@@ -56,7 +56,7 @@ public partial class ProfileViewModel : ObservableObject {
     }
 
     [RelayCommand]
-    private async Task SignOutAllAccounts() {
+    private async Task SignOutAllDevices() {
         await logInService.GlobalLogOut();
         LoggedIn = false;
     }

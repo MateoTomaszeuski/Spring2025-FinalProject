@@ -50,8 +50,8 @@
             <Button Text="Log Out"
                     Command="{Binding LogOutCommand}"/>
 
-            <Button Text="Sign Out of All Accounts"
-                    Command="{Binding SignOutAllAccountsCommand}"
+            <Button Text="Sign Out On All Devices"
+                    Command="{Binding SignOutAllDevicesCommand}"
                     BackgroundColor="{StaticResource Dark-Red}"/>
 
         </StackLayout>

@@ -26,38 +26,38 @@
         <!--https://stackoverflow.com/questions/76436217/how-do-i-delete-the-awkward-empty-space-under-icon-in-tabbar-in-net-maui-->
 
         <ShellContent
-        Title="Dashboard"
-        Icon="home.png"
-        ContentTemplate="{DataTemplate local:DashboardView}"
-        Route="Dashboard" />
+            Title="Dashboard"
+            Icon="home.png"
+            ContentTemplate="{DataTemplate local:DashboardView}"
+            Route="Dashboard" />
         <ShellContent
-        Title="TodoList"
-        Icon="checklist.png"
-        ContentTemplate="{DataTemplate local:TodoListView}"
-        Route="TodoList" />
+            Title="TodoList"
+            Icon="checklist.png"
+            ContentTemplate="{DataTemplate local:TodoListView}"
+            Route="TodoList" />
         <ShellContent
-        Title="Assignments"
-        Icon="assignment.png"
-        ContentTemplate="{DataTemplate local:AssignmentsView}"
-        Route="Assignments" />
+            Title="Assignments"
+            Icon="assignment.png"
+            ContentTemplate="{DataTemplate local:AssignmentsView}"
+            Route="Assignments" />
         <ShellContent
-        Title="Tools"
-        Icon="timer.png"
-        ContentTemplate="{DataTemplate local:ToolsView}"
-        Route="Tools" />
+            Title="Tools"
+            Icon="timer.png"
+            ContentTemplate="{DataTemplate local:ToolsView}"
+            Route="Tools" />
         <ShellContent
-        Title="Stats"
-        Icon="graph.png"
-        ContentTemplate="{DataTemplate local:StatsView}"
-        Route="Stats" />
+            Title="Stats"
+            Icon="graph.png"
+            ContentTemplate="{DataTemplate local:StatsView}"
+            Route="Stats" />
         <ShellContent
-        Title="Login"
-        ContentTemplate="{DataTemplate local:ProfileView}"
-        Route="Profile" />
+            Title="Login"
+            ContentTemplate="{DataTemplate local:ProfileView}"
+            Route="Profile" />
 
         <ShellContent
-        Title="Messges"
-        ContentTemplate="{DataTemplate local:MessagesView}"
-        Route="Messages" />
+            Title="Messages"
+            ContentTemplate="{DataTemplate local:MessagesView}"
+            Route="Messages" />
     </TabBar>
 </Shell>
