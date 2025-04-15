@@ -35,14 +35,15 @@ public class PersistenceService(IClientService clientService) : IPersistenceServ
         clientService.UpdateHeaders(email, token);
     }
 
-    public async Task<bool> CheckStatus() {
-        try {
-            var response = await clientService.GetAsync("/account/valid");
-            return response.IsSuccessStatusCode;
-        } catch {
-            string email = Preferences.Get("auth-header-email", String.Empty);
-            string token = Preferences.Get("auth-header-token", String.Empty);
-            return !string.IsNullOrEmpty(email) && !string.IsNullOrEmpty(token);
-        }
+    public async Task<bool> CheckAuthStatus() {
+
+        var response = await clientService.GetAsync("/account/valid");
+        return response.IsSuccessStatusCode;
+
+    }
+    public bool CheckLoginStatus() {
+        string email = Preferences.Get("auth-header-email", String.Empty);
+        string token = Preferences.Get("auth-header-token", String.Empty);
+        return !string.IsNullOrEmpty(email) && !string.IsNullOrEmpty(token);
     }
 }

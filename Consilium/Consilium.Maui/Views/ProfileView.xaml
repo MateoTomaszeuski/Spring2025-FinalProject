@@ -12,18 +12,23 @@
             Text="Enter your email:"
             VerticalOptions="Center" 
             HorizontalOptions="Center" 
-            IsVisible="{Binding ShowLoggedIn}"/>
+            IsVisible="{Binding ShowLogIn}"/>
         <Entry Text="{Binding EmailInput}"
                Keyboard="Email"
                TextTransform="None"
                IsTextPredictionEnabled="False"
                Completed="EmailEntry_Completed"
-            IsVisible="{Binding ShowLoggedIn}"/>
+            IsVisible="{Binding ShowLogIn}"/>
+        
         <Button Text="Log In" Command="{Binding LogInCommand}"
-            IsVisible="{Binding ShowLoggedIn}" />
+            IsVisible="{Binding ShowLogIn}" />
+        
         <Label Text="Your account hasn't been Validated. Go check your email" IsVisible="{Binding ShowUnAuthorized}" />
+        <Button Text="Check Validation" Command="{Binding CheckUnAuthorizedCommand}"
+                IsVisible="{Binding ShowUnAuthorized}" />
+
         <Button Text="Log Out" Command="{Binding LogOutCommand}"
-            IsVisible="{Binding LoggedIn}" />
+            IsVisible="{Binding ShowLogOut}" />
         <Label Text=""/>
         <Label Text="{Binding Message}"/>
 

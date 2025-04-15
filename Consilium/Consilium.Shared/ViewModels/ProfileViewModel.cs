@@ -15,7 +15,7 @@ public partial class ProfileViewModel : ObservableObject {
     [ObservableProperty]
     private bool loggedIn = false;
     [ObservableProperty]
-    private bool showLoggedIn;
+    private bool showLogIn;
     [ObservableProperty]
     private bool showUnAuthorized = false;
     [ObservableProperty]
@@ -40,8 +40,8 @@ public partial class ProfileViewModel : ObservableObject {
         if (Token != "Too many unauthorized keys") {
             ShowLoggedInPopup();
             LoggedIn = true;
-            ShowLoggedIn = !LoggedIn;
-            ShowUnAuthorized = !await persistenceService.CheckStatus();
+            ShowLogIn = false;
+            ShowUnAuthorized = !await persistenceService.CheckAuthStatus();
             ShowLogOut = LoggedIn && !ShowUnAuthorized;
             Message = "You successfully Logged In!";
         }
@@ -50,14 +50,15 @@ public partial class ProfileViewModel : ObservableObject {
     private async Task LogOut() {
 
         LoggedIn = await logInService.LogOut();
-        ShowLoggedIn = !LoggedIn;
+        ShowLogIn = !LoggedIn;
         if (!LoggedIn) Message = "You successfully Logged Out!";
+        ShowLogOut = LoggedIn && !ShowUnAuthorized;
 
         // rather than just a label, we can make the login feedback snackbar or toast notifications
     }
     [RelayCommand]
     private async Task CheckUnAuthorized() {
-        ShowUnAuthorized = !await persistenceService.CheckStatus();
+        ShowUnAuthorized = !await persistenceService.CheckAuthStatus() && LoggedIn;
         ShowLogOut = LoggedIn && !ShowUnAuthorized;
     }
     [RelayCommand]
@@ -65,7 +66,9 @@ public partial class ProfileViewModel : ObservableObject {
         WeakReferenceMessenger.Default.Send(new ShowPopupMessage());
     }
     public async Task InitializeAsync() {
-        LoggedIn = await persistenceService.CheckStatus();
-        ShowLoggedIn = !LoggedIn;
+        LoggedIn = persistenceService.CheckLoginStatus();
+        ShowUnAuthorized = !await persistenceService.CheckAuthStatus() && LoggedIn;
+        ShowLogIn = !LoggedIn;
+        ShowLogOut = LoggedIn && !ShowUnAuthorized;
     }
 }
