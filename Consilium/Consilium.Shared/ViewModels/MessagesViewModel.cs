@@ -11,7 +11,7 @@ public partial class MessagesViewModel(IMessageService messageService) : Observa
     private ObservableCollection<Message> allMessages = new();
 
     [ObservableProperty]
-    private string conversationWith = string.Empty;
+    private string conversationWithVM = string.Empty;
     [ObservableProperty]
     private string messageContent = string.Empty;
 
@@ -19,7 +19,7 @@ public partial class MessagesViewModel(IMessageService messageService) : Observa
     public async Task SendMessage() {
         var message = new Message {
             Sender = "Me",
-            Receiver = ConversationWith,
+            Receiver = ConversationWithVM,
             Content = MessageContent,
             TimeSent = DateTime.Now
         };
@@ -32,7 +32,7 @@ public partial class MessagesViewModel(IMessageService messageService) : Observa
 
     [RelayCommand]
     public async Task InitializeMessagesAsync() {
-        var messages = await messageService.InitializeMessagesAsync(ConversationWith);
+        var messages = await messageService.InitializeMessagesAsync(ConversationWithVM);
         AllMessages.Clear();
         foreach (var message in messages) {
             AllMessages.Add(message);
