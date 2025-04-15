@@ -5,15 +5,22 @@ using System.Net.Http.Json;
 
 namespace Consilium.Shared.Services;
 
-public class AssignmentService : IAssignmentService {
-    private readonly HttpClient client;
+public class AssignmentService(ClientService clientService) : IAssignmentService {
+    public List<Assignment> AllAssignments { get; set; } = new();
 
-    public AssignmentService(IHttpClientFactory factory) {
-        client = factory.CreateClient("ApiClient");
-        client.DefaultRequestHeaders.Add("Consilium-User", "password");
+    public Task AddAssignmentAsync(Assignment a) {
+        throw new NotImplementedException();
     }
 
+    public Task DeleteAssignmentAsync(int assignmentId) {
+        throw new NotImplementedException();
+    }
 
+    public Task<IEnumerable<Assignment>> GetAllAssignmentsAsync() {
+        throw new NotImplementedException();
+    }
 
-    //public async Task<ObservableCollection<Assignment>>
+    public Task UpdateAssignment(Assignment a) {
+        throw new NotImplementedException();
+    }
 }

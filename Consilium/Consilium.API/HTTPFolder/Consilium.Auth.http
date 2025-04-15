@@ -2,11 +2,11 @@
 # @Consilium = https://api.final.codyhowell.dev
 
 @email = codyhowell44@gmail.com
-@key = K4Yhc36WuskTT74007kT
+@key = mlurQfsQ_lsMe4Cp7oWn
 
-###
-GET {{Consilium}}/account
 ###
 POST {{Consilium}}/account?email={{email}}
-
-
+###
+GET {{Consilium}}/account/valid
+Email-Auth_Email: {{email}}
+Email-Auth_ApiKey: {{key}}

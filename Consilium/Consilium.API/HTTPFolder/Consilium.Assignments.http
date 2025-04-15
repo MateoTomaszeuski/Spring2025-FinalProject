@@ -12,14 +12,30 @@ Content-Type: application/json
 {
     "Name": "lorem",
     "Description": "lorem description",
-    "CourseId": "2",
+    "CourseId": "4",
     "DueDate": "2025-04-14T15:00:00",
     "DateStarted": "2025-04-14T16:00:00",
     "DateCompleted": "2025-04-14T17:00:00"
 }
 
 ###
-Get {{Consilium}}/assignment
+GET {{Consilium}}/assignment
 Email-Auth_Email: {{email}}
 Email-Auth_ApiKey: {{key}}
+
+###
+GET {{Consilium}}/assignment/incomplete
+Email-Auth_Email: {{email}}
+Email-Auth_ApiKey: {{key}}
+###
+PATCH {{Consilium}}/assignment
+Email-Auth_Email: {{email}}
+Email-Auth_ApiKey: {{key}}
+Content-Type: application/json
+{
+    "id": 4,
+    "courseId": 4,
+    "DateStarted": "2025-04-14T16:00:00",
+    "DateCompleted": "2025-04-14T17:00:00"
+}
 

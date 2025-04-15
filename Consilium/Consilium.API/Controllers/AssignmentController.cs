@@ -29,4 +29,26 @@ public class AssignmentController : ControllerBase {
             return Results.Ok(value);
         }
     }
+
+    [HttpDelete]
+    public IResult DeleteAssignment(int assignmentId) {
+        string username = Request.Headers["Email-Auth_Email"]!;
+        service.DeleteAssignment(assignmentId, username);
+
+        return Results.Ok();
+    }
+
+    [HttpGet("incomplete")]
+    public IEnumerable<Assignment> GetIncompleteAssignments() {
+        string username = Request.Headers["Email-Auth_Email"]!;
+        return service.GetIncompleteAssignments(username);
+    }
+
+    [HttpPatch]
+    public IResult UpdateAssignment(Assignment a) {
+        string username = Request.Headers["Email-Auth_Email"]!;
+        service.UpdateAssignment(a, username);
+
+        return Results.Ok();
+    }
 }
