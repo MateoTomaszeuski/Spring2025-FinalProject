@@ -49,11 +49,15 @@ public class ToDoService : IToDoService {
 
         TodoItem primary = TodoItems.First(a => itemId == a.Id);
 
-        List<TodoItem> children = new(TodoItems.Where(a => primary.ParentId == a.Id));
+        List<TodoItem> children = new(TodoItems.Where(a => a.ParentId == primary.Id));
+        TodoItem? parent = TodoItems.Where(a => a.Id == primary.ParentId).FirstOrDefault();
 
         foreach (TodoItem item in children) {
             await RemoveToDoAsync(item.Id);
         }
+
+        if (parent is not null) parent.Subtasks.Remove(primary);
+
         TodoItems.Remove(primary);
 
         if (response.IsSuccessStatusCode) {
