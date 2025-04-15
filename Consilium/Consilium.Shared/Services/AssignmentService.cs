@@ -10,7 +10,7 @@ public class AssignmentService(IClientService clientService) : IAssignmentServic
     public List<Assignment> AllAssignments { get; set; } = new();
 
     public Task AddAssignmentAsync(Assignment a) {
-        throw new NotImplementedException();    
+        throw new NotImplementedException();
     }
 
     public Task DeleteAssignmentAsync(int assignmentId) {
