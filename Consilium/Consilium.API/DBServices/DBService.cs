@@ -136,4 +136,46 @@ public class DBService(IDbConnection conn) : IDBService {
             return false;
         }
     }
+
+    public IEnumerable<string> GetConversations(string username) {
+        string getConversations = """"
+            SELECT DISTINCT participant_email
+            FROM (
+                SELECT receiver_account_email AS participant_email
+                FROM messages
+                WHERE sender_account_email = @username
+                
+                UNION
+                
+                SELECT sender_account_email AS participant_email
+                FROM messages
+                WHERE receiver_account_email = @username
+            ) AS conversation_participants;
+            """";
+        return conn.Query<string>(getConversations, new { username });
+    }
+
+    public IEnumerable<Message> GetMessages(string username, string otherUser) {
+        string getMessages = """"
+            SELECT sender_account_email AS Sender, receiver_account_email AS Receiver, message_text AS Content, time_sent AS TimeSent
+            FROM messages
+            WHERE (sender_account_email = @username AND receiver_account_email = @otherUser)
+                OR (sender_account_email = @otherUser AND receiver_account_email = @username)
+            ORDER BY time_sent;
+            """";
+        return conn.Query<Message>(getMessages, new { username, otherUser });
+    }
+
+    public Task<string> AddMessage(Message message) {
+        string sender = message.Sender;
+        string receiver = message.Receiver;
+        string content = message.Content;
+        DateTime timeSent = message.TimeSent;
+        string addMessage = """"
+            INSERT INTO messages (sender_account_email, receiver_account_email, message_text, time_sent)
+            VALUES (@sender, @receiver, @content, @timeSent)
+            RETURNING 'successfully sent message';
+            """";
+        return Task.FromResult(conn.QuerySingle<string>(addMessage, new { sender, receiver, content, timeSent }));
+    }
 }

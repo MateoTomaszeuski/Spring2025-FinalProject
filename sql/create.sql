@@ -42,3 +42,12 @@ CREATE TABLE
     todo_name varchar(80) NOT NULL, 
     completion_date timestamp NULL
   );
+
+CREATE TABLE
+  messages(
+    id int4 PRIMARY KEY GENERATED ALWAYS AS IDENTITY NOT NULL,
+    sender_account_email varchar(80) references "HowlDev.User" (email) NOT NULL,
+    receiver_account_email varchar(80) references "HowlDev.User" (email) NOT NULL,
+    message_text text NOT NULL,
+    time_sent timestamp NOT NULL
+  );

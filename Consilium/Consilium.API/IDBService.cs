@@ -17,4 +17,9 @@ public interface IDBService {
     public void UpdateAssignment(Assignment assignment, string email);
     public void DeleteAssignment(int id, string email);
     #endregion
+    #region Messages
+    IEnumerable<string> GetConversations(string username);
+    IEnumerable<Message> GetMessages(string username, string otherUser);
+    Task<string> AddMessage(Message message);
+    #endregion
 }
