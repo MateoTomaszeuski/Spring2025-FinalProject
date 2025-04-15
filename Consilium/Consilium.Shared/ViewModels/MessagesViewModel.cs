@@ -36,6 +36,9 @@ public partial class MessagesViewModel : ObservableObject {
 
     [RelayCommand]
     public async Task SendMessage() {
+        if (string.IsNullOrEmpty(MessageContent)) {
+            return;
+        }
         var message = new Message {
             Sender = MyUserName,
             Receiver = ConversationWith,
