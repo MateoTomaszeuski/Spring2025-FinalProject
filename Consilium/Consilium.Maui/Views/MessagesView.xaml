@@ -5,22 +5,32 @@
              Title="MessagesView">
     <VerticalStackLayout>
         <Label Text="{Binding ConversationWith}"/>
-        <ScrollView>
-            <StackLayout>
-                <CollectionView ItemsSource="{Binding AllMessages}">
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate>
-                            <StackLayout>
-                                <Label Text="{Binding Content}"/>
-                                <Label Text="{Binding TimeSent}"/>
-                            </StackLayout>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
-            </StackLayout>
-        </ScrollView>
+
+        <Grid ColumnDefinitions="*,*">
+            <CollectionView ItemsSource="{Binding AllMessages}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout x:Name="MessageContainer"
+                                     Grid.Column="0">
+                            <StackLayout.Triggers>
+                                <!-- When Sender is "Me", move the layout to column 1 -->
+                                <DataTrigger TargetType="StackLayout"
+                                             Binding="{Binding Sender}"
+                                             Value="Me">
+                                    <Setter Property="Grid.Column"
+                                            Value="1"/>
+                                </DataTrigger>
+                            </StackLayout.Triggers>
+                            <Label Text="{Binding Content}"/>
+                            <Label Text="{Binding TimeSent}"/>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Grid>
+
         <Entry Text="{Binding MessageContent}"
-                Placeholder="Type your message here"/>
+               Placeholder="Type your message here"/>
         <Button Text="Send"
                 Command="{Binding SendMessageCommand}"/>
     </VerticalStackLayout>
