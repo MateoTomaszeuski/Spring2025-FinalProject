@@ -7,7 +7,7 @@ namespace Consilium.Shared.ViewModels;
 
 public partial class MessagesViewModel : ObservableObject {
     [ObservableProperty]
-    private ObservableCollection<Message> allMessges = new();
+    private ObservableCollection<Message> allMessages = new();
 
     [ObservableProperty]
     private string conversationWith = "string.Empty";
@@ -23,6 +23,6 @@ public partial class MessagesViewModel : ObservableObject {
             TimeSent = DateTime.Now
         };
         MessageContent = string.Empty;
-        AllMessges.Add(message);
+        AllMessages.Add(message);
     }
 }
