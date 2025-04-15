@@ -44,7 +44,7 @@ public partial class ChatViewModel(IMessageService messageService) : ObservableO
         IsNotCreatingNewConversation = false;
     }
     [RelayCommand]
-    private void CreateNewConversation() {
+    private void CreateConversation() {
         if (string.IsNullOrWhiteSpace(NewConversationName)) {
             return;
         }
