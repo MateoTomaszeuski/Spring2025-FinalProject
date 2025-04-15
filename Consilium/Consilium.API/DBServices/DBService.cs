@@ -187,7 +187,7 @@ public class DBService(IDbConnection conn) : IDBService {
                 WHERE email = @otherUser
             );
             """";
-        return conn.Query<bool>(getUser, new { otherUser }).First() ;
-  
+        return conn.Query<bool>(getUser, new { otherUser }).First();
+
     }
 }
