@@ -15,7 +15,7 @@ public partial class MessagesViewModel : ObservableObject {
     private string messageContent = string.Empty;
 
     [RelayCommand]
-    public void SendMessageC() {
+    public void SendMessage() {
         var message = new Message {
             Sender = "Me",
             Receiver = ConversationWith,

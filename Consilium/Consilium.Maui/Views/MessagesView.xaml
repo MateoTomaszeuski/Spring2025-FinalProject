@@ -11,7 +11,6 @@
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
                             <StackLayout>
-
                                 <Label Text="{Binding Content}"/>
                                 <Label Text="{Binding TimeSent}"/>
                             </StackLayout>
