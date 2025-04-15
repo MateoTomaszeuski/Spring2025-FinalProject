@@ -11,7 +11,7 @@ public partial class MessagesViewModel(IMessageService messageService) : Observa
     private ObservableCollection<Message> allMessages = new();
 
     [ObservableProperty]
-    private string conversationWith = "string.Empty";
+    private string conversationWith = string.Empty;
     [ObservableProperty]
     private string messageContent = string.Empty;
 

@@ -12,7 +12,6 @@ public partial class MessagesView : ContentView {
         propertyName: nameof(ConversationWith),
         returnType: typeof(string),
         declaringType: typeof(MessagesView),
-        defaultValue: string.Empty,
         propertyChanged: OnConversationWithChanged);
 
     private static void OnConversationWithChanged(BindableObject bindable, object oldValue, object newValue) {
