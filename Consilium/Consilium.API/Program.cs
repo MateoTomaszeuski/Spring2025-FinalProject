@@ -30,7 +30,6 @@ if (Uri != "") {
         .WithMetrics(metrics => metrics
             .AddMeter(serviceName)
             .AddAspNetCoreInstrumentation()
-            .AddConsoleExporter()
             .AddOtlpExporter(options =>
             {
                 options.Endpoint = new Uri(Uri);
@@ -42,7 +41,6 @@ if (Uri != "") {
         .WithTracing(tracing => tracing
             .AddSource(serviceName)
             .AddAspNetCoreInstrumentation()
-            .AddConsoleExporter()
             .AddOtlpExporter(options =>
             {
                 options.Endpoint = new Uri(Uri);
