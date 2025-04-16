@@ -23,7 +23,7 @@ public partial class DashboardViewModel : ObservableObject {
     [ObservableProperty]
     private bool showDashboard = false;
     public DashboardViewModel(IPersistenceService persistenceService, IToDoService toDoService, IAssignmentService assignmentService) {
-       
+
         var u = persistenceService.GetUserName();
         u = u.Split('@')[0];
         Username = u != String.Empty ? u : "Guest";
