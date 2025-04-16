@@ -3,20 +3,20 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Consilium.Maui.Controls.MessagesView">
     <VerticalStackLayout>
-        <Label x:Name="ConversationLabel" Text="{Binding ConversationWith}"/>
+        <Label Text="{Binding ConversationWith}"/>
 
         <CollectionView ItemsSource="{Binding AllMessages}">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Grid ColumnDefinitions=".5*,.5*">
                         <StackLayout x:Name="MessageContainer"
-                                  Grid.Column="0">
+                                     Grid.Column="0">
                             <StackLayout.Triggers>
                                 <DataTrigger TargetType="StackLayout"
-                                          Binding="{Binding Sender}"
-                                          Value="Me">
+                                             Binding="{Binding IsMyMessage}"
+                                             Value="True">
                                     <Setter Property="Grid.Column"
-                                         Value="1"/>
+                                            Value="1"/>
                                 </DataTrigger>
                             </StackLayout.Triggers>
                             <Label Text="{Binding Content}"/>
@@ -28,8 +28,8 @@
         </CollectionView>
 
         <Entry Text="{Binding MessageContent}"
-            Placeholder="Type your message here"/>
+               Placeholder="Type your message here"/>
         <Button Text="Send"
-             Command="{Binding SendMessageCommand}"/>
+                Command="{Binding SendMessageCommand}"/>
     </VerticalStackLayout>
 </ContentView>

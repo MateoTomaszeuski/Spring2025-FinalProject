@@ -2,17 +2,17 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Consilium.Maui.Controls.CalculatorView">
-    <VerticalStackLayout Spacing="10" Padding="20">
-        <Label x:Name="DisplayLabel"
-               Text="0"
+    <VerticalStackLayout Spacing="10"
+            Padding="20">
+        <!-- Bind to the DisplayText property -->
+        <Label Text="{Binding DisplayText}"
                FontSize="32"
                HorizontalTextAlignment="End"
                VerticalOptions="Center"
-               Padding="10" />
+               Padding="10"/>
 
-        <Grid 
-            RowSpacing="5" 
-            ColumnSpacing="5">
+        <Grid RowSpacing="5"
+                ColumnSpacing="5">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
@@ -20,7 +20,6 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
@@ -28,29 +27,112 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <Button Text="C" Grid.Row="0" Grid.Column="0" Clicked="OnClearClicked" BackgroundColor="{StaticResource Dark-Med}"/>
-            <Button Text="←" Grid.Row="0" Grid.Column="1" Clicked="OnBackspaceClicked" BackgroundColor="{StaticResource Dark-Med}"/>
-            <Button Text="/" Grid.Row="0" Grid.Column="2" Clicked="OnOperatorClicked" BackgroundColor="{StaticResource Dark-Med}"/>
-            <Button Text="*" Grid.Row="0" Grid.Column="3" Clicked="OnOperatorClicked" BackgroundColor="{StaticResource Dark-Med}"/>
+            <!-- First row: Clear, Backspace, Divide, Multiply -->
+            <Button Text="C"
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Command="{Binding ClearCommand}"
+                    BackgroundColor="{StaticResource Dark-Med}"/>
+            <Button Text="←"
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Command="{Binding BackspaceCommand}"
+                    BackgroundColor="{StaticResource Dark-Med}"/>
+            <Button Text="/"
+                    Grid.Row="0"
+                    Grid.Column="2"
+                    Command="{Binding OperatorCommand}"
+                    CommandParameter="/"
+                    BackgroundColor="{StaticResource Dark-Med}"/>
+            <Button Text="*"
+                    Grid.Row="0"
+                    Grid.Column="3"
+                    Command="{Binding OperatorCommand}"
+                    CommandParameter="*"
+                    BackgroundColor="{StaticResource Dark-Med}"/>
 
-            <Button Text="7" Grid.Row="1" Grid.Column="0" Clicked="OnDigitClicked"/>
-            <Button Text="8" Grid.Row="1" Grid.Column="1" Clicked="OnDigitClicked"/>
-            <Button Text="9" Grid.Row="1" Grid.Column="2" Clicked="OnDigitClicked"/>
-            <Button Text="-" Grid.Row="1" Grid.Column="3" Clicked="OnOperatorClicked" BackgroundColor="{StaticResource Dark-Med}"/>
+            <!-- Second row: 7, 8, 9, Minus -->
+            <Button Text="7"
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Command="{Binding DigitCommand}"
+                    CommandParameter="7"/>
+            <Button Text="8"
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Command="{Binding DigitCommand}"
+                    CommandParameter="8"/>
+            <Button Text="9"
+                    Grid.Row="1"
+                    Grid.Column="2"
+                    Command="{Binding DigitCommand}"
+                    CommandParameter="9"/>
+            <Button Text="-"
+                    Grid.Row="1"
+                    Grid.Column="3"
+                    Command="{Binding OperatorCommand}"
+                    CommandParameter="-"
+                    BackgroundColor="{StaticResource Dark-Med}"/>
 
-            <Button Text="4" Grid.Row="2" Grid.Column="0" Clicked="OnDigitClicked"/>
-            <Button Text="5" Grid.Row="2" Grid.Column="1" Clicked="OnDigitClicked"/>
-            <Button Text="6" Grid.Row="2" Grid.Column="2" Clicked="OnDigitClicked"/>
-            <Button Text="+" Grid.Row="2" Grid.Column="3" Clicked="OnOperatorClicked" BackgroundColor="{StaticResource Dark-Med}"/>
+            <!-- Third row: 4, 5, 6, Plus -->
+            <Button Text="4"
+                    Grid.Row="2"
+                    Grid.Column="0"
+                    Command="{Binding DigitCommand}"
+                    CommandParameter="4"/>
+            <Button Text="5"
+                    Grid.Row="2"
+                    Grid.Column="1"
+                    Command="{Binding DigitCommand}"
+                    CommandParameter="5"/>
+            <Button Text="6"
+                    Grid.Row="2"
+                    Grid.Column="2"
+                    Command="{Binding DigitCommand}"
+                    CommandParameter="6"/>
+            <Button Text="+"
+                    Grid.Row="2"
+                    Grid.Column="3"
+                    Command="{Binding OperatorCommand}"
+                    CommandParameter="+"
+                    BackgroundColor="{StaticResource Dark-Med}"/>
 
-            <Button Text="1" Grid.Row="3" Grid.Column="0" Clicked="OnDigitClicked"/>
-            <Button Text="2" Grid.Row="3" Grid.Column="1" Clicked="OnDigitClicked"/>
-            <Button Text="3" Grid.Row="3" Grid.Column="2" Clicked="OnDigitClicked"/>
-            <Button Text="=" Grid.Row="3" Grid.RowSpan="2" Grid.Column="3" Clicked="OnEqualsClicked" 
+            <!-- Fourth row: 1, 2, 3, Equals (spanning two rows) -->
+            <Button Text="1"
+                    Grid.Row="3"
+                    Grid.Column="0"
+                    Command="{Binding DigitCommand}"
+                    CommandParameter="1"/>
+            <Button Text="2"
+                    Grid.Row="3"
+                    Grid.Column="1"
+                    Command="{Binding DigitCommand}"
+                    CommandParameter="2"/>
+            <Button Text="3"
+                    Grid.Row="3"
+                    Grid.Column="2"
+                    Command="{Binding DigitCommand}"
+                    CommandParameter="3"/>
+            <Button Text="="
+                    Grid.Row="3"
+                    Grid.RowSpan="2"
+                    Grid.Column="3"
+                    Command="{Binding EqualsCommand}"
                     BackgroundColor="{StaticResource Dark-Green}"/>
 
-            <Button Text="0" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Clicked="OnDigitClicked"/>
-            <Button Text="." Grid.Row="4" Grid.Column="2" Clicked="OnDigitClicked"/>
+            <!-- Fifth row: 0 (spanning two columns), Decimal point -->
+            <Button Text="0"
+                    Grid.Row="4"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="2"
+                    Command="{Binding DigitCommand}"
+                    CommandParameter="0"/>
+            <Button Text="."
+                    Grid.Row="4"
+                    Grid.Column="2"
+                    Command="{Binding DigitCommand}"
+                    CommandParameter="."/>
         </Grid>
     </VerticalStackLayout>
+    
 </ContentView>

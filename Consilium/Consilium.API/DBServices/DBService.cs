@@ -178,4 +178,19 @@ public class DBService(IDbConnection conn) : IDBService {
             """";
         return Task.FromResult(conn.QuerySingle<string>(addMessage, new { sender, receiver, content, timeSent }));
     }
+
+    public bool CheckUser(string otherUser) {
+        string getUser = """"
+            SELECT EXISTS (
+                SELECT 1
+                FROM "HowlDev.User"
+                WHERE email = @otherUser
+            );
+            """";
+        return conn.Query<bool>(getUser, new { otherUser }).First();
+    }
+
+    public IEnumerable<Course> GetAllCourses(string username) {
+        throw new NotImplementedException();
+    }
 }

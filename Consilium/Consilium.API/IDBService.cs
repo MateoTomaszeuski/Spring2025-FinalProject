@@ -16,10 +16,12 @@ public interface IDBService {
     public int AddAssignment(Assignment assignment, string email);
     public void UpdateAssignment(Assignment assignment, string email);
     public void DeleteAssignment(int id, string email);
+    IEnumerable<Course> GetAllCourses(string username);
     #endregion
     #region Messages
     IEnumerable<string> GetConversations(string username);
     IEnumerable<Message> GetMessages(string username, string otherUser);
     Task<string> AddMessage(Message message);
+    bool CheckUser(string otherUser);
     #endregion
 }

@@ -24,9 +24,10 @@ public partial class ProfileViewModel : ObservableObject {
     private string emailInput = String.Empty;
     [ObservableProperty]
     private string token = String.Empty;
-
     [ObservableProperty]
     private string? message;
+    [ObservableProperty]
+    private string username = string.Empty;
     private readonly ILogInService logInService;
     private readonly IPersistenceService persistenceService;
 
@@ -40,6 +41,7 @@ public partial class ProfileViewModel : ObservableObject {
         if (Token != "Too many unauthorized keys") {
             ShowLoggedInPopup();
             LoggedIn = true;
+            Username = persistenceService.GetUserName();
             ShowLogIn = false;
             ShowUnAuthorized = !await persistenceService.CheckAuthStatus();
             ShowLogOut = LoggedIn;
@@ -50,6 +52,7 @@ public partial class ProfileViewModel : ObservableObject {
     private async Task LogOut() {
         await logInService.LogOut();
         LoggedIn = false;
+        Username = string.Empty;
         ShowLogIn = !LoggedIn;
         if (!LoggedIn) Message = "You successfully Logged Out!";
         ShowLogOut = LoggedIn;
@@ -58,6 +61,7 @@ public partial class ProfileViewModel : ObservableObject {
     [RelayCommand]
     private async Task SignOutAllDevices() {
         await logInService.GlobalLogOut();
+        Username = string.Empty;
         LoggedIn = false;
     }
 
@@ -74,6 +78,7 @@ public partial class ProfileViewModel : ObservableObject {
         LoggedIn = persistenceService.CheckLoginStatus();
         ShowUnAuthorized = !await persistenceService.CheckAuthStatus() && LoggedIn;
         ShowLogIn = !LoggedIn;
+        Username = persistenceService.GetUserName();
         ShowLogOut = LoggedIn;
     }
 }

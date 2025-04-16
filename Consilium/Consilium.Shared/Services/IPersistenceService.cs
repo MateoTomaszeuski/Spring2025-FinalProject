@@ -8,6 +8,7 @@ public interface IPersistenceService {
     void SaveToken(string email, string token);
     void DeleteToken();
     void OnStartup();
+    string GetUserName();
     Task<bool> CheckAuthStatus();
     bool CheckLoginStatus();
 }

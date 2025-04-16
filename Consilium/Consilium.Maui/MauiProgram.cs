@@ -6,12 +6,14 @@ using Consilium.Shared.Services;
 using Consilium.Shared.ViewModels;
 using Consilium.Shared.ViewModels.controls;
 using Microsoft.Extensions.Logging;
+using Syncfusion.Maui.Core.Hosting;
 
 namespace Consilium.Maui;
 
 public static class MauiProgram {
     public static MauiApp CreateMauiApp() {
         var builder = MauiApp.CreateBuilder();
+        builder.ConfigureSyncfusionCore();
         builder
             .UseMauiApp<App>()
             .UseMauiCommunityToolkit()
@@ -84,6 +86,7 @@ public static class MauiProgram {
         builder.Services.AddSingleton<ILogInService, LogInService>();
         builder.Services.AddSingleton<IClientService, ClientService>();
         builder.Services.AddSingleton<IMessageService, MessageService>();
+        builder.Services.AddSingleton<IAssignmentService, AssignmentService>();
 
         return builder;
     }

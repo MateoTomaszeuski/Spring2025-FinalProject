@@ -5,8 +5,7 @@ using System.Net.Http.Json;
 
 namespace Consilium.Shared.Services;
 
-//public class AssignmentService(ClientService clientService) : IAssignmentService {
-public class AssignmentService : IAssignmentService {
+public class AssignmentService(IClientService clientService) : IAssignmentService {
 
     public List<Assignment> AllAssignments { get; set; } = new();
 
@@ -22,7 +21,11 @@ public class AssignmentService : IAssignmentService {
         throw new NotImplementedException();
     }
 
-    public Task UpdateAssignment(Assignment a) {
+    public Task<IEnumerable<Course>> GetAllCourses() {
         throw new NotImplementedException();
+    }
+
+    public async Task UpdateAssignment(Assignment a) {
+        await clientService.PatchAsync("assignment", a);
     }
 }

@@ -13,12 +13,12 @@ public class AssignmentsVmTest {
     private AssignmentsViewModel viewModel;
 
     public AssignmentsVmTest() {
-        viewModel = new AssignmentsViewModel();
+        viewModel = new AssignmentsViewModel(Substitute.For<IAssignmentService>());
     }
 
     [Before(Test)]
     public void Setup() {
-        viewModel = new AssignmentsViewModel();
+        viewModel = new AssignmentsViewModel(Substitute.For<IAssignmentService>());
     }
 
     [Test]

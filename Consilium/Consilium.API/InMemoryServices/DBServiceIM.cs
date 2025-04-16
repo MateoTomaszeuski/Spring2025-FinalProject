@@ -24,11 +24,19 @@ public class DBServiceIM : IDBService {
         return 0;
     }
 
+    public bool CheckUser(string otherUser) {
+        throw new NotImplementedException();
+    }
+
     public void DeleteAssignment(int id, string email) {
         throw new NotImplementedException();
     }
 
     public IEnumerable<Assignment> GetAllAssignments(string email) {
+        throw new NotImplementedException();
+    }
+
+    public IEnumerable<Course> GetAllCourses(string username) {
         throw new NotImplementedException();
     }
 
