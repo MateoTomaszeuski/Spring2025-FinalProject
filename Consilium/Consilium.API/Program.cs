@@ -80,7 +80,7 @@ if (app.Environment.IsDevelopment()) {
 }
 
 // testing api
-//app.UseMiddleware<IdentityMiddleware>();
+app.UseMiddleware<IdentityMiddleware>();
 app.UseRouting();
 
 //change

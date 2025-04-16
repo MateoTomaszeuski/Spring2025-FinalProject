@@ -39,8 +39,12 @@ public class PersistenceService(IClientService clientService) : IPersistenceServ
     }
     public async Task<bool> CheckAuthStatus() {
 
-        var response = await clientService.GetAsync("/account/valid");
-        return response.IsSuccessStatusCode;
+        try {
+            var response = await clientService.GetAsync("/account/valid");
+            return response.IsSuccessStatusCode;
+        } catch (Exception e) {
+            return false;
+        }
 
     }
     public bool CheckLoginStatus() {
