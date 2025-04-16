@@ -23,9 +23,9 @@ public class Tests : IDisposable {
 
     [Test]
     public async Task HelloWorldCall() {
-        string response = await client.GetStringAsync("/");
+        string response = await client.GetStringAsync("/health");
 
-        await Assert.That(response).IsEqualTo("Welcome to the Consilium Api");
+        await Assert.That(response).IsEqualTo("\"healthy\"");
     }
 
     [Test]

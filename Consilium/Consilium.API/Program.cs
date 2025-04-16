@@ -79,7 +79,8 @@ if (app.Environment.IsDevelopment()) {
     app.UseSwaggerUI();
 }
 
-// testing api
+app.UseDefaultFiles();
+app.UseStaticFiles();
 app.UseMiddleware<IdentityMiddleware>();
 app.UseRouting();
 

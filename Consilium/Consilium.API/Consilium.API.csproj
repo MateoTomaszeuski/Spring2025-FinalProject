@@ -24,4 +24,8 @@
     <ProjectReference Include="..\Consilium.Shared\Consilium.Shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
+
 </Project>
