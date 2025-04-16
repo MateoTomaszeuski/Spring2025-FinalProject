@@ -58,7 +58,7 @@ public partial class AssignmentsViewModel : ObservableObject {
         ShowCourseForm = false;
         ShowAssignmentForm = !ShowAssignmentForm;
 
-        //ResetAssignmentFormValues();
+        ResetAssignmentFormValues();
     }
 
     private bool CanToggleAssignmentForm() {
@@ -109,6 +109,7 @@ public partial class AssignmentsViewModel : ObservableObject {
         Assignments.Add(newAssignment);
         Assignments = new(FilterAssignmentsOnCourse(SelectedCourse));
         ResetAssignmentFormValues();
+        ShowAssignmentForm = false;
     }
 
     private bool CanAddAssignment() {
@@ -154,7 +155,6 @@ public partial class AssignmentsViewModel : ObservableObject {
         NewAssignmentTitle = string.Empty;
         NewAssignmentDescription = string.Empty;
         NewAssignmentDueDate = DateTime.Today;
-        ShowAssignmentForm = false;
     }
 
     private void ResetCourseFormValues() {
