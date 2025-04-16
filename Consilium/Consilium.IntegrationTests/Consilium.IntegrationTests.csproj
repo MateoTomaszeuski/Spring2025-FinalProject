@@ -12,4 +12,8 @@
     <PackageReference Include="TUnit" Version="0.6.159" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Consilium.Shared\Consilium.Shared.csproj" />
+  </ItemGroup>
+
 </Project>
