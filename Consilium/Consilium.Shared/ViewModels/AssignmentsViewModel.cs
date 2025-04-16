@@ -105,6 +105,12 @@ public partial class AssignmentsViewModel : ObservableObject {
         ResetAssignmentFormValues();
     }
 
+    [RelayCommand]
+    public async Task DeleteAssignment(Assignment a) {
+        await service.DeleteAssignmentAsync(a.Id);
+        Assignments.Remove(a);
+    }
+
 
     partial void OnSelectedCourseChanged(Course value) {
         if (value is not null && service.AllAssignments is not null && value.Id != -1) {
@@ -146,8 +152,6 @@ public partial class AssignmentsViewModel : ObservableObject {
     // relay command methods:
     // start assignment
     // complete assignment
-    // delete assignment
-    // add assignment
     // add to to-do list
 
 

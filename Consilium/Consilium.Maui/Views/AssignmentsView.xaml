@@ -177,7 +177,8 @@
                                                     FontFamily="FontAwesomeSolid"
                                                     CommandParameter="{Binding .}"
                                                     BackgroundColor="#7a2b35"
-                                                    TextColor="White" />
+                                                    TextColor="White"
+                                                    Command="{Binding Source={RelativeSource AncestorType={x:Type vm:AssignmentsViewModel}}, Path=DeleteAssignmentCommand}"/>
                                         </StackLayout>
                                     </StackLayout>
                                 </Border>

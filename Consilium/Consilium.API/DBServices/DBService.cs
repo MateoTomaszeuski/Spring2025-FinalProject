@@ -70,12 +70,19 @@ public class DBService(IDbConnection conn) : IDBService {
     }
 
     public void DeleteAssignment(int id, string email) {
-        if (!CanAdjustCourse(id, email)) return;
+        string getCourseId = """
+            SELECT course_id FROM assignment WHERE id = @id
+            """;
+
+        int? courseId = conn.QueryFirstOrDefault<int?>(getCourseId, new { id });
+
+        if (courseId is null) return;
+        if (!CanAdjustCourse(courseId.Value, email)) return;
 
         string deleteAssignment = """"
             delete from assignment where id = @id
             """";
-        conn.Execute(deleteAssignment);
+        conn.Execute(deleteAssignment, new { id });
     }
 
     public IEnumerable<Assignment> GetAllAssignments(string email) {
@@ -217,7 +224,7 @@ public class DBService(IDbConnection conn) : IDBService {
         string deleteCourse = """"
             DELETE FROM course WHERE id = @id
             """";
-        conn.Execute(deleteCourse, new { email });
+        conn.Execute(deleteCourse, new { id, email });
     }
 
 }
