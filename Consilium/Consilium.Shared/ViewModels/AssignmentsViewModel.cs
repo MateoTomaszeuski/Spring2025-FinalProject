@@ -53,10 +53,14 @@ public partial class AssignmentsViewModel : ObservableObject {
         await service.UpdateAssignmentAsync(a);
     }
 
-    [RelayCommand]
+    [RelayCommand(CanExecute = nameof(CanToggleAssignmentForm))]
     private void ToggleAssignmentForm() {
         ShowCourseForm = false;
         ShowAssignmentForm = !ShowAssignmentForm;
+    }
+
+    private bool CanToggleAssignmentForm() {
+        return SelectedCourse is not null && SelectedCourse.Id != -1;
     }
 
     [RelayCommand]
@@ -85,7 +89,7 @@ public partial class AssignmentsViewModel : ObservableObject {
 
 
 
-    [RelayCommand]
+    [RelayCommand(CanExecute = nameof(CanAddAssignment))]
     public async Task AddAssignment() {
         if (string.IsNullOrWhiteSpace(NewAssignmentTitle) || SelectedCourse is null)
             return;
@@ -105,12 +109,19 @@ public partial class AssignmentsViewModel : ObservableObject {
         ResetAssignmentFormValues();
     }
 
+    private bool CanAddAssignment() {
+        return !string.IsNullOrWhiteSpace(NewAssignmentTitle);
+    }
+
     [RelayCommand]
     public async Task DeleteAssignment(Assignment a) {
         await service.DeleteAssignmentAsync(a.Id);
         Assignments.Remove(a);
     }
 
+    partial void OnNewAssignmentTitleChanged(string value) {
+        AddAssignmentCommand.NotifyCanExecuteChanged();
+    }
 
     partial void OnSelectedCourseChanged(Course value) {
         if (value is not null && service.AllAssignments is not null && value.Id != -1) {
@@ -133,6 +144,7 @@ public partial class AssignmentsViewModel : ObservableObject {
             Assignments = new();
         } else {
             Assignments = new(FilterAssignmentsOnCourse(Courses[0]));
+            SelectedCourse = Courses[0];
         }
     }
 
