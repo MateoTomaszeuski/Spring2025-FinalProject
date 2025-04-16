@@ -46,15 +46,15 @@
         </StackLayout>
 
         <!-- if you're logged in, you see this -->
-        <StackLayout Spacing="20" IsVisible="{Binding ShowLogOut}">
-            <Label Text="You are Currently Logged In As:"
+        <StackLayout Spacing="15" IsVisible="{Binding ShowLogOut}">
+            <Label Text="Welcome Back,"
                    HorizontalOptions="Center" 
                    VerticalOptions="Center" 
-                   FontSize="18" />
+                   FontSize="15" />
             <Label Text="{Binding Username}" 
                    HorizontalOptions="Center" 
                    VerticalOptions="Center" 
-                   FontSize="14" />
+                   FontSize="18" />
             <Button Text="Log Out"
                     Command="{Binding LogOutCommand}"/>
 
