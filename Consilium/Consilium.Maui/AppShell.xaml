@@ -42,7 +42,7 @@
             Route="Assignments" />
         <ShellContent
             Title="Chat"
-            Icon="chatIconImage.png"
+            Icon="chat.png"
             ContentTemplate="{DataTemplate local:ChatView}"
             Route="Chat" />
         <ShellContent
