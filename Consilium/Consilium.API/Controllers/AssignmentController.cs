@@ -58,4 +58,25 @@ public class AssignmentController : ControllerBase {
         return service.GetAllCourses(username);
 
     }
+
+    [HttpPost("course")]
+    public IResult PostCourse(Course course) {
+        string username = Request.Headers["Email-Auth_Email"]!;
+        int value = service.AddCourse(course, username);
+
+        if (value == -1) {
+            return Results.Unauthorized();
+        } else {
+            return Results.Ok(value);
+        }
+    }
+
+    [HttpDelete("course")]
+    public IResult DeleteCourse(int courseId) {
+        string username = Request.Headers["Email-Auth_Email"]!;
+        service.DeleteCourse(courseId, username);
+
+        return Results.Ok();
+    }
+
 }

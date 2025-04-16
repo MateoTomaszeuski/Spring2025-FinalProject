@@ -9,23 +9,64 @@ public class AssignmentService(IClientService clientService) : IAssignmentServic
 
     public List<Assignment> AllAssignments { get; set; } = new();
 
-    public Task AddAssignmentAsync(Assignment a) {
-        throw new NotImplementedException();
+    public async Task AddAssignmentAsync(Assignment a) {
+        var response = await clientService.PostAsync("assignment", a);
+
+        if (!response.IsSuccessStatusCode) {
+            throw new Exception("Failed to add assignment.");
+        }
     }
 
-    public Task DeleteAssignmentAsync(int assignmentId) {
-        throw new NotImplementedException();
+    public async Task DeleteAssignmentAsync(int assignmentId) {
+        var response = await clientService.DeleteAsync($"assignment/{assignmentId}");
     }
 
-    public Task<IEnumerable<Assignment>> GetAllAssignmentsAsync() {
-        throw new NotImplementedException();
+    public async Task<IEnumerable<Assignment>> GetAllAssignmentsAsync() {
+        var response = await clientService.GetAsync("assignment");
+        if (!response.IsSuccessStatusCode) {
+            throw new Exception("Failed to fetch assignments");
+        }
+
+        var assignments = await response.Content.ReadFromJsonAsync<IEnumerable<Assignment>>();
+        if (assignments is null) {
+            throw new Exception("Failed to deserialize assignments");
+        }
+
+        return assignments;
+
     }
 
-    public Task<IEnumerable<Course>> GetAllCourses() {
-        throw new NotImplementedException();
-    }
 
-    public async Task UpdateAssignment(Assignment a) {
+    public async Task UpdateAssignmentAsync(Assignment a) {
         await clientService.PatchAsync("assignment", a);
     }
+
+    public async Task<IEnumerable<Course>> GetAllCoursesAsync() {
+        var response = await clientService.GetAsync("assignment/courses");
+        if (!response.IsSuccessStatusCode) {
+            throw new Exception("Failed to fetch courses");
+        }
+
+        var courses = await response.Content.ReadFromJsonAsync<IEnumerable<Course>>();
+        if (courses is null) {
+            throw new Exception("Failed to deserialize courses");
+        }
+        return courses;
+    }
+
+    public async Task AddCourseAsync(Course c) {
+        var response = await clientService.PostAsync("assignment/course", c);
+        if (!response.IsSuccessStatusCode) {
+            throw new Exception("Failed to add course");
+        }
+    }
+
+    public async Task DeleteCourseAsync(int courseId) {
+        var response = await clientService.DeleteAsync($"assignment/course/{courseId}");
+
+        if (!response.IsSuccessStatusCode) {
+            throw new Exception("Failed to delete course");
+        }
+    }
+
 }

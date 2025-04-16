@@ -2,6 +2,7 @@
 using Consilium.Shared.ViewModels;
 using Dapper;
 using Microsoft.VisualBasic;
+using Org.BouncyCastle.Bcpg.OpenPgp;
 using System.Data;
 using System.Data.SqlTypes;
 using System.Diagnostics;
@@ -191,6 +192,32 @@ public class DBService(IDbConnection conn) : IDBService {
     }
 
     public IEnumerable<Course> GetAllCourses(string username) {
-        throw new NotImplementedException();
+        string getCourses = """
+            SELECT id, course_name AS CourseName
+            FROM course
+            WHERE account_email = @username
+            """;
+        return conn.Query<Course>(getCourses, new { username });
     }
+
+    public int AddCourse(Course course, string email) {
+        string addCourse = """
+            INSERT INTO course (account_email, course_name)
+            VALUES (@account_email, @course_name)
+            RETURNING id
+            """;
+
+        return conn.QuerySingle<int>(addCourse, new {
+            account_email = email,
+            course_name = course.CourseName
+        });
+    }
+    public void DeleteCourse(int id, string email) {
+        if (!CanAdjustCourse(id, email)) return;
+        string deleteCourse = """"
+            DELETE FROM course WHERE id = @id
+            """";
+        conn.Execute(deleteCourse, new { email });
+    }
+
 }

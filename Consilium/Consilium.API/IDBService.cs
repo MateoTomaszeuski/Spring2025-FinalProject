@@ -17,6 +17,8 @@ public interface IDBService {
     public void UpdateAssignment(Assignment assignment, string email);
     public void DeleteAssignment(int id, string email);
     IEnumerable<Course> GetAllCourses(string username);
+    void DeleteCourse(int id, string email);
+    int AddCourse(Course course, string email);
     #endregion
     #region Messages
     IEnumerable<string> GetConversations(string username);

@@ -10,17 +10,62 @@
                    FontAttributes="Bold" 
                    HorizontalOptions="Center" 
                    Margin="0,0,0,20" />
+            <Button Text="Create New Course"
+                    Command="{Binding ToggleCourseFormCommand}"
+                    Margin="10,0"/>
 
+            <StackLayout IsVisible="{Binding ShowCourseForm}" Padding="10">
+                <Entry Placeholder="Course Name"
+                       Text="{Binding NewCourseName}" />
+
+                <StackLayout Orientation="Horizontal" HorizontalOptions="End" Spacing="10">
+                    <Button Text="Cancel" Command="{Binding ToggleCourseFormCommand}" />
+                    <Button Text="Save" Command="{Binding AddCourseCommand}" />
+                </StackLayout>
+            </StackLayout>
             <Picker Title="Select a course"
                     ItemsSource="{Binding Courses}"
                     ItemDisplayBinding="{Binding CourseName}"
                     SelectedItem="{Binding SelectedCourse}"
                     Margin="10"
-                    WidthRequest="160" />
+                    WidthRequest="160"
+                    IsVisible="{Binding ShowCourseForm, Converter={StaticResource InverseBoolConverter}}"/>
 
             <Button Text="Create New Assignment"
                     MaximumWidthRequest="450"
-                    Margin="15" />
+                    Margin="15"
+                    Command="{Binding ToggleAssignmentFormCommand}"/>
+
+            <Border
+                 Padding="20"
+                 BackgroundColor="{AppThemeBinding Dark={StaticResource Dark-Dark}, Light={StaticResource Light-Light}}"
+                 StrokeShape="RoundRectangle 10"
+                 StrokeThickness="0"
+                 IsVisible="{Binding ShowAssignmentForm}">
+                
+                <StackLayout Spacing="10">
+                    <Label Text="New Assignment" FontAttributes="Bold" FontSize="18" />
+
+                    <Entry Placeholder="Title"
+                       Text="{Binding NewAssignmentTitle}" />
+
+                    <Editor Placeholder="Description"
+                        Text="{Binding NewAssignmentDescription}" />
+
+                    <StackLayout Orientation="Horizontal" Spacing="10">
+                        <Label Text="Due: "
+                               VerticalOptions="Center"/>
+                        <DatePicker Date="{Binding NewAssignmentDueDate}" />
+                    </StackLayout>
+
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="End" Spacing="10">
+                        <Button Text="Cancel"
+                            Command="{Binding ToggleAssignmentFormCommand}" />
+                        <Button Text="Save"
+                            Command="{Binding AddAssignmentCommand}" />
+                    </StackLayout>
+                </StackLayout>
+            </Border>
 
             <Border StrokeShape="RoundRectangle 10"
                     Padding="10"

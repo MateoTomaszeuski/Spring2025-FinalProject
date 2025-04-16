@@ -40,6 +40,14 @@ public class DBServiceIM : IDBService {
         throw new NotImplementedException();
     }
 
+    public int AddCourse(Course course, string email) {
+        throw new NotImplementedException();
+    }
+
+    public void DeleteCourse(int id, string email) {
+        throw new NotImplementedException();
+    }
+
     public IEnumerable<User> GetAllUsers() {
         throw new NotImplementedException();
     }
