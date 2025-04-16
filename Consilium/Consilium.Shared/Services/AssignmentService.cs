@@ -33,9 +33,7 @@ public class AssignmentService(IClientService clientService) : IAssignmentServic
         }
 
         return assignments;
-
     }
-
 
     public async Task UpdateAssignmentAsync(Assignment a) {
         await clientService.PatchAsync("assignment", a);

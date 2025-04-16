@@ -33,7 +33,7 @@ public partial class AssignmentsViewModel : ObservableObject {
     private string? newAssignmentDescription;
 
     [ObservableProperty]
-    private DateTime newAssignmentDueDate;
+    private DateTime newAssignmentDueDate = DateTime.Today;
 
     [ObservableProperty]
     private bool showCourseForm;
@@ -55,11 +55,13 @@ public partial class AssignmentsViewModel : ObservableObject {
 
     [RelayCommand]
     private void ToggleAssignmentForm() {
+        ShowCourseForm = false;
         ShowAssignmentForm = !ShowAssignmentForm;
     }
 
     [RelayCommand]
     private void ToggleCourseForm() {
+        ShowAssignmentForm = false;
         ShowCourseForm = !ShowCourseForm;
     }
 

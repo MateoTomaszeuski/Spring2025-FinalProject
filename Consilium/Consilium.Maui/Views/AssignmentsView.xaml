@@ -10,27 +10,60 @@
                    FontAttributes="Bold" 
                    HorizontalOptions="Center" 
                    Margin="0,0,0,20" />
-            <Button Text="Create New Course"
-                    Command="{Binding ToggleCourseFormCommand}"
-                    Margin="10,0"/>
 
-            <StackLayout IsVisible="{Binding ShowCourseForm}" Padding="10">
-                <Entry Placeholder="Course Name"
-                       Text="{Binding NewCourseName}" />
 
-                <StackLayout Orientation="Horizontal" HorizontalOptions="End" Spacing="10">
-                    <Button Text="Cancel" Command="{Binding ToggleCourseFormCommand}" />
-                    <Button Text="Save" Command="{Binding AddCourseCommand}" />
-                </StackLayout>
-            </StackLayout>
-            <Picker Title="Select a course"
+
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+
+                <Picker Title="Select a course"
                     ItemsSource="{Binding Courses}"
                     ItemDisplayBinding="{Binding CourseName}"
                     SelectedItem="{Binding SelectedCourse}"
                     Margin="10"
                     WidthRequest="160"
+                    VerticalOptions="End"
+                    HeightRequest="65"
                     IsVisible="{Binding ShowCourseForm, Converter={StaticResource InverseBoolConverter}}"/>
 
+
+                <Grid IsVisible="{Binding ShowCourseForm}"
+                      ColumnDefinitions="*, Auto, Auto"
+                      VerticalOptions="End"
+                      Margin="10,0,20,0"
+                      ColumnSpacing="5"
+                      MinimumWidthRequest="245"
+                      HorizontalOptions="FillAndExpand">
+
+                    <Entry Grid.Column="0" 
+                           Placeholder="Course Name"
+                           VerticalOptions="Center"
+                           HeightRequest="40"
+                           Margin="0,0,10,0"
+                           
+                           HorizontalOptions="FillAndExpand"
+                           Text="{Binding NewCourseName}" />
+
+                    <Button Grid.Column="1"
+                         Text="{StaticResource XIcon}"
+                         FontFamily="FontAwesomeSolid"
+                         BackgroundColor="{StaticResource Dark-Red}"
+                         Command="{Binding ToggleCourseFormCommand}" />
+
+                    <Button Grid.Column="2"
+                            Text="{StaticResource CheckIcon}"
+                            FontFamily="FontAwesomeSolid"
+                            Command="{Binding AddCourseCommand}" />
+                </Grid>
+
+                <Button Text="{StaticResource PlusIcon}"
+                        FontFamily="FontAwesomeSolid"
+                        Command="{Binding ToggleCourseFormCommand}"
+                        HeightRequest="0"
+                        VerticalOptions="End"
+                        Margin="0,0,0,9"
+                        IsVisible="{Binding ShowCourseForm, Converter={StaticResource InverseBoolConverter}}"/>
+
+            </StackLayout>
             <Button Text="Create New Assignment"
                     MaximumWidthRequest="450"
                     Margin="15"
@@ -42,7 +75,7 @@
                  StrokeShape="RoundRectangle 10"
                  StrokeThickness="0"
                  IsVisible="{Binding ShowAssignmentForm}">
-                
+
                 <StackLayout Spacing="10">
                     <Label Text="New Assignment" FontAttributes="Bold" FontSize="18" />
 
