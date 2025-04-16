@@ -18,7 +18,7 @@ public class AssignmentService(IClientService clientService) : IAssignmentServic
     }
 
     public async Task DeleteAssignmentAsync(int assignmentId) {
-        var response = await clientService.DeleteAsync($"assignment/{assignmentId}");
+        var response = await clientService.DeleteAsync($"assignment?assignmentId={assignmentId}");
     }
 
     public async Task<IEnumerable<Assignment>> GetAllAssignmentsAsync() {

@@ -38,5 +38,13 @@ Content-Type: application/json
     "DateStarted": "2025-04-14T16:00:00",
     "DateCompleted": "2025-04-14T17:00:00"
 }
-
 ###
+DELETE {{Consilium}}/assignment?assignmentId=2
+Email-Auth_Email: {{email}}
+Email-Auth_ApiKey: {{key}}
+###
+POST {{Consilium}}/assignment/courses
+Email-Auth_Email: {{email}}
+Email-Auth_ApiKey: {{key}}
+
+
