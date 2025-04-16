@@ -57,6 +57,8 @@ public partial class AssignmentsViewModel : ObservableObject {
     private void ToggleAssignmentForm() {
         ShowCourseForm = false;
         ShowAssignmentForm = !ShowAssignmentForm;
+
+        //ResetAssignmentFormValues();
     }
 
     private bool CanToggleAssignmentForm() {

@@ -95,9 +95,10 @@
 
                     <StackLayout Orientation="Horizontal" HorizontalOptions="End" Spacing="10">
                         <Button Text="Cancel"
-                            Command="{Binding ToggleAssignmentFormCommand}" />
+                                Command="{Binding ToggleAssignmentFormCommand}"
+                                BackgroundColor="{StaticResource Dark-Red}"/>
                         <Button Text="Save"
-                            Command="{Binding AddAssignmentCommand}" />
+                                Command="{Binding AddAssignmentCommand}"/>
                     </StackLayout>
                 </StackLayout>
             </Border>
