@@ -60,7 +60,7 @@ public class AssignmentService(IClientService clientService) : IAssignmentServic
     }
 
     public async Task DeleteCourseAsync(int courseId) {
-        var response = await clientService.DeleteAsync($"assignment/course/{courseId}");
+        var response = await clientService.DeleteAsync($"assignment/course?courseid={courseId}");
 
         if (!response.IsSuccessStatusCode) {
             throw new Exception("Failed to delete course");

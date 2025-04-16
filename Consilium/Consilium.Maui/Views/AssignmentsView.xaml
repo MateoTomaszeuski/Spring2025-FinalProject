@@ -64,11 +64,17 @@
                         IsVisible="{Binding ShowCourseForm, Converter={StaticResource InverseBoolConverter}}"/>
 
             </StackLayout>
+
+            <Button Text="Delete Selected Course"
+                    MaximumWidthRequest="450"
+                    Margin="15"
+                    Command="{Binding DeleteCourseCommand}"
+                    BackgroundColor="{StaticResource Dark-Red}"/>
             <Button Text="Create New Assignment"
                     MaximumWidthRequest="450"
                     Margin="15"
                     Command="{Binding ToggleAssignmentFormCommand}"/>
-
+             
             <Border
                  Padding="20"
                  Margin="15"

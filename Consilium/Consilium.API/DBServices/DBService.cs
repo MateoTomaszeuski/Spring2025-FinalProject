@@ -222,6 +222,7 @@ public class DBService(IDbConnection conn) : IDBService {
     public void DeleteCourse(int id, string email) {
         if (!CanAdjustCourse(id, email)) return;
         string deleteCourse = """"
+            DELETE FROM assignment WHERE course_id = @id;
             DELETE FROM course WHERE id = @id
             """";
         conn.Execute(deleteCourse, new { id, email });

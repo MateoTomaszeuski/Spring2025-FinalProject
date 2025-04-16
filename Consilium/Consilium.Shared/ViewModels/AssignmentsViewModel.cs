@@ -122,6 +122,13 @@ public partial class AssignmentsViewModel : ObservableObject {
         Assignments.Remove(a);
     }
 
+    [RelayCommand]
+    public async Task DeleteCourse() {
+        await service.DeleteCourseAsync(SelectedCourse.Id);
+        Courses.Remove(SelectedCourse);
+        await InitializeViewModelAsync();
+    }
+
     partial void OnNewAssignmentTitleChanged(string value) {
         AddAssignmentCommand.NotifyCanExecuteChanged();
     }

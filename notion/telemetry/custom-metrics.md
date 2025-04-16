@@ -11,3 +11,9 @@
 
 - MAUI
   - time spent on each page?
+
+
+
+
+Other ideas:
+- courses and assignments (?)
