@@ -16,15 +16,12 @@ public partial class Calendar : ContentView {
         CalendarGrid.RowDefinitions.Clear();
         CalendarGrid.ColumnDefinitions.Clear();
 
-        // Set the title
         MonthYearLabel.Text = targetDate.ToString("MMMM yyyy");
 
-        // Define 7 columns for 7 days of the week
         for (int i = 0; i < 7; i++) {
             CalendarGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Star });
         }
 
-        // Day names, shifted based on first day of week
         DayOfWeek firstDayOfWeek = CultureInfo.CurrentCulture.DateTimeFormat.FirstDayOfWeek;
         string[] dayNames = CultureInfo.CurrentCulture.DateTimeFormat.AbbreviatedDayNames;
         string[] shiftedDayNames = dayNames
@@ -32,7 +29,6 @@ public partial class Calendar : ContentView {
             .Concat(dayNames.Take((int)firstDayOfWeek))
             .ToArray();
 
-        // Add weekday headers
         for (int i = 0; i < 7; i++) {
             var label = new Label {
                 Text = shiftedDayNames[i],
@@ -44,14 +40,11 @@ public partial class Calendar : ContentView {
             Grid.SetRow(label, 0);
         }
 
-        // Add first row for day headers
         CalendarGrid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 
-        // Calendar date generation
         DateTime firstOfMonth = new DateTime(targetDate.Year, targetDate.Month, 1);
         int daysInMonth = DateTime.DaysInMonth(targetDate.Year, targetDate.Month);
 
-        // Calculate the correct column offset for the first day of the month
         int startDay = ((int)firstOfMonth.DayOfWeek - (int)firstDayOfWeek + 7) % 7;
 
         int currentRow = 1;
