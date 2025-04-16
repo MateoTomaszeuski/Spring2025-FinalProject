@@ -55,9 +55,9 @@ public class Tests : IDisposable {
 
         if (courses is null) { throw new Exception("Courses is null"); }
 
-        await Assert.That(courses.Count).IsEqualTo(1);
-        await Assert.That(courses[0].Id).IsEqualTo(4);
-        await Assert.That(courses[0].CourseName).IsEqualTo("Test");
+        await Assert.That(courses.Count).IsEqualTo(2);
+        await Assert.That(courses[1].Id).IsEqualTo(4);
+        await Assert.That(courses[1].CourseName).IsEqualTo("Test");
     }
 
     public void Dispose() {
