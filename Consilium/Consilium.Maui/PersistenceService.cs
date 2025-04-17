@@ -7,8 +7,12 @@ namespace Consilium.Shared.Services;
 public class PersistenceService(IClientService clientService) : IPersistenceService {
     public IEnumerable<TodoItem>? GetToDoLists() {
         string output = Preferences.Get("todo-list", "{}");
-        var list = JsonSerializer.Deserialize<List<TodoItem>>(output);
-        return list;
+        try {
+            var list = JsonSerializer.Deserialize<List<TodoItem>>(output);
+            return list;
+        } catch {
+            return new List<TodoItem>();
+        }
     }
 
     public void SaveList(IEnumerable<TodoItem> list) {
