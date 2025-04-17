@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Net.Http.Json;
 using System.Runtime.ExceptionServices;
+using System.Threading.Tasks;
 
 namespace Consilium.Shared.Services;
 
@@ -38,8 +39,8 @@ public class ToDoService : IToDoService {
             int id = Convert.ToInt16(await response.Content.ReadAsStringAsync());
             item.Id = id;
         }
-        persistenceService.SaveList(TodoItems);
         TodoItems.Add(item);
+        persistenceService.SaveList(TodoItems);
     }
 
     /// <summary>
@@ -87,7 +88,7 @@ public class ToDoService : IToDoService {
         if (online || isTest) {
             var response = await client.GetAsync("todo");
             items = await response.Content.ReadFromJsonAsync<IEnumerable<TodoItem>>();
-            SyncLocalWithServer(persistanceItems, items);
+            await SyncLocalWithServer(persistanceItems, items);
             response = await client.GetAsync("todo");
             items = await response.Content.ReadFromJsonAsync<IEnumerable<TodoItem>>();
             if (items == null) {
@@ -100,7 +101,7 @@ public class ToDoService : IToDoService {
         TodoItems = persistanceItems.ToList();
     }
 
-    private void SyncLocalWithServer(IEnumerable<TodoItem> persistanceItems, IEnumerable<TodoItem>? items) {
+    private async Task SyncLocalWithServer(IEnumerable<TodoItem> persistanceItems, IEnumerable<TodoItem>? items) {
         List<TodoItem> toAdd = new();
         foreach (var persistance in persistanceItems) {
             if (items == null || !items.Any(a => a.Id == persistance.Id)) {
@@ -109,7 +110,7 @@ public class ToDoService : IToDoService {
         }
         if (toAdd.Count > 0) {
             foreach (var item in toAdd) {
-                TodoItems.Add(item);
+               await AddItemAsync(item);
             }
         }
     }
