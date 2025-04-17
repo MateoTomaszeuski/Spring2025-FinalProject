@@ -7,7 +7,6 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Consilium.Shared.ViewModels.controls;
-public partial class PomodoroViewModel : ObservableObject
-{
-   
+public partial class PomodoroViewModel : ObservableObject {
+
 }
