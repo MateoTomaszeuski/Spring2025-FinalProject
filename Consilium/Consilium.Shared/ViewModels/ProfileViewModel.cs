@@ -37,7 +37,7 @@ public partial class ProfileViewModel : ObservableObject {
 
     [RelayCommand]
     private async Task LogIn() {
-        if (String.IsNullOrEmpty(EmailInput)) return;
+        if (string.IsNullOrEmpty(EmailInput)) return;
 
         Token = await logInService.LogIn(EmailInput);
         persistenceService.SaveToken(EmailInput, Token);
@@ -47,10 +47,17 @@ public partial class ProfileViewModel : ObservableObject {
             LoggedIn = true;
             Username = persistenceService.GetUserName();
             ShowLogIn = false;
-            ShowUnAuthorized = !await persistenceService.CheckAuthStatus();
+
+            bool isValidated = await persistenceService.CheckAuthStatus();
+            ShowUnAuthorized = !isValidated;
             ShowLogOut = LoggedIn;
 
-
+            if (!isValidated) {
+                await PollForAuthorizationAsync();
+            } else {
+                if (ShowSnackbarAsync is not null)
+                    await ShowSnackbarAsync("Successfully logged in!");
+            }
         } else {
             ShowUnAuthorized = false;
             ShowLogIn = true;
@@ -59,8 +66,12 @@ public partial class ProfileViewModel : ObservableObject {
                 await ShowSnackbarAsync("Too many unauthorized keys.");
         }
     }
+
     [RelayCommand]
     private async Task LogOut() {
+        // cancel any previous polling
+        _authPollingCts?.Cancel();
+
         await logInService.LogOut();
         LoggedIn = false;
         Username = string.Empty;
@@ -100,4 +111,33 @@ public partial class ProfileViewModel : ObservableObject {
         Username = persistenceService.GetUserName();
         ShowLogOut = LoggedIn;
     }
+
+    private CancellationTokenSource? _authPollingCts;
+
+
+    // polling so the user doesn't have to manually refresh after validating - thanks ChatGPT...
+    private async Task PollForAuthorizationAsync() {
+        _authPollingCts?.Cancel(); // cancel any previous polling
+        _authPollingCts = new CancellationTokenSource();
+        var token = _authPollingCts.Token;
+
+        try {
+            while (!token.IsCancellationRequested && ShowUnAuthorized) {
+                await Task.Delay(TimeSpan.FromSeconds(5), token);
+
+                bool isAuthorized = await persistenceService.CheckAuthStatus();
+
+                if (isAuthorized) {
+                    ShowUnAuthorized = false;
+                    if (ShowSnackbarAsync is not null)
+                        await ShowSnackbarAsync("Successfully logged in!");
+
+                    break; // stop polling
+                }
+            }
+        } catch (TaskCanceledException) {
+            // Swallow — expected when logout or navigation occurs
+        }
+    }
+
 }
