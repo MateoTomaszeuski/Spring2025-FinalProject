@@ -14,7 +14,7 @@ public partial class MessagesView : ContentView {
         MessagesCollectionView.Loaded += MessagesCollectionView_Loaded;
     }
 
-    private void MessagesCollectionView_Loaded(object sender, EventArgs e) {
+    private void MessagesCollectionView_Loaded(object? sender, EventArgs e) {
         // first, scroll in case there are already items
         ScrollToLastMessage();
 
