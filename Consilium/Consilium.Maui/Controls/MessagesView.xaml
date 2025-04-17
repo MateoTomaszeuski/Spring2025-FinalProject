@@ -12,7 +12,6 @@
                FontAttributes="Bold"
                HorizontalOptions="Center"
                Margin="0,0,0,10"/>
-
         <CollectionView x:Name="MessagesCollectionView"
                         Grid.Row="1"
                         Loaded="MessagesCollectionView_Loaded"
@@ -24,7 +23,7 @@
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Grid ColumnDefinitions="*,*" Padding="10">
-                        
+
                         <!-- their messages -->
                         <Border Grid.Column="0"
                                 BackgroundColor="#9ebaab"

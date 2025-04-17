@@ -3,10 +3,11 @@
              xmlns:tools="clr-namespace:Consilium.Maui.Controls"
              x:Class="Consilium.Maui.Views.ChatView"
              Title="ChatView">
-
-    <Grid RowDefinitions="Auto,*,Auto" IsVisible="{Binding Online}">
-
-        <Button Grid.Row="0"
+    <Grid>
+        <Label Grid.Row="1" Text="{Binding OnlineMessage}" VerticalOptions="Start" IsVisible="{Binding Online, Converter={StaticResource InverseBoolConverter}}"/>
+        <Grid RowDefinitions="Auto,*,Auto" IsVisible="{Binding Online}">
+            <VerticalStackLayout IsVisible="{Binding ShowChat}">
+                <Button Grid.Row="0"
                     Text="{StaticResource LeftArrowIcon}"
                     FontFamily="FontAwesomeSolid"
                     Command="{Binding BackCommand}"
@@ -14,54 +15,55 @@
                     BackgroundColor="Transparent"
                     FontSize="20"
                     Margin="10"
-                    TextColor="{AppThemeBinding Light=Black, Dark=White}"
-                    IsVisible="{Binding ShowChat}"/>
+                    TextColor="{AppThemeBinding Light=Black, Dark=White}"/>
 
-        <tools:MessagesView Grid.Row="1"
-                                VerticalOptions="FillAndExpand"
-                                IsVisible="{Binding ShowChat}"/>
+            </VerticalStackLayout>
 
-        <!--list of conversations-->
-        <ScrollView Grid.RowSpan="3"
+            <Grid Grid.Row="1" RowDefinitions="*" IsVisible="{Binding ShowChat}">
+                <tools:MessagesView/>
+            </Grid>
+
+            <!--list of conversations-->
+            <ScrollView Grid.RowSpan="3"
                         IsVisible="{Binding ShowConversations}">
-            <VerticalStackLayout Padding="15">
-                <Button Text="New Conversation"
+                <VerticalStackLayout Padding="15">
+                    <Button Text="New Conversation"
                             Command="{Binding ActivateNewConversationCommand}"
                             IsVisible="{Binding IsNotCreatingNewConversation}"
                             Margin="0,0,0,10"/>
 
-                <VerticalStackLayout IsVisible="{Binding IsCreatingNewConversation}"
+                    <VerticalStackLayout IsVisible="{Binding IsCreatingNewConversation}"
                             Spacing="10">
-                    <Button Text="Cancel"
+                        <Button Text="Cancel"
                                 Command="{Binding BackCommand}"
                                 Margin="0,0,0,30"
                                 BackgroundColor="{AppThemeBinding Light={StaticResource Gray300}, Dark={StaticResource Gray750}}"/>
-                    <Label Text="New Conversation"
+                        <Label Text="New Conversation"
                                 HorizontalOptions="Center"/>
-                    <Entry Text="{Binding NewConversationName}"
+                        <Entry Text="{Binding NewConversationName}"
                                 Placeholder="Enter user email"/>
-                    <Button Text="Create"
+                        <Button Text="Create"
                                 Command="{Binding CreateConversationCommand}"/>
-                    <Label Text="{Binding DisplayMessage}"/>
-                </VerticalStackLayout>
+                        <Label Text="{Binding DisplayMessage}"/>
+                    </VerticalStackLayout>
 
-                <CollectionView ItemsSource="{Binding Conversations}"
+                    <CollectionView ItemsSource="{Binding Conversations}"
                                     IsVisible="{Binding IsNotCreatingNewConversation}">
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate>
-                            <VerticalStackLayout Spacing="5">
-                                <Border Margin="5">
-                                    <Grid Padding="10"
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <VerticalStackLayout Spacing="5">
+                                    <Border Margin="5">
+                                        <Grid Padding="10"
                                               ColumnDefinitions="*,Auto"
                                               Margin="5"
                                               BackgroundColor="Transparent">
 
-                                        <Button BackgroundColor="Transparent"
+                                            <Button BackgroundColor="Transparent"
                                                     Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.SelectConversationCommand}"
                                                     CommandParameter="{Binding .}"
                                                     Grid.ColumnSpan="2"/>
 
-                                        <Label Text="{Binding .}"
+                                            <Label Text="{Binding .}"
                                                    LineBreakMode="TailTruncation"
                                                    FontSize="16"
                                                    FontAttributes="Bold"
@@ -70,7 +72,7 @@
                                                    Margin="5,0,0,0"
                                                    Grid.Column="0"/>
 
-                                        <Label Text="{StaticResource CaretRightIcon}"
+                                            <Label Text="{StaticResource CaretRightIcon}"
                                                    FontFamily="FontAwesomeSolid"
                                                    FontSize="16"
                                                    TextColor="{AppThemeBinding Light=Black, Dark=White}"
@@ -78,16 +80,16 @@
                                                    HorizontalOptions="End"
                                                    Margin="10,0,10,0"
                                                    Grid.Column="1"/>
-                                    </Grid>
-                                </Border>
-                            </VerticalStackLayout>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
+                                        </Grid>
+                                    </Border>
+                                </VerticalStackLayout>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
 
-            </VerticalStackLayout>
-        </ScrollView>
-
+                </VerticalStackLayout>
+            </ScrollView>
+        </Grid>
     </Grid>
 
 </ContentPage>
