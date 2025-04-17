@@ -1,4 +1,5 @@
 using Consilium.Shared.ViewModels;
+using System.Collections.Specialized;
 
 namespace Consilium.Maui.Controls;
 
@@ -9,39 +10,38 @@ public partial class MessagesView : ContentView {
         InitializeComponent();
         vm = ((App)Application.Current).Services.GetService<MessagesViewModel>();
         BindingContext = vm;
-        ScrollToBottom();
 
-        BindingContextChanged += (_, _) =>
-        {
-            if (vm != null) {
-                vm.MessagesUpdated -= ScrollToBottom;
-                vm.MessagesUpdated += ScrollToBottom;
-            }
-        };
-    }
-
-    private void MessageContent_Completed(object sender, EventArgs e) {
-        if (vm.SendMessageCommand.CanExecute(null) == true) {
-            vm.SendMessageCommand.Execute(null);
-        }
-    }
-
-    // this is scrolling to the top and I don't know why...
-    private void ScrollToBottom() {
-        if (vm?.AllMessages?.Count > 0) {
-            MainThread.BeginInvokeOnMainThread(async () =>
-            {
-                await Task.Delay(100);
-
-                var index = vm.AllMessages.Count - 1;
-                Console.WriteLine($"Trying to scroll to index: {index}");
-
-                MessagesCollectionView.ScrollTo(index, position: ScrollToPosition.End, animate: false);
-            });
-        }
+        MessagesCollectionView.Loaded += MessagesCollectionView_Loaded;
     }
 
     private void MessagesCollectionView_Loaded(object sender, EventArgs e) {
-        ScrollToBottom();
+        // first, scroll in case there are already items
+        ScrollToLastMessage();
+
+        // then subscribe to the VM's collection changes
+        if (BindingContext is MessagesViewModel vm
+         && vm.AllMessages is INotifyCollectionChanged notify) {
+            notify.CollectionChanged += OnMessagesCollectionChanged;
+        }
+    }
+    private void OnMessagesCollectionChanged(object sender, NotifyCollectionChangedEventArgs e) {
+        // only scroll on inserts
+        if (e.Action == NotifyCollectionChangedAction.Add)
+            ScrollToLastMessage();
+    }
+
+    private void ScrollToLastMessage() {
+        // grab the ItemsSource as a list
+        if (MessagesCollectionView.ItemsSource is System.Collections.IList list
+         && list.Count > 0) {
+            // get the last item
+            var lastItem = list[list.Count - 1];
+            // scroll to it
+            MessagesCollectionView.ScrollTo(
+                lastItem,
+                position: ScrollToPosition.End,
+                animate: true
+            );
+        }
     }
 }
