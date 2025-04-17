@@ -11,15 +11,18 @@ namespace Consilium.Shared.Services;
 public class ToDoService : IToDoService {
     private readonly IPersistenceService persistenceService;
     private readonly IClientService client;
+    private readonly ILogInService logInService;
+
     /// <summary>
     /// Used by tests to assign starting values. DO NOT USE DIRECTLY IN PRODUCTION.
     /// </summary>
     public List<TodoItem> TodoItems { get; set; }
 
-    public ToDoService(IPersistenceService persistenceService, IClientService client) {
+    public ToDoService(IPersistenceService persistenceService, IClientService client, ILogInService logInService) {
 
         this.persistenceService = persistenceService;
         this.client = client;
+        this.logInService = logInService;
         TodoItems = new();
     }
 
@@ -28,9 +31,13 @@ public class ToDoService : IToDoService {
     }
 
     public async Task AddItemAsync(TodoItem item) {
-        var response = await client.PostAsync($"todo", item);
-        int id = Convert.ToInt16(await response.Content.ReadAsStringAsync());
-        item.Id = id;
+        bool online = await logInService.CheckAuthStatus();
+        if (online) {
+            var response = await client.PostAsync($"todo", item);
+            int id = Convert.ToInt16(await response.Content.ReadAsStringAsync());
+            item.Id = id;
+        }
+        persistenceService.SaveList(TodoItems);
         TodoItems.Add(item);
     }
 
@@ -39,13 +46,20 @@ public class ToDoService : IToDoService {
     /// that value.
     /// </summary>
     public async Task UpdateItemAsync(TodoItem item) {
-        var response = await client.PatchAsync($"todo/update", item);
+        bool online = await logInService.CheckAuthStatus();
+        if (online) {
+            var response = await client.PatchAsync($"todo/update", item);
+        }
         TodoItem listItem = TodoItems.Where(a => a.Id == item.Id).First();
         listItem.CompletionDate = item.CompletionDate;
+        persistenceService.SaveList(TodoItems);
     }
 
     public async Task<string> RemoveToDoAsync(int itemId) {
-        var response = await client.DeleteAsync($"todo/remove/{itemId}");
+        bool online = await logInService.CheckAuthStatus();
+        if (online) {
+            var response = await client.DeleteAsync($"todo/remove/{itemId}");
+        }
 
         TodoItem primary = TodoItems.First(a => itemId == a.Id);
 
@@ -59,15 +73,18 @@ public class ToDoService : IToDoService {
         if (parent is not null) parent.Subtasks.Remove(primary);
 
         TodoItems.Remove(primary);
+        persistenceService.SaveList(TodoItems);
 
-        if (response.IsSuccessStatusCode) {
-            return "Deleted successfully";
-        } else {
-            return "Failed to remove item";
-        }
+        return "Deleted successfully";
     }
 
     public async Task InitializeTodosAsync() {
+        bool online = await logInService.CheckAuthStatus();
+        if (!online) {
+            var persistanceItems = persistenceService.GetToDoLists() ?? new List<TodoItem>();
+            TodoItems = persistanceItems.ToList();
+            return;
+        }
         var response = await client.GetAsync("todo");
         IEnumerable<TodoItem>? items = await response.Content.ReadFromJsonAsync<IEnumerable<TodoItem>>();
         TodoItems = items == null ? new() : new(items);

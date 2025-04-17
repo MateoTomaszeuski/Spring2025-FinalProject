@@ -20,14 +20,14 @@ public partial class TodoListViewModel : ObservableObject {
         this.logInService = logInService;
     }
     public async Task InitializeItemsAsync() {
-        Online = await logInService.CheckAuthStatus();
-        if (!Online) {
-            OnlineMessage = "You are offline. Please connect to the internet to sync your tasks.";
-            return;
-        }
         IsLoading = true;
         await ToDoService.InitializeTodosAsync();
         TodoItems = ToDoService.GetTodoItems();
+        if (TodoItems.Count < 1) {
+            Message = "No items found.";
+        } else {
+            Message = string.Empty;
+        }
         IsLoading = false;
     }
 
@@ -36,10 +36,6 @@ public partial class TodoListViewModel : ObservableObject {
         "Category Descending",
         "Completion"
     };
-    [ObservableProperty]
-    private bool online = false;
-    [ObservableProperty]
-    private string onlineMessage = string.Empty;
 
     [ObservableProperty]
     private string selectedSortOption;

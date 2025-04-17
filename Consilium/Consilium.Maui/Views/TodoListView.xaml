@@ -5,9 +5,7 @@
              xmlns:ViewModels="clr-namespace:Consilium.Shared.ViewModels;assembly=Consilium.Shared"
              Title="TodoListView">
     <ScrollView>
-        <VerticalStackLayout>
-            <StackLayout Padding="20"
-                    IsVisible="{Binding Online}">
+        <VerticalStackLayout>   
                 <Label Text="To-Do List"
                        FontSize="27"
                        FontAttributes="Bold"
@@ -223,8 +221,6 @@
                         </CollectionView>
                     </StackLayout>
                 </Border>
-            </StackLayout>
-            <Label Text="{Binding OnlineMessage}"/>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

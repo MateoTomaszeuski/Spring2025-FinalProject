@@ -5,12 +5,12 @@ using System.Text.Json;
 namespace Consilium.Shared.Services;
 
 public class PersistenceService(IClientService clientService) : IPersistenceService {
-    public TodoList? GetToDoLists() {
+    public IEnumerable<TodoItem>? GetToDoLists() {
         string output = Preferences.Get("todo-list", "{}");
         return JsonSerializer.Deserialize<TodoList>(output);
     }
 
-    public void SaveList(TodoList list) {
+    public void SaveList(IEnumerable<TodoItem> list) {
         string serialized = JsonSerializer.Serialize(list);
         Preferences.Set("todo-list", serialized);
     }
