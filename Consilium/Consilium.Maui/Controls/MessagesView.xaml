@@ -11,16 +11,21 @@
                FontSize="20"
                FontAttributes="Bold"
                HorizontalOptions="Center"
-               Margin="0,0,0,25"/>
+               Margin="0,0,0,10"/>
 
-        <CollectionView x:Name="MessagesCollectionView" Grid.Row="1"
+        <CollectionView x:Name="MessagesCollectionView"
+                        Grid.Row="1"
+                        Loaded="MessagesCollectionView_Loaded"
                         ItemsSource="{Binding AllMessages}"
                         VerticalOptions="FillAndExpand">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical" ItemSpacing="10" />
+            </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Grid ColumnDefinitions="*,*" Padding="10">
-
-                        <!--messages from them-->
+                        
+                        <!-- their messages -->
                         <Border Grid.Column="0"
                                 BackgroundColor="#9ebaab"
                                 StrokeShape="RoundRectangle 18"
@@ -32,13 +37,14 @@
                             <VerticalStackLayout>
                                 <Label Text="{Binding Content}" FontSize="15" TextColor="Black" />
                                 <Label Text="{Binding TimeSent, StringFormat='{0:t}'}"
-                                       FontSize="11" Opacity="0.7"
+                                       FontSize="11"
+                                       Opacity="0.7"
                                        HorizontalOptions="End"
                                        TextColor="{StaticResource Dark-Dark}" />
                             </VerticalStackLayout>
                         </Border>
 
-                        <!--messages sent from me-->
+                        <!-- my messages -->
                         <Border Grid.Column="1"
                                 BackgroundColor="{StaticResource Dark-Green}"
                                 StrokeShape="RoundRectangle 15"
@@ -50,21 +56,22 @@
                             <VerticalStackLayout>
                                 <Label Text="{Binding Content}" FontSize="15" TextColor="White" />
                                 <Label Text="{Binding TimeSent, StringFormat='{0:t}'}"
-                                       FontSize="11" TextColor="White"
-                                       Opacity="0.6" HorizontalOptions="End" />
+                                       FontSize="11"
+                                       TextColor="White"
+                                       Opacity="0.6"
+                                       HorizontalOptions="End" />
                             </VerticalStackLayout>
                         </Border>
-
                     </Grid>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
 
-        <!--input and send button-->
+        <!--input-->
         <ContentView Grid.Row="2"
                      IsVisible="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.ShowChat}">
             <Grid ColumnDefinitions="*,Auto"
-                    Margin="0,10,0,0">
+                  Margin="0,10,0,0">
                 <Entry Text="{Binding MessageContent}"
                        Completed="MessageContent_Completed"
                        Placeholder="Type your message here"
