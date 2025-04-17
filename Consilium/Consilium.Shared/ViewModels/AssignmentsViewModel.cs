@@ -47,10 +47,12 @@ public partial class AssignmentsViewModel : ObservableObject {
 
     private readonly IAssignmentService service;
     private readonly ILogInService logInService;
+    private readonly IToDoService todoService;
 
-    public AssignmentsViewModel(IAssignmentService service, ILogInService logInService) {
+    public AssignmentsViewModel(IAssignmentService service, ILogInService logInService, IToDoService todoService) {
         this.service = service;
         this.logInService = logInService;
+        this.todoService = todoService;
     }
 
     [RelayCommand]
@@ -75,6 +77,11 @@ public partial class AssignmentsViewModel : ObservableObject {
     private void ToggleCourseForm() {
         ShowAssignmentForm = false;
         ShowCourseForm = !ShowCourseForm;
+    }
+
+    [RelayCommand]
+    private async Task CreateTodo(Assignment a) {
+        await todoService.AddItemAsync(new TodoItem() { Title = a.Name, Category = "School" });
     }
 
     [RelayCommand]

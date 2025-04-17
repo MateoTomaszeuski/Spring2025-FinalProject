@@ -245,9 +245,14 @@
                                                          HorizontalOptions="End"
                                                          Spacing="5"
                                                          Margin="0,5,0,0">
+                                                <!---
                                                 <Button Text="Start"
                                                         Command="{Binding Source={RelativeSource AncestorType={x:Type vm:AssignmentsViewModel}}, Path=StartAssignmentCommand}"/>
-                                                <Button Text="Add To-Do"/>
+                                                 -->
+
+                                                <Button Text="Add To-Do"
+                                                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:AssignmentsViewModel}}, Path=CreateTodoCommand}"
+                                                        CommandParameter="{Binding .}"/>
                                                 <Button Text="{StaticResource TrashIcon}"
                                                         FontFamily="FontAwesomeSolid"
                                                         CommandParameter="{Binding .}"

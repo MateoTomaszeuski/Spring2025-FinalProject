@@ -50,11 +50,11 @@
             Icon="timer.png"
             ContentTemplate="{DataTemplate local:ToolsView}"
             Route="Tools" />
-        <ShellContent
+        <!--- <ShellContent
             Title="Stats"
             Icon="graph.png"
             ContentTemplate="{DataTemplate local:StatsView}"
-            Route="Stats" />
+            Route="Stats" />-->
         <ShellContent
             Title="Profile"
             ContentTemplate="{DataTemplate local:ProfileView}"
