@@ -53,11 +53,8 @@
                 </StackLayout>
             </StackLayout>
 
-            <Border StrokeShape="RoundRectangle 10"
-                    Padding="10"
-                    Margin="0,20,0,0"
-                    BackgroundColor="{AppThemeBinding Dark={StaticResource Dark-Dark}, Light={StaticResource Light-Light}}"
-                    StrokeThickness="0">
+            <Border Padding="10"
+                    Margin="0,20,0,0">
                 <StackLayout>
 
                     <ActivityIndicator 
