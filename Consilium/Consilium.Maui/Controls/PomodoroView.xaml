@@ -20,7 +20,7 @@
     <StackLayout Orientation="Horizontal" Spacing="10" HorizontalOptions="Center">
       <Button Text="Start"
               Command="{Binding StartTimerCommand}"
-              IsEnabled="{Binding IsTimerRunning, Converter={StaticResource InverseBooleanConverter}}"/>
+              IsEnabled="{Binding IsTimerRunning, Converter={StaticResource InverseBoolConverter}}"/>
       <Button Text="Stop"
               Command="{Binding StopTimerCommand}"
               IsEnabled="{Binding IsTimerRunning}"/>
