@@ -1,5 +1,6 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using Consilium.Shared.Models;
 using Consilium.Shared.Services;
 using System.Collections.ObjectModel;
@@ -12,16 +13,13 @@ public partial class MessagesViewModel : ObservableObject {
         this.messageService = messageService;
         messageService.PropertyChanged += MessageService_PropertyChanged;
         MyUserName = persistenceService.GetUserName();
+
+        WeakReferenceMessenger.Default.Register<ClearMessagesRequest>(this, (r, m) => {
+            AllMessages.Clear();
+        });
+
     }
 
-    private async void MessageService_PropertyChanged(object? sender, PropertyChangedEventArgs e) {
-        if (e.PropertyName == nameof(messageService.CurrentChat)) {
-            if (messageService.CurrentChat != null) {
-                ConversationWith = messageService.CurrentChat;
-                await InitializeMessagesAsync();
-            }
-        }
-    }
     [ObservableProperty]
     private string myUserName = string.Empty;
 
@@ -32,13 +30,26 @@ public partial class MessagesViewModel : ObservableObject {
     private string conversationWith = string.Empty;
     [ObservableProperty]
     private string messageContent = string.Empty;
+
     private readonly IMessageService messageService;
+
+    public event Action? MessagesUpdated;
+
+    private async void MessageService_PropertyChanged(object? sender, PropertyChangedEventArgs e) {
+        if (e.PropertyName == nameof(messageService.CurrentChat)) {
+            if (messageService.CurrentChat != null) {
+                ConversationWith = messageService.CurrentChat;
+                await InitializeMessagesAsync();
+            }
+        }
+    }
 
     [RelayCommand]
     public async Task SendMessage() {
         if (string.IsNullOrEmpty(MessageContent)) {
             return;
         }
+
         var message = new Message {
             Sender = MyUserName,
             Receiver = ConversationWith,
@@ -46,11 +57,14 @@ public partial class MessagesViewModel : ObservableObject {
             TimeSent = DateTime.Now,
             IsMyMessage = true
         };
+
         var sent = await messageService.SendMessageAsync(message);
         if (sent) {
             AllMessages.Add(message);
             MessageContent = string.Empty;
         }
+
+        MessagesUpdated?.Invoke();
     }
 
     [RelayCommand]
@@ -62,6 +76,8 @@ public partial class MessagesViewModel : ObservableObject {
                 message.IsMyMessage = message.Sender == MyUserName;
                 AllMessages.Add(message);
             }
+
+            MessagesUpdated?.Invoke();
         }
     }
 }

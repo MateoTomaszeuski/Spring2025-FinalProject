@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using Consilium.Shared.Services;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
@@ -41,11 +42,11 @@ public partial class ChatViewModel(IMessageService messageService) : ObservableO
     private void Back() {
         ShowConversations = true;
         ShowChat = false;
+        WeakReferenceMessenger.Default.Send(new ClearMessagesRequest());
         NewConversationName = string.Empty;
         messageService.CurrentChat = string.Empty;
         IsCreatingNewConversation = false;
         IsNotCreatingNewConversation = true;
-
     }
 
     [RelayCommand]
