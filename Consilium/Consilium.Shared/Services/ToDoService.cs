@@ -110,7 +110,7 @@ public class ToDoService : IToDoService {
         }
         if (toAdd.Count > 0) {
             foreach (var item in toAdd) {
-               await AddItemAsync(item);
+                await AddItemAsync(item);
             }
         }
     }
