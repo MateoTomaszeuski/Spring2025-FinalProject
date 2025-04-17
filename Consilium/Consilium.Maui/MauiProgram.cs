@@ -6,6 +6,7 @@ using Consilium.Shared.Services;
 using Consilium.Shared.ViewModels;
 using Consilium.Shared.ViewModels.controls;
 using Microsoft.Extensions.Logging;
+using Plugin.Maui.Audio;
 
 namespace Consilium.Maui;
 
@@ -35,7 +36,7 @@ public static class MauiProgram {
         {
             client.BaseAddress = new Uri("https://consilium-api-cpgdcqaxepbyc2gj.westus3-01.azurewebsites.net/");
 #if DEBUG
-            client.BaseAddress = new Uri("http://localhost:5202");
+            //client.BaseAddress = new Uri("http://localhost:5202");
 #endif
         });
 
@@ -61,6 +62,7 @@ public static class MauiProgram {
         builder.Services.AddSingleton<CalculatorView>();
         builder.Services.AddSingleton<MessagesView>();
         builder.Services.AddSingleton<ChatView>();
+        builder.Services.AddSingleton<PomodoroView>();
 
         return builder;
     }
@@ -75,6 +77,7 @@ public static class MauiProgram {
         builder.Services.AddSingleton<CalculatorViewModel>();
         builder.Services.AddSingleton<MessagesViewModel>();
         builder.Services.AddSingleton<ChatViewModel>();
+        builder.Services.AddSingleton<PomodoroViewModel>();
 
         return builder;
     }
@@ -85,6 +88,7 @@ public static class MauiProgram {
         builder.Services.AddSingleton<IClientService, ClientService>();
         builder.Services.AddSingleton<IMessageService, MessageService>();
         builder.Services.AddSingleton<IAssignmentService, AssignmentService>();
+        builder.Services.AddSingleton(AudioManager.Current);
 
         return builder;
     }
