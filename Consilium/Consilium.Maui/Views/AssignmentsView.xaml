@@ -68,8 +68,8 @@
             <Button Text="Delete Selected Course"
                     MaximumWidthRequest="450"
                     Margin="15"
-                    Command="{Binding DeleteCourseCommand}"
-                    BackgroundColor="{StaticResource Dark-Red}"/>
+                    BackgroundColor="{StaticResource Dark-Red}"
+                    Clicked="OnDeleteCourseClicked"/>
             <Button Text="Create New Assignment"
                     MaximumWidthRequest="450"
                     Margin="15"

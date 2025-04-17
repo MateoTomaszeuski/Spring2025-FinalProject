@@ -123,7 +123,10 @@ public partial class AssignmentsViewModel : ObservableObject {
     }
 
     [RelayCommand]
-    public async Task DeleteCourse() {
+    public async Task DeleteCourse(bool userConfirmed = false) {
+        if (!userConfirmed || SelectedCourse is null)
+            return;
+
         await service.DeleteCourseAsync(SelectedCourse.Id);
         Courses.Remove(SelectedCourse);
         await InitializeViewModelAsync();
