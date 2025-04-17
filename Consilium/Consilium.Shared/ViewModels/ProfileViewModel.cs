@@ -49,8 +49,14 @@ public partial class ProfileViewModel : ObservableObject {
             ShowLogIn = false;
             ShowUnAuthorized = !await persistenceService.CheckAuthStatus();
             ShowLogOut = LoggedIn;
+
+
+        } else {
+            ShowUnAuthorized = false;
+            ShowLogIn = true;
+            ShowLogOut = false;
             if (ShowSnackbarAsync is not null)
-                await ShowSnackbarAsync("Successfully logged in!");
+                await ShowSnackbarAsync("Too many unauthorized keys.");
         }
     }
     [RelayCommand]
@@ -76,6 +82,12 @@ public partial class ProfileViewModel : ObservableObject {
     private async Task CheckUnAuthorized() {
         ShowUnAuthorized = !await persistenceService.CheckAuthStatus() && LoggedIn;
         ShowLogOut = LoggedIn;
+
+        // show snackbar notification once the user has successfully verified account
+        if (LoggedIn) {
+            if(ShowSnackbarAsync is not null)
+                await ShowSnackbarAsync("Successfully logged in!");
+        }
     }
     [RelayCommand]
     private void ShowLoggedInPopup() {
