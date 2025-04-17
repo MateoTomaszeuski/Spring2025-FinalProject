@@ -131,20 +131,38 @@ public class DBService(IDbConnection conn) : IDBService {
         conn.Execute(updateAssignment, assignment);
     }
     #endregion
-
-    private bool CanAdjustCourse(int courseId, string email) {
-        string OwnsCourse = """""
-          SELECT account_email from course where id = @courseid
-        """"";
-
-        try {
-            string dbEmail = conn.QuerySingle<string>(OwnsCourse, new { courseId });
-            return dbEmail == email;
-        } catch {
-            return false;
-        }
+    #region Courses
+    public IEnumerable<Course> GetAllCourses(string username) {
+        string getCourses = """
+            SELECT id, course_name AS CourseName
+            FROM course
+            WHERE account_email = @username
+            """;
+        return conn.Query<Course>(getCourses, new { username });
     }
 
+    public int AddCourse(Course course, string email) {
+        string addCourse = """
+            INSERT INTO course (account_email, course_name)
+            VALUES (@account_email, @course_name)
+            RETURNING id
+            """;
+
+        return conn.QuerySingle<int>(addCourse, new {
+            account_email = email,
+            course_name = course.CourseName
+        });
+    }
+    public void DeleteCourse(int id, string email) {
+        if (!CanAdjustCourse(id, email)) return;
+        string deleteCourse = """"
+            DELETE FROM assignment WHERE course_id = @id;
+            DELETE FROM course WHERE id = @id
+            """";
+        conn.Execute(deleteCourse, new { id, email });
+    }
+    #endregion
+    #region Messages
     public IEnumerable<string> GetConversations(string username) {
         string getConversations = """"
             SELECT DISTINCT participant_email
@@ -197,35 +215,17 @@ public class DBService(IDbConnection conn) : IDBService {
             """";
         return conn.Query<bool>(getUser, new { otherUser }).First();
     }
+    #endregion
+    private bool CanAdjustCourse(int courseId, string email) {
+        string OwnsCourse = """""
+          SELECT account_email from course where id = @courseid
+        """"";
 
-    public IEnumerable<Course> GetAllCourses(string username) {
-        string getCourses = """
-            SELECT id, course_name AS CourseName
-            FROM course
-            WHERE account_email = @username
-            """;
-        return conn.Query<Course>(getCourses, new { username });
+        try {
+            string dbEmail = conn.QuerySingle<string>(OwnsCourse, new { courseId });
+            return dbEmail == email;
+        } catch {
+            return false;
+        }
     }
-
-    public int AddCourse(Course course, string email) {
-        string addCourse = """
-            INSERT INTO course (account_email, course_name)
-            VALUES (@account_email, @course_name)
-            RETURNING id
-            """;
-
-        return conn.QuerySingle<int>(addCourse, new {
-            account_email = email,
-            course_name = course.CourseName
-        });
-    }
-    public void DeleteCourse(int id, string email) {
-        if (!CanAdjustCourse(id, email)) return;
-        string deleteCourse = """"
-            DELETE FROM assignment WHERE course_id = @id;
-            DELETE FROM course WHERE id = @id
-            """";
-        conn.Execute(deleteCourse, new { id, email });
-    }
-
 }
