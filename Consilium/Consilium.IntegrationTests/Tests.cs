@@ -64,7 +64,7 @@ public class Tests : IDisposable {
     [Test]
     [NotInParallel(Order = 3)]
     public async Task AddAssignmentFlow() {
-        Assignment a = new Assignment() { Name="Assignment1", CourseId=1};
+        Assignment a = new Assignment() { Name = "Assignment1", CourseId = 1 };
         var response = await client.PostAsJsonAsync("/assignment", a);
 
         await Assert.That(response.IsSuccessStatusCode).IsEqualTo(true);
