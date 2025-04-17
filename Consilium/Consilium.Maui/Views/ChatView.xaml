@@ -4,7 +4,10 @@
              x:Class="Consilium.Maui.Views.ChatView"
              Title="ChatView">
     <Grid>
-        <Label Grid.Row="1" Text="{Binding OnlineMessage}" VerticalOptions="Start" IsVisible="{Binding Online, Converter={StaticResource InverseBoolConverter}}"/>
+        <Label 
+            Text="{Binding OnlineMessage}" 
+            VerticalOptions="Start" 
+            IsVisible="{Binding Online, Converter={StaticResource InverseBoolConverter}}"/>
         <Grid RowDefinitions="Auto,*,Auto" IsVisible="{Binding Online}">
             <VerticalStackLayout IsVisible="{Binding ShowChat}">
                 <Button Grid.Row="0"

@@ -5,7 +5,8 @@
              Title="DashboardView">
     <VerticalStackLayout>
         <Label Text="{Binding Username, StringFormat='Welcome back: {0}!'}" />
-        <Label Text="{Binding PrintMessage}"/>
+        <Label Text="{Binding PrintMessage}" 
+            IsVisible="{Binding Online, Converter={StaticResource InverseBoolConverter}}"/>
         <VerticalStackLayout IsVisible="{Binding ShowDashboard}">
             <Label Text="Upcoming Assigments"/>
             <CollectionView ItemsSource="{Binding Assignments}">

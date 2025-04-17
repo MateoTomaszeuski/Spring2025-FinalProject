@@ -81,14 +81,37 @@ public class ToDoService : IToDoService {
 
     public async Task InitializeTodosAsync() {
         bool online = await logInService.CheckAuthStatus();
-        if (!online && !isTest) {
-            var persistanceItems = persistenceService.GetToDoLists() ?? new List<TodoItem>();
-            TodoItems = persistanceItems.ToList();
+
+        var persistanceItems = persistenceService.GetToDoLists() ?? new List<TodoItem>();
+        IEnumerable<TodoItem>? items = null;
+        if (online || isTest) {
+            var response = await client.GetAsync("todo");
+            items = await response.Content.ReadFromJsonAsync<IEnumerable<TodoItem>>();
+            SyncLocalWithServer(persistanceItems, items);
+            response = await client.GetAsync("todo");
+            items = await response.Content.ReadFromJsonAsync<IEnumerable<TodoItem>>();
+            if (items == null) {
+                items = new List<TodoItem>();
+            }
+            TodoItems = items.ToList();
             return;
         }
-        var response = await client.GetAsync("todo");
-        IEnumerable<TodoItem>? items = await response.Content.ReadFromJsonAsync<IEnumerable<TodoItem>>();
-        TodoItems = items == null ? new() : new(items);
+
+        TodoItems = persistanceItems.ToList();
+    }
+
+    private void SyncLocalWithServer(IEnumerable<TodoItem> persistanceItems, IEnumerable<TodoItem>? items) {
+        List<TodoItem> toAdd = new();
+        foreach (var persistance in persistanceItems) {
+            if (items == null || !items.Any(a => a.Id == persistance.Id)) {
+                toAdd.Add(persistance);
+            }
+        }
+        if (toAdd.Count > 0) {
+            foreach (var item in toAdd) {
+                TodoItems.Add(item);
+            }
+        }
     }
 
     public ObservableCollection<TodoItem> GetTodosSortedByCategory(bool ascending = true) {
