@@ -6,7 +6,7 @@ using Consilium.Shared.Services;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 
-namespace Consilium.Shared.ViewModels;
+namespace Consilium.Shared.ViewModels.Controls;
 
 public partial class MessagesViewModel : ObservableObject {
     public MessagesViewModel(IMessageService messageService, IPersistenceService persistenceService, ILogInService logInService) {

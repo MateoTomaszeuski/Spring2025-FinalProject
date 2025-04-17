@@ -1,4 +1,4 @@
-using Consilium.Shared.ViewModels.controls;
+using Consilium.Shared.ViewModels.Controls;
 
 namespace Consilium.Maui.Controls;
 

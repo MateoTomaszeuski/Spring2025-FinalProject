@@ -1,4 +1,4 @@
-using Consilium.Shared.ViewModels;
+using Consilium.Shared.ViewModels.Controls;
 using System.Collections.Specialized;
 
 namespace Consilium.Maui.Controls;
@@ -12,6 +12,7 @@ public partial class MessagesView : ContentView {
         BindingContext = vm;
 
         MessagesCollectionView.Loaded += MessagesCollectionView_Loaded;
+        vm.MessagesUpdated += OnMessagesUpdated;
     }
 
     private void MessagesCollectionView_Loaded(object? sender, EventArgs e) {
@@ -28,14 +29,12 @@ public partial class MessagesView : ContentView {
     }
 
     private void ScrollToLastMessage() {
-        if (MessagesCollectionView.ItemsSource is System.Collections.IList list
-         && list.Count > 0) {
+        if (MessagesCollectionView.ItemsSource is System.Collections.IList list && list.Count > 0) {
             var lastItem = list[list.Count - 1];
-            MessagesCollectionView.ScrollTo(
-                lastItem,
-                position: ScrollToPosition.End,
-                animate: true
-            );
+            MessagesCollectionView.ScrollTo(lastItem, position: ScrollToPosition.End, animate: true);
         }
+    }
+    private void OnMessagesUpdated() {
+        ScrollToLastMessage();
     }
 }
