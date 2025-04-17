@@ -119,7 +119,11 @@ public partial class ProfileViewModel : ObservableObject {
     private async Task PollForAuthorizationAsync() {
         _authPollingCts?.Cancel(); // cancel any previous polling
         _authPollingCts = new CancellationTokenSource();
-        var token = _authPollingCts.Token;
+
+        // times out after 90 seconds
+        var timeoutCts = new CancellationTokenSource(TimeSpan.FromSeconds(90));
+        var linkedCts = CancellationTokenSource.CreateLinkedTokenSource(_authPollingCts.Token, timeoutCts.Token);
+        var token = linkedCts.Token;
 
         try {
             while (!token.IsCancellationRequested && ShowUnAuthorized) {
@@ -136,7 +140,10 @@ public partial class ProfileViewModel : ObservableObject {
                 }
             }
         } catch (TaskCanceledException) {
-            // Swallow — expected when logout or navigation occurs
+            if (timeoutCts.IsCancellationRequested && ShowUnAuthorized) {
+                if (ShowSnackbarAsync is not null)
+                    await ShowSnackbarAsync("Still waiting for validation. Please refresh manually after validating your email.");
+            }
         }
     }
 
