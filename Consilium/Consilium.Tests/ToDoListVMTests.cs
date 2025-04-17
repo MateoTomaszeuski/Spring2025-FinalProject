@@ -28,7 +28,8 @@ public class ToDoListVMTests {
 
         IPersistenceService service = Substitute.For<IPersistenceService>();
         IClientService clientService = Substitute.For<ClientService>(factory);
-        ToDoService s = new ToDoService(service, clientService);
+        ILogInService logInService = Substitute.For<ILogInService>();
+        ToDoService s = new ToDoService(service, clientService, logInService, true);
         this.service = s;
 
         viewModel = new TodoListViewModel(s);

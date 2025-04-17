@@ -12,17 +12,18 @@ public class ToDoService : IToDoService {
     private readonly IPersistenceService persistenceService;
     private readonly IClientService client;
     private readonly ILogInService logInService;
+    private readonly bool isTest;
 
     /// <summary>
     /// Used by tests to assign starting values. DO NOT USE DIRECTLY IN PRODUCTION.
     /// </summary>
     public List<TodoItem> TodoItems { get; set; }
 
-    public ToDoService(IPersistenceService persistenceService, IClientService client, ILogInService logInService) {
-
+    public ToDoService(IPersistenceService persistenceService, IClientService client, ILogInService logInService, bool isTest = false) {
         this.persistenceService = persistenceService;
         this.client = client;
         this.logInService = logInService;
+        this.isTest = isTest;
         TodoItems = new();
     }
 
@@ -32,7 +33,7 @@ public class ToDoService : IToDoService {
 
     public async Task AddItemAsync(TodoItem item) {
         bool online = await logInService.CheckAuthStatus();
-        if (online) {
+        if (online || isTest) {
             var response = await client.PostAsync($"todo", item);
             int id = Convert.ToInt16(await response.Content.ReadAsStringAsync());
             item.Id = id;
@@ -47,7 +48,7 @@ public class ToDoService : IToDoService {
     /// </summary>
     public async Task UpdateItemAsync(TodoItem item) {
         bool online = await logInService.CheckAuthStatus();
-        if (online) {
+        if (online || isTest) {
             var response = await client.PatchAsync($"todo/update", item);
         }
         TodoItem listItem = TodoItems.Where(a => a.Id == item.Id).First();
@@ -57,7 +58,7 @@ public class ToDoService : IToDoService {
 
     public async Task<string> RemoveToDoAsync(int itemId) {
         bool online = await logInService.CheckAuthStatus();
-        if (online) {
+        if (online || isTest) {
             var response = await client.DeleteAsync($"todo/remove/{itemId}");
         }
 
@@ -80,7 +81,7 @@ public class ToDoService : IToDoService {
 
     public async Task InitializeTodosAsync() {
         bool online = await logInService.CheckAuthStatus();
-        if (!online) {
+        if (!online && !isTest) {
             var persistanceItems = persistenceService.GetToDoLists() ?? new List<TodoItem>();
             TodoItems = persistanceItems.ToList();
             return;
