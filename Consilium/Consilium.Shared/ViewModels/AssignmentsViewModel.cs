@@ -40,11 +40,17 @@ public partial class AssignmentsViewModel : ObservableObject {
 
     [ObservableProperty]
     private string newCourseName = string.Empty;
+    [ObservableProperty]
+    private bool online = false;
+    [ObservableProperty]
+    private string? onlineMessage = string.Empty;
 
     private readonly IAssignmentService service;
+    private readonly ILogInService logInService;
 
-    public AssignmentsViewModel(IAssignmentService service) {
+    public AssignmentsViewModel(IAssignmentService service, ILogInService logInService) {
         this.service = service;
+        this.logInService = logInService;
     }
 
     [RelayCommand]
@@ -150,6 +156,11 @@ public partial class AssignmentsViewModel : ObservableObject {
     }
 
     public async Task InitializeViewModelAsync() {
+        Online = await logInService.CheckAuthStatus();
+        if (!Online) {
+            OnlineMessage = "You are not logged in.";
+            return;
+        }
         Courses = new(await service.GetAllCoursesAsync());
         service.AllAssignments = new(await service.GetAllAssignmentsAsync());
 

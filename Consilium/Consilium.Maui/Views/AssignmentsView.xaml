@@ -5,246 +5,269 @@
              xmlns:vm="clr-namespace:Consilium.Shared.ViewModels;assembly=Consilium.Shared">
     <ScrollView>
         <StackLayout Padding="20">
-            <Label Text="Assignments" 
-                   FontSize="27" 
-                   FontAttributes="Bold" 
-                   HorizontalOptions="Center" 
-                   Margin="0,0,0,20" />
+            <Label Text="Assignments"
+                   FontSize="27"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"
+                   Margin="0,0,0,20"/>
+
+            <VerticalStackLayout IsVisible="{Binding Online}">
+
+                <StackLayout Orientation="Horizontal"
+                        HorizontalOptions="Center"
+                        Spacing="5">
+
+                    <Picker Title="Select a course"
+                            ItemsSource="{Binding Courses}"
+                            ItemDisplayBinding="{Binding CourseName}"
+                            SelectedItem="{Binding SelectedCourse}"
+                            Margin="10"
+                            WidthRequest="160"
+                            VerticalOptions="End"
+                            HeightRequest="65"
+                            IsVisible="{Binding ShowCourseForm, Converter={StaticResource InverseBoolConverter}}"/>
 
 
+                    <Grid IsVisible="{Binding ShowCourseForm}"
+                          ColumnDefinitions="*, Auto, Auto"
+                          VerticalOptions="End"
+                          Margin="10,0,20,0"
+                          ColumnSpacing="5"
+                          MinimumWidthRequest="245"
+                          HorizontalOptions="FillAndExpand">
 
-            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Spacing="5">
+                        <Entry Grid.Column="0"
+                               Placeholder="Course Name"
+                               VerticalOptions="Center"
+                               HeightRequest="40"
+                               Margin="0,0,10,0"
+                               HorizontalOptions="FillAndExpand"
+                               Text="{Binding NewCourseName}"/>
 
-                <Picker Title="Select a course"
-                        ItemsSource="{Binding Courses}"
-                        ItemDisplayBinding="{Binding CourseName}"
-                        SelectedItem="{Binding SelectedCourse}"
-                        Margin="10"
-                        WidthRequest="160"
-                        VerticalOptions="End"
-                        HeightRequest="65"
-                        IsVisible="{Binding ShowCourseForm, Converter={StaticResource InverseBoolConverter}}"/>
+                        <Button Grid.Column="1"
+                                Text="{StaticResource XIcon}"
+                                FontFamily="FontAwesomeSolid"
+                                BackgroundColor="{StaticResource Dark-Red}"
+                                Command="{Binding ToggleCourseFormCommand}"/>
 
+                        <Button Grid.Column="2"
+                                Text="{StaticResource CheckIcon}"
+                                FontFamily="FontAwesomeSolid"
+                                Command="{Binding AddCourseCommand}"/>
+                    </Grid>
 
-                <Grid IsVisible="{Binding ShowCourseForm}"
-                      ColumnDefinitions="*, Auto, Auto"
-                      VerticalOptions="End"
-                      Margin="10,0,20,0"
-                      ColumnSpacing="5"
-                      MinimumWidthRequest="245"
-                      HorizontalOptions="FillAndExpand">
+                    <Button Command="{Binding ToggleCourseFormCommand}"
+                            HeightRequest="0"
+                            VerticalOptions="End"
+                            Margin="0,0,0,9"
+                            IsVisible="{Binding ShowCourseForm, Converter={StaticResource InverseBoolConverter}}">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroupList>
+                                <VisualStateGroup>
+                                    <VisualState x:Name="Default">
+                                        <VisualState.Setters>
+                                            <Setter Property="Text"
+                                                    Value="New Course"/>
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                    <VisualState x:Name="Mobile">
+                                        <VisualState.StateTriggers>
+                                            <AdaptiveTrigger MinWindowWidth="0"/>
+                                        </VisualState.StateTriggers>
+                                        <VisualState.Setters>
+                                            <Setter Property="Text"
+                                                    Value="{StaticResource PlusIcon}"/>
+                                            <Setter Property="FontFamily"
+                                                    Value="FontAwesomeSolid"/>
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                    <VisualState x:Name="Desktop">
+                                        <VisualState.StateTriggers>
+                                            <AdaptiveTrigger MinWindowWidth="600"/>
+                                        </VisualState.StateTriggers>
+                                        <VisualState.Setters>
+                                            <Setter Property="Text"
+                                                    Value="New Course"/>
+                                            <Setter Property="FontFamily"
+                                                    Value=""/>
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateGroupList>
+                        </VisualStateManager.VisualStateGroups>
+                    </Button>
 
-                    <Entry Grid.Column="0" 
-                           Placeholder="Course Name"
-                           VerticalOptions="Center"
-                           HeightRequest="40"
-                           Margin="0,0,10,0"
-                           
-                           HorizontalOptions="FillAndExpand"
-                           Text="{Binding NewCourseName}" />
+                    <Button HeightRequest="0"
+                            VerticalOptions="End"
+                            Margin="0,0,0,9"
+                            BackgroundColor="{StaticResource Dark-Red}"
+                            TextColor="White"
+                            Clicked="OnDeleteCourseClicked">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroupList>
+                                <VisualStateGroup>
+                                    <VisualState x:Name="Default">
+                                        <VisualState.Setters>
+                                            <Setter Property="Text"
+                                                    Value="Delete Course"/>
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                    <VisualState x:Name="Mobile">
+                                        <VisualState.StateTriggers>
+                                            <AdaptiveTrigger MinWindowWidth="0"/>
+                                        </VisualState.StateTriggers>
+                                        <VisualState.Setters>
+                                            <Setter Property="Text"
+                                                    Value="{StaticResource TrashIcon}"/>
+                                            <Setter Property="FontFamily"
+                                                    Value="FontAwesomeSolid"/>
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                    <VisualState x:Name="Desktop">
+                                        <VisualState.StateTriggers>
+                                            <AdaptiveTrigger MinWindowWidth="600"/>
+                                        </VisualState.StateTriggers>
+                                        <VisualState.Setters>
+                                            <Setter Property="Text"
+                                                    Value="Delete Course"/>
+                                            <Setter Property="FontFamily"
+                                                    Value=""/>
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateGroupList>
+                        </VisualStateManager.VisualStateGroups>
+                    </Button>
 
-                    <Button Grid.Column="1"
-                         Text="{StaticResource XIcon}"
-                         FontFamily="FontAwesomeSolid"
-                         BackgroundColor="{StaticResource Dark-Red}"
-                         Command="{Binding ToggleCourseFormCommand}" />
-
-                    <Button Grid.Column="2"
-                            Text="{StaticResource CheckIcon}"
-                            FontFamily="FontAwesomeSolid"
-                            Command="{Binding AddCourseCommand}" />
-                </Grid>
-
-                <Button Command="{Binding ToggleCourseFormCommand}"
-                        HeightRequest="0"
-                        VerticalOptions="End"
-                        Margin="0,0,0,9"
-                        IsVisible="{Binding ShowCourseForm, Converter={StaticResource InverseBoolConverter}}">
-                    <VisualStateManager.VisualStateGroups>
-                        <VisualStateGroupList>
-                            <VisualStateGroup>
-                                <VisualState x:Name="Default">
-                                    <VisualState.Setters>
-                                        <Setter Property="Text" Value="New Course" />
-                                    </VisualState.Setters>
-                                </VisualState>
-                                <VisualState x:Name="Mobile">
-                                    <VisualState.StateTriggers>
-                                        <AdaptiveTrigger MinWindowWidth="0" />
-                                    </VisualState.StateTriggers>
-                                    <VisualState.Setters>
-                                        <Setter Property="Text" Value="{StaticResource PlusIcon}" />
-                                        <Setter Property="FontFamily" Value="FontAwesomeSolid" />
-                                    </VisualState.Setters>
-                                </VisualState>
-                                <VisualState x:Name="Desktop">
-                                    <VisualState.StateTriggers>
-                                        <AdaptiveTrigger MinWindowWidth="600" />
-                                    </VisualState.StateTriggers>
-                                    <VisualState.Setters>
-                                        <Setter Property="Text" Value="New Course" />
-                                        <Setter Property="FontFamily" Value="" />
-                                    </VisualState.Setters>
-                                </VisualState>
-                            </VisualStateGroup>
-                        </VisualStateGroupList>
-                    </VisualStateManager.VisualStateGroups>
-                </Button>
-
-                <Button HeightRequest="0"
-                        VerticalOptions="End"
-                        Margin="0,0,0,9"
-                        BackgroundColor="{StaticResource Dark-Red}"
-                        TextColor="White"
-                        Clicked="OnDeleteCourseClicked">
-                    <VisualStateManager.VisualStateGroups>
-                        <VisualStateGroupList>
-                            <VisualStateGroup>
-                                <VisualState x:Name="Default">
-                                    <VisualState.Setters>
-                                        <Setter Property="Text" Value="Delete Course" />
-                                    </VisualState.Setters>
-                                </VisualState>
-                                <VisualState x:Name="Mobile">
-                                    <VisualState.StateTriggers>
-                                        <AdaptiveTrigger MinWindowWidth="0" />
-                                    </VisualState.StateTriggers>
-                                    <VisualState.Setters>
-                                        <Setter Property="Text" Value="{StaticResource TrashIcon}" />
-                                        <Setter Property="FontFamily" Value="FontAwesomeSolid" />
-                                    </VisualState.Setters>
-                                </VisualState>
-                                <VisualState x:Name="Desktop">
-                                    <VisualState.StateTriggers>
-                                        <AdaptiveTrigger MinWindowWidth="600" />
-                                    </VisualState.StateTriggers>
-                                    <VisualState.Setters>
-                                        <Setter Property="Text" Value="Delete Course" />
-                                        <Setter Property="FontFamily" Value="" />
-                                    </VisualState.Setters>
-                                </VisualState>
-                            </VisualStateGroup>
-                        </VisualStateGroupList>
-                    </VisualStateManager.VisualStateGroups>
-                </Button>
-
-            </StackLayout>
-
-            <Button Text="Create New Assignment"
-                    MaximumWidthRequest="450"
-                    Margin="15"
-                    Command="{Binding ToggleAssignmentFormCommand}"/>
-             
-            <Border Margin="15"
-                 MaximumWidthRequest="800"
-                 IsVisible="{Binding ShowAssignmentForm}">
-
-                <StackLayout Spacing="10">
-                    <Label Text="New Assignment" FontAttributes="Bold" FontSize="18" />
-
-                    <Entry Placeholder="Title"
-                       Text="{Binding NewAssignmentTitle}" />
-
-                    <Editor Placeholder="Description"
-                        Text="{Binding NewAssignmentDescription}" />
-
-                    <StackLayout Orientation="Horizontal" Spacing="10">
-                        <Label Text="Due: "
-                               VerticalOptions="Center"/>
-                        <DatePicker Date="{Binding NewAssignmentDueDate}" />
-                    </StackLayout>
-
-                    <StackLayout Orientation="Horizontal" HorizontalOptions="End" Spacing="10">
-                        <Button Text="Cancel"
-                                Command="{Binding ToggleAssignmentFormCommand}"
-                                BackgroundColor="{StaticResource Dark-Red}"/>
-                        <Button Text="Save"
-                                Command="{Binding AddAssignmentCommand}"/>
-                    </StackLayout>
                 </StackLayout>
-            </Border>
 
-            <Border StrokeShape="RoundRectangle 10"
-                    Padding="10"
-                    Margin="0,20,0,0"
-                    BackgroundColor="Transparent"
-                    MaximumWidthRequest="800"
-                    StrokeThickness="0">
-                <CollectionView ItemsSource="{Binding Assignments}">
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate>
-                            <StackLayout Padding="0" BackgroundColor="Transparent">
-                                <Border>
-                                    <StackLayout>
-                                        <Grid ColumnDefinitions="Auto, *, Auto"
-                                              VerticalOptions="Center"
-                                              Margin="0,0,0,10">
-                                            <CheckBox Grid.Column="0"
-                                                      IsChecked="{Binding IsCompleted}"
-                                                      VerticalOptions="Center"
-                                                      Margin="0,0,0,0"/>
+                <Button Text="Create New Assignment"
+                        MaximumWidthRequest="450"
+                        Margin="15"
+                        Command="{Binding ToggleAssignmentFormCommand}"/>
 
-                                            <Label Grid.Column="1"
-                                                   Text="{Binding Name}"
-                                                   TextColor="{AppThemeBinding Dark=White, Light=Black}"
-                                                   FontAttributes="Bold"
-                                                   FontSize="16"
-                                                   LineBreakMode="TailTruncation"
-                                                   VerticalOptions="Center"
-                                                   HorizontalOptions="StartAndExpand"/>
+                <Border Margin="15"
+                        MaximumWidthRequest="800"
+                        IsVisible="{Binding ShowAssignmentForm}">
 
-                                            <Label Grid.Column="2"
-                                                   Text="{Binding DueDate, StringFormat='{0:MMM d}'}"
-                                                   FontSize="14"
-                                                   Opacity="0.6"
-                                                   VerticalOptions="Center"
-                                                   HorizontalOptions="End"
-                                                   TextColor="{AppThemeBinding Dark=White, Light=Black}"
-                                                   Margin="10,0,0,0"/>
-                                        </Grid>
+                    <StackLayout Spacing="10">
+                        <Label Text="New Assignment"
+                                FontAttributes="Bold"
+                                FontSize="18"/>
 
-                                        <!-- button will say "see details" or "see less"-->
-                                        <StackLayout Spacing="0">
-                                            <Button Text="{Binding DescriptionIsExpanded, Converter={StaticResource SeeMoreSeeLessConverter}}"
-                                                    FontAttributes="Bold"
-                                                    Opacity="0.7"
-                                                    Command="{Binding ToggleDescriptionCommand}"
-                                                    CommandParameter="{Binding .}"
-                                                    HorizontalOptions="Start"
-                                                    Margin="30,0,0,0"
-                                                    TextColor="{AppThemeBinding Dark=White, Light=Black}"
-                                                    BackgroundColor="Transparent"
-                                                    IsVisible="{Binding HasDescription}"/>
+                        <Entry Placeholder="Title"
+                               Text="{Binding NewAssignmentTitle}"/>
 
-                                            <!-- full description (visible when expanded) -->
-                                            <Label Text="{Binding Description}"
-                                                   IsVisible="{Binding DescriptionIsExpanded}"
-                                                   TextColor="{AppThemeBinding Dark=White, Light=Black}"
-                                                   Padding="10"
-                                                   Margin="45,0,0,0"/>
+                        <Editor Placeholder="Description"
+                                Text="{Binding NewAssignmentDescription}"/>
+
+                        <StackLayout Orientation="Horizontal"
+                                Spacing="10">
+                            <Label Text="Due: "
+                                   VerticalOptions="Center"/>
+                            <DatePicker Date="{Binding NewAssignmentDueDate}"/>
+                        </StackLayout>
+
+                        <StackLayout Orientation="Horizontal"
+                                HorizontalOptions="End"
+                                Spacing="10">
+                            <Button Text="Cancel"
+                                    Command="{Binding ToggleAssignmentFormCommand}"
+                                    BackgroundColor="{StaticResource Dark-Red}"/>
+                            <Button Text="Save"
+                                    Command="{Binding AddAssignmentCommand}"/>
+                        </StackLayout>
+                    </StackLayout>
+                </Border>
+
+                <Border StrokeShape="RoundRectangle 10"
+                        Padding="10"
+                        Margin="0,20,0,0"
+                        BackgroundColor="Transparent"
+                        MaximumWidthRequest="800"
+                        StrokeThickness="0">
+                    <CollectionView ItemsSource="{Binding Assignments}">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <StackLayout Padding="0"
+                                        BackgroundColor="Transparent">
+                                    <Border>
+                                        <StackLayout>
+                                            <Grid ColumnDefinitions="Auto, *, Auto"
+                                                  VerticalOptions="Center"
+                                                  Margin="0,0,0,10">
+                                                <CheckBox Grid.Column="0"
+                                                          IsChecked="{Binding IsCompleted}"
+                                                          VerticalOptions="Center"
+                                                          Margin="0,0,0,0"/>
+
+                                                <Label Grid.Column="1"
+                                                       Text="{Binding Name}"
+                                                       TextColor="{AppThemeBinding Dark=White, Light=Black}"
+                                                       FontAttributes="Bold"
+                                                       FontSize="16"
+                                                       LineBreakMode="TailTruncation"
+                                                       VerticalOptions="Center"
+                                                       HorizontalOptions="StartAndExpand"/>
+
+                                                <Label Grid.Column="2"
+                                                       Text="{Binding DueDate, StringFormat='{0:MMM d}'}"
+                                                       FontSize="14"
+                                                       Opacity="0.6"
+                                                       VerticalOptions="Center"
+                                                       HorizontalOptions="End"
+                                                       TextColor="{AppThemeBinding Dark=White, Light=Black}"
+                                                       Margin="10,0,0,0"/>
+                                            </Grid>
+
+                                            <!-- button will say "see details" or "see less"-->
+                                            <StackLayout Spacing="0">
+                                                <Button Text="{Binding DescriptionIsExpanded, Converter={StaticResource SeeMoreSeeLessConverter}}"
+                                                        FontAttributes="Bold"
+                                                        Opacity="0.7"
+                                                        Command="{Binding ToggleDescriptionCommand}"
+                                                        CommandParameter="{Binding .}"
+                                                        HorizontalOptions="Start"
+                                                        Margin="30,0,0,0"
+                                                        TextColor="{AppThemeBinding Dark=White, Light=Black}"
+                                                        BackgroundColor="Transparent"
+                                                        IsVisible="{Binding HasDescription}"/>
+
+                                                <!-- full description (visible when expanded) -->
+                                                <Label Text="{Binding Description}"
+                                                       IsVisible="{Binding DescriptionIsExpanded}"
+                                                       TextColor="{AppThemeBinding Dark=White, Light=Black}"
+                                                       Padding="10"
+                                                       Margin="45,0,0,0"/>
+                                            </StackLayout>
+
+                                            <StackLayout Orientation="Horizontal"
+                                                         HorizontalOptions="End"
+                                                         Spacing="5"
+                                                         Margin="0,5,0,0">
+                                                <Button Text="Start"
+                                                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:AssignmentsViewModel}}, Path=StartAssignmentCommand}"/>
+                                                <Button Text="Add To-Do"/>
+                                                <Button Text="{StaticResource TrashIcon}"
+                                                        FontFamily="FontAwesomeSolid"
+                                                        CommandParameter="{Binding .}"
+                                                        BackgroundColor="#7a2b35"
+                                                        TextColor="White"
+                                                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:AssignmentsViewModel}}, Path=DeleteAssignmentCommand}"/>
+                                            </StackLayout>
                                         </StackLayout>
-
-                                        <StackLayout Orientation="Horizontal"
-                                                     HorizontalOptions="End"
-                                                     Spacing="5"
-                                                     Margin="0,5,0,0">
-                                            <Button Text="Start"
-                                                    Command="{Binding Source={RelativeSource AncestorType={x:Type vm:AssignmentsViewModel}}, Path=StartAssignmentCommand}"/>
-                                            <Button Text="Add To-Do" />
-                                            <Button Text="{StaticResource TrashIcon}"
-                                                    FontFamily="FontAwesomeSolid"
-                                                    CommandParameter="{Binding .}"
-                                                    BackgroundColor="#7a2b35"
-                                                    TextColor="White"
-                                                    Command="{Binding Source={RelativeSource AncestorType={x:Type vm:AssignmentsViewModel}}, Path=DeleteAssignmentCommand}"/>
-                                        </StackLayout>
-                                    </StackLayout>
-                                </Border>
-                            </StackLayout>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
-            </Border>
+                                    </Border>
+                                </StackLayout>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </Border>
+            </VerticalStackLayout>
+            <Label Text="{Binding OnlineMessage}"
+                   FontSize="20"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"
+                   Margin="0,0,0,20"/>
         </StackLayout>
     </ScrollView>
 </ContentPage>

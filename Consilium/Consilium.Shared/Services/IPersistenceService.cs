@@ -9,6 +9,5 @@ public interface IPersistenceService {
     void DeleteToken();
     void OnStartup();
     string GetUserName();
-    Task<bool> CheckAuthStatus();
-    bool CheckLoginStatus();
+    bool CheckLocalLoginStatus();
 }

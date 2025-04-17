@@ -5,4 +5,5 @@ public interface ILogInService {
     Task<bool> LogOut();
     Task<bool> GlobalLogOut();
     Task<bool> DeleteAccount();
+    Task<bool> CheckAuthStatus();
 }

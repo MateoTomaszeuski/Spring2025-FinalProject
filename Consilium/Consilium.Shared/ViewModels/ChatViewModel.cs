@@ -6,7 +6,7 @@ using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 
 namespace Consilium.Shared.ViewModels;
-public partial class ChatViewModel(IMessageService messageService) : ObservableObject {
+public partial class ChatViewModel(IMessageService messageService, ILogInService logInService) : ObservableObject {
 
     [ObservableProperty]
     private ObservableCollection<string> conversations = new();
@@ -25,7 +25,16 @@ public partial class ChatViewModel(IMessageService messageService) : ObservableO
     private string newConversationName = string.Empty;
     [ObservableProperty]
     private string displayMessage = string.Empty;
+    [ObservableProperty]
+    private bool online = false;
+    [ObservableProperty]
+    private string onlineMessage = string.Empty;
     public async Task InitConversations() {
+        Online = await logInService.CheckAuthStatus();
+        if (!Online) {
+            OnlineMessage = "You are in Guest mode, make sure to login or connect to the internet";
+            return;
+        }
         Conversations = new(await messageService.GetConversations());
     }
 

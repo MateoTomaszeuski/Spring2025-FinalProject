@@ -9,8 +9,9 @@ using System.ComponentModel;
 namespace Consilium.Shared.ViewModels;
 
 public partial class MessagesViewModel : ObservableObject {
-    public MessagesViewModel(IMessageService messageService, IPersistenceService persistenceService) {
+    public MessagesViewModel(IMessageService messageService, IPersistenceService persistenceService, ILogInService logInService) {
         this.messageService = messageService;
+        this.logInService = logInService;
         messageService.PropertyChanged += MessageService_PropertyChanged;
         MyUserName = persistenceService.GetUserName();
 
@@ -33,6 +34,7 @@ public partial class MessagesViewModel : ObservableObject {
     private string messageContent = string.Empty;
 
     private readonly IMessageService messageService;
+    private readonly ILogInService logInService;
 
     public event Action? MessagesUpdated;
 

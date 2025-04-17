@@ -7,8 +7,9 @@ using System.Collections.ObjectModel;
 namespace Consilium.Shared.ViewModels;
 public partial class TodoListViewModel : ObservableObject {
     private IToDoService ToDoService;
+    private readonly ILogInService logInService;
     private HttpClient client;
-    public TodoListViewModel(IToDoService toDoService) {
+    public TodoListViewModel(IToDoService toDoService, ILogInService logInService) {
         Categories = new ObservableCollection<string>() { "Misc.", "School", "Work" };
         FilterCategories = new ObservableCollection<string>(Categories.Append("All"));
         SelectedSortOption = SortOptions[0];
@@ -16,8 +17,14 @@ public partial class TodoListViewModel : ObservableObject {
         client = new();
         TodoItems = new();
         ToDoService = toDoService;
+        this.logInService = logInService;
     }
     public async Task InitializeItemsAsync() {
+        Online = await logInService.CheckAuthStatus();
+        if (!Online) {
+            OnlineMessage = "You are offline. Please connect to the internet to sync your tasks.";
+            return;
+        }
         IsLoading = true;
         await ToDoService.InitializeTodosAsync();
         TodoItems = ToDoService.GetTodoItems();
@@ -29,6 +36,10 @@ public partial class TodoListViewModel : ObservableObject {
         "Category Descending",
         "Completion"
     };
+    [ObservableProperty]
+    private bool online = false;
+    [ObservableProperty]
+    private string onlineMessage = string.Empty;
 
     [ObservableProperty]
     private string selectedSortOption;

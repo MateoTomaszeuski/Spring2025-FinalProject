@@ -37,17 +37,8 @@ public class PersistenceService(IClientService clientService) : IPersistenceServ
     public string GetUserName() {
         return Preferences.Get("auth-header-email", String.Empty);
     }
-    public async Task<bool> CheckAuthStatus() {
 
-        try {
-            var response = await clientService.GetAsync("/account/valid");
-            return response.IsSuccessStatusCode;
-        } catch (Exception e) {
-            return false;
-        }
-
-    }
-    public bool CheckLoginStatus() {
+    public bool CheckLocalLoginStatus() {
         string email = Preferences.Get("auth-header-email", String.Empty);
         string token = Preferences.Get("auth-header-token", String.Empty);
         return !string.IsNullOrEmpty(email) && !string.IsNullOrEmpty(token);

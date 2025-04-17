@@ -48,7 +48,7 @@ public partial class ProfileViewModel : ObservableObject {
             Username = persistenceService.GetUserName();
             ShowLogIn = false;
 
-            bool isValidated = await persistenceService.CheckAuthStatus();
+            bool isValidated = await logInService.CheckAuthStatus();
             ShowUnAuthorized = !isValidated;
             ShowLogOut = LoggedIn;
 
@@ -91,7 +91,7 @@ public partial class ProfileViewModel : ObservableObject {
 
     [RelayCommand]
     private async Task CheckUnAuthorized() {
-        ShowUnAuthorized = !await persistenceService.CheckAuthStatus() && LoggedIn;
+        ShowUnAuthorized = !await logInService.CheckAuthStatus() && LoggedIn;
         ShowLogOut = LoggedIn;
 
         // show snackbar notification once the user has successfully verified account
@@ -105,8 +105,8 @@ public partial class ProfileViewModel : ObservableObject {
         WeakReferenceMessenger.Default.Send(new ShowPopupMessage());
     }
     public async Task InitializeAsync() {
-        LoggedIn = persistenceService.CheckLoginStatus();
-        ShowUnAuthorized = !await persistenceService.CheckAuthStatus() && LoggedIn;
+        LoggedIn = persistenceService.CheckLocalLoginStatus();
+        ShowUnAuthorized = !await logInService.CheckAuthStatus() && LoggedIn;
         ShowLogIn = !LoggedIn;
         Username = persistenceService.GetUserName();
         ShowLogOut = LoggedIn;
@@ -129,7 +129,7 @@ public partial class ProfileViewModel : ObservableObject {
             while (!token.IsCancellationRequested && ShowUnAuthorized) {
                 await Task.Delay(TimeSpan.FromSeconds(5), token);
 
-                bool isAuthorized = await persistenceService.CheckAuthStatus();
+                bool isAuthorized = await logInService.CheckAuthStatus();
 
                 if (isAuthorized) {
                     ShowUnAuthorized = false;

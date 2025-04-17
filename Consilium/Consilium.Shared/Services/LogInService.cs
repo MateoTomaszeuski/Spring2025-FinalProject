@@ -38,4 +38,14 @@ public class LogInService : ILogInService {
         service.DeleteToken();
         return response.IsSuccessStatusCode;
     }
+    public async Task<bool> CheckAuthStatus() {
+
+        try {
+            var response = await client.GetAsync("/account/valid");
+            return response.IsSuccessStatusCode;
+        } catch {
+            return false;
+        }
+
+    }
 }

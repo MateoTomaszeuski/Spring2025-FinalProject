@@ -8,6 +8,7 @@ namespace Consilium.Shared.ViewModels;
 
 public partial class DashboardViewModel : ObservableObject {
     private readonly IPersistenceService persistenceService;
+    private readonly ILogInService logInService;
     private readonly IToDoService toDoService;
     private readonly IAssignmentService assignmentService;
     [ObservableProperty]
@@ -22,19 +23,20 @@ public partial class DashboardViewModel : ObservableObject {
     private bool online = false;
     [ObservableProperty]
     private bool showDashboard = false;
-    public DashboardViewModel(IPersistenceService persistenceService, IToDoService toDoService, IAssignmentService assignmentService) {
+    public DashboardViewModel(IPersistenceService persistenceService, ILogInService logInService, IToDoService toDoService, IAssignmentService assignmentService) {
 
         var u = persistenceService.GetUserName();
         u = u.Split('@')[0];
         Username = u != String.Empty ? u : "Guest";
         this.persistenceService = persistenceService;
+        this.logInService = logInService;
         this.toDoService = toDoService;
         this.assignmentService = assignmentService;
     }
 
     [RelayCommand]
     public async Task Initialize() {
-        Online = await persistenceService.CheckAuthStatus();
+        Online = await logInService.CheckAuthStatus();
         if (Username != "Guest" && Online) {
             IEnumerable<Assignment> a = await assignmentService.GetAllAssignmentsAsync();
             Assignments = new(a.Take(5));
