@@ -7,6 +7,10 @@
         <Label 
             Text="{Binding OnlineMessage}" 
             VerticalOptions="Start" 
+            FontSize="20"
+            FontAttributes="Bold"
+            HorizontalOptions="Center"
+            Margin="0,0,0,20"
             IsVisible="{Binding Online, Converter={StaticResource InverseBoolConverter}}"/>
         <Grid RowDefinitions="Auto,*,Auto" IsVisible="{Binding Online}">
             <VerticalStackLayout IsVisible="{Binding ShowChat}">
