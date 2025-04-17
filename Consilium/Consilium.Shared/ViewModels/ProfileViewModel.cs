@@ -31,6 +31,10 @@ public partial class ProfileViewModel : ObservableObject {
     private readonly ILogInService logInService;
     private readonly IPersistenceService persistenceService;
 
+
+    public Func<string, Task>? ShowSnackbarAsync { get; set; }
+
+
     [RelayCommand]
     private async Task LogIn() {
         if (String.IsNullOrEmpty(EmailInput)) return;
@@ -45,7 +49,8 @@ public partial class ProfileViewModel : ObservableObject {
             ShowLogIn = false;
             ShowUnAuthorized = !await persistenceService.CheckAuthStatus();
             ShowLogOut = LoggedIn;
-            Message = "You successfully Logged In!";
+            if (ShowSnackbarAsync is not null)
+                await ShowSnackbarAsync("Successfully logged in!");
         }
     }
     [RelayCommand]
@@ -56,7 +61,8 @@ public partial class ProfileViewModel : ObservableObject {
         ShowLogIn = true;
         ShowLogOut = false;
         ShowUnAuthorized = false;
-        Message = "You successfully Logged Out!";
+        if (ShowSnackbarAsync is not null)
+            await ShowSnackbarAsync("Successfully logged out!");
     }
 
     [RelayCommand]
