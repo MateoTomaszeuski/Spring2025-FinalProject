@@ -2,17 +2,27 @@
 <toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Consilium.Maui.PopUps.LoggedInPopUp"
-             xmlns:toolkit="clr-namespace:CommunityToolkit.Maui.Views;assembly=CommunityToolkit.Maui">
+             xmlns:toolkit="clr-namespace:CommunityToolkit.Maui.Views;assembly=CommunityToolkit.Maui"
+             Color="Transparent">
     <VerticalStackLayout>
         <Border
-            BackgroundColor="{AppThemeBinding Dark={StaticResource Dark-Dark}, Light={StaticResource Light-Light}}"
+            BackgroundColor="{AppThemeBinding Dark={StaticResource Dark-Dark}, Light={StaticResource White}}"
             StrokeThickness="0"
-            Padding="15">
+            Padding="40"
+            StrokeShape="RoundRectangle 20"
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="FillAndExpand">
+            <Border.Shadow>
+                <Shadow Brush="{AppThemeBinding Dark={StaticResource Black}, Light={StaticResource Gray500}}"/>
+            </Border.Shadow>
             <VerticalStackLayout>
                 <Label 
-                    Text="Welcome to Consilium!&#10;"
+                    Text="Welcome to Consilium!"
+                    FontAttributes="Bold"
+                    FontSize="20"
                     VerticalOptions="Center" 
-                    HorizontalOptions="Center" />
+                    HorizontalOptions="Center" 
+                    LineHeight="3"/>
                 <Label 
                     Text="Check your email to validate your account."
                     VerticalOptions="Center" 
