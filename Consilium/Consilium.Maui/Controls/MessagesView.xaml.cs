@@ -22,7 +22,7 @@ public partial class MessagesView : ContentView {
             notify.CollectionChanged += OnMessagesCollectionChanged;
         }
     }
-    private void OnMessagesCollectionChanged(object sender, NotifyCollectionChangedEventArgs e) {
+    private void OnMessagesCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e) {
         if (e.Action == NotifyCollectionChangedAction.Add)
             ScrollToLastMessage();
     }
