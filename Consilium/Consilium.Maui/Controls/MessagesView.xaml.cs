@@ -11,7 +11,8 @@ public partial class MessagesView : ContentView {
         BindingContext = vm;
         ScrollToBottom();
 
-        BindingContextChanged += (_, _) => {
+        BindingContextChanged += (_, _) =>
+        {
             if (vm != null) {
                 vm.MessagesUpdated -= ScrollToBottom;
                 vm.MessagesUpdated += ScrollToBottom;

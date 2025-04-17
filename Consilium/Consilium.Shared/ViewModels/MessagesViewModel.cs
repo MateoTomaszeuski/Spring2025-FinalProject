@@ -14,7 +14,8 @@ public partial class MessagesViewModel : ObservableObject {
         messageService.PropertyChanged += MessageService_PropertyChanged;
         MyUserName = persistenceService.GetUserName();
 
-        WeakReferenceMessenger.Default.Register<ClearMessagesRequest>(this, (r, m) => {
+        WeakReferenceMessenger.Default.Register<ClearMessagesRequest>(this, (r, m) =>
+        {
             AllMessages.Clear();
         });
 
