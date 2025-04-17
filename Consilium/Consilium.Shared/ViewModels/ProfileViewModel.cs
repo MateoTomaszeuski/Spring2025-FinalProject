@@ -53,9 +53,10 @@ public partial class ProfileViewModel : ObservableObject {
         await logInService.LogOut();
         LoggedIn = false;
         Username = string.Empty;
-        ShowLogIn = !LoggedIn;
-        if (!LoggedIn) Message = "You successfully Logged Out!";
-        ShowLogOut = LoggedIn;
+        ShowLogIn = true;
+        ShowLogOut = false;
+        ShowUnAuthorized = false;
+        Message = "You successfully Logged Out!";
     }
 
     [RelayCommand]
