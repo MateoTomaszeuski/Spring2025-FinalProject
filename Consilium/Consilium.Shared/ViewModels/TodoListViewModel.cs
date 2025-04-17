@@ -7,14 +7,11 @@ using System.Collections.ObjectModel;
 namespace Consilium.Shared.ViewModels;
 public partial class TodoListViewModel : ObservableObject {
     private IToDoService ToDoService;
-    private readonly bool isTest;
-    private HttpClient client;
     public TodoListViewModel(IToDoService toDoService) {
         Categories = new ObservableCollection<string>() { "Misc.", "School", "Work" };
         FilterCategories = new ObservableCollection<string>(Categories.Append("All"));
         SelectedSortOption = SortOptions[0];
         NewTodoCategory = Categories[0];
-        client = new();
         TodoItems = new();
         ToDoService = toDoService;
     }
