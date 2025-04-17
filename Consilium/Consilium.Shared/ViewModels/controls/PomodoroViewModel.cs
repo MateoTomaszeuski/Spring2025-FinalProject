@@ -69,15 +69,15 @@ public partial class PomodoroViewModel : ObservableObject {
         }
         OnPropertyChanged(nameof(CurrentTimerDisplay));
     }
-    partial void OnWorkTimeChanged(int newValue) {
+    partial void OnWorkTimeChanged(int value) {
         if (!IsTimerRunning && CurrentAction == "Working") {
-            _currentTimer = newValue;
+            _currentTimer = value;
             OnPropertyChanged(nameof(CurrentTimerDisplay));
         }
     }
-    partial void OnBreakTimeChanged(int newValue) {
+    partial void OnBreakTimeChanged(int value) {
         if (!IsTimerRunning && CurrentAction == "Break") {
-            _currentTimer = newValue;
+            _currentTimer = value;
             OnPropertyChanged(nameof(CurrentTimerDisplay));
         }
     }
