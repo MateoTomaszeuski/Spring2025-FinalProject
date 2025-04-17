@@ -9,6 +9,7 @@ public partial class PomodoroView : ContentView {
     public PomodoroView() {
         InitializeComponent();
         _audioManager = ServiceHelper.GetService<IAudioManager>();
+        BindingContext = new PomodoroViewModel();
     }
 
     public PomodoroView(IAudioManager audioManager) : this() {

@@ -2,7 +2,50 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Consilium.Maui.Controls.PomodoroView">
-    <VerticalStackLayout>
-        <Button Text="Play Sound" Clicked="OnPlaySoundButtonClicked" />
-    </VerticalStackLayout>
+
+  <StackLayout Padding="20" Spacing="15" 
+               HorizontalOptions="Center" VerticalOptions="Center">
+
+    <!-- Timer Display -->
+    <Label Text="{Binding CurrentTimerDisplay}"
+           FontSize="48"
+           HorizontalOptions="Center"/>
+
+    <!-- Current Action (Working / Break) -->
+    <Label Text="{Binding CurrentAction}"
+           FontSize="24"
+           HorizontalOptions="Center"/>
+
+    <!-- Controls -->
+    <StackLayout Orientation="Horizontal" Spacing="10" HorizontalOptions="Center">
+      <Button Text="Start"
+              Command="{Binding StartTimerCommand}"
+              IsEnabled="{Binding IsTimerRunning, Converter={StaticResource InverseBooleanConverter}}"/>
+      <Button Text="Stop"
+              Command="{Binding StopTimerCommand}"
+              IsEnabled="{Binding IsTimerRunning}"/>
+      <Button Text="Reset"
+              Command="{Binding ResetTimerCommand}"/>
+    </StackLayout>
+
+    <!-- Work & Break Settings -->
+    <StackLayout Spacing="10">
+      <!-- WorkTime in seconds -->
+      <Label Text="{Binding WorkTime, StringFormat='Work Time: {0} sec'}" FontSize="18"/>
+      <Slider Minimum="60" 
+              Maximum="3600" 
+              Value="{Binding WorkTime, Mode=TwoWay}"/>
+
+      <!-- BreakTime in seconds -->
+      <Label Text="{Binding BreakTime, StringFormat='Break Time: {0} sec'}" FontSize="18"/>
+      <Slider Minimum="60"
+              Maximum="1800"
+              Value="{Binding BreakTime, Mode=TwoWay}"/>
+    </StackLayout>
+
+    <!-- Play Sound (now via VM command) -->
+    <Button Text="Play Sound"
+            Command="{Binding PlaySoundCommand}"
+            HorizontalOptions="Center"/>
+  </StackLayout>
 </ContentView>

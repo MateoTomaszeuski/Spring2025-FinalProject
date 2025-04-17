@@ -11,6 +11,6 @@ public static class ServiceHelper {
         Current.GetService<T>() ?? throw new InvalidOperationException($"Service {typeof(T)} not registered.");
 
     private static IServiceProvider Current =>
-        Application.Current?.Handler?.MauiContext?.Services
+        ((App)Application.Current).Services
         ?? throw new InvalidOperationException("MauiContext not available yet.");
 }
