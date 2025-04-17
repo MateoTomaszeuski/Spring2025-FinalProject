@@ -1,10 +1,10 @@
+using CommunityToolkit.Maui.Alerts;
+using CommunityToolkit.Maui.Core;
 using CommunityToolkit.Maui.Views;
 using CommunityToolkit.Mvvm.Messaging;
 using Consilium.Maui.PopUps;
 using Consilium.Shared.Services;
 using Consilium.Shared.ViewModels;
-using CommunityToolkit.Maui.Alerts;
-using CommunityToolkit.Maui.Core;
 
 
 namespace Consilium.Maui.Views;

@@ -96,7 +96,7 @@ public partial class ProfileViewModel : ObservableObject {
 
         // show snackbar notification once the user has successfully verified account
         if (LoggedIn) {
-            if(ShowSnackbarAsync is not null)
+            if (ShowSnackbarAsync is not null)
                 await ShowSnackbarAsync("Successfully logged in!");
         }
     }
