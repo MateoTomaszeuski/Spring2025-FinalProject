@@ -61,13 +61,26 @@ public partial class PomodoroViewModel : ObservableObject {
         if (CurrentAction == "Working") {
             CurrentAction = "Break";
             _currentTimer = BreakTime;
+            // Make sound
         } else {
             CurrentAction = "Working";
             _currentTimer = WorkTime;
+            // Make sound
         }
         OnPropertyChanged(nameof(CurrentTimerDisplay));
     }
-
+    partial void OnWorkTimeChanged(int newValue) {
+        if (!IsTimerRunning && CurrentAction == "Working") {
+            _currentTimer = newValue;
+            OnPropertyChanged(nameof(CurrentTimerDisplay));
+        }
+    }
+    partial void OnBreakTimeChanged(int newValue) {
+        if (!IsTimerRunning && CurrentAction == "Break") {
+            _currentTimer = newValue;
+            OnPropertyChanged(nameof(CurrentTimerDisplay));
+        }
+    }
     public string CurrentTimerDisplay =>
         TimeSpan.FromSeconds(_currentTimer)
                .ToString(@"mm\:ss");

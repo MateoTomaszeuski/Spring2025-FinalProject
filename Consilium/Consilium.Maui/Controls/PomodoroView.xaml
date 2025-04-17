@@ -43,9 +43,5 @@
               Value="{Binding BreakTime, Mode=TwoWay}"/>
     </StackLayout>
 
-    <!-- Play Sound (now via VM command) -->
-    <Button Text="Play Sound"
-            Command="{Binding PlaySoundCommand}"
-            HorizontalOptions="Center"/>
   </StackLayout>
 </ContentView>
