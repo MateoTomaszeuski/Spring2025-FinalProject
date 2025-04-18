@@ -57,32 +57,31 @@ public static class MauiProgram {
 
     public static MauiAppBuilder RegisterViews(this MauiAppBuilder builder) {
         builder.Services.AddSingleton<AssignmentsView>();
+        builder.Services.AddSingleton<ChatView>();
         builder.Services.AddSingleton<DashboardView>();
-        builder.Services.AddSingleton<StatsView>();
+        builder.Services.AddSingleton<ProfileView>();
         builder.Services.AddSingleton<TodoListView>();
         builder.Services.AddSingleton<ToolsView>();
-        builder.Services.AddSingleton<ProfileView>();
         builder.Services.AddSingleton<CalculatorView>();
+        builder.Services.AddSingleton<Calendar>();
         builder.Services.AddSingleton<MessagesView>();
-        builder.Services.AddSingleton<ChatView>();
-        builder.Services.AddSingleton<PomodoroView>();
         builder.Services.AddSingleton<NotesView>();
+        builder.Services.AddSingleton<PomodoroView>();
 
         return builder;
     }
 
     public static MauiAppBuilder RegisterViewModels(this MauiAppBuilder builder) {
         builder.Services.AddSingleton<AssignmentsViewModel>();
+        builder.Services.AddSingleton<ChatViewModel>();
         builder.Services.AddSingleton<DashboardViewModel>();
-        builder.Services.AddSingleton<StatsViewModel>();
+        builder.Services.AddSingleton<ProfileViewModel>();
         builder.Services.AddSingleton<TodoListViewModel>();
         builder.Services.AddSingleton<ToolsViewModel>();
-        builder.Services.AddSingleton<ProfileViewModel>();
         builder.Services.AddSingleton<CalculatorViewModel>();
         builder.Services.AddSingleton<MessagesViewModel>();
-        builder.Services.AddSingleton<ChatViewModel>();
-        builder.Services.AddSingleton<PomodoroViewModel>();
         builder.Services.AddSingleton<NotesViewModel>();
+        builder.Services.AddSingleton<PomodoroViewModel>();
         return builder;
     }
     public static MauiAppBuilder RegisterServices(this MauiAppBuilder builder) {
