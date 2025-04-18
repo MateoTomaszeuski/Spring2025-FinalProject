@@ -16,7 +16,6 @@ var builder = WebApplication.CreateBuilder(args);
 
 DateTime started = DateTime.UtcNow;
 
-
 const string serviceName = "Consilium";
 var Uri = builder.Configuration["OTEL_URL"] ?? "";
 Console.WriteLine(Uri);
