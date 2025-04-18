@@ -3,38 +3,101 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Consilium.Maui.Views.DashboardView"
              Title="DashboardView">
-    <VerticalStackLayout>
-        <Label Text="{Binding Username, StringFormat='Welcome back: {0}!'}" />
-        <Label Text="{Binding PrintMessage}" 
-               FontSize="20"
-               FontAttributes="Bold"
-               HorizontalOptions="Center"
-               Margin="0,0,0,20"
-               IsVisible="{Binding Online, Converter={StaticResource InverseBoolConverter}}"/>
-        <VerticalStackLayout IsVisible="{Binding ShowDashboard}">
-            <Label Text="Upcoming Assigments"/>
-            <CollectionView ItemsSource="{Binding Assignments}">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <VerticalStackLayout>
-                            <Label Text="{Binding Name}"/>
-                            <Label Text="{Binding Description}"/>
-                            <Label Text="{Binding DueDate}"/>
-                        </VerticalStackLayout>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
+    <ScrollView>
+        <StackLayout Padding="20">
+            <Label Text="{Binding Username, StringFormat='Welcome back: {0}!'}"
+                   FontSize="27"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"
+                   Margin="0,0,0,20"
+                   TextColor="{AppThemeBinding Dark={StaticResource White}, Light={StaticResource Black}}"/>
 
-            <Label Text="Upcoming ToDos"/>
-            <CollectionView ItemsSource="{Binding ToDos}">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <VerticalStackLayout>
-                            <Label Text="{Binding Title}"/>
-                        </VerticalStackLayout>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-        </VerticalStackLayout>
-    </VerticalStackLayout>
+            <Label Text="{Binding PrintMessage}" 
+                   FontSize="20"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"
+                   Margin="0,0,0,20"
+                   IsVisible="{Binding Online, Converter={StaticResource InverseBoolConverter}}"
+                   TextColor="{AppThemeBinding Dark={StaticResource White}, Light={StaticResource Black}}"/>
+
+            <VerticalStackLayout IsVisible="{Binding ShowDashboard}" Spacing="20">
+                <!-- Assignments Section -->
+                <Border StrokeShape="RoundRectangle 10"
+                        Padding="10"
+                        BackgroundColor="Transparent"
+                        StrokeThickness="1"
+                        Stroke="{AppThemeBinding Dark={StaticResource Gray600}, Light={StaticResource Gray200}}"
+                        MaximumWidthRequest="800">
+                    <StackLayout>
+                        <Label Text="Upcoming Assignments"
+                               FontSize="18"
+                               FontAttributes="Bold"
+                               Margin="0,0,0,10"
+                               TextColor="{AppThemeBinding Dark={StaticResource White}, Light={StaticResource Black}}"/>
+
+                        <CollectionView ItemsSource="{Binding Assignments}">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Padding="10"
+                                                Margin="0,0,0,10"
+                                                BackgroundColor="{AppThemeBinding Dark={StaticResource Dark-Dark}, Light={StaticResource Light-Back}}"
+                                                StrokeShape="RoundRectangle 5"
+                                                Stroke="{AppThemeBinding Dark={StaticResource White}, Light={StaticResource Black}}">
+                                        <ScrollView>
+                                            <StackLayout Spacing="5">
+                                                <Label Text="{Binding Name}"
+                                                       FontAttributes="Bold"
+                                                       FontSize="16"
+                                                       TextColor="{AppThemeBinding Dark={StaticResource White}, Light={StaticResource PrimaryDarkText}}"/>
+                                                <Label Text="{Binding Description}"
+                                                       FontSize="14"
+                                                       Opacity="0.8"
+                                                       TextColor="{AppThemeBinding Dark={StaticResource Gray400}, Light={StaticResource Gray600}}"/>
+                                                <Label Text="{Binding DueDate, StringFormat='Due: {0:MMM d, yyyy}'}"
+                                                       FontSize="13"
+                                                       TextColor="{StaticResource Gray500}"
+                                                       HorizontalOptions="End"/>
+                                            </StackLayout>
+                                        </ScrollView>
+                                    </Border>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </StackLayout>
+                </Border>
+
+                <!-- To-Dos Section -->
+                <Border Padding="10"
+                            BackgroundColor="Transparent"
+                            StrokeThickness="1"
+                            Stroke="{AppThemeBinding Dark={StaticResource Gray600}, Light={StaticResource Gray200}}"
+                            MaximumWidthRequest="800">
+                    <ScrollView>
+                        <StackLayout>
+                            <Label Text="Upcoming To-Dos"
+                                   FontSize="18"
+                                   FontAttributes="Bold"
+                                   Margin="0,0,0,10"
+                                   TextColor="{AppThemeBinding Dark={StaticResource White}, Light={StaticResource Black}}"/>
+                            <CollectionView ItemsSource="{Binding ToDos}">
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border Padding="10"
+                                                Margin="0,0,0,10"
+                                                BackgroundColor="{AppThemeBinding Dark={StaticResource Dark-Dark}, Light={StaticResource Light-Back}}"
+                                                StrokeShape="RoundRectangle 5"
+                                                StrokeThickness="0">
+                                            <Label Text="{Binding Title}"
+                                                   FontSize="14"
+                                                   TextColor="{AppThemeBinding Dark={StaticResource White}, Light={StaticResource PrimaryDarkText}}"/>
+                                        </Border>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+                        </StackLayout>
+                    </ScrollView>
+                </Border>
+            </VerticalStackLayout>
+        </StackLayout>
+    </ScrollView>
 </ContentPage>
