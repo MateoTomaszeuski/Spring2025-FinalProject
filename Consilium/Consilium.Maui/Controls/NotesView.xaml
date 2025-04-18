@@ -5,14 +5,12 @@
    <ScrollView>  
        <VerticalStackLayout Padding="20" Spacing="15">  
 
-           <!-- Heading -->  
            <Label Text="Notes"  
                   FontSize="32"  
                   FontAttributes="Bold"  
                   HorizontalOptions="Center"  
                   Margin="0,0,0,10"/>  
 
-           <!-- Input Fields -->  
            <Entry Placeholder="Title"  
                   Text="{Binding Title}"  
                   FontSize="16"  
@@ -25,7 +23,6 @@
                    FontSize="14"  
                    BackgroundColor="{StaticResource Light-Grey}"/>  
 
-           <!-- Add Note Button -->  
            <Button Text="Add Note"  
                    Command="{Binding AddNoteCommand}"  
                    BackgroundColor="{StaticResource Dark-Green}"  
@@ -34,14 +31,11 @@
                    CornerRadius="8"  
                    HorizontalOptions="End"  
                    WidthRequest="120"/>  
-
-           <!-- Notes Grid Header -->  
            <Label Text="Your Notes"  
                   FontSize="24"  
                   FontAttributes="Bold"  
                   Margin="0,20,0,10"/>  
 
-           <!-- Notes List -->  
            <CollectionView x:Name="NotesCollectionView"  
                            ItemsSource="{Binding Notes}">  
                <CollectionView.ItemTemplate>  
@@ -51,12 +45,10 @@
                                StrokeShape="RoundRectangle 8"  
                                Padding="10"  
                                Margin="0,0,0,10">  
-
                            <Grid RowSpacing="5"  
                                  ColumnDefinitions="*, Auto"  
                                  RowDefinitions="Auto, Auto">  
 
-                               <!-- Title -->  
                                <Label Grid.Row="0"  
                                       Grid.Column="0"  
                                       Text="{Binding Title}"  
@@ -64,7 +56,6 @@
                                       FontSize="16"  
                                       TextColor="{AppThemeBinding Light=Black, Dark=White}"/>  
 
-                               <!-- Delete Button -->  
                                <Button Grid.Row="0"  
                                        Grid.Column="1"  
                                        Text="{StaticResource TrashIcon}"  
@@ -76,8 +67,6 @@
                                        CornerRadius="20"  
                                        Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.DeleteNoteCommand}"  
                                        CommandParameter="{Binding .}"/>  
-
-                               <!-- Content -->  
                                <Label Grid.Row="1"  
                                       Grid.ColumnSpan="2"  
                                       Text="{Binding Content}"  
