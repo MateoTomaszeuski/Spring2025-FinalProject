@@ -1,5 +1,6 @@
 using Consilium.API;
 using Consilium.API.DBServices;
+using Consilium.API.Metrics;
 using EmailAuthenticator;
 using Microsoft.AspNetCore.Mvc;
 using Npgsql;
@@ -15,6 +16,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 DateTime started = DateTime.UtcNow;
 
+builder.Services.AddSingleton<TodoMetrics>();
+
 const string serviceName = "Consilium";
 var Uri = builder.Configuration["OTEL_URL"] ?? "";
 Console.WriteLine(Uri);
@@ -29,6 +32,7 @@ if (Uri != "") {
             }))
         .WithMetrics(metrics => metrics
             .AddMeter(serviceName)
+            .AddMeter("Consilium.Todos")
             .AddAspNetCoreInstrumentation()
             .AddOtlpExporter(options =>
             {
