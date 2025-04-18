@@ -37,9 +37,9 @@ public static class MauiProgram {
 #endif
         builder.Services.AddHttpClient("ApiClient", client =>
         {
-            // client.BaseAddress = new Uri("https://consilium-api-cpgdcqaxepbyc2gj.westus3-01.azurewebsites.net/");
+            client.BaseAddress = new Uri("https://consilium-api-cpgdcqaxepbyc2gj.westus3-01.azurewebsites.net/");
 #if DEBUG
-            client.BaseAddress = new Uri("http://localhost:8080");
+            //client.BaseAddress = new Uri("http://localhost:8080");
 #endif
         });
 
