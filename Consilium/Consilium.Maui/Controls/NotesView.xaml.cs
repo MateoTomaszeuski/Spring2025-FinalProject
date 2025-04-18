@@ -5,6 +5,6 @@ namespace Consilium.Maui.Controls;
 public partial class NotesView : ContentView {
     public NotesView() {
         InitializeComponent();
-        BindingContext = new NotesViewModel();
+        BindingContext = ((App)Application.Current).Services.GetService<NotesViewModel>();
     }
 }
