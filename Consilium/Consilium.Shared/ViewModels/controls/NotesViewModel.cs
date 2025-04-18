@@ -2,19 +2,17 @@
 using CommunityToolkit.Mvvm.Input;
 using Consilium.Shared.Models;
 using System.Collections.ObjectModel;
-using System.Text.Json;
 
 
 namespace Consilium.Shared.ViewModels.Controls;
 
 public partial class NotesViewModel : ObservableObject {
-    private string NotesKey = "saved_notes";
 
     [ObservableProperty]
-    private string title;
+    private string ?title;
 
     [ObservableProperty]
-    private string content;
+    private string ?content;
 
     public ObservableCollection<Note> Notes { get; } = new();
 
