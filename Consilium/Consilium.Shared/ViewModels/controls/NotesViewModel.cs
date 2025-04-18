@@ -9,10 +9,10 @@ namespace Consilium.Shared.ViewModels.Controls;
 public partial class NotesViewModel : ObservableObject {
 
     [ObservableProperty]
-    private string ?title;
+    private string? title;
 
     [ObservableProperty]
-    private string ?content;
+    private string? content;
 
     public ObservableCollection<Note> Notes { get; } = new();
 
