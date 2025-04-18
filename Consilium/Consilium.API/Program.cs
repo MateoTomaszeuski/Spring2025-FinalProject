@@ -16,12 +16,12 @@ var builder = WebApplication.CreateBuilder(args);
 
 DateTime started = DateTime.UtcNow;
 
-builder.Services.AddSingleton<TodoMetrics>();
 
 const string serviceName = "Consilium";
 var Uri = builder.Configuration["OTEL_URL"] ?? "";
 Console.WriteLine(Uri);
 if (Uri != "") {
+    builder.Services.AddSingleton<TodoMetrics>();
     builder.Services.AddOpenTelemetry()
         .ConfigureResource(r => r.AddService(serviceName: serviceName))
         .WithLogging(logging => logging
