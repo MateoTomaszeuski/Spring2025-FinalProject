@@ -22,6 +22,6 @@ public partial class NotesViewModel : ObservableObject, IDisposable {
 
     public void Dispose() {
         if (Content is null) Content = "";
-        service.SaveNotes(Content); 
+        service.SaveNotes(Content);
     }
 }
