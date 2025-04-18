@@ -193,8 +193,8 @@
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
                                 <StackLayout Padding="0"
-                                        BackgroundColor="Transparent">
-                                    <Border>
+                                        BackgroundColor="Transparent" Spacing="5">
+                                    <Border Margin="5">
                                         <StackLayout>
                                             <Grid ColumnDefinitions="Auto, *, Auto"
                                                   VerticalOptions="Center"
