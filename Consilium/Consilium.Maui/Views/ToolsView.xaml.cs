@@ -14,5 +14,6 @@ public partial class ToolsView : ContentPage {
         OnPropertyChanged(nameof(vm.NotesActive));
         OnPropertyChanged(nameof(vm.CalculatorActive));
         OnPropertyChanged(nameof(vm.PomodoroActive));
+        OnPropertyChanged(nameof(vm.CalendarActive));
     }
 }
