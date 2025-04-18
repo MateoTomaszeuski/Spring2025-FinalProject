@@ -52,7 +52,8 @@
                                                 <Label Text="{Binding Description}"
                                                        FontSize="14"
                                                        Opacity="0.8"
-                                                       TextColor="{AppThemeBinding Dark={StaticResource Gray400}, Light={StaticResource Gray600}}"/>
+                                                       TextColor="{AppThemeBinding Dark={StaticResource Gray400}, Light={StaticResource Gray600}}"
+                                                       LineBreakMode="TailTruncation"/>
                                                 <Label Text="{Binding DueDate, StringFormat='Due: {0:MMM d, yyyy}'}"
                                                        FontSize="13"
                                                        TextColor="{StaticResource Gray500}"
