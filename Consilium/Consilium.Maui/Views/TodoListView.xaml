@@ -221,6 +221,10 @@
                         </CollectionView>
                     </StackLayout>
                 </Border>
+            <Button Text="Delete All Completed Tasks"
+                    Command="{Binding DeleteAllCompletedCommand}"
+                    BackgroundColor="{StaticResource Dark-Red}"
+                    Margin="0,10,0,10" />
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

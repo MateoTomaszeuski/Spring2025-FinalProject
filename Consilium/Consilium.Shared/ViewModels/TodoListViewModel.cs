@@ -157,4 +157,13 @@ public partial class TodoListViewModel : ObservableObject {
         TodoItems = ToDoService.GetTodoItems();
     }
 
+    [RelayCommand]
+    private async Task DeleteAllCompleted() {
+        foreach (var item in TodoItems) {
+            if (item.IsCompleted) {
+                await ToDoService.RemoveToDoAsync(item.Id);
+            }
+        }
+        TodoItems = ToDoService.GetTodoItems();
+    }
 }
