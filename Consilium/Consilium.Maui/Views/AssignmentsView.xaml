@@ -24,7 +24,7 @@
                             Margin="10"
                             WidthRequest="160"
                             VerticalOptions="End"
-                            HeightRequest="20"
+                            MinimumHeightRequest="20"
                             IsVisible="{Binding ShowCourseForm, Converter={StaticResource InverseBoolConverter}}"/>
 
 

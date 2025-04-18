@@ -13,6 +13,7 @@
                    Text="{Binding Content}"
                    AutoSize="TextChanges" 
                    HeightRequest="80"  
-                   FontSize="14"/>
+                   FontSize="14"
+                   BackgroundColor="{AppThemeBinding Dark={StaticResource Dark-Dark}, Light={StaticResource Light-Light}}"/>
     </VerticalStackLayout>
 </ContentView>
