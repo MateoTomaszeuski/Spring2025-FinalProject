@@ -49,6 +49,8 @@ public partial class AssignmentsViewModel : ObservableObject {
     private readonly ILogInService logInService;
     private readonly IToDoService todoService;
 
+    public Func<string, Task>? ShowSnackbarAsync { get; set; }
+
     public AssignmentsViewModel(IAssignmentService service, ILogInService logInService, IToDoService todoService) {
         this.service = service;
         this.logInService = logInService;
@@ -82,6 +84,8 @@ public partial class AssignmentsViewModel : ObservableObject {
     [RelayCommand]
     private async Task CreateTodo(Assignment a) {
         await todoService.AddItemAsync(new TodoItem() { Title = a.Name, Category = "School" });
+        if (ShowSnackbarAsync is not null)
+            await ShowSnackbarAsync("Todo item created!");
     }
 
     [RelayCommand]

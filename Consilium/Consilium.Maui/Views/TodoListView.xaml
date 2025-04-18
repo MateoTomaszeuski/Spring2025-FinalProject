@@ -5,7 +5,7 @@
              xmlns:ViewModels="clr-namespace:Consilium.Shared.ViewModels;assembly=Consilium.Shared"
              Title="TodoListView">
     <ScrollView>
-        <VerticalStackLayout>   
+        <VerticalStackLayout Margin="20">   
                 <Label Text="To-Do List"
                        FontSize="27"
                        FontAttributes="Bold"
