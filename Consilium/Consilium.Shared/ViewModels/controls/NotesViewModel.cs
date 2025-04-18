@@ -10,10 +10,10 @@ namespace Consilium.Shared.ViewModels.Controls;
 public partial class NotesViewModel : ObservableObject, IDisposable {
     private readonly IPersistenceService service;
     [ObservableProperty]
-    private string? title;
+    private string? title = string.Empty;
 
     [ObservableProperty]
-    private string? content;
+    private string content = string.Empty;
 
     public NotesViewModel(IPersistenceService service) {
         Content = service.GetNotes();
