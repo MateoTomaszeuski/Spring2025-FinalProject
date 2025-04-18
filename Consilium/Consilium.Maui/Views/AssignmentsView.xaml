@@ -24,7 +24,7 @@
                             Margin="10"
                             WidthRequest="160"
                             VerticalOptions="End"
-                            HeightRequest="65"
+                            HeightRequest="20"
                             IsVisible="{Binding ShowCourseForm, Converter={StaticResource InverseBoolConverter}}"/>
 
 
@@ -39,21 +39,23 @@
                         <Entry Grid.Column="0"
                                Placeholder="Course Name"
                                VerticalOptions="Center"
-                               HeightRequest="40"
+                               HeightRequest="20"
                                Margin="0,0,10,0"
                                HorizontalOptions="FillAndExpand"
                                Text="{Binding NewCourseName}"/>
 
                         <Button Grid.Column="1"
+                                Text="{StaticResource CheckIcon}"
+                                FontFamily="FontAwesomeSolid"
+                                Command="{Binding AddCourseCommand}"
+                                VerticalOptions="Center"/>
+                        <Button Grid.Column="2"
                                 Text="{StaticResource XIcon}"
                                 FontFamily="FontAwesomeSolid"
                                 BackgroundColor="{StaticResource Dark-Red}"
-                                Command="{Binding ToggleCourseFormCommand}"/>
+                                Command="{Binding ToggleCourseFormCommand}"
+                                VerticalOptions="Center"/>
 
-                        <Button Grid.Column="2"
-                                Text="{StaticResource CheckIcon}"
-                                FontFamily="FontAwesomeSolid"
-                                Command="{Binding AddCourseCommand}"/>
                     </Grid>
 
                     <Button Command="{Binding ToggleCourseFormCommand}"
@@ -102,7 +104,8 @@
                             Margin="0,0,0,9"
                             BackgroundColor="{StaticResource Dark-Red}"
                             TextColor="White"
-                            Clicked="OnDeleteCourseClicked">
+                            Clicked="OnDeleteCourseClicked"
+                            IsVisible="{Binding ShowCourseForm, Converter={StaticResource InverseBoolConverter}}">
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroupList>
                                 <VisualStateGroup>
@@ -190,8 +193,8 @@
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
                                 <StackLayout Padding="0"
-                                        BackgroundColor="Transparent">
-                                    <Border>
+                                        BackgroundColor="Transparent" Spacing="5">
+                                    <Border Margin="5">
                                         <StackLayout>
                                             <Grid ColumnDefinitions="Auto, *, Auto"
                                                   VerticalOptions="Center"

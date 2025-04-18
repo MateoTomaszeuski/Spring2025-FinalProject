@@ -1,7 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
-namespace Consilium.Shared.ViewModels.controls {
+namespace Consilium.Shared.ViewModels.Controls {
     public partial class CalculatorViewModel : ObservableObject {
         [ObservableProperty]
         private string displayText = "0";

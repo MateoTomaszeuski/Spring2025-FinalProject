@@ -1,3 +1,4 @@
+using CommunityToolkit.Maui.Alerts;
 using Consilium.Shared.ViewModels;
 namespace Consilium.Maui.Views;
 public partial class AssignmentsView : ContentPage {
@@ -7,6 +8,12 @@ public partial class AssignmentsView : ContentPage {
         Appearing += async (s, e) =>
         {
             await vm.InitializeViewModelAsync();
+        };
+
+        vm.ShowSnackbarAsync = async (message) =>
+        {
+            var snackbar = Snackbar.Make(message, duration: TimeSpan.FromSeconds(3));
+            await snackbar.Show();
         };
     }
     private async void OnDeleteCourseClicked(object sender, EventArgs e) {

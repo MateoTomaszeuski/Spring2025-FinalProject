@@ -5,7 +5,7 @@
              xmlns:ViewModels="clr-namespace:Consilium.Shared.ViewModels;assembly=Consilium.Shared"
              Title="TodoListView">
     <ScrollView>
-        <VerticalStackLayout>   
+        <VerticalStackLayout Margin="20">   
                 <Label Text="To-Do List"
                        FontSize="27"
                        FontAttributes="Bold"
@@ -221,6 +221,10 @@
                         </CollectionView>
                     </StackLayout>
                 </Border>
+            <Button Text="Delete All Completed Tasks"
+                    Command="{Binding DeleteAllCompletedCommand}"
+                    BackgroundColor="{StaticResource Dark-Red}"
+                    Margin="0,10,0,10" />
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

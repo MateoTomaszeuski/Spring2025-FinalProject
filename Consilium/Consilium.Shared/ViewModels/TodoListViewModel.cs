@@ -140,7 +140,7 @@ public partial class TodoListViewModel : ObservableObject {
 
     [RelayCommand]
     private async Task AddSubtask(TodoItem parentTask) {
-        if (parentTask is null || string.IsNullOrWhiteSpace(NewSubtaskTitle)) return;
+        if (parentTask is null || string.IsNullOrWhiteSpace(NewSubtaskTitle) || SelectedCategory is null) return;
         await ToDoService.AddItemAsync(new TodoItem { Title = NewSubtaskTitle, ParentId = parentTask.Id });
 
         TodoItems = ToDoService.GetTodoItems();
@@ -157,4 +157,13 @@ public partial class TodoListViewModel : ObservableObject {
         TodoItems = ToDoService.GetTodoItems();
     }
 
+    [RelayCommand]
+    private async Task DeleteAllCompleted() {
+        foreach (var item in TodoItems) {
+            if (item.IsCompleted) {
+                await ToDoService.RemoveToDoAsync(item.Id);
+            }
+        }
+        TodoItems = ToDoService.GetTodoItems();
+    }
 }

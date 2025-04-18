@@ -55,10 +55,30 @@ public class Tests : IDisposable {
 
         if (courses is null) { throw new Exception("Courses is null"); }
 
-        await Assert.That(courses.Count).IsEqualTo(2);
-        await Assert.That(courses[1].Id).IsEqualTo(4);
-        await Assert.That(courses[1].CourseName).IsEqualTo("Test");
+        await Assert.That(courses.Count).IsEqualTo(1);
+        await Assert.That(courses[0].Id).IsEqualTo(1);
+        await Assert.That(courses[0].CourseName).IsEqualTo("Test");
     }
+
+
+    [Test]
+    [NotInParallel(Order = 3)]
+    public async Task AddAssignmentFlow() {
+        Assignment a = new Assignment() { Name = "Assignment1", CourseId = 1 };
+        var response = await client.PostAsJsonAsync("/assignment", a);
+
+        await Assert.That(response.IsSuccessStatusCode).IsEqualTo(true);
+
+        var response2 = await client.GetAsync("/assignment");
+        List<Assignment>? assignments = await response2.Content.ReadFromJsonAsync<List<Assignment>>();
+
+        if (assignments is null) { throw new Exception("Assignments is null"); }
+
+        await Assert.That(assignments.Count).IsEqualTo(1);
+        await Assert.That(assignments[0].Id).IsEqualTo(1);
+        await Assert.That(assignments[0].Name).IsEqualTo("Assignment1");
+    }
+
 
     public void Dispose() {
         client.Dispose();

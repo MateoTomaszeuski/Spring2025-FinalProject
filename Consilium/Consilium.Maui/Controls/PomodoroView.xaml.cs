@@ -1,5 +1,5 @@
 using Consilium.Shared.ViewModels;
-using Consilium.Shared.ViewModels.controls;
+using Consilium.Shared.ViewModels.Controls;
 using Plugin.Maui.Audio;
 
 namespace Consilium.Maui.Controls;

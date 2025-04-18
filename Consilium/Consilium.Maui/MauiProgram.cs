@@ -4,7 +4,7 @@ using Consilium.Maui.Views;
 using Consilium.Shared.Models;
 using Consilium.Shared.Services;
 using Consilium.Shared.ViewModels;
-using Consilium.Shared.ViewModels.controls;
+using Consilium.Shared.ViewModels.Controls;
 using Microsoft.Extensions.Logging;
 using Plugin.Maui.Audio;
 

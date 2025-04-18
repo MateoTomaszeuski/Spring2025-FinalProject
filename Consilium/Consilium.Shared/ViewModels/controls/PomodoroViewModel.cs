@@ -4,7 +4,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Consilium.Shared.ViewModels.controls;
+namespace Consilium.Shared.ViewModels.Controls;
 public partial class PomodoroViewModel : ObservableObject {
     private Timer? _timer;
     private int _currentTimer;
