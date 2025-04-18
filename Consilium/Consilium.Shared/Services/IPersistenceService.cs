@@ -10,4 +10,6 @@ public interface IPersistenceService {
     void OnStartup();
     string GetUserName();
     bool CheckLocalLoginStatus();
+    string GetNotes();
+    void SaveNotes(string content);
 }

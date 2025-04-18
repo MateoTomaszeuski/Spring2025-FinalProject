@@ -48,4 +48,12 @@ public class PersistenceService(IClientService clientService) : IPersistenceServ
         string token = Preferences.Get("auth-header-token", String.Empty);
         return !string.IsNullOrEmpty(email) && !string.IsNullOrEmpty(token);
     }
+
+    public string GetNotes() {
+        return Preferences.Get("note-content", String.Empty);
+    }
+
+    public void SaveNotes(string content) {
+        Preferences.Set("note-content", string.Empty);
+    }
 }

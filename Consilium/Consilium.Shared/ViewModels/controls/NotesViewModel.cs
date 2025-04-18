@@ -1,33 +1,27 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Consilium.Shared.Models;
+using Consilium.Shared.Services;
 using System.Collections.ObjectModel;
 
 
 namespace Consilium.Shared.ViewModels.Controls;
 
-public partial class NotesViewModel : ObservableObject {
-
+public partial class NotesViewModel : ObservableObject, IDisposable {
+    private readonly IPersistenceService service;
     [ObservableProperty]
     private string? title;
 
     [ObservableProperty]
     private string? content;
 
-    public ObservableCollection<Note> Notes { get; } = new();
-
-    [RelayCommand]
-    private void AddNote() {
-        if (!string.IsNullOrWhiteSpace(Title) || !string.IsNullOrWhiteSpace(Content)) {
-            Notes.Add(new Note { Title = Title, Content = Content });
-            Title = string.Empty;
-            Content = string.Empty;
-        }
+    public NotesViewModel(IPersistenceService service) {
+        Content = service.GetNotes();
+        this.service = service;
     }
-    [RelayCommand]
-    private void DeleteNote(Note note) {
-        if (Notes.Contains(note)) {
-            Notes.Remove(note);
-        }
+
+    public void Dispose() {
+        if (Content is null) Content = "";
+        service.SaveNotes(Content); 
     }
 }
