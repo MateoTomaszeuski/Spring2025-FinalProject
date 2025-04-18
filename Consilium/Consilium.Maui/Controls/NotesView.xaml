@@ -1,11 +1,95 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Consilium.Maui.Controls.NotesView">
-    <VerticalStackLayout>
-        <Label Text="Notes"/>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"  
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"  
+            x:Class="Consilium.Maui.Controls.NotesView">  
+   <ScrollView>  
+       <VerticalStackLayout Padding="20" Spacing="15">  
 
-        <Label Text="This is the notes view."/>
+           <!-- Heading -->  
+           <Label Text="Notes"  
+                  FontSize="32"  
+                  FontAttributes="Bold"  
+                  HorizontalOptions="Center"  
+                  Margin="0,0,0,10"/>  
 
-    </VerticalStackLayout>
+           <!-- Input Fields -->  
+           <Entry Placeholder="Title"  
+                  Text="{Binding Title}"  
+                  FontSize="16"  
+                  BackgroundColor="{StaticResource Light-Grey}"/>  
+
+           <Editor Placeholder="Content"  
+                   Text="{Binding Content}"  
+                   AutoSize="TextChanges"  
+                   HeightRequest="80"  
+                   FontSize="14"  
+                   BackgroundColor="{StaticResource Light-Grey}"/>  
+
+           <!-- Add Note Button -->  
+           <Button Text="Add Note"  
+                   Command="{Binding AddNoteCommand}"  
+                   BackgroundColor="{StaticResource Dark-Green}"  
+                   TextColor="White"  
+                   FontAttributes="Bold"  
+                   CornerRadius="8"  
+                   HorizontalOptions="End"  
+                   WidthRequest="120"/>  
+
+           <!-- Notes Grid Header -->  
+           <Label Text="Your Notes"  
+                  FontSize="24"  
+                  FontAttributes="Bold"  
+                  Margin="0,20,0,10"/>  
+
+           <!-- Notes List -->  
+           <CollectionView x:Name="NotesCollectionView"  
+                           ItemsSource="{Binding Notes}">  
+               <CollectionView.ItemTemplate>  
+                   <DataTemplate>  
+                       <Border Stroke="{AppThemeBinding Light=LightGray, Dark=Gray}"  
+                               StrokeThickness="1"  
+                               StrokeShape="RoundRectangle 8"  
+                               Padding="10"  
+                               Margin="0,0,0,10">  
+
+                           <Grid RowSpacing="5"  
+                                 ColumnDefinitions="*, Auto"  
+                                 RowDefinitions="Auto, Auto">  
+
+                               <!-- Title -->  
+                               <Label Grid.Row="0"  
+                                      Grid.Column="0"  
+                                      Text="{Binding Title}"  
+                                      FontAttributes="Bold"  
+                                      FontSize="16"  
+                                      TextColor="{AppThemeBinding Light=Black, Dark=White}"/>  
+
+                               <!-- Delete Button -->  
+                               <Button Grid.Row="0"  
+                                       Grid.Column="1"  
+                                       Text="{StaticResource TrashIcon}"  
+                                       FontFamily="FontAwesomeSolid"  
+                                       BackgroundColor="{StaticResource Dark-Red}"  
+                                       TextColor="White"  
+                                       WidthRequest="40"  
+                                       HeightRequest="40"  
+                                       CornerRadius="20"  
+                                       Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.DeleteNoteCommand}"  
+                                       CommandParameter="{Binding .}"/>  
+
+                               <!-- Content -->  
+                               <Label Grid.Row="1"  
+                                      Grid.ColumnSpan="2"  
+                                      Text="{Binding Content}"  
+                                      FontSize="14"  
+                                      Opacity="0.8"  
+                                      TextColor="{AppThemeBinding Light=Black, Dark=White}"/>  
+                           </Grid>  
+                       </Border>  
+                   </DataTemplate>  
+               </CollectionView.ItemTemplate>  
+           </CollectionView>  
+
+       </VerticalStackLayout>  
+   </ScrollView>  
 </ContentView>
