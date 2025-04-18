@@ -10,7 +10,7 @@ namespace Consilium.Shared.ViewModels.Controls;
 public partial class NotesViewModel : ObservableObject, IDisposable {
     private readonly IPersistenceService service;
     [ObservableProperty]
-    private string? title = string.Empty;
+    private string title = string.Empty;
 
     [ObservableProperty]
     private string content = string.Empty;
@@ -21,7 +21,6 @@ public partial class NotesViewModel : ObservableObject, IDisposable {
     }
 
     public void Dispose() {
-        if (Content is null) Content = "";
         service.SaveNotes(Content);
     }
 }
