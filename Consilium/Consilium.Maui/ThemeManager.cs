@@ -13,8 +13,11 @@ namespace Consilium.Maui;
 public static class ThemeManager {
     public static void ApplyTheme(string themeName) {
         ResourceDictionary themeDictionary = themeName switch {
-            "GreenTheme" => new GreenTheme(),
-            "BlueTheme" => new BlueTheme(),
+            "Green" => new GreenTheme(),
+            "Blue" => new BlueTheme(),
+            "Purple" => new PurpleTheme(),
+            "Pink" => new PinkTheme(),
+            "Teal" => new TealTheme(),
             _ => new GreenTheme()
         };
 

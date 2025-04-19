@@ -32,24 +32,24 @@
                     Grid.Row="0"
                     Grid.Column="0"
                     Command="{Binding ClearCommand}"
-                    BackgroundColor="{StaticResource Dark-Med}"/>
+                    BackgroundColor="{DynamicResource Tertiary}"/>
             <Button Text="←"
                     Grid.Row="0"
                     Grid.Column="1"
                     Command="{Binding BackspaceCommand}"
-                    BackgroundColor="{StaticResource Dark-Med}"/>
+                    BackgroundColor="{DynamicResource Tertiary}"/>
             <Button Text="/"
                     Grid.Row="0"
                     Grid.Column="2"
                     Command="{Binding OperatorCommand}"
                     CommandParameter="/"
-                    BackgroundColor="{StaticResource Dark-Med}"/>
+                    BackgroundColor="{DynamicResource Tertiary}"/>
             <Button Text="*"
                     Grid.Row="0"
                     Grid.Column="3"
                     Command="{Binding OperatorCommand}"
                     CommandParameter="*"
-                    BackgroundColor="{StaticResource Dark-Med}"/>
+                    BackgroundColor="{DynamicResource Tertiary}"/>
 
             <!-- Second row: 7, 8, 9, Minus -->
             <Button Text="7"
@@ -72,7 +72,7 @@
                     Grid.Column="3"
                     Command="{Binding OperatorCommand}"
                     CommandParameter="-"
-                    BackgroundColor="{StaticResource Dark-Med}"/>
+                    BackgroundColor="{DynamicResource Tertiary}"/>
 
             <!-- Third row: 4, 5, 6, Plus -->
             <Button Text="4"
@@ -95,7 +95,7 @@
                     Grid.Column="3"
                     Command="{Binding OperatorCommand}"
                     CommandParameter="+"
-                    BackgroundColor="{StaticResource Dark-Med}"/>
+                    BackgroundColor="{DynamicResource Tertiary}"/>
 
             <!-- Fourth row: 1, 2, 3, Equals (spanning two rows) -->
             <Button Text="1"
@@ -118,7 +118,7 @@
                     Grid.RowSpan="2"
                     Grid.Column="3"
                     Command="{Binding EqualsCommand}"
-                    BackgroundColor="{StaticResource Dark-Green}"/>
+                    BackgroundColor="{DynamicResource PrimaryDark}"/>
 
             <!-- Fifth row: 0 (spanning two columns), Decimal point -->
             <Button Text="0"

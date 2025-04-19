@@ -63,13 +63,16 @@ public partial class Calendar : ContentView {
                 Text = day.ToString(),
                 HorizontalOptions = LayoutOptions.Center,
                 VerticalOptions = LayoutOptions.Center,
-                BackgroundColor = (targetDate.Year == DateTime.Today.Year &&
-                                   targetDate.Month == DateTime.Today.Month &&
-                                   day == DateTime.Today.Day)
-                                    ? Color.FromArgb("#719984")
-                                    : Colors.Transparent,
                 Padding = 10
             };
+
+            if (targetDate.Year == DateTime.Today.Year &&
+                targetDate.Month == DateTime.Today.Month &&
+                day == DateTime.Today.Day) {
+                label.SetDynamicResource(Label.BackgroundColorProperty, "Tertiary");
+            } else {
+                label.BackgroundColor = Colors.Transparent;
+            }
 
             CalendarGrid.Children.Add(label);
             Grid.SetColumn(label, currentColumn);

@@ -1,3 +1,4 @@
+using CommunityToolkit.Mvvm.Messaging;
 using Consilium.Shared.ViewModels;
 
 namespace Consilium.Maui.Views;
@@ -13,7 +14,7 @@ public partial class SettingsView : ContentPage {
 
         vm.PropertyChanged += (sender, args) => {
             if (args.PropertyName == nameof(SettingsViewModel.SelectedTheme)) {
-                ThemeManager.ApplyTheme(vm.SelectedTheme);
+                ApplyAndBroadcastTheme(vm.SelectedTheme);
             }
         };
 
@@ -31,5 +32,13 @@ public partial class SettingsView : ContentPage {
     protected override void OnAppearing() {
         base.OnAppearing();
         ThemeManager.ApplyTheme(vm.SelectedTheme);
+    }
+
+    private void ApplyAndBroadcastTheme(string themeName) {
+        ThemeManager.ApplyTheme(themeName);
+        Preferences.Set("SelectedTheme", themeName);
+
+        // tell android to update status bar color
+        WeakReferenceMessenger.Default.Send(new ThemeChangedMessage(themeName));
     }
 }
