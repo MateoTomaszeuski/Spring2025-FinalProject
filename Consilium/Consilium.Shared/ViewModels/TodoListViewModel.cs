@@ -65,9 +65,6 @@ public partial class TodoListViewModel : ObservableObject {
     private string message = "";
 
     [ObservableProperty]
-    private bool categoryIsSortedAscending;
-
-    [ObservableProperty]
     private string selectedCategory = "All";
 
     partial void OnSelectedCategoryChanged(string value) {

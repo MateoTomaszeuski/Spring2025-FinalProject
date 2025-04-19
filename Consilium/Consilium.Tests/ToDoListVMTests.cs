@@ -160,12 +160,11 @@ public class ToDoListVMTests {
         };
 
         service.TodoItems = testItems;
-        viewModel.SelectedSortOption = "Category Descending";
+        viewModel.SelectedSortOption = "Category: Z-A";
         viewModel.TodoItems = new ObservableCollection<TodoItem>(service.TodoItems);
 
-        viewModel.SelectedSortOption = "Category Ascending";
+        viewModel.SelectedSortOption = "Category: A-Z";
 
-        await Assert.That(viewModel.CategoryIsSortedAscending).IsTrue();
         await Assert.That(viewModel.TodoItems[0].Category).IsEqualTo("Apple");
         await Assert.That(viewModel.TodoItems[1].Category).IsEqualTo("Banana");
     }
@@ -180,12 +179,11 @@ public class ToDoListVMTests {
 
 
         service.TodoItems = testItems;
-        viewModel.SelectedSortOption = "Category Descending";
+        viewModel.SelectedSortOption = "Category: Z-A";
         viewModel.TodoItems = new ObservableCollection<TodoItem>(service.TodoItems);
 
-        viewModel.SelectedSortOption = "Category Ascending";
+        viewModel.SelectedSortOption = "Category: A-Z";
 
-        await Assert.That(viewModel.CategoryIsSortedAscending).IsTrue();
         await Assert.That(viewModel.TodoItems[0].Category).IsEqualTo("Apple");
         await Assert.That(viewModel.TodoItems[1].Category).IsEqualTo("Banana");
         await Assert.That(viewModel.TodoItems[2].Category).IsEqualTo("Cookie");
