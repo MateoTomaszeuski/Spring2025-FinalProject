@@ -31,13 +31,19 @@ public partial class ProfileViewModel : ObservableObject {
     private readonly ILogInService logInService;
     private readonly IPersistenceService persistenceService;
 
+    public bool EmailIsValid => IsValidEmail(EmailInput);
+
+    partial void OnEmailInputChanged(string value) {
+        OnPropertyChanged(nameof(EmailIsValid));
+    }
+
 
     public Func<string, Task>? ShowSnackbarAsync { get; set; }
 
 
     [RelayCommand]
     private async Task LogIn() {
-        if (string.IsNullOrEmpty(EmailInput)) return;
+        if (string.IsNullOrEmpty(EmailInput) || !IsValidEmail(EmailInput)) return;
 
         Token = await logInService.LogIn(EmailInput);
         persistenceService.SaveToken(EmailInput, Token);
@@ -111,6 +117,20 @@ public partial class ProfileViewModel : ObservableObject {
         Username = persistenceService.GetUserName();
         ShowLogOut = LoggedIn;
     }
+
+    private bool IsValidEmail(string email) {
+        if (string.IsNullOrWhiteSpace(email))
+            return false;
+
+        try {
+            return System.Text.RegularExpressions.Regex.IsMatch(email,
+                @"^[^@\s]+@[^@\s]+\.[^@\s]+$",
+                System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+        } catch {
+            return false;
+        }
+    }
+
 
     private CancellationTokenSource? _authPollingCts;
 

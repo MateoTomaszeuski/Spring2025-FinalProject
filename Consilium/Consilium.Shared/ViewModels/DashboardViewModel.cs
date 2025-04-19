@@ -41,11 +41,11 @@ public partial class DashboardViewModel : ObservableObject {
             IEnumerable<Assignment> a = await assignmentService.GetAllAssignmentsAsync();
             Assignments = new(a.Take(5));
             await toDoService.InitializeTodosAsync();
-            ToDos = new(toDoService.GetTodoItems().Take(5));
+            ToDos = new(toDoService.GetTodoItems().OrderByDescending(t => t.Id).Take(5));
             ShowDashboard = true;
         } else {
             ShowDashboard = false;
-            PrintMessage = "You are in Guest mode, make sure to login or connect to the internet";
+            PrintMessage = "You are in Guest mode. To use all features, please make sure you're logged in and connected to the internet.";
         }
     }
 }

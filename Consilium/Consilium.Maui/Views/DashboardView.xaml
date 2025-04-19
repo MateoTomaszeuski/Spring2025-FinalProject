@@ -23,19 +23,23 @@
             <VerticalStackLayout IsVisible="{Binding ShowDashboard}" Spacing="20">
                 <!-- Assignments Section -->
                 <Border StrokeShape="RoundRectangle 10"
-                        Padding="10"
+                        Padding="15"
                         BackgroundColor="Transparent"
                         StrokeThickness="1"
                         Stroke="{AppThemeBinding Dark={StaticResource Gray600}, Light={StaticResource Gray200}}"
                         MaximumWidthRequest="800">
                     <StackLayout>
                         <Label Text="Upcoming Assignments"
-                               FontSize="18"
+                               FontSize="20"
+                               LineHeight="1.5"
                                FontAttributes="Bold"
                                Margin="0,0,0,10"
                                TextColor="{AppThemeBinding Dark={StaticResource White}, Light={StaticResource Black}}"/>
 
                         <CollectionView ItemsSource="{Binding Assignments}">
+                            <CollectionView.ItemsLayout>
+                                <LinearItemsLayout Orientation="Vertical" ItemSpacing="5"/>
+                            </CollectionView.ItemsLayout>
                             <CollectionView.ItemTemplate>
                                 <DataTemplate>
                                     <Border Padding="10"
@@ -68,23 +72,27 @@
                 </Border>
 
                 <!-- To-Dos Section -->
-                <Border Padding="10"
+                <Border Padding="15"
                             BackgroundColor="Transparent"
                             StrokeThickness="1"
                             Stroke="{AppThemeBinding Dark={StaticResource Gray600}, Light={StaticResource Gray200}}"
                             MaximumWidthRequest="800">
                     <ScrollView>
-                        <StackLayout>
+                        <VerticalStackLayout Spacing="1">
                             <Label Text="Upcoming To-Dos"
-                                   FontSize="18"
+                                   FontSize="20"
+                                   LineHeight="1.5"                                   
                                    FontAttributes="Bold"
                                    Margin="0,0,0,10"
                                    TextColor="{AppThemeBinding Dark={StaticResource White}, Light={StaticResource Black}}"/>
                             <CollectionView ItemsSource="{Binding ToDos}">
+                                <CollectionView.ItemsLayout>
+                                    <LinearItemsLayout Orientation="Vertical" ItemSpacing="5"/>
+                                </CollectionView.ItemsLayout>
                                 <CollectionView.ItemTemplate>
                                     <DataTemplate>
                                         <Border Padding="10"
-                                                Margin="0,0,0,10"
+                                                Margin="2"
                                                 BackgroundColor="{AppThemeBinding Dark={StaticResource Dark-Dark}, Light={StaticResource Light-Back}}"
                                                 StrokeShape="RoundRectangle 5"
                                                 StrokeThickness="0">
@@ -95,7 +103,7 @@
                                     </DataTemplate>
                                 </CollectionView.ItemTemplate>
                             </CollectionView>
-                        </StackLayout>
+                        </VerticalStackLayout>
                     </ScrollView>
                 </Border>
             </VerticalStackLayout>
