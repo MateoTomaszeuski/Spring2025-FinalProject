@@ -1,8 +1,8 @@
 @Consilium = http://localhost:5202
 # @Consilium = https://api.final.codyhowell.dev
 
-@email = codyhowell44@gmail.com
-@key = K4Yhc36WuskTT74007kT
+@email = bob@example.com
+@key = APIKEY0987654321
 
 ###
 POST {{Consilium}}/assignment
@@ -35,8 +35,7 @@ Content-Type: application/json
 {
     "id": 4,
     "courseId": 4,
-    "DateStarted": "2025-04-14T16:00:00",
-    "DateCompleted": "2025-04-14T17:00:00"
+    "DateStarted": "2025-05-01T08:00:00"
 }
 ###
 DELETE {{Consilium}}/assignment?assignmentId=2
