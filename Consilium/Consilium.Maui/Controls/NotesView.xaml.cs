@@ -13,7 +13,7 @@ public partial class NotesView : ContentView {
     }
 
     private void PropertyChanged_Handler(object? sender, PropertyChangedEventArgs e) {
-        if(e.PropertyName == nameof(_viewModel.Content)) {
+        if (e.PropertyName == nameof(_viewModel.Content)) {
             _viewModel.Dispose();
         }
     }
