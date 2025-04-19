@@ -28,8 +28,10 @@ public partial class TodoListViewModel : ObservableObject {
     }
 
     public ObservableCollection<string> SortOptions { get; } = new() {
-        "Category Ascending",
-        "Category Descending",
+        "Category A-Z",
+        "Category: Z-A",
+        "Title: A-Z",
+        "Title: Z-A",
         "Completion"
     };
 
@@ -69,27 +71,46 @@ public partial class TodoListViewModel : ObservableObject {
     private string selectedCategory = "All";
 
     partial void OnSelectedCategoryChanged(string value) {
-        if (value == "All") {
-            TodoItems = todoService.GetTodoItems(); // unfiltered
-        } else if (!string.IsNullOrWhiteSpace(value)) {
-            TodoItems = todoService.GetTodosFilteredByCategory(value);
+        IEnumerable<TodoItem> items;
+
+        if (value == "All" || string.IsNullOrWhiteSpace(value)) {
+            items = todoService.GetTodoItems();
+        } else {
+            items = todoService.GetTodosFilteredByCategory(value);
         }
+
+        TodoItems = new ObservableCollection<TodoItem>(ApplySort(items));
     }
 
     partial void OnSelectedSortOptionChanged(string value) {
         if (TodoItems is null || TodoItems.Count < 1) return;
-        switch (value) {
-            case "Category Ascending":
-                TodoItems = todoService.GetTodosSortedByCategory(true);
-                CategoryIsSortedAscending = true;
-                break;
-            case "Category Descending":
-                TodoItems = todoService.GetTodosSortedByCategory(false);
-                CategoryIsSortedAscending = false;
-                break;
+
+        IEnumerable<TodoItem> items;
+
+        // maintain the filter while sorting
+        if (SelectedCategory == "All" || string.IsNullOrWhiteSpace(SelectedCategory)) {
+            items = todoService.GetTodoItems();
+        } else {
+            items = todoService.GetTodosFilteredByCategory(SelectedCategory);
+        }
+
+        TodoItems = new ObservableCollection<TodoItem>(ApplySort(items));
+    }
+
+    private IEnumerable<TodoItem> ApplySort(IEnumerable<TodoItem> items) {
+        switch (SelectedSortOption) {
+            case "Category: A-Z":
+                return items.OrderBy(item => item.Category);
+            case "Category: Z-A":
+                return items.OrderByDescending(item => item.Category);
+            case "Title: A-Z":
+                return items.OrderBy(item => item.Title);
+            case "Title: Z-A":
+                return items.OrderByDescending(item => item.Title);
             case "Completion":
-                TodoItems = todoService.GetTodosSortedByCompletion();
-                break;
+                return items.OrderBy(item => item.IsCompleted);
+            default:
+                return items;
         }
     }
 
