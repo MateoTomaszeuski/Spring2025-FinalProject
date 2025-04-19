@@ -57,6 +57,7 @@
             Route="Stats" />-->
         <ShellContent
             Title="Profile"
+            Icon="user.png"
             ContentTemplate="{DataTemplate local:ProfileView}"
             Route="Profile" />
         <ShellContent
