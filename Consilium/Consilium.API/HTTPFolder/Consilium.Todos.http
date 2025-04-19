@@ -1,6 +1,6 @@
 @Consilium = http://localhost:5202
 @email = bob@example.com
-@key = qrFNrl4wiS5iCUWrsFCx
+@key = APIKEY0987654321
 
 ###
 GET {{Consilium}}/todo
@@ -51,11 +51,8 @@ Content-Type: application/json
   "isCompleted": true
 }
 ###
-DELETE {{Consilium}}/todo/remove
+DELETE {{Consilium}}/todo/remove/1
 Email-Auth_Email: {{email}}
-Content-Type: application/json
-{
-  "id": 4
-}
+Email-Auth_ApiKey: {{key}}
 
 
