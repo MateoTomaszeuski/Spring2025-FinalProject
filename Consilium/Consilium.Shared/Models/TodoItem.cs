@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 
 namespace Consilium.Shared.Models;
 
-public partial class TodoItem: ObservableObject {
+public partial class TodoItem : ObservableObject {
     public int Id { get; set; }
     public int? ParentId { get; set; }
     public string? Title { get; set; }
@@ -55,7 +55,7 @@ public partial class TodoItem: ObservableObject {
     }
 
     private async Task SaveCompletionAsync() {
-        if(todoService == null) {
+        if (todoService == null) {
             return;
         }
         await todoService.UpdateItemAsync(this);

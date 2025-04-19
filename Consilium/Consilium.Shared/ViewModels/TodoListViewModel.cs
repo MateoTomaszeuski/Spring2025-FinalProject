@@ -96,7 +96,7 @@ public partial class TodoListViewModel : ObservableObject {
     [RelayCommand]
     private async Task AddTodo() {
         if (!string.IsNullOrWhiteSpace(NewTodoTitle)) {
-            await todoService.AddItemAsync(new TodoItem(todoService){Title = NewTodoTitle, Category = NewTodoCategory });
+            await todoService.AddItemAsync(new TodoItem(todoService) { Title = NewTodoTitle, Category = NewTodoCategory });
             TodoItems = todoService.GetTodoItems();
 
             // reapply the filter so users can see the list as they had it before
