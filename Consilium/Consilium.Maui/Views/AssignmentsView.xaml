@@ -159,10 +159,15 @@
                                 FontSize="18"/>
 
                         <Entry Placeholder="Title"
-                               Text="{Binding NewAssignmentTitle}"/>
+                               Text="{Binding NewAssignmentTitle}"
+                               BackgroundColor="{AppThemeBinding Dark={StaticResource Gray900}, Light={StaticResource White}}"/>
 
                         <Editor Placeholder="Description"
-                                Text="{Binding NewAssignmentDescription}"/>
+                                Text="{Binding NewAssignmentDescription}"
+                                AutoSize="TextChanges" 
+                                HeightRequest="80"  
+                                FontSize="14"
+                               BackgroundColor="{AppThemeBinding Dark={StaticResource Gray900}, Light={StaticResource White}}"/>
 
                         <StackLayout Orientation="Horizontal"
                                 Spacing="10">

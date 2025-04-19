@@ -127,6 +127,7 @@ public partial class AssignmentsViewModel : ObservableObject {
         Assignments = new(FilterAssignmentsOnCourse(SelectedCourse));
         ResetAssignmentFormValues();
         ShowAssignmentForm = false;
+        SelectedCourse = Courses.Where(c=> c.Id == newAssignment.CourseId).First();
     }
 
     private bool CanAddAssignment() {
@@ -163,7 +164,7 @@ public partial class AssignmentsViewModel : ObservableObject {
     }
 
     private IEnumerable<Assignment> FilterAssignmentsOnCourse(Course course) {
-        return service.AllAssignments.Where(a => a.CourseId == course.Id);
+        return service.AllAssignments.Where(a => a.CourseId == course.Id).OrderBy(a => a.DueDate);
     }
 
     public async Task InitializeViewModelAsync() {
