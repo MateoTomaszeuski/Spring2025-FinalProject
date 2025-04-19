@@ -76,13 +76,21 @@
                                 <DataTemplate>
                                     <StackLayout Orientation="Vertical"
                                                  Padding="0">
-                                        <StackLayout Orientation="Horizontal"
+                                   
+                                    <StackLayout Orientation="Horizontal"
                                                      Spacing="5">
 
                                             <CheckBox IsChecked="{Binding IsCompleted}"/>
                                             <Grid BackgroundColor="{AppThemeBinding Dark={StaticResource Dark-Dark}, Light={StaticResource Light-Light}}"
                                                   HorizontalOptions="FillAndExpand">
-                                                <Label Text="{Binding Title}"
+                                            <Grid.Triggers>
+                                                <DataTrigger TargetType="Grid"
+                                                             Binding="{Binding IsCompleted}"
+                                                             Value="True">  
+                                                    <Setter Property="Opacity" Value="0.6"/>
+                                                </DataTrigger>
+                                            </Grid.Triggers>
+                                            <Label Text="{Binding Title}"
                                                        TextColor="{AppThemeBinding Dark=White, Light=Black}"
                                                        Padding="0,10,0,15"
                                                        HorizontalTextAlignment="Start"
