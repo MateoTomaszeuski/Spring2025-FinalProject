@@ -87,8 +87,18 @@ public class ToDoService : IToDoService {
         IEnumerable<TodoItem>? items = null;
         if (online || isTest) {
             var response = await client.GetAsync("todo");
-            items = await response.Content.ReadFromJsonAsync<IEnumerable<TodoItem>>();
-
+            if (!response.IsSuccessStatusCode) {
+                // Log or handle error message
+                var error = await response.Content.ReadAsStringAsync();
+                Console.WriteLine($"Todo API error: {error}");
+                items = Enumerable.Empty<TodoItem>();
+            } else {
+                items = await response.Content.ReadFromJsonAsync<IEnumerable<TodoItem>>();
+                foreach (var item in items ?? Enumerable.Empty<TodoItem>()) {
+                    item.InjectService(this);
+                    item.InitializeCompletionStatus();
+                }
+            }
             foreach (var item in items ?? Enumerable.Empty<TodoItem>()) {
                 item.InjectService(this);
                 item.InitializeCompletionStatus();
@@ -96,7 +106,17 @@ public class ToDoService : IToDoService {
 
             await SyncLocalWithServer(persistenceItems, items);
             response = await client.GetAsync("todo");
-            items = await response.Content.ReadFromJsonAsync<IEnumerable<TodoItem>>();
+            if (!response.IsSuccessStatusCode) {
+                var error = await response.Content.ReadAsStringAsync();
+                Console.WriteLine($"Todo API error: {error}");
+                items = Enumerable.Empty<TodoItem>();
+            } else {
+                items = await response.Content.ReadFromJsonAsync<IEnumerable<TodoItem>>();
+                foreach (var item in items ?? Enumerable.Empty<TodoItem>()) {
+                    item.InjectService(this);
+                    item.InitializeCompletionStatus();
+                }
+            }
             if (items == null) {
                 items = new List<TodoItem>();
             }

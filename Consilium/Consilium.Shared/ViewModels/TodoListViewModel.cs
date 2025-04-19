@@ -127,7 +127,7 @@ public partial class TodoListViewModel : ObservableObject {
     private async Task RemoveTodo(TodoItem todoItem) {
         if (todoItem != null) {
             await todoService.RemoveToDoAsync(todoItem.Id);
-            TodoItems = todoService.GetTodoItems();
+            OnSelectedCategoryChanged(SelectedCategory);
         }
     }
 
@@ -172,7 +172,7 @@ public partial class TodoListViewModel : ObservableObject {
         if (subTask?.ParentId is null) return;
 
         await todoService.RemoveToDoAsync(subTask.Id);
-        TodoItems = todoService.GetTodoItems();
+        OnSelectedCategoryChanged(SelectedCategory);
     }
 
     [RelayCommand]
@@ -182,6 +182,8 @@ public partial class TodoListViewModel : ObservableObject {
                 await todoService.RemoveToDoAsync(item.Id);
             }
         }
-        TodoItems = todoService.GetTodoItems();
+
+        // repopulates to-do items, while maintaining the selected sort/filter
+        OnSelectedCategoryChanged(SelectedCategory);
     }
 }
