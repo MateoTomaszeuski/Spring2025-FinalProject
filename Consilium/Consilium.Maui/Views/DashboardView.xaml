@@ -79,7 +79,7 @@
                             MaximumWidthRequest="800">
                     <ScrollView>
                         <VerticalStackLayout Spacing="1">
-                            <Label Text="Upcoming To-Dos"
+                            <Label Text="Incomplete To-Dos"
                                    FontSize="20"
                                    LineHeight="1.5"                                   
                                    FontAttributes="Bold"

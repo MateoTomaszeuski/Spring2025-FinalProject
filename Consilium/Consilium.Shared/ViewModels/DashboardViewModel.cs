@@ -39,9 +39,9 @@ public partial class DashboardViewModel : ObservableObject {
         Online = await logInService.CheckAuthStatus();
         if (Username != "Guest" && Online) {
             IEnumerable<Assignment> a = await assignmentService.GetAllAssignmentsAsync();
-            Assignments = new(a.Take(5));
+            Assignments = new(a.Take(3).OrderBy(a => a.DueDate));
             await toDoService.InitializeTodosAsync();
-            ToDos = new(toDoService.GetTodoItems().OrderByDescending(t => t.Id).Take(5));
+            ToDos = new(toDoService.GetTodoItems().Where(t => t.CompletionDate is null).OrderByDescending(t => t.Id).Take(5));
             ShowDashboard = true;
         } else {
             ShowDashboard = false;
