@@ -1,11 +1,11 @@
-﻿using System;
+﻿using Consilium.Maui.Resources.Themes;
+using Microsoft.Maui.Controls;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Diagnostics.CodeAnalysis;
-using Microsoft.Maui.Controls;
-using Consilium.Maui.Resources.Themes;
 
 
 namespace Consilium.Maui;
@@ -32,4 +32,3 @@ public static class ThemeManager {
         }
     }
 }
-

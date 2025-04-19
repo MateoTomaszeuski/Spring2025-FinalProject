@@ -6,19 +6,20 @@ namespace Consilium.Maui.Views;
 public partial class SettingsView : ContentPage {
     private SettingsViewModel vm;
 
-    public SettingsView()
-	{
-		InitializeComponent();
+    public SettingsView() {
+        InitializeComponent();
         vm = ((App)Application.Current).Services.GetService<SettingsViewModel>();
         BindingContext = vm;
 
-        vm.PropertyChanged += (sender, args) => {
+        vm.PropertyChanged += (sender, args) =>
+        {
             if (args.PropertyName == nameof(SettingsViewModel.SelectedTheme)) {
                 ApplyAndBroadcastTheme(vm.SelectedTheme);
             }
         };
 
-        ThemePicker.SelectedIndexChanged += (s, e) => {
+        ThemePicker.SelectedIndexChanged += (s, e) =>
+        {
             var selected = ThemePicker.SelectedItem?.ToString();
             if (!string.IsNullOrEmpty(selected)) {
                 ThemeManager.ApplyTheme(selected);
