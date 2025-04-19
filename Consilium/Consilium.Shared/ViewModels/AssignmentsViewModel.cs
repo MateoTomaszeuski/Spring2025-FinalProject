@@ -83,7 +83,7 @@ public partial class AssignmentsViewModel : ObservableObject {
 
     [RelayCommand]
     private async Task CreateTodo(Assignment a) {
-        await todoService.AddItemAsync(new TodoItem() { Title = a.Name, Category = "School" });
+        await todoService.AddItemAsync(new TodoItem(todoService) { Title = a.Name, Category = "School" });
         if (ShowSnackbarAsync is not null)
             await ShowSnackbarAsync("Todo item created!");
     }

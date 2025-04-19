@@ -83,29 +83,47 @@ public class ToDoService : IToDoService {
     public async Task InitializeTodosAsync() {
         bool online = await logInService.CheckAuthStatus();
 
-        var persistanceItems = persistenceService.GetToDoLists() ?? new List<TodoItem>();
+        var persistenceItems = persistenceService.GetToDoLists() ?? new List<TodoItem>();
         IEnumerable<TodoItem>? items = null;
         if (online || isTest) {
             var response = await client.GetAsync("todo");
             items = await response.Content.ReadFromJsonAsync<IEnumerable<TodoItem>>();
-            await SyncLocalWithServer(persistanceItems, items);
+
+            foreach (var item in items ?? Enumerable.Empty<TodoItem>()) {
+                item.InjectService(this);
+                item.InitializeCompletionStatus();
+            }
+
+            await SyncLocalWithServer(persistenceItems, items);
             response = await client.GetAsync("todo");
             items = await response.Content.ReadFromJsonAsync<IEnumerable<TodoItem>>();
             if (items == null) {
                 items = new List<TodoItem>();
             }
+
+            foreach (var item in items) {
+                item.InjectService(this);
+                item.InitializeCompletionStatus();
+            }
+
+            // offline mode
+            foreach (var item in persistenceItems) {
+                item.InjectService(this);
+                item.InitializeCompletionStatus();
+            }
+
             TodoItems = items.ToList();
             return;
         }
 
-        TodoItems = persistanceItems.ToList();
+        TodoItems = persistenceItems.ToList();
     }
 
-    private async Task SyncLocalWithServer(IEnumerable<TodoItem> persistanceItems, IEnumerable<TodoItem>? items) {
+    private async Task SyncLocalWithServer(IEnumerable<TodoItem> persistenceItems, IEnumerable<TodoItem>? items) {
         List<TodoItem> toAdd = new();
-        foreach (var persistance in persistanceItems) {
-            if (items == null || !items.Any(a => a.Id == persistance.Id)) {
-                toAdd.Add(persistance);
+        foreach (var item in persistenceItems) {
+            if (items == null || !items.Any(a => a.Id == item.Id)) {
+                toAdd.Add(item);
             }
         }
         if (toAdd.Count > 0) {

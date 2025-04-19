@@ -6,19 +6,19 @@ using System.Collections.ObjectModel;
 
 namespace Consilium.Shared.ViewModels;
 public partial class TodoListViewModel : ObservableObject {
-    private IToDoService ToDoService;
+    private IToDoService todoService;
     public TodoListViewModel(IToDoService toDoService) {
         Categories = new ObservableCollection<string>() { "Misc.", "School", "Work" };
         FilterCategories = new ObservableCollection<string>(Categories.Append("All"));
         SelectedSortOption = SortOptions[0];
         NewTodoCategory = Categories[0];
         TodoItems = new();
-        ToDoService = toDoService;
+        this.todoService = toDoService;
     }
     public async Task InitializeItemsAsync() {
         IsLoading = true;
-        await ToDoService.InitializeTodosAsync();
-        TodoItems = ToDoService.GetTodoItems();
+        await todoService.InitializeTodosAsync();
+        TodoItems = todoService.GetTodoItems();
         if (TodoItems.Count < 1) {
             Message = "No items found.";
         } else {
@@ -70,9 +70,9 @@ public partial class TodoListViewModel : ObservableObject {
 
     partial void OnSelectedCategoryChanged(string value) {
         if (value == "All") {
-            TodoItems = ToDoService.GetTodoItems(); // unfiltered
+            TodoItems = todoService.GetTodoItems(); // unfiltered
         } else if (!string.IsNullOrWhiteSpace(value)) {
-            TodoItems = ToDoService.GetTodosFilteredByCategory(value);
+            TodoItems = todoService.GetTodosFilteredByCategory(value);
         }
     }
 
@@ -80,15 +80,15 @@ public partial class TodoListViewModel : ObservableObject {
         if (TodoItems is null || TodoItems.Count < 1) return;
         switch (value) {
             case "Category Ascending":
-                TodoItems = ToDoService.GetTodosSortedByCategory(true);
+                TodoItems = todoService.GetTodosSortedByCategory(true);
                 CategoryIsSortedAscending = true;
                 break;
             case "Category Descending":
-                TodoItems = ToDoService.GetTodosSortedByCategory(false);
+                TodoItems = todoService.GetTodosSortedByCategory(false);
                 CategoryIsSortedAscending = false;
                 break;
             case "Completion":
-                TodoItems = ToDoService.GetTodosSortedByCompletion();
+                TodoItems = todoService.GetTodosSortedByCompletion();
                 break;
         }
     }
@@ -96,8 +96,8 @@ public partial class TodoListViewModel : ObservableObject {
     [RelayCommand]
     private async Task AddTodo() {
         if (!string.IsNullOrWhiteSpace(NewTodoTitle)) {
-            await ToDoService.AddItemAsync(new TodoItem() { Title = NewTodoTitle, Category = NewTodoCategory });
-            TodoItems = ToDoService.GetTodoItems();
+            await todoService.AddItemAsync(new TodoItem(todoService){Title = NewTodoTitle, Category = NewTodoCategory });
+            TodoItems = todoService.GetTodoItems();
 
             // reapply the filter so users can see the list as they had it before
             OnSelectedCategoryChanged(SelectedCategory);
@@ -108,8 +108,8 @@ public partial class TodoListViewModel : ObservableObject {
     [RelayCommand]
     private async Task RemoveTodo(TodoItem todoItem) {
         if (todoItem != null) {
-            await ToDoService.RemoveToDoAsync(todoItem.Id);
-            TodoItems = ToDoService.GetTodoItems();
+            await todoService.RemoveToDoAsync(todoItem.Id);
+            TodoItems = todoService.GetTodoItems();
         }
     }
 
@@ -141,9 +141,9 @@ public partial class TodoListViewModel : ObservableObject {
     [RelayCommand]
     private async Task AddSubtask(TodoItem parentTask) {
         if (parentTask is null || string.IsNullOrWhiteSpace(NewSubtaskTitle) || SelectedCategory is null) return;
-        await ToDoService.AddItemAsync(new TodoItem { Title = NewSubtaskTitle, ParentId = parentTask.Id });
+        await todoService.AddItemAsync(new TodoItem(todoService) { Title = NewSubtaskTitle, ParentId = parentTask.Id });
 
-        TodoItems = ToDoService.GetTodoItems();
+        TodoItems = todoService.GetTodoItems();
 
         parentTask.IsExpanded = true;
         NewSubtaskTitle = string.Empty;
@@ -153,17 +153,17 @@ public partial class TodoListViewModel : ObservableObject {
     private async Task RemoveSubtask(TodoItem subTask) {
         if (subTask?.ParentId is null) return;
 
-        await ToDoService.RemoveToDoAsync(subTask.Id);
-        TodoItems = ToDoService.GetTodoItems();
+        await todoService.RemoveToDoAsync(subTask.Id);
+        TodoItems = todoService.GetTodoItems();
     }
 
     [RelayCommand]
     private async Task DeleteAllCompleted() {
         foreach (var item in TodoItems) {
             if (item.IsCompleted) {
-                await ToDoService.RemoveToDoAsync(item.Id);
+                await todoService.RemoveToDoAsync(item.Id);
             }
         }
-        TodoItems = ToDoService.GetTodoItems();
+        TodoItems = todoService.GetTodoItems();
     }
 }
