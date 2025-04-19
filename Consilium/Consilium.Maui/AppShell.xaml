@@ -59,5 +59,10 @@
             Title="Profile"
             ContentTemplate="{DataTemplate local:ProfileView}"
             Route="Profile" />
+        <ShellContent
+            Title="Settings"
+            Icon="settings.png"
+            ContentTemplate="{DataTemplate local:SettingsView}"
+            Route="Settings" />
     </TabBar>
 </Shell>

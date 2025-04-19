@@ -56,4 +56,12 @@ public class PersistenceService(IClientService clientService) : IPersistenceServ
     public void SaveNotes(string content) {
         Preferences.Set("note-content", string.Empty);
     }
+
+    public string GetTheme() {
+        return Preferences.Get("app-theme", "GreenTheme"); // default to green
+    }
+
+    public void SaveTheme(string themeName) {
+        Preferences.Set("app-theme", themeName);
+    }
 }

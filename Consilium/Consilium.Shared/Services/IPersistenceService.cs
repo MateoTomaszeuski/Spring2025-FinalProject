@@ -12,4 +12,6 @@ public interface IPersistenceService {
     bool CheckLocalLoginStatus();
     string GetNotes();
     void SaveNotes(string content);
+    string GetTheme();
+    void SaveTheme(string theme);
 }
