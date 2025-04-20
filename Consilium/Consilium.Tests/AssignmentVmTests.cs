@@ -14,13 +14,12 @@ public class AssignmentsVmTest {
     private IAssignmentService assignmentService;
 
     public AssignmentsVmTest() {
-        viewModel = new AssignmentsViewModel(Substitute.For<IAssignmentService>(), Substitute.For<ILogInService>(), Substitute.For<IToDoService>());
+        assignmentService = Substitute.For<IAssignmentService>();
+        viewModel = new AssignmentsViewModel(assignmentService, Substitute.For<ILogInService>(), Substitute.For<IToDoService>());
     }
 
     [Before(Test)]
     public void Setup() {
-        assignmentService = Substitute.For<IAssignmentService>();
-
         assignmentService.AddCourseAsync(Arg.Any<Course>())
             .Returns(Task.CompletedTask);
 
