@@ -16,6 +16,7 @@ public class AssignmentsVmTest {
     public AssignmentsVmTest() {
         assignmentService = Substitute.For<IAssignmentService>();
         viewModel = new AssignmentsViewModel(assignmentService, Substitute.For<ILogInService>(), Substitute.For<IToDoService>());
+
     }
 
     [Before(Test)]
@@ -90,6 +91,8 @@ public class AssignmentsVmTest {
 
     [Test]
     public async Task WhenAssignmentIsMarkedComplete_CompletionDateIsNotNull() {
+        viewModel.Courses.Add(new Course { Id = 1, CourseName = "Math" });
+
         viewModel.Assignments = new ObservableCollection<Assignment> {
             new Assignment { Name = "Math Homework", Description = "do math homework stuff", CourseId = 1 }
         };

@@ -127,7 +127,7 @@ public partial class AssignmentsViewModel : ObservableObject {
         Assignments = new(FilterAssignmentsOnCourse(SelectedCourse));
         ResetAssignmentFormValues();
         ShowAssignmentForm = false;
-        SelectedCourse = Courses.Where(c => c.Id == newAssignment.CourseId).First();
+        SelectedCourse = Courses.FirstOrDefault(c => c.Id == newAssignment.CourseId) ?? new Course();
     }
 
     private bool CanAddAssignment() {
