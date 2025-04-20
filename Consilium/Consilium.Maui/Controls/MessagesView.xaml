@@ -82,7 +82,7 @@
                         FontFamily="FontAwesomeSolid"
                         Command="{Binding SendMessageCommand}"
                         Grid.Column="1"
-                        BackgroundColor="{StaticResource Mid-Green}"
+                        BackgroundColor="{DynamicResource Tertiary}"
                         TextColor="White"
                         CornerRadius="10"/>
             </Grid>

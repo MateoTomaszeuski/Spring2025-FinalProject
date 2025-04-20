@@ -98,7 +98,6 @@ public partial class AssignmentsViewModel : ObservableObject {
         };
 
         await service.AddCourseAsync(newCourse);
-        Courses.Add(newCourse);
         Courses = new(await service.GetAllCoursesAsync());
         ShowCourseForm = false;
 

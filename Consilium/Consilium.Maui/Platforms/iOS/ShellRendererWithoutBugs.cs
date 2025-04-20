@@ -1,17 +1,16 @@
 ﻿#if MACCATALYST || IOS
+using CoreGraphics;
+using Foundation;
+using Microsoft.Maui.Controls.Handlers.Compatibility;
+using Microsoft.Maui.Controls.Platform.Compatibility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CoreGraphics;
-using Foundation;
-using Microsoft.Maui.Controls.Handlers.Compatibility;
-using Microsoft.Maui.Controls.Platform.Compatibility;
 using UIKit;
 
-namespace Consilium.Maui
-{
+namespace Consilium.Maui {
     public sealed class ShellRendererWithoutBugs : ShellRenderer {
         private sealed class ShellTabBarAppearanceTrackerWithoutBugs : ShellTabBarAppearanceTracker {
             public override void UpdateLayout(UITabBarController controller) {

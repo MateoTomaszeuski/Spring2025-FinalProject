@@ -11,6 +11,7 @@ namespace Consilium.Tests;
 
 public class AssignmentsVmTest {
     private AssignmentsViewModel viewModel;
+    private IAssignmentService assignmentService;
 
     public AssignmentsVmTest() {
         viewModel = new AssignmentsViewModel(Substitute.For<IAssignmentService>(), Substitute.For<ILogInService>(), Substitute.For<IToDoService>());
@@ -18,7 +19,17 @@ public class AssignmentsVmTest {
 
     [Before(Test)]
     public void Setup() {
-        viewModel = new AssignmentsViewModel(Substitute.For<IAssignmentService>(), Substitute.For<ILogInService>(), Substitute.For<IToDoService>());
+        assignmentService = Substitute.For<IAssignmentService>();
+
+        assignmentService.AddCourseAsync(Arg.Any<Course>())
+            .Returns(Task.CompletedTask);
+
+        assignmentService.GetAllCoursesAsync()
+            .Returns((new List<Course> {
+            new Course { CourseName = "Math" }
+            }));
+
+        viewModel = new AssignmentsViewModel(assignmentService, Substitute.For<ILogInService>(), Substitute.For<IToDoService>());
     }
 
     [Test]
@@ -26,16 +37,57 @@ public class AssignmentsVmTest {
         await Assert.That(viewModel).IsNotNull();
     }
 
-    //[Test]
-    //public async Task WhenCourseIsSelected_AssignmentsAreFiltered() {
-    //    viewModel.AllAssignments = new List<Assignment> {
-    //        new Assignment { CourseId = 1, Name = "Math Homework", Description = "do math homework stuff" },
-    //        new Assignment { CourseId = 2, Name = "History Essay", Description = "write history essay" }
-    //    };
+    [Test]
+    public async Task CanCreateCourse() {
+        viewModel.NewCourseName = "Math";
+        viewModel.AddCourseCommand.Execute(null);
+        await Assert.That(viewModel.Courses.Count).IsEqualTo(1);
+        await Assert.That(viewModel.Courses[0].CourseName).IsEqualTo("Math");
+    }
 
-    //    viewModel.SelectedCourse = new Course { CourseId = 1, CourseName = "Math" };
-    //    await Assert.That(viewModel.Assignments.Count).IsEqualTo(1);
-    //}        
+    [Test]
+    public async Task WhenCourseIsSelected_AssignmentsAreFiltered() {
+        assignmentService.AllAssignments = new List<Assignment> {
+            new Assignment { CourseId = 1, Name = "Math Homework", Description = "do math homework stuff" },
+            new Assignment { CourseId = 2, Name = "History Essay", Description = "write history essay" }
+        };
+
+        viewModel.SelectedCourse = new Course { Id = 1, CourseName = "Math" };
+        await Assert.That(viewModel.Assignments.Count).IsEqualTo(1);
+    }
+
+    [Test]
+    public async Task AssignmentsCanOnlyBeAddedWhenTitleIsNotEmpty() {
+        viewModel.NewAssignmentTitle = "";
+        await Assert.That(viewModel.AddAssignmentCommand.CanExecute(null)).IsFalse();
+
+        viewModel.NewAssignmentTitle = "Essay";
+        await Assert.That(viewModel.AddAssignmentCommand.CanExecute(null)).IsTrue();
+    }
+
+
+    [Test]
+    public async Task WhenCourseIsSelected_AssignmentFormCanBeToggled() {
+        viewModel.SelectedCourse = new Course { Id = 1, CourseName = "Math" };
+        viewModel.SelectedCourse = new Course { Id = 1, CourseName = "Math2" };
+        await Assert.That(viewModel.ToggleAssignmentFormCommand.CanExecute(null)).IsTrue();
+    }
+
+    [Test]
+    public async Task WhenNewAssignmentIsCreated_FormInputsAreReset() {
+        viewModel.NewAssignmentTitle = "Math Homework";
+        viewModel.NewAssignmentDescription = "do math homework stuff";
+        viewModel.NewAssignmentDueDate = DateTime.Now;
+
+        await Assert.That(viewModel.NewAssignmentTitle).IsEqualTo("Math Homework");
+        await Assert.That(viewModel.NewAssignmentDescription).IsEqualTo("do math homework stuff");
+        await Assert.That(viewModel.NewAssignmentDueDate).IsNotNull();
+
+        viewModel.AddAssignmentCommand.Execute(null);
+
+        await Assert.That(viewModel.NewAssignmentTitle).IsEqualTo(string.Empty);
+        await Assert.That(viewModel.NewAssignmentDescription).IsEqualTo(string.Empty);
+    }
 
     [Test]
     public async Task WhenAssignmentIsMarkedComplete_CompletionDateIsNotNull() {
