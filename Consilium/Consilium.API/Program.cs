@@ -139,7 +139,6 @@ app.MapGet("/health", () =>
 {
     using var activity = activitySource.StartActivity("HomeActivity");
     activity?.SetTag("Health", "Checking Health");
-    app.Logger.LogInformation("Checking health");
 
     return Results.Ok("healthy");
 });
