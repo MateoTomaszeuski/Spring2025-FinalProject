@@ -29,9 +29,9 @@ spec:
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
-        volumeMounts:
-          - name: consilium-uptime-data
-            mountPath: /app/publish/wwwroot/uptime.txt
+        # volumeMounts:
+        #   - name: consilium-uptime-data
+        #     mountPath: /app/publish/wwwroot/uptime.txt
         readinessProbe:
           httpGet:
             path: /health
