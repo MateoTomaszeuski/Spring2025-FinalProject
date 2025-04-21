@@ -5,8 +5,8 @@ metadata:
   namespace: $NAMESPACE
 spec:
   accessModes:
-  - ReadWriteOnce
-  # - ReadWriteMany
+  # - ReadWriteOnce
+  - ReadWriteMany
   resources:
     requests:
       storage: 1Gi
