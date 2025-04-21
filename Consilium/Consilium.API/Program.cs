@@ -59,7 +59,8 @@ if (Uri != "") {
             {
                 options.Endpoint = new Uri(Uri);
                 options.Protocol = OtlpExportProtocol.Grpc;
-            }))
+            })
+            .AddConsoleExporter())
         .WithMetrics(metrics => metrics
             .AddMeter(serviceName)
             .AddMeter("Consilium.Todos")
