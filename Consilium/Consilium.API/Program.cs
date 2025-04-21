@@ -10,13 +10,13 @@ using OpenTelemetry.Logs;
 using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
+using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
 using System.Diagnostics.Metrics;
-using System.Threading;
-using System.IO;
 using System.Globalization;
-using System.Collections.Generic;
+using System.IO;
+using System.Threading;
 
 
 var builder = WebApplication.CreateBuilder(args);
