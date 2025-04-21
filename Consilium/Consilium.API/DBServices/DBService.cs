@@ -1,11 +1,6 @@
 ﻿using Consilium.Shared.Models;
-using Consilium.Shared.ViewModels;
 using Dapper;
-using Microsoft.VisualBasic;
-using Org.BouncyCastle.Bcpg.OpenPgp;
 using System.Data;
-using System.Data.SqlTypes;
-using System.Diagnostics;
 
 namespace Consilium.API.DBServices;
 

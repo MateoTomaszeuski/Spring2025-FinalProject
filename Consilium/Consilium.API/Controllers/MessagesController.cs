@@ -1,5 +1,4 @@
 using Consilium.Shared.Models;
-using EmailAuthenticator;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Consilium.API.Controllers;

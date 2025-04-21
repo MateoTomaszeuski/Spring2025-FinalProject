@@ -1,9 +1,5 @@
-﻿
-using Consilium.Shared.Models;
+﻿using Consilium.Shared.Models;
 using System.Net.Http.Json;
-using System.Reflection.Metadata;
-using System.Threading.Tasks;
-using TUnit.Assertions;
 
 namespace Consilium.IntegrationTests;
 

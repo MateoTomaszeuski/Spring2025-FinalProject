@@ -1,5 +1,4 @@
-﻿using Consilium.API.InMemoryServices;
-using Consilium.Shared.Models;
+﻿using Consilium.Shared.Models;
 
 namespace Consilium.API;
 
