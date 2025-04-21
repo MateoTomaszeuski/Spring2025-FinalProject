@@ -15,7 +15,7 @@ using System.Globalization;
 
 
 var builder = WebApplication.CreateBuilder(args);
-string UptimeFilePath = Path.Combine(builder.Environment.WebRootPath, "uptime.txt");
+string UptimeFilePath = Path.Combine(builder.Environment.WebRootPath, "/uptime/uptime.txt");
 
 DateTime started = DateTime.UtcNow;
 builder.Logging.AddConsole();

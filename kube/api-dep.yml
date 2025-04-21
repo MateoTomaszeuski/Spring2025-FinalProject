@@ -18,6 +18,10 @@ spec:
       labels:
         app: consilium-api
     spec:
+      volumes:
+        - name: consilium-uptime-data
+          persistentVolumeClaim:
+            claimName: consilium-api-pvc
       containers:
       - name: consilium-api
         image: mateotomaszeuski/consilium:$BUILD_NUMBER
@@ -25,6 +29,9 @@ spec:
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
+        volumeMounts:
+          - name: consilium-uptime-data
+            mountPath: /app/publish/wwwroot/uptime
         readinessProbe:
           httpGet:
             path: /health
