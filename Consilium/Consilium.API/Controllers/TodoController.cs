@@ -31,8 +31,7 @@ public class todoController : ControllerBase {
 
 
     [HttpPost(Name = "CreateTodos")]
-    public IResult Post(TodoItem item, TodoMetrics metrics) {
-        metrics.TodoAdded();
+    public IResult Post(TodoItem item) {
         string username = Request.Headers["Email-Auth_Email"]!;
         int result = service.AddToDo(item, username);
         return Results.Ok(result);
