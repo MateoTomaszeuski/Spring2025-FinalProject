@@ -1,8 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Consilium.Shared.ViewModels.Controls;
 public partial class PomodoroViewModel : ObservableObject {

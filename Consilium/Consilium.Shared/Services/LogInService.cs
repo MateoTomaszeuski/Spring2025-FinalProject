@@ -1,8 +1,4 @@
-﻿
-using Consilium.Shared.Models;
-using System.Net.Http.Json;
-
-namespace Consilium.Shared.Services;
+﻿namespace Consilium.Shared.Services;
 
 public class LogInService : ILogInService {
     private readonly IClientService client;

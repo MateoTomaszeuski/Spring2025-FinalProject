@@ -1,8 +1,6 @@
 using Consilium.Shared.Models;
-using Consilium.Shared.ViewModels;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Diagnostics.CodeAnalysis;
 using System.Net.Http.Json;
 
 namespace Consilium.Shared.Services;

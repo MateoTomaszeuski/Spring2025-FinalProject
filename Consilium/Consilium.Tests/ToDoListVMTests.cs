@@ -1,14 +1,9 @@
-﻿using Consilium.API.Controllers;
-using Consilium.Shared.Models;
+﻿using Consilium.Shared.Models;
 using Consilium.Shared.Services;
 using Consilium.Shared.ViewModels;
 using NSubstitute;
-using Shouldly;
 using System.Collections.ObjectModel;
 using System.Net.Http.Json;
-using System.Threading.Tasks;
-using TUnit.Assertions.AssertionBuilders.Wrappers;
-using TUnit.Assertions.Extensions;
 namespace Consilium.Tests;
 
 

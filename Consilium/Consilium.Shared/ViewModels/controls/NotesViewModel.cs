@@ -1,8 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
-using Consilium.Shared.Models;
 using Consilium.Shared.Services;
-using System.Collections.ObjectModel;
 
 
 namespace Consilium.Shared.ViewModels.Controls;

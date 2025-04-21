@@ -1,6 +1,4 @@
-﻿using System.Security.AccessControl;
-
-namespace Consilium.Shared.Services;
+﻿namespace Consilium.Shared.Services;
 
 public interface IClientService {
     Task<HttpResponseMessage> GetAsync(string url);

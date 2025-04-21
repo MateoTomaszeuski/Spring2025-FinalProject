@@ -1,11 +1,6 @@
-﻿
-
-using Consilium.Shared.Models;
+﻿using Consilium.Shared.Models;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Net.Http.Json;
-using System.Runtime.ExceptionServices;
-using System.Threading.Tasks;
 
 namespace Consilium.Shared.Services;
 

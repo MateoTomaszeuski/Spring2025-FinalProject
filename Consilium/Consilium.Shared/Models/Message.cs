@@ -1,5 +1,3 @@
-using System.ComponentModel;
-
 namespace Consilium.Shared.Models;
 public class Message {
     public string Sender { get; set; } = string.Empty;

@@ -1,5 +1,4 @@
 using Consilium.Shared.Models;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 
 namespace Consilium.Shared.Services;

@@ -2,8 +2,6 @@
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using Consilium.Shared.Services;
-using System.Runtime.Serialization;
-using System.Security.Cryptography.X509Certificates;
 
 namespace Consilium.Shared.ViewModels;
 public partial class ProfileViewModel : ObservableObject {

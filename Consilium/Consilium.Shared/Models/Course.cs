@@ -1,6 +1,4 @@
-﻿
-
-namespace Consilium.Shared.Models;
+﻿namespace Consilium.Shared.Models;
 
 public class Course {
     public int Id { get; set; }

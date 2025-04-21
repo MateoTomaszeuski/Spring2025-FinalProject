@@ -1,6 +1,4 @@
-﻿
-
-namespace Consilium.Shared.Models;
+﻿namespace Consilium.Shared.Models;
 
 public class Note {
     public string? Title { get; set; }

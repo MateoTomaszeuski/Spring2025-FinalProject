@@ -3,7 +3,6 @@ using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using Consilium.Shared.Services;
 using System.Collections.ObjectModel;
-using System.Threading.Tasks;
 
 namespace Consilium.Shared.ViewModels;
 public partial class ChatViewModel(IMessageService messageService, ILogInService logInService) : ObservableObject {

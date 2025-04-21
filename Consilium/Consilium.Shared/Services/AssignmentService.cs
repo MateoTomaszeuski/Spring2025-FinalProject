@@ -1,6 +1,4 @@
 ﻿using Consilium.Shared.Models;
-using System.Collections.ObjectModel;
-using System.Data.Common;
 using System.Net.Http.Json;
 
 namespace Consilium.Shared.Services;

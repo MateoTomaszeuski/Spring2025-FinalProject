@@ -2,10 +2,7 @@
 using Consilium.Shared.Services;
 using Consilium.Shared.ViewModels;
 using NSubstitute;
-using Shouldly;
 using System.Collections.ObjectModel;
-using System.Threading.Tasks;
-using TUnit.Assertions.Extensions;
 namespace Consilium.Tests;
 
 
