@@ -31,8 +31,7 @@ spec:
         - containerPort: 8080
         volumeMounts:
           - name: consilium-uptime-data
-            mountPath: /app/publish/wwwroot/uptime.txt
-            subPath: uptime.txt     
+            mountPath: /app/publish/wwwroot
         readinessProbe:
           httpGet:
             path: /health
