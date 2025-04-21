@@ -11,7 +11,7 @@
 
 - MAUI
   - time spent on each page?
-
+  - number of clicks on an non-integrated view
 
 
 
