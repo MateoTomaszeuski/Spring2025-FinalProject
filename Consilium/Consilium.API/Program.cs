@@ -5,12 +5,21 @@ using EmailAuthenticator;
 using Microsoft.AspNetCore.Mvc;
 using Npgsql;
 using OpenTelemetry.Exporter;
+using OpenTelemetry.Instrumentation.Runtime;
 using OpenTelemetry.Logs;
 using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
 using System.Data;
 using System.Diagnostics;
+using System.Diagnostics.Metrics;
+using System.Threading;
+using System.IO;
+using System.Globalization;
+using System.Collections.Generic;
+
+string UptimeFilePath =
+    Path.Combine(AppContext.BaseDirectory, "uptime.txt");
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,8 +27,35 @@ DateTime started = DateTime.UtcNow;
 
 const string serviceName = "Consilium";
 var Uri = builder.Configuration["OTEL_URL"] ?? "";
+double previousAggregated = LoadAggregatedUptimeFromStore();  // e.g. from a file or database
+var meter = new Meter(serviceName, "1.0.0");
+var errorCountCounter = meter.CreateCounter<long>("error_count", description: "Total number of errors");
+var errorMessageCounter = meter.CreateCounter<long>("error_messages", description: "Number of errors by message", unit: "1");
+
 Console.WriteLine(Uri);
 if (Uri != "") {
+
+
+    //  Current uptime in seconds
+    meter.CreateObservableGauge(
+        "application_uptime_seconds",
+        () => new[] { new Measurement<double>((DateTime.UtcNow - started).TotalSeconds) },
+        description: "Current application uptime in seconds"
+    );
+
+    //  Aggregated uptime (across restarts)
+    meter.CreateObservableGauge(
+        "application_aggregated_uptime_seconds",
+        () =>
+        {
+            var total = previousAggregated + (DateTime.UtcNow - started).TotalSeconds;
+            return new[] { new Measurement<double>(total) };
+        },
+        description: "Aggregated application uptime in seconds"
+    );
+
+
+
     builder.Services.AddSingleton<TodoMetrics>();
     builder.Services.AddOpenTelemetry()
         .ConfigureResource(r => r.AddService(serviceName: serviceName))
@@ -33,6 +69,7 @@ if (Uri != "") {
             .AddMeter(serviceName)
             .AddMeter("Consilium.Todos")
             .AddAspNetCoreInstrumentation()
+            .AddRuntimeInstrumentation()
             .AddOtlpExporter(options =>
             {
                 options.Endpoint = new Uri(Uri);
@@ -87,6 +124,12 @@ app.UseStaticFiles();
 app.UseMiddleware<IdentityMiddleware>();
 app.UseRouting();
 
+app.Lifetime.ApplicationStopping.Register(() =>
+{
+    var aggregated = previousAggregated + (DateTime.UtcNow - started).TotalSeconds;
+    SaveAggregatedUptimeToStore(aggregated);
+});
+
 //change
 app.MapGet("", () =>
 {
@@ -119,10 +162,86 @@ if (featureFlag) {
     });
 }
 
+app.Use(async (ctx, next) =>
+{
+    try {
+        await next();
+    } catch (Exception ex) {
+        errorCountCounter.Add(1);
+        errorMessageCounter.Add(
+    1,
+    new[]
+    {
+         new KeyValuePair<string, object?>("message", ex.GetType().Name)
+    });
+        throw;
+    }
+});
 //app.UseHttpsRedirection();
+
+var userGauge = meter.CreateObservableGauge(
+    "concurrent_users",
+    () =>
+    {
+        var count = MyConcurrentUserTracker.CurrentCount; // your in‑mem or distributed count
+        return new[] { new Measurement<long>(count) };
+    },
+    description: "Number of currently active users"
+);
+
+//  Most popular pages: leverage the AspNetCoreInstrumentation counter by route,
+//  or create your own with a label:
+var pageHits = meter.CreateCounter<long>("page_requests_total", description: "Page hits by route");
+app.Use(async (ctx, next) =>
+{
+    await next();
+    var route = ctx.GetEndpoint()?.DisplayName ?? ctx.Request.Path;
+    pageHits.Add(
+    1,
+    new[]
+    {
+        new KeyValuePair<string, object?>("page", route)
+    }
+);
+
+});
+
+app.Lifetime.ApplicationStopping.Register(() =>
+{
+    var aggregated = previousAggregated
+                   + (DateTime.UtcNow - started).TotalSeconds;
+    SaveAggregatedUptimeToStore(aggregated);
+});
 
 app.UseAuthorization();
 
 app.MapControllers();
 
 app.Run();
+
+double LoadAggregatedUptimeFromStore() {
+    if (!File.Exists(UptimeFilePath))
+        return 0;
+
+    var text = File.ReadAllText(UptimeFilePath);
+    if (double.TryParse(text,
+                        NumberStyles.Float,
+                        CultureInfo.InvariantCulture,
+                        out var value)) {
+        return value;
+    }
+    return 0;
+}
+
+void SaveAggregatedUptimeToStore(double seconds) {
+    var text = seconds.ToString(CultureInfo.InvariantCulture);
+    File.WriteAllText(UptimeFilePath, text);
+}
+
+public static class MyConcurrentUserTracker {
+    private static long _count;
+    public static long CurrentCount => Interlocked.Read(ref _count);
+
+    public static void Increment() => Interlocked.Increment(ref _count);
+    public static void Decrement() => Interlocked.Decrement(ref _count);
+}
