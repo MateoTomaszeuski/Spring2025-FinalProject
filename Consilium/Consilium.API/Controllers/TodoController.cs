@@ -1,3 +1,4 @@
+using Consilium.API.Metrics;
 using Consilium.Shared.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -30,7 +31,8 @@ public class todoController : ControllerBase {
 
 
     [HttpPost(Name = "CreateTodos")]
-    public IResult Post(TodoItem item) {
+    public IResult Post(TodoItem item, TodoMetrics metrics) {
+        metrics.TodoAdded();
         string username = Request.Headers["Email-Auth_Email"]!;
         int result = service.AddToDo(item, username);
         return Results.Ok(result);
