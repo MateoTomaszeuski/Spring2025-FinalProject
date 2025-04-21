@@ -9,7 +9,7 @@ using System.Diagnostics;
 
 namespace Consilium.API.DBServices;
 
-public class DBService(IDbConnection conn) : IDBService {
+public class DBService(IDbConnection conn, ILogger<DBService> logger) : IDBService {
     #region ToDos
     public int AddToDo(TodoItem Todo, string email) {
         string addItem = @"
@@ -17,6 +17,7 @@ public class DBService(IDbConnection conn) : IDBService {
                 (@email, @categoryid, @parentid, @assignmentid, @todoname, @completiondate)
                 returning id
             ";
+        logger.LogInformation("Adding todo for {email}", email);
         return conn.QuerySingle<int>(addItem, new {
             email,
             categoryId = Todo.Category,
@@ -35,6 +36,7 @@ public class DBService(IDbConnection conn) : IDBService {
             SELECT id, category_name as category, parent_id as parentId, assignment_id as assignmentId, todo_name as title, completion_date as completionDate
             FROM todoitem t WHERE t.account_email = @email
             """";
+        logger.LogInformation("Getting todo list for {email}", email);
         return conn.Query<TodoItem>(items, new { email });
     }
 
@@ -42,6 +44,7 @@ public class DBService(IDbConnection conn) : IDBService {
         string removeItem = """"
             delete from todoitem t where t.id = @id and account_email = @email;
             """";
+        logger.LogInformation("Removing todo for {email}", email);
         conn.Execute(removeItem, new { id, email });
     }
 
@@ -53,6 +56,7 @@ public class DBService(IDbConnection conn) : IDBService {
         if (Todo.IsCompleted) {
             now = DateTime.Now;
         }
+        logger.LogInformation("Updating todo for {email}", email);
         conn.Execute(updateItem, new { time = now, id = Todo.Id, email });
     }
     #endregion
@@ -66,6 +70,7 @@ public class DBService(IDbConnection conn) : IDBService {
             VALUES (@courseid, @name, @description, @duedate, @datestarted, @datecompleted)
             returning id
             """";
+        logger.LogInformation("Adding assignment for {email}", email);
         return conn.QuerySingle<int>(addAssignment, assignment);
     }
 
@@ -82,6 +87,7 @@ public class DBService(IDbConnection conn) : IDBService {
         string deleteAssignment = """"
             delete from assignment where id = @id
             """";
+        logger.LogInformation("Deleting assignment for {email}", email);
         conn.Execute(deleteAssignment, new { id });
     }
 
@@ -99,6 +105,7 @@ public class DBService(IDbConnection conn) : IDBService {
         INNER JOIN assignment a ON a.course_id = c.id
         WHERE c.account_email = @Email;
         """"";
+        logger.LogInformation("Getting all assignments for {email}", email);
         return conn.Query<Assignment>(getAssignments, new { email });
     }
 
@@ -117,6 +124,7 @@ public class DBService(IDbConnection conn) : IDBService {
         WHERE c.account_email = @Email
         AND a.mark_complete is null
         """"";
+        logger.LogInformation("Getting incomplete assignments for {email}", email);
         return conn.Query<Assignment>(getIncompleteAssignments, new { email });
     }
 
@@ -128,6 +136,7 @@ public class DBService(IDbConnection conn) : IDBService {
                 mark_complete = @dateCompleted
                 where a.id = @Id
             """";
+        logger.LogInformation("Updating assignment for {email}", email);
         conn.Execute(updateAssignment, assignment);
     }
     #endregion
@@ -138,6 +147,7 @@ public class DBService(IDbConnection conn) : IDBService {
             FROM course
             WHERE account_email = @username
             """;
+        logger.LogInformation("Getting all courses for {username}", username);
         return conn.Query<Course>(getCourses, new { username });
     }
 
@@ -147,7 +157,7 @@ public class DBService(IDbConnection conn) : IDBService {
             VALUES (@account_email, @course_name)
             RETURNING id
             """;
-
+        logger.LogInformation("Adding course for {email}", email);
         return conn.QuerySingle<int>(addCourse, new {
             account_email = email,
             course_name = course.CourseName
@@ -159,6 +169,7 @@ public class DBService(IDbConnection conn) : IDBService {
             DELETE FROM assignment WHERE course_id = @id;
             DELETE FROM course WHERE id = @id
             """";
+        logger.LogInformation("Deleting course for {email}", email);
         conn.Execute(deleteCourse, new { id, email });
     }
     #endregion
@@ -178,6 +189,7 @@ public class DBService(IDbConnection conn) : IDBService {
                 WHERE receiver_account_email = @username
             ) AS conversation_participants;
             """";
+        logger.LogInformation("Getting all conversations for {username}", username);
         return conn.Query<string>(getConversations, new { username });
     }
 
@@ -189,6 +201,7 @@ public class DBService(IDbConnection conn) : IDBService {
                 OR (sender_account_email = @otherUser AND receiver_account_email = @username)
             ORDER BY time_sent;
             """";
+        logger.LogInformation("Getting all messages for {username} and {otherUser}", username, otherUser);
         return conn.Query<Message>(getMessages, new { username, otherUser });
     }
 
@@ -202,6 +215,7 @@ public class DBService(IDbConnection conn) : IDBService {
             VALUES (@sender, @receiver, @content, @timeSent)
             RETURNING 'successfully sent message';
             """";
+        logger.LogInformation("Adding message from {sender} to {receiver}", sender, receiver);
         return Task.FromResult(conn.QuerySingle<string>(addMessage, new { sender, receiver, content, timeSent }));
     }
 
@@ -213,6 +227,7 @@ public class DBService(IDbConnection conn) : IDBService {
                 WHERE email = @otherUser
             );
             """";
+        logger.LogInformation("Checking if {otherUser} is a user", otherUser);
         return conn.Query<bool>(getUser, new { otherUser }).First();
     }
     #endregion
@@ -223,8 +238,10 @@ public class DBService(IDbConnection conn) : IDBService {
 
         try {
             string dbEmail = conn.QuerySingle<string>(OwnsCourse, new { courseId });
+            logger.LogInformation("Checking if {email} owns course {courseId}", email, courseId);
             return dbEmail == email;
         } catch {
+            logger.LogError("Error checking if {email} owns course {courseId}", email, courseId);
             return false;
         }
     }

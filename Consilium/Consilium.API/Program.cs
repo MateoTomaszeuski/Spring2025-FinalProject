@@ -24,6 +24,7 @@ string UptimeFilePath =
 var builder = WebApplication.CreateBuilder(args);
 
 DateTime started = DateTime.UtcNow;
+builder.Logging.AddConsole();
 
 const string serviceName = "Consilium";
 var Uri = builder.Configuration["OTEL_URL"] ?? "";
@@ -135,7 +136,7 @@ app.MapGet("", () =>
 {
     using var activity = activitySource.StartActivity("HomeActivity");
     activity?.SetTag("home", "home");
-
+    app.Logger.LogInformation("Home page accessed");
     return "Welcome to the Consilium Api";
 });
 
@@ -143,6 +144,7 @@ app.MapGet("/health", () =>
 {
     using var activity = activitySource.StartActivity("HomeActivity");
     activity?.SetTag("Health", "Checking Health");
+    app.Logger.LogInformation("Checking health");
 
     return Results.Ok("healthy");
 });
@@ -157,6 +159,7 @@ if (featureFlag) {
     {
         using var activity = activitySource.StartActivity("HomeActivity");
         activity?.SetTag("Secret", "Checking Secrets");
+        app.Logger.LogInformation("Inside the secret feature flag");
 
         return "Secrets are hidden within.";
     });
