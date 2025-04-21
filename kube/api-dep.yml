@@ -18,10 +18,6 @@ spec:
       labels:
         app: consilium-api
     spec:
-      volumes:
-        - name: consilium-uptime-data
-          persistentVolumeClaim:
-            claimName: consilium-api-pvc
       containers:
       - name: consilium-api
         image: mateotomaszeuski/consilium:$BUILD_NUMBER

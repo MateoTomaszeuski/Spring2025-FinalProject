@@ -180,7 +180,7 @@ var userGauge = meter.CreateObservableGauge(
     "concurrent_users",
     () =>
     {
-        var count = MyConcurrentUserTracker.CurrentCount; // your in‑mem or distributed count
+        var count = MyConcurrentUserTracker.CurrentCount;
         return new[] { new Measurement<long>(count) };
     },
     description: "Number of currently active users"
