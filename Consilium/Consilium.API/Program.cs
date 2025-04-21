@@ -2,21 +2,16 @@ using Consilium.API;
 using Consilium.API.DBServices;
 using Consilium.API.Metrics;
 using EmailAuthenticator;
-using Microsoft.AspNetCore.Mvc;
 using Npgsql;
 using OpenTelemetry.Exporter;
-using OpenTelemetry.Instrumentation.Runtime;
 using OpenTelemetry.Logs;
 using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
-using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
 using System.Diagnostics.Metrics;
 using System.Globalization;
-using System.IO;
-using System.Threading;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -32,7 +27,8 @@ var meter = new Meter(serviceName, "1.0.0");
 var errorCountCounter = meter.CreateCounter<long>("error_count", description: "Total number of errors");
 var errorMessageCounter = meter.CreateCounter<long>("error_messages", description: "Number of errors by message", unit: "1");
 
-Console.WriteLine(Uri);
+builder.Services.AddSingleton<TodoMetrics>();
+
 if (Uri != "") {
 
 
@@ -56,7 +52,6 @@ if (Uri != "") {
 
 
 
-    builder.Services.AddSingleton<TodoMetrics>();
     builder.Services.AddOpenTelemetry()
         .ConfigureResource(r => r.AddService(serviceName: serviceName))
         .WithLogging(logging => logging

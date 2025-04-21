@@ -10,10 +10,12 @@ public class todoController : ControllerBase {
 
     private readonly IDBService service;
     private readonly ILogger<todoController> logger;
+    private readonly TodoMetrics todoMetrics;
 
-    public todoController(IDBService service, ILogger<todoController> logger) {
+    public todoController(IDBService service, ILogger<todoController> logger, TodoMetrics todoMetrics) {
         this.service = service;
         this.logger = logger;
+        this.todoMetrics = todoMetrics;
     }
 
     [HttpGet(Name = "GetTodos")]
@@ -39,6 +41,7 @@ public class todoController : ControllerBase {
 
     [HttpPost(Name = "CreateTodos")]
     public IResult Post(TodoItem item) {
+        todoMetrics.TodoAdded();
         string username = Request.Headers["Email-Auth_Email"]!;
         int result = service.AddToDo(item, username);
         logger.LogInformation("Adding todo for {username}", username);
