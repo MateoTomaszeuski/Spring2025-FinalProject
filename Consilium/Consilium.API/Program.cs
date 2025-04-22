@@ -34,8 +34,6 @@ var meter = new Meter(serviceName, "1.0.0");
 var errorCountCounter = meter.CreateCounter<long>("error_count", description: "Total number of errors");
 var errorMessageCounter = meter.CreateCounter<long>("error_messages", description: "Number of errors by message", unit: "1");
 
-builder.Services.AddSingleton<TodoMetrics>();
-
 meter.CreateObservableGauge(
     "application_uptime_seconds",
     () => new[] { new Measurement<double>((DateTime.UtcNow - started).TotalSeconds) },
@@ -76,6 +74,8 @@ if (Uri != "") {
         .WithMetrics(metrics => metrics
             .AddMeter(serviceName)
             .AddMeter("Consilium.Todos")
+            .AddMeter("Consilium.Accounts")
+            .AddMeter("Consilium.NewFeature")
             .AddAspNetCoreInstrumentation()
             .AddRuntimeInstrumentation()
             .AddOtlpExporter(options =>
@@ -108,6 +108,9 @@ builder.Services.AddSingleton<IDbConnection>(provider =>
 builder.Services.AddSingleton<AuthService>();
 builder.Services.AddSingleton<IEmailService, EmailService>();
 builder.Services.AddSingleton<IIDMiddlewareConfig, MiddlewareConfig>();
+builder.Services.AddSingleton<TodoMetrics>();
+builder.Services.AddSingleton<AccountMetrics>();
+builder.Services.AddSingleton<NewFeatureMerics>();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

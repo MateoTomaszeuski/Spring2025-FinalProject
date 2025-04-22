@@ -1,4 +1,5 @@
-﻿using EmailAuthenticator;
+﻿using Consilium.API.Metrics;
+using EmailAuthenticator;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Consilium.API.Controllers;
@@ -9,10 +10,12 @@ public class AccountController : ControllerBase {
 
     private readonly AuthService service;
     private readonly ILogger<AuthService> logger;
+    private readonly AccountMetrics accountMetrics;
 
-    public AccountController(AuthService service, ILogger<AuthService> logger) {
+    public AccountController(AuthService service, ILogger<AuthService> logger, AccountMetrics accountMetrics) {
         this.service = service;
         this.logger = logger;
+        this.accountMetrics = accountMetrics;
     }
 
     [HttpGet("all")]
@@ -24,6 +27,7 @@ public class AccountController : ControllerBase {
     [HttpPost]
     public async Task<string> PostNewAccount(string email) {
         logger.LogInformation("Creating new account for {email}", email);
+        accountMetrics.AddedAccount();
         return await service.AddUser(email);
     }
 
@@ -67,6 +71,7 @@ public class AccountController : ControllerBase {
 
         logger.LogInformation("Deleting account for {email}", email);
         service.DeleteUser(email);
+        accountMetrics.RemovedAccount();
         return Results.Ok("Done!");
     }
 }

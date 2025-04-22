@@ -43,7 +43,7 @@ public class todoController : ControllerBase {
     public IResult Post(TodoItem item) {
         todoMetrics.TodoAdded();
         string username = Request.Headers["Email-Auth_Email"]!;
-        int result = service.AddToDo(item, username);
+        int result = todoMetrics.TrackTodoAdd(() => service.AddToDo(item, username));
         logger.LogInformation("Adding todo for {username}", username);
         return Results.Ok(result);
     }
@@ -53,6 +53,7 @@ public class todoController : ControllerBase {
         try {
             string username = Request.Headers["Email-Auth_Email"]!;
             service.RemoveToDo(item, username);
+            todoMetrics.TodoRemoved();
         } catch (Exception e) {
             return Results.BadRequest(e.Message);
         }
