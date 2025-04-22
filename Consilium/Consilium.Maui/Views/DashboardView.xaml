@@ -13,9 +13,9 @@
                    TextColor="{AppThemeBinding Dark={StaticResource White}, Light={StaticResource Black}}"/>
 
             <Label Text="{Binding PrintMessage}" 
-                   FontSize="20"
-                   FontAttributes="Bold"
+                   FontSize="18"
                    HorizontalOptions="Center"
+                   HorizontalTextAlignment="Center"
                    Margin="0,0,0,20"
                    IsVisible="{Binding Online, Converter={StaticResource InverseBoolConverter}}"
                    TextColor="{AppThemeBinding Dark={StaticResource White}, Light={StaticResource Black}}"/>

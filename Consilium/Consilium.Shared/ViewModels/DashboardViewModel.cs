@@ -25,9 +25,6 @@ public partial class DashboardViewModel : ObservableObject {
     private bool showDashboard = false;
     public DashboardViewModel(IPersistenceService persistenceService, ILogInService logInService, IToDoService toDoService, IAssignmentService assignmentService) {
 
-        var u = persistenceService.GetUserName();
-        u = u.Split('@')[0];
-        Username = u != String.Empty ? u : "Guest";
         this.persistenceService = persistenceService;
         this.logInService = logInService;
         this.toDoService = toDoService;
@@ -36,8 +33,12 @@ public partial class DashboardViewModel : ObservableObject {
 
     [RelayCommand]
     public async Task Initialize() {
+        var u = persistenceService.GetUserName();
+        u = u.Split('@')[0];
+        Username = u != String.Empty ? u : "Guest";
         Online = await logInService.CheckAuthStatus();
         if (Username != "Guest" && Online) {
+            PrintMessage = string.Empty;
             IEnumerable<Assignment> a = await assignmentService.GetAllAssignmentsAsync();
             Assignments = new(a.Take(3).OrderBy(a => a.DueDate));
             await toDoService.InitializeTodosAsync();
