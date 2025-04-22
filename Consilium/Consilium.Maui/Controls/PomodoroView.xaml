@@ -34,7 +34,8 @@
       <Label Text="{Binding WorkTime, StringFormat='Work Time: {0} min'}" FontSize="18"/>
       <Slider Minimum="1" 
               Maximum="60" 
-              Value="{Binding WorkTime, Mode=TwoWay}"/>
+              Value="{Binding WorkTime, Mode=TwoWay}"
+              ValueChanged="Slider_ValueChanged"/>
 
       <!-- BreakTime in seconds -->
       <Label Text="{Binding BreakTime, StringFormat='Break Time: {0} min'}" FontSize="18"/>

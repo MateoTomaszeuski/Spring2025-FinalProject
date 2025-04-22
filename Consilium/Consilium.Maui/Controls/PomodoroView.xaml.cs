@@ -32,4 +32,15 @@ public partial class PomodoroView : ContentView {
         player.Volume = 1.0;
         player.Play();
     }
+    private void Slider_ValueChanged(object sender, ValueChangedEventArgs e) {
+        var slider = (Slider)sender;
+        int step = 1;
+        int rounded = (int)Math.Round(e.NewValue / step) * step;
+
+        if (rounded != (int)e.NewValue)
+            slider.Value = rounded;
+
+        if (BindingContext is PomodoroViewModel vm)
+            vm.WorkTime = rounded;
+    }
 }
