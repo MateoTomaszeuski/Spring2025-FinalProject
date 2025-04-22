@@ -31,15 +31,15 @@
     <!-- Work & Break Settings -->
     <StackLayout Spacing="10">
       <!-- WorkTime in seconds -->
-      <Label Text="{Binding WorkTime, StringFormat='Work Time: {0} sec'}" FontSize="18"/>
-      <Slider Minimum="60" 
-              Maximum="3600" 
+      <Label Text="{Binding WorkTime, StringFormat='Work Time: {0} min'}" FontSize="18"/>
+      <Slider Minimum="1" 
+              Maximum="60" 
               Value="{Binding WorkTime, Mode=TwoWay}"/>
 
       <!-- BreakTime in seconds -->
-      <Label Text="{Binding BreakTime, StringFormat='Break Time: {0} sec'}" FontSize="18"/>
-      <Slider Minimum="60"
-              Maximum="1800"
+      <Label Text="{Binding BreakTime, StringFormat='Break Time: {0} min'}" FontSize="18"/>
+      <Slider Minimum="1"
+              Maximum="20"
               Value="{Binding BreakTime, Mode=TwoWay}"/>
     </StackLayout>
 

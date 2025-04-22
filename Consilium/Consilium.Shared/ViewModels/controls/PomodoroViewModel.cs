@@ -7,10 +7,10 @@ public partial class PomodoroViewModel : ObservableObject {
     private int _currentTimer;
 
     [ObservableProperty]
-    private int workTime = 1200; // Default 20 minutes
+    private int workTime = 20; // Default 20 minutes
 
     [ObservableProperty]
-    private int breakTime = 300; // Default 5 minutes
+    private int breakTime = 5; // Default 5 minutes
 
     [ObservableProperty]
     private string currentAction = "Working";
@@ -19,7 +19,7 @@ public partial class PomodoroViewModel : ObservableObject {
     private bool isTimerRunning = false;
 
     public PomodoroViewModel() {
-        _currentTimer = WorkTime;
+        _currentTimer = WorkTime * 60;
     }
 
     [RelayCommand]
@@ -41,7 +41,7 @@ public partial class PomodoroViewModel : ObservableObject {
     public void ResetTimer() {
         StopTimer();
         CurrentAction = "Working";
-        _currentTimer = WorkTime;
+        _currentTimer = WorkTime * 60;
         OnPropertyChanged(nameof(CurrentTimerDisplay));
     }
 
@@ -61,20 +61,20 @@ public partial class PomodoroViewModel : ObservableObject {
             // Make sound
         } else {
             CurrentAction = "Working";
-            _currentTimer = WorkTime;
+            _currentTimer = WorkTime * 60;
             // Make sound
         }
         OnPropertyChanged(nameof(CurrentTimerDisplay));
     }
     partial void OnWorkTimeChanged(int value) {
         if (!IsTimerRunning && CurrentAction == "Working") {
-            _currentTimer = value;
+            _currentTimer = value * 60;
             OnPropertyChanged(nameof(CurrentTimerDisplay));
         }
     }
     partial void OnBreakTimeChanged(int value) {
         if (!IsTimerRunning && CurrentAction == "Break") {
-            _currentTimer = value;
+            _currentTimer = value * 60;
             OnPropertyChanged(nameof(CurrentTimerDisplay));
         }
     }
