@@ -167,6 +167,11 @@ app.MapGet("/health", () =>
     return Results.Ok("healthy");
 });
 
+app.MapGet("/error", () =>
+{
+    throw new Exception("This is an error");
+});
+
 app.MapGet("/timecheck", () =>
 {
     using var activity = activitySource.StartActivity("HomeActivity");

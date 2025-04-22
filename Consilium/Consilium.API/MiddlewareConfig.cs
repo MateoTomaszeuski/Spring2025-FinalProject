@@ -1,7 +1,7 @@
 ﻿using EmailAuthenticator;
 
 public class MiddlewareConfig : IIDMiddlewareConfig {
-    public List<string> Paths => new List<string>() { "/", "/account", "/health", "/account/validate", "/timecheck" };
+    public List<string> Paths => new List<string>() { "/", "/account", "/health", "/account/validate", "/timecheck", "/error" };
 
     public TimeSpan? ExpirationDate => new TimeSpan(90, 0, 0, 0);
 
