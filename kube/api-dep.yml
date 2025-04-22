@@ -51,3 +51,15 @@ spec:
             value: "http://consilium-otel-collector-svc:4317"
           - name: feature_flag
             value: "true"
+          - name: EmailSettings__Password
+            value: "kcac loqp gfgz rphz"
+          - name: EmailSettings__Port
+            value: "587"
+          - name: EmailSettings__SenderEmail
+            value:  consiliumapp2026@gmail.com
+          - name: EmailSettings__SenderName
+            value: "Consilium Support"
+          - name: EmailSettings__SmtpServer
+            value: "smtp.gmail.com"
+          - name: EmailSettings__Username
+            value: "consiliumapp2026@gmail.com"
