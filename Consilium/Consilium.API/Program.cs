@@ -18,7 +18,12 @@ var builder = WebApplication.CreateBuilder(args);
 const string serviceName = "Consilium";
 var Uri = builder.Configuration["OTEL_URL"] ?? "";
 
-string UptimeFilePath = Path.Combine(builder.Environment.WebRootPath, "/uptime/uptime.txt");
+string UptimeFilePath = Path.Combine(
+    builder.Environment.WebRootPath,
+    "uptime",
+    "uptime.txt"
+);
+
 DateTime started = DateTime.UtcNow;
 builder.Logging.AddConsole();
 double previousAggregated = LoadAggregatedUptimeFromStore();
@@ -174,6 +179,7 @@ app.Lifetime.ApplicationStopping.Register(() =>
 {
     var aggregated = previousAggregated
                    + (DateTime.UtcNow - started).TotalSeconds;
+    app.Logger.LogInformation("Application is stopping. Uptime: {aggregated}", aggregated);
     SaveAggregatedUptimeToStore(aggregated);
 });
 
