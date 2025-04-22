@@ -59,12 +59,12 @@ meter.CreateObservableGauge(
     }, description: "Number of currently active users"
 );
 
-var podName = Environment.GetEnvironmentVariable("HOSTNAME") 
+var podName = Environment.GetEnvironmentVariable("HOSTNAME")
               ?? Guid.NewGuid().ToString();
 if (Uri != "") {
 
     builder.Services.AddOpenTelemetry()
-        .ConfigureResource(r => r.AddService(serviceName: serviceName,  serviceInstanceId: podName))
+        .ConfigureResource(r => r.AddService(serviceName: serviceName, serviceInstanceId: podName))
         .WithLogging(logging => logging
             .AddOtlpExporter(options =>
             {
