@@ -39,6 +39,10 @@ public partial class AssignmentsViewModel : ObservableObject {
     [ObservableProperty]
     private string? onlineMessage = string.Empty;
 
+
+    [ObservableProperty]
+    private bool isLoading;
+
     private readonly IAssignmentService service;
     private readonly ILogInService logInService;
     private readonly IToDoService todoService;
@@ -164,6 +168,7 @@ public partial class AssignmentsViewModel : ObservableObject {
     }
 
     public async Task InitializeViewModelAsync() {
+        IsLoading = true;
         Online = await logInService.CheckAuthStatus();
         if (!Online) {
             OnlineMessage = "You are not logged in.";
@@ -178,6 +183,8 @@ public partial class AssignmentsViewModel : ObservableObject {
             Assignments = new(FilterAssignmentsOnCourse(Courses[0]));
             SelectedCourse = Courses[0];
         }
+
+        IsLoading = false;
     }
 
     private void ResetAssignmentFormValues() {

@@ -40,7 +40,7 @@ public static class MauiProgram {
         {
             client.BaseAddress = new Uri("https://consilium-api-cpgdcqaxepbyc2gj.westus3-01.azurewebsites.net/");
 #if DEBUG
-            client.BaseAddress = new Uri("http://localhost:5202");
+            //client.BaseAddress = new Uri("http://localhost:5202");
 #endif
         });
 
