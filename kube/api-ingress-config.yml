@@ -1,8 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: consilium-api-ingress-config
-  namespace: $NAMESPACE
-data:
-  enable-underscores-in-headers: "true"
-  ignore-invalid-headers:       "false"
