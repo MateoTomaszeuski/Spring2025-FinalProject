@@ -50,11 +50,12 @@ meter.CreateObservableGauge(
     },
     description: "Aggregated application uptime in seconds"
 );
+var myConcurrentUserTracker = new MyConcurrentUserTracker();
 meter.CreateObservableGauge(
     "concurrent_users",
     () =>
     {
-        var count = MyConcurrentUserTracker.CurrentCount;
+        var count = myConcurrentUserTracker.CurrentCount;
         return new[] { new Measurement<long>(count) };
     }, description: "Number of currently active users"
 );
@@ -119,7 +120,7 @@ var app = builder.Build();
 var pageHits = meter.CreateCounter<long>("page_requests_total", description: "Page hits by route");
 app.Use(async (ctx, next) =>
 {
-    MyConcurrentUserTracker.Increment();
+    myConcurrentUserTracker.Increment();
     try {
         await next();
     } catch (Exception ex) {
@@ -132,7 +133,7 @@ app.Use(async (ctx, next) =>
         pageHits.Add(
             1, new[] { new KeyValuePair<string, object?>("page", route) }
         );
-        MyConcurrentUserTracker.Decrement();
+        myConcurrentUserTracker.Decrement();
     }
 });
 
@@ -212,9 +213,9 @@ void SaveAggregatedUptimeToStore(double seconds) {
     File.WriteAllText(UptimeFilePath, text);
 }
 
-public static class MyConcurrentUserTracker {
+public class MyConcurrentUserTracker {
     private static long _count;
-    public static long CurrentCount => Interlocked.Read(ref _count);
-    public static void Increment() => Interlocked.Increment(ref _count);
-    public static void Decrement() => Interlocked.Decrement(ref _count);
+    public  long CurrentCount => Interlocked.Read(ref _count);
+    public void Increment() => Interlocked.Increment(ref _count);
+    public void Decrement() => Interlocked.Decrement(ref _count);
 }
