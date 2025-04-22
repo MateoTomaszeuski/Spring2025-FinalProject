@@ -126,6 +126,12 @@ app.Use(async (ctx, next) =>
 {
     myConcurrentUserTracker.Increment();
     try {
+        if (ctx.Request.Path != "/health") {
+            app.Logger.LogInformation("Request amnt of Headers: {request}", ctx.Request.Headers.Count);
+            foreach (var header in ctx.Request.Headers) {
+                app.Logger.LogInformation("Header in Request: {header}", header);
+            }
+        }
         await next();
     } catch (Exception ex) {
         errorCountCounter.Add(1);
