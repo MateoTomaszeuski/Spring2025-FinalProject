@@ -16,7 +16,7 @@ public class NewFeatureController : ControllerBase {
     }
     [HttpGet]
     public string GetAllAccounts() {
-        logger.LogInformation("Getting all accounts");
+        logger.LogInformation("New featrure clicked");
         newFeatureMerics.NonIntegratedViewClicked();
         return "Received";
     }
