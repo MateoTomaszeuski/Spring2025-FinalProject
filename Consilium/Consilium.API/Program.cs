@@ -156,7 +156,7 @@ if (app.Environment.IsDevelopment() || featureFlag) {
 
 app.UseDefaultFiles();
 app.UseStaticFiles();
-// app.UseMiddleware<IdentityMiddleware>();
+app.UseMiddleware<IdentityMiddleware>();
 app.UseRouting();
 
 //change
