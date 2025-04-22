@@ -24,6 +24,9 @@ string UptimeFilePath = Path.Combine(
     "uptime.txt"
 );
 
+if (!Directory.Exists(Path.GetDirectoryName(UptimeFilePath)))
+    Directory.CreateDirectory(Path.GetDirectoryName(UptimeFilePath)!);
+
 DateTime started = DateTime.UtcNow;
 builder.Logging.AddConsole();
 double previousAggregated = LoadAggregatedUptimeFromStore();
