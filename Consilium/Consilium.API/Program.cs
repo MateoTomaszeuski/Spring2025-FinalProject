@@ -126,6 +126,8 @@ app.Use(async (ctx, next) =>
 {
     myConcurrentUserTracker.Increment();
     try {
+        app.Logger.LogInformation("Request Headers: {headers}", ctx.Request.Headers);
+
         await next();
     } catch (Exception ex) {
         errorCountCounter.Add(1);
