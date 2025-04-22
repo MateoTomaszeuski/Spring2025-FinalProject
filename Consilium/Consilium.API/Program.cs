@@ -33,7 +33,6 @@ meter.CreateObservableGauge(
     () => new[] { new Measurement<double>((DateTime.UtcNow - started).TotalSeconds) },
     description: "Current application uptime in seconds"
 );
-
 meter.CreateObservableGauge(
     "application_aggregated_uptime_seconds",
     () =>
@@ -42,6 +41,14 @@ meter.CreateObservableGauge(
         return new[] { new Measurement<double>(total) };
     },
     description: "Aggregated application uptime in seconds"
+);
+meter.CreateObservableGauge(
+    "concurrent_users",
+    () =>
+    {
+        var count = MyConcurrentUserTracker.CurrentCount;
+        return new[] { new Measurement<long>(count) };
+    }, description: "Number of currently active users"
 );
 
 if (Uri != "") {
@@ -99,6 +106,27 @@ builder.Services.AddSingleton<IDBService, DBService>();
 
 var app = builder.Build();
 
+var pageHits = meter.CreateCounter<long>("page_requests_total", description: "Page hits by route");
+app.Use(async (ctx, next) =>
+{
+    MyConcurrentUserTracker.Increment();
+    try {
+        await next();
+    } catch (Exception ex) {
+        errorCountCounter.Add(1);
+        errorMessageCounter.Add(
+        1, new[] { new KeyValuePair<string, object?>("message", ex.GetType().Name) });
+        throw;
+    } finally {
+        var route = ctx.GetEndpoint()?.DisplayName ?? ctx.Request.Path;
+        pageHits.Add(
+            1, new[] { new KeyValuePair<string, object?>("page", route) }
+        );
+        MyConcurrentUserTracker.Decrement();
+    }
+});
+
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment()) {
     app.UseSwagger();
@@ -141,35 +169,6 @@ if (featureFlag) {
 }
 
 //app.UseHttpsRedirection();
-
-var pageHits = meter.CreateCounter<long>("page_requests_total", description: "Page hits by route");
-var userGauge = meter.CreateObservableGauge(
-    "concurrent_users",
-    () =>
-    {
-        var count = MyConcurrentUserTracker.CurrentCount;
-        return new[] { new Measurement<long>(count) };
-    }, description: "Number of currently active users"
-);
-
-app.Use(async (ctx, next) =>
-{
-    MyConcurrentUserTracker.Increment();
-    try {
-        await next();
-    } catch (Exception ex) {
-        errorCountCounter.Add(1);
-        errorMessageCounter.Add(
-        1, new[] { new KeyValuePair<string, object?>("message", ex.GetType().Name) });
-        throw;
-    } finally {
-        var route = ctx.GetEndpoint()?.DisplayName ?? ctx.Request.Path;
-        pageHits.Add(
-            1, new[] { new KeyValuePair<string, object?>("page", route) }
-        );
-        MyConcurrentUserTracker.Decrement();
-    }
-});
 
 app.Lifetime.ApplicationStopping.Register(() =>
 {
