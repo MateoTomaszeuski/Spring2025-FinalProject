@@ -23,6 +23,8 @@ public partial class DashboardViewModel : ObservableObject {
     private bool online = false;
     [ObservableProperty]
     private bool showDashboard = false;
+    [ObservableProperty]
+    private bool isLoading = false;
     public DashboardViewModel(IPersistenceService persistenceService, ILogInService logInService, IToDoService toDoService, IAssignmentService assignmentService) {
 
         var u = persistenceService.GetUserName();
@@ -36,6 +38,7 @@ public partial class DashboardViewModel : ObservableObject {
 
     [RelayCommand]
     public async Task Initialize() {
+        IsLoading = true;
         Online = await logInService.CheckAuthStatus();
         if (Username != "Guest" && Online) {
             IEnumerable<Assignment> a = await assignmentService.GetAllAssignmentsAsync();
@@ -47,5 +50,6 @@ public partial class DashboardViewModel : ObservableObject {
             ShowDashboard = false;
             PrintMessage = "You are in Guest mode. To use all features, please make sure you're logged in and connected to the internet.";
         }
+        IsLoading = false;
     }
 }
