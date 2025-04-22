@@ -167,6 +167,14 @@ app.MapGet("/health", () =>
     return Results.Ok("healthy");
 });
 
+app.MapGet("/timecheck", () =>
+{
+    using var activity = activitySource.StartActivity("HomeActivity");
+    activity?.SetTag("actvate 1 min delay", "wating 1 min");
+    Task.Delay(60).Wait();
+    return Results.Ok("done");
+});
+
 // Need to make a change to test formatting, test 3
 bool featureFlag = builder.Configuration["feature_flag"] == "true";
 if (featureFlag) {
