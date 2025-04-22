@@ -87,7 +87,7 @@ public partial class AssignmentsViewModel : ObservableObject {
         if (string.IsNullOrWhiteSpace(NewCourseName))
             return;
         if (Courses.Any(c => c.CourseName == NewCourseName)) {
-            ShowCourseForm = false;
+            ResetCourseFormValues();
             return;
         }
 
@@ -98,8 +98,6 @@ public partial class AssignmentsViewModel : ObservableObject {
         await service.AddCourseAsync(newCourse);
         Courses.Add(newCourse);
         Courses = new(await service.GetAllCoursesAsync());
-        ShowCourseForm = false;
-
         SelectedCourse = Courses.FirstOrDefault(c => c.CourseName == newCourse.CourseName)!;
         ResetCourseFormValues();
     }
