@@ -137,10 +137,10 @@ app.Use(async (ctx, next) =>
         myConcurrentUserTracker.Decrement();
     }
 });
-
+bool featureFlag = builder.Configuration["feature_flag"] == "true";
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment()) {
+if (app.Environment.IsDevelopment() || featureFlag) {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
@@ -181,7 +181,6 @@ app.MapGet("/timecheck", () =>
 });
 
 // Need to make a change to test formatting, test 3
-bool featureFlag = builder.Configuration["feature_flag"] == "true";
 if (featureFlag) {
     app.MapGet("/secret", () =>
     {
