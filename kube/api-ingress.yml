@@ -11,7 +11,6 @@ spec:
         - consilium.duckdns.org
       secretName: consilium-secret-tls
   rules:
-  # - host: api.kube.final.codyhowell.dev
   - host: $PULL_REQUEST_NUMBER.consilium.duckdns.org
     http:
       paths:
