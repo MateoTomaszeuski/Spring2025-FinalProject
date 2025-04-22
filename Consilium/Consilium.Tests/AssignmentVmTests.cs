@@ -102,4 +102,27 @@ public class AssignmentsVmTest {
         await Assert.That(assignment.DateCompleted).IsNotNull();
     }
 
+    // [Test]
+    // public async Task AddCourse_ThenPreventDuplicateCourse()
+    // {
+        
+    //     // Act #1: add a new, unique course
+    //     viewModel.NewCourseName = "Science";
+    //     viewModel.AddCourseCommand.Execute(null);
+
+    //     // Assert #1: it was added exactly once
+    //     await Assert.That(viewModel.Courses.Count).IsEqualTo(1);
+    //     await Assert.That(viewModel.Courses[0].CourseName).IsEqualTo("Science");
+    //     await Assert.That(viewModel.SelectedCourse).IsNotNull();
+    //     await Assert.That(viewModel.SelectedCourse.CourseName).IsEqualTo("Science");
+    //     assignmentService.Received(1).AddCourseAsync(Arg.Is<Course>(c => c.CourseName == "Science"));
+
+    //     // Act #2: attempt to add the same course again
+    //     viewModel.NewCourseName = "Science";
+    //     viewModel.AddCourseCommand.Execute(null);
+
+    //     // Assert #2: still only one, and no second service call
+    //     await Assert.That(viewModel.Courses.Count).IsEqualTo(1);
+    //     assignmentService.Received(1).AddCourseAsync(Arg.Is<Course>(c => c.CourseName == "Science"));
+    // }
 }
