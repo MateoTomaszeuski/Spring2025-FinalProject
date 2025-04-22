@@ -86,7 +86,10 @@ public partial class AssignmentsViewModel : ObservableObject {
     private async Task AddCourse() {
         if (string.IsNullOrWhiteSpace(NewCourseName))
             return;
-        if (Courses.Any(c => c.CourseName == NewCourseName)) return;
+        if (Courses.Any(c => c.CourseName == NewCourseName)) {
+            ShowCourseForm = false;
+            return;
+        }
 
         var newCourse = new Course {
             CourseName = NewCourseName
