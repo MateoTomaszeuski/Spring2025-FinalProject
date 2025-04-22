@@ -34,7 +34,8 @@
       <Label Text="{Binding WorkTime, StringFormat='Work Time: {0} min'}" FontSize="18"/>
       <Slider Minimum="1" 
               Maximum="60" 
-              Value="{Binding WorkTime, Mode=TwoWay}"/>
+              Value="{Binding WorkTime, Mode=TwoWay}"
+              ValueChanged="Slider_ValueChanged"/>
 
       <!-- BreakTime in seconds -->
       <Label Text="{Binding BreakTime, StringFormat='Break Time: {0} min'}" FontSize="18"/>
@@ -42,6 +43,15 @@
               Maximum="20"
               Value="{Binding BreakTime, Mode=TwoWay}"/>
     </StackLayout>
+        <Label FontAttributes="Bold"
+            Text="
+    The way that a Pomodoro timer works is:" />
+        <Label Text="1. Figure out what you want to accomplish."/>
 
-  </StackLayout>
+        <Label Text="2. Set the work timer for the amount of time that you would like to work 
+            (usually around 20–30 minutes)."/>
+        <Label Text="3. Work on the task you decided on."/>
+        <Label Text="4. When the timer ends, take a break—typically about ⅕ the length of the work timer."/>
+        <Label Text="5. Repeat until the task is done."/>
+    </StackLayout>
 </ContentView>

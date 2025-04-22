@@ -12,10 +12,9 @@
                    Margin="0,0,0,20"/>
 
             <VerticalStackLayout IsVisible="{Binding Online}">
-
-                <StackLayout Orientation="Horizontal"
-                        HorizontalOptions="Center"
-                        Spacing="5">
+               <StackLayout Orientation="Horizontal"
+                            HorizontalOptions="Center"
+                            Spacing="5">
 
                     <Picker Title="Select a course"
                             ItemsSource="{Binding Courses}"
@@ -141,13 +140,18 @@
                             </VisualStateGroupList>
                         </VisualStateManager.VisualStateGroups>
                     </Button>
-
                 </StackLayout>
 
                 <Button Text="Create New Assignment"
                         MaximumWidthRequest="450"
                         Margin="15"
                         Command="{Binding ToggleAssignmentFormCommand}"/>
+                    <ActivityIndicator
+                         IsRunning="{Binding IsLoading}"
+                         IsVisible="{Binding IsLoading}"
+                         Color="{AppThemeBinding Light=Black, Dark=White}"
+                         HorizontalOptions="Center"
+                         VerticalOptions="Center"/>
 
                 <Border Margin="15"
                         MaximumWidthRequest="800"
@@ -194,6 +198,7 @@
                         BackgroundColor="Transparent"
                         MaximumWidthRequest="800"
                         StrokeThickness="0">
+
                     <CollectionView ItemsSource="{Binding Assignments}">
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
@@ -201,6 +206,12 @@
                                         BackgroundColor="Transparent" Spacing="5">
                                     <Border Margin="5">
                                         <StackLayout>
+                                               <!--<ActivityIndicator
+                                                   IsRunning="{Binding IsLoading}"
+                                                   IsVisible="{Binding IsLoading}"
+                                                   Color="{AppThemeBinding Light=Black, Dark=White}"
+                                                   HorizontalOptions="Center"
+                                                   VerticalOptions="Center"/>-->
                                             <Grid ColumnDefinitions="Auto, *, Auto"
                                                   VerticalOptions="Center"
                                                   Margin="0,0,0,10">
