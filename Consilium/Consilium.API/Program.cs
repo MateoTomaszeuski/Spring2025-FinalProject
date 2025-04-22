@@ -118,6 +118,7 @@ builder.Services.AddSingleton<IDBService, DBService>();
 var app = builder.Build();
 
 var pageHits = meter.CreateCounter<long>("page_requests_total", description: "Page hits by route");
+
 app.Use(async (ctx, next) =>
 {
     myConcurrentUserTracker.Increment();
@@ -215,7 +216,7 @@ void SaveAggregatedUptimeToStore(double seconds) {
 
 public class MyConcurrentUserTracker {
     private static long _count;
-    public  long CurrentCount => Interlocked.Read(ref _count);
+    public long CurrentCount => Interlocked.Read(ref _count);
     public void Increment() => Interlocked.Increment(ref _count);
     public void Decrement() => Interlocked.Decrement(ref _count);
 }
