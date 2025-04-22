@@ -3,6 +3,8 @@ kind: Ingress
 metadata:
   name: consilium-api-ingress
   namespace: $NAMESPACE
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-set-headers: "$NAMESPACE/consilium-api-ingress-config"
 spec:
   tls:
     - hosts:

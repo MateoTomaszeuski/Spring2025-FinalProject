@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: consilium-api-ingress-config
+  namespace: $NAMESPACE
+data:
+  Email-Auth_Email: $http_email_auth_email
+  Email-Auth_Apikey: $http_email_auth_apikey
