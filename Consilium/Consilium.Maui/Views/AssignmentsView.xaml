@@ -142,10 +142,18 @@
                     </Button>
                 </StackLayout>
 
+                    <Label Text="No courses yet. Create one to start adding assignments!"
+                       IsVisible="{Binding HasCourses, Converter={StaticResource InverseBoolConverter}}"
+                       FontSize="14"
+                       TextColor="{AppThemeBinding Dark=White, Light=Black}"
+                       HorizontalOptions="Center"
+                       Margin="0,20,0,0"/>
+                
                 <Button Text="Create New Assignment"
                         MaximumWidthRequest="450"
                         Margin="15"
-                        Command="{Binding ToggleAssignmentFormCommand}"/>
+                        Command="{Binding ToggleAssignmentFormCommand}"
+                        IsVisible="{Binding HasCourses}"/>
                     <ActivityIndicator
                          IsRunning="{Binding IsLoading}"
                          IsVisible="{Binding IsLoading}"

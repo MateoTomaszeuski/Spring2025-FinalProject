@@ -34,11 +34,18 @@ public partial class AssignmentsViewModel : ObservableObject {
 
     [ObservableProperty]
     private string newCourseName = string.Empty;
+
     [ObservableProperty]
     private bool online = false;
+
     [ObservableProperty]
     private string? onlineMessage = string.Empty;
 
+    public bool HasCourses => Courses?.Any() == true;
+
+    partial void OnCoursesChanged(ObservableCollection<Course> value) {
+        OnPropertyChanged(nameof(HasCourses));
+    }
 
     [ObservableProperty]
     private bool isLoading;
@@ -161,6 +168,9 @@ public partial class AssignmentsViewModel : ObservableObject {
         } else {
             Assignments = new();
         }
+
+        // make sure the "add assignment" button gets enabled after adding a course
+        ToggleAssignmentFormCommand.NotifyCanExecuteChanged();
     }
 
     private IEnumerable<Assignment> FilterAssignmentsOnCourse(Course course) {
