@@ -1,57 +1,33 @@
 @Consilium = http://localhost:5202
 @email = bob@example.com
-@key = APIKEY0987654321
+@key = Nwx0P84B2GW0l992eFP8
 
 ###
 GET {{Consilium}}/todo
-Consilium-User: password
-###
-PATCH {{Consilium}}/todo/update/?index=0
-Consilium-User: cody
-Content-Type: application/json
-  {
-    "title": "New",
-    "description": null,
-    "category": null,
-    "isCompleted": false,
-    "subTasks": []
-  }
+Email-Auth_Email: {{email}}
+Email-Auth_ApiKey: {{key}}
 ###
 POST {{Consilium}}/todo
-Consilium-User: password
+Email-Auth_Email: {{email}}
+Email-Auth_ApiKey: {{key}}
 Content-Type: application/json
   {
     "title": "Addition",
     "description": null,
-    "category": null,
-    "isCompleted": false,
-    "subTasks": []
+    "category": "School",
+    "isCompleted": false
   }
-### 
-GET {{Consilium}}/todo
-Email-Auth_Email: {{email}}
-###
-POST {{Consilium}}/todo
-Email-Auth_Email: {{email}}
-Content-Type: application/json
-{
-  "id": 2,
-  "title": "Lorem2",
-  "isCompleted": false,
-  "todoListId": 2,
-  "parentId": null,
-  "category": "Something else"
-}
 ###
 PATCH {{Consilium}}/todo/update
 Email-Auth_Email: {{email}}
+Email-Auth_ApiKey: {{key}}
 Content-Type: application/json
-{
-  "id": 2,
-  "isCompleted": true
-}
+  {
+    "id": 2,
+    "isCompleted": false
+  }
 ###
-DELETE {{Consilium}}/todo/remove/1
+DELETE {{Consilium}}/todo/remove/2
 Email-Auth_Email: {{email}}
 Email-Auth_ApiKey: {{key}}
 

@@ -2,8 +2,12 @@
 # @Consilium = https://api.final.codyhowell.dev
 
 @email = bob@example.com
-@key = APIKEY0987654321
+@key = Nwx0P84B2GW0l992eFP8
 
+###
+GET {{Consilium}}/assignment
+Email-Auth_Email: {{email}}
+Email-Auth_ApiKey: {{key}}
 ###
 POST {{Consilium}}/assignment
 Email-Auth_Email: {{email}}
@@ -12,17 +16,11 @@ Content-Type: application/json
 {
     "Name": "lorem",
     "Description": "lorem description",
-    "CourseId": "4",
+    "CourseId": "2",
     "DueDate": "2025-04-14T15:00:00",
     "DateStarted": "2025-04-14T16:00:00",
     "DateCompleted": "2025-04-14T17:00:00"
 }
-
-###
-GET {{Consilium}}/assignment
-Email-Auth_Email: {{email}}
-Email-Auth_ApiKey: {{key}}
-
 ###
 GET {{Consilium}}/assignment/incomplete
 Email-Auth_Email: {{email}}
@@ -33,17 +31,29 @@ Email-Auth_Email: {{email}}
 Email-Auth_ApiKey: {{key}}
 Content-Type: application/json
 {
-    "id": 4,
-    "courseId": 4,
-    "DateStarted": "2025-05-01T08:00:00"
+    "id": 1,
+    "courseId": 2,
+    "dateStarted": "2025-05-01T08:00:00",
+    "dateCompleted": null
 }
 ###
-DELETE {{Consilium}}/assignment?assignmentId=2
+DELETE {{Consilium}}/assignment?assignmentId=1
 Email-Auth_Email: {{email}}
 Email-Auth_ApiKey: {{key}}
 ###
-POST {{Consilium}}/assignment/courses
+GET {{Consilium}}/assignment/courses
 Email-Auth_Email: {{email}}
 Email-Auth_ApiKey: {{key}}
-
+###
+POST {{Consilium}}/assignment/course
+Email-Auth_Email: {{email}}
+Email-Auth_ApiKey: {{key}}
+Content-Type: application/json
+{
+  "courseName": "Math"
+}
+###
+DELETE {{Consilium}}/assignment/course?courseId=1
+Email-Auth_Email: {{email}}
+Email-Auth_ApiKey: {{key}}
 

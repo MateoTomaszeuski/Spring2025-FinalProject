@@ -20,7 +20,6 @@ public class AssignmentController : ControllerBase {
         string username = Request.Headers["Email-Auth_Email"]!;
         logger.LogInformation("Getting all assignments for {username}", username);
         return service.GetAllAssignments(username);
-
     }
 
     [HttpPost]
