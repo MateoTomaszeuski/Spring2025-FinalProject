@@ -3,55 +3,58 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Consilium.Maui.Controls.PomodoroView">
 
-  <StackLayout Padding="20" Spacing="15" 
+    <StackLayout Padding="20" Spacing="15" 
                HorizontalOptions="Center" VerticalOptions="Center">
-
-    <!-- Timer Display -->
-    <Label Text="{Binding CurrentTimerDisplay}"
+        <ScrollView>
+            <VerticalStackLayout>
+                <!-- Timer Display -->
+            <Label Text="{Binding CurrentTimerDisplay}"
            FontSize="48"
            HorizontalOptions="Center"/>
 
-    <!-- Current Action (Working / Break) -->
-    <Label Text="{Binding CurrentAction}"
+            <!-- Current Action (Working / Break) -->
+            <Label Text="{Binding CurrentAction}"
            FontSize="24"
            HorizontalOptions="Center"/>
 
-    <!-- Controls -->
-    <StackLayout Orientation="Horizontal" Spacing="10" HorizontalOptions="Center">
-      <Button Text="Start"
+            <!-- Controls -->
+            <StackLayout Orientation="Horizontal" Spacing="10" HorizontalOptions="Center">
+                <Button Text="Start"
               Command="{Binding StartTimerCommand}"
               IsEnabled="{Binding IsTimerRunning, Converter={StaticResource InverseBoolConverter}}"/>
-      <Button Text="Stop"
+                <Button Text="Stop"
               Command="{Binding StopTimerCommand}"
               IsEnabled="{Binding IsTimerRunning}"/>
-      <Button Text="Reset"
+                <Button Text="Reset"
               Command="{Binding ResetTimerCommand}"/>
-    </StackLayout>
+            </StackLayout>
 
-    <!-- Work & Break Settings -->
-    <StackLayout Spacing="10">
-      <!-- WorkTime in seconds -->
-      <Label Text="{Binding WorkTime, StringFormat='Work Time: {0} min'}" FontSize="18"/>
-      <Slider Minimum="1" 
+            <!-- Work & Break Settings -->
+            <StackLayout Spacing="10">
+                <!-- WorkTime in seconds -->
+                <Label Text="{Binding WorkTime, StringFormat='Work Time: {0} min'}" FontSize="18"/>
+                <Slider Minimum="1" 
               Maximum="60" 
               Value="{Binding WorkTime, Mode=TwoWay}"
               ValueChanged="Slider_ValueChanged"/>
 
-      <!-- BreakTime in seconds -->
-      <Label Text="{Binding BreakTime, StringFormat='Break Time: {0} min'}" FontSize="18"/>
-      <Slider Minimum="1"
+                <!-- BreakTime in seconds -->
+                <Label Text="{Binding BreakTime, StringFormat='Break Time: {0} min'}" FontSize="18"/>
+                <Slider Minimum="1"
               Maximum="20"
               Value="{Binding BreakTime, Mode=TwoWay}"/>
-    </StackLayout>
-        <Label FontAttributes="Bold"
+            </StackLayout>
+            <Label FontAttributes="Bold"
             Text="
     The way that a Pomodoro timer works is:" />
-        <Label Text="1. Figure out what you want to accomplish."/>
+            <Label Text="1. Figure out what you want to accomplish."/>
 
-        <Label Text="2. Set the work timer for the amount of time that you would like to work 
+            <Label Text="2. Set the work timer for the amount of time that you would like to work 
             (usually around 20–30 minutes)."/>
-        <Label Text="3. Work on the task you decided on."/>
-        <Label Text="4. When the timer ends, take a break—typically about ⅕ the length of the work timer."/>
-        <Label Text="5. Repeat until the task is done."/>
+            <Label Text="3. Work on the task you decided on."/>
+            <Label Text="4. When the timer ends, take a break—typically about ⅕ the length of the work timer."/>
+            <Label Text="5. Repeat until the task is done."/>
+            </VerticalStackLayout>
+        </ScrollView>
     </StackLayout>
 </ContentView>
