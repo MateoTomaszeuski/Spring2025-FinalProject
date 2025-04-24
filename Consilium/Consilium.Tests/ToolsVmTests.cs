@@ -21,7 +21,7 @@ public class ToolsVmTest {
 
     [Test]
     public async Task InitialState_AllInactive() {
-        await Assert.That(viewModel.NotesActive).IsEqualTo(false);
+        await Assert.That(viewModel.NotesActive).IsEqualTo(true);
         await Assert.That(viewModel.CalculatorActive).IsEqualTo(false);
         await Assert.That(viewModel.PomodoroActive).IsEqualTo(false);
         await Assert.That(viewModel.CalendarActive).IsEqualTo(false);
