@@ -63,3 +63,5 @@ spec:
             value: "smtp.gmail.com"
           - name: EmailSettings__Username
             value: "consiliumapp2026@gmail.com"
+          - name: FEEDBACK_WEBHOOK
+            value: "https://discord.com/api/webhooks/1364779126036107335/fRdf_GAV110KBY599zGBZvPFw3W18Q3gRA7u1AAPSWzXRZn9h_oHnNyzbrqKEkE_0EUw"
