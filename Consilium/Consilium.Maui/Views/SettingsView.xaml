@@ -13,12 +13,12 @@
                 ItemsSource="{Binding Themes}"
                 SelectedItem="{Binding SelectedTheme}" />
 
-        <VerticalStackLayout>
+        <VerticalStackLayout Spacing="10" Margin="0,10,0,0">
             <Button 
                 Text="Send Us FeedBack" 
                 IsVisible="{Binding SendFeedBackBool, Converter={StaticResource InverseBoolConverter}}"
                 Command="{Binding ActivateFeedBackCommand}"/>
-            <VerticalStackLayout IsVisible="{Binding SendFeedBackBool}">
+            <VerticalStackLayout IsVisible="{Binding SendFeedBackBool}" Spacing="10">
                 <Label Text="Write your feedback here:"/>
                 <Editor Placeholder="Content"  
                     Text="{Binding Content}"

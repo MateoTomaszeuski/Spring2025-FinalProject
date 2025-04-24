@@ -3,15 +3,16 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Consilium.Maui.Views.StatsView"
              Title="StatsView">
-    <VerticalStackLayout>
+    <VerticalStackLayout Spacing="10" Margin="15">
         <Label 
             Text="Welcome to the Stats View!"
+            FontAttributes="Bold"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
         <VerticalStackLayout
             IsVisible="{Binding Sent, Converter={StaticResource InverseBoolConverter}}">
         <Label 
-            Text="This has not been implemented yet, but if you would like to see it, please click the button below"
+            Text="This has not been implemented yet, but if you would like to see it, please click the button below &#10;" 
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
         <Button Text="Request Stats!"
