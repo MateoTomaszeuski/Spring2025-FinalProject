@@ -16,7 +16,7 @@
         <VerticalStackLayout>
             <Button 
                 Text="Send Us FeedBack" 
-                IsVisible="{Binding SendFeedBackBool, Converter={StaticResource InverseBoolConverter}}}"
+                IsVisible="{Binding SendFeedBackBool, Converter={StaticResource InverseBoolConverter}}"
                 Command="{Binding ActivateFeedBackCommand}"/>
             <VerticalStackLayout IsVisible="{Binding SendFeedBackBool}">
                 <Label Text="Write your feedback here:"/>

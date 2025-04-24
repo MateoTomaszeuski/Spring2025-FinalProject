@@ -3,7 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using Consilium.Shared.Services;
 
 namespace Consilium.Shared.ViewModels;
-public partial class StatsViewModel(IClientService client) : ObservableObject{
+public partial class StatsViewModel(IClientService client) : ObservableObject {
     [ObservableProperty]
     private bool sent = false;
     [RelayCommand]

@@ -11,7 +11,7 @@ public class NewFeatureController : ControllerBase {
     private readonly NewFeatureMerics newFeatureMerics;
     private HttpClient client;
 
-    public NewFeatureController(IHttpClientFactory factory,ILogger<NewFeatureController> logger, NewFeatureMerics newFeatureMerics) {
+    public NewFeatureController(IHttpClientFactory factory, ILogger<NewFeatureController> logger, NewFeatureMerics newFeatureMerics) {
         this.logger = logger;
         this.newFeatureMerics = newFeatureMerics;
         client = factory.CreateClient("FeedbackWebhock");
@@ -25,7 +25,7 @@ public class NewFeatureController : ControllerBase {
     [HttpPost("feedback")]
     public async Task<string> GetFeedback(string feedback) {
         logger.LogInformation("Feedback clicked");
-       
+
         var payload = new { content = feedback };
 
         var response = await client.PostAsJsonAsync("", payload);
