@@ -38,8 +38,14 @@ public partial class SettingsViewModel : ObservableObject {
         SendFeedBackBool = true;
     }
     [RelayCommand]
-    private void SendFeedBack() {
-        client.PostAsync("NewFeature/feedback", Content);
+    private async Task SendFeedBack() {
+        var r = await client.GetAsync($"NewFeature/feedback/{Content}");
+        if (r.IsSuccessStatusCode) {
+            SendFeedBackBool = false;
+            Content = string.Empty;
+        } else {
+            // Handle error
+        }
         SendFeedBackBool = false;
         Content = string.Empty;
     }

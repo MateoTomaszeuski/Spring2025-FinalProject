@@ -22,7 +22,7 @@ public class NewFeatureController : ControllerBase {
         newFeatureMerics.NonIntegratedViewClicked();
         return "Received";
     }
-    [HttpPost("feedback")]
+    [HttpGet("feedback/{feedback}")]
     public async Task<string> GetFeedback(string feedback) {
         logger.LogInformation("Feedback clicked");
 
