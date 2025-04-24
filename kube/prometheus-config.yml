@@ -28,13 +28,11 @@ data:
           module: [http_2xx]
         static_configs:
           - targets:
-              # point at your Blackbox Exporter Service
-              - http://consilium-blackbox-svc:9115
+              - https://main.consilium.duckdns.org/health
         relabel_configs:
-          # put the scraped address into the 'target' parameter
           - source_labels: [__address__]
             regex: (.*)
             target_label: __param_target
-          # override __address__ so Prometheus actually scrapes the exporter
           - target_label: __address__
             replacement: consilium-blackbox-svc.$NAMESPACE.svc.cluster.local:9115
+
