@@ -48,7 +48,18 @@ services:
       - ./configs/prometheus-config.yml:/etc/prometheus/prometheus.yml
     ports: 
       - 9090:9090
-
+  
+  prometheus-blackbox-exporter:
+    container_name: consilium-blackbox-exporter
+    image: prom/blackbox-exporter:latest
+    restart: unless-stopped
+    ports:
+      - "9115:9115"
+    volumes:
+      - ./configs/blackbox.yml:/etc/blackbox_exporter/config.yml:ro
+    command:
+      - "--config.file=/etc/blackbox_exporter/config.yml"
+      
   grafana:
     container_name: consilium-grafana
     volumes:
