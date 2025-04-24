@@ -8,7 +8,7 @@ public partial class StatsViewModel(IClientService client) : ObservableObject {
     private bool sent = false;
     [RelayCommand]
     public async Task SendStats() {
-        await client.GetAsync("NewFeature");
+        await client.GetAsync("/NewFeature");
         Sent = true;
     }
 }
