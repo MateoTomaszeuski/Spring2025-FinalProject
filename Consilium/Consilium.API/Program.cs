@@ -54,7 +54,7 @@ meter.CreateObservableGauge(
     description: "Aggregated application uptime in seconds"
 );
 meter.CreateObservableGauge(
-    "application_uptime_percentage",
+    "application_uptime_fraction",
     () =>
     {
         var currentSecs = (DateTime.UtcNow - started).TotalSeconds;
@@ -63,14 +63,17 @@ meter.CreateObservableGauge(
 
         var windowSecs = (DateTime.UtcNow - firstStart).TotalSeconds;
 
-        var pct = windowSecs > 0
-                  ? (totalUp / windowSecs) * 100
-                  : 0;
+        var fraction = windowSecs > 0 
+                       ? totalUp / windowSecs 
+                       : 0;
 
-        return new[] { new Measurement<double>(pct) };
+        var rounded = Math.Round(fraction, 7, MidpointRounding.AwayFromZero);
+
+        return new[] { new Measurement<double>(rounded) };
     },
-    description: "Percent of time healthy since first deployment"
+    description: "Fraction of time healthy since first deployment (0.xxxxx)"
 );
+
 var myConcurrentUserTracker = new MyConcurrentUserTracker();
 meter.CreateObservableGauge(
     "concurrent_users",
