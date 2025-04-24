@@ -26,7 +26,7 @@ data:
       - name: Zipkin
         type: zipkin
         access: proxy
-        url: http://consilium-zipkin-svc:9090
+        url: http://consilium-zipkin-svc:9411
         jsonData:
           timeInterval: "5s"
       
