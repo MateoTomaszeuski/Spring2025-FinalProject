@@ -18,18 +18,18 @@ var builder = WebApplication.CreateBuilder(args);
 const string serviceName = "Consilium";
 var Uri = builder.Configuration["OTEL_URL"] ?? "";
 
-string UptimeFilePath = Path.Combine(
+string UptimeCsvPath = Path.Combine(
     builder.Environment.WebRootPath,
     "uptime",
-    "uptime.txt"
+    "uptime.csv"
 );
-
-if (!Directory.Exists(Path.GetDirectoryName(UptimeFilePath)))
-    Directory.CreateDirectory(Path.GetDirectoryName(UptimeFilePath)!);
+if (!Directory.Exists(Path.GetDirectoryName(UptimeCsvPath)))
+    Directory.CreateDirectory(Path.GetDirectoryName(UptimeCsvPath)!);
 
 DateTime started = DateTime.UtcNow;
 builder.Logging.AddConsole();
-double previousAggregated = LoadAggregatedUptimeFromStore();
+
+double previousAggregated = LoadAggregatedUptimeFromCsv(UptimeCsvPath);
 var meter = new Meter(serviceName, "1.0.0");
 var errorCountCounter = meter.CreateCounter<long>("error_count", description: "Total number of errors");
 var errorMessageCounter = meter.CreateCounter<long>("error_messages", description: "Number of errors by message", unit: "1");
@@ -41,13 +41,15 @@ meter.CreateObservableGauge(
 );
 meter.CreateObservableGauge(
     "application_aggregated_uptime_seconds",
-    () =>
-    {
-        var total = previousAggregated + (DateTime.UtcNow - started).TotalSeconds;
-        return new[] { new Measurement<double>(total) };
+    () => {
+        var current = (DateTime.UtcNow - started).TotalSeconds;
+        return new[] {
+            new Measurement<double>(previousAggregated + current)
+        };
     },
     description: "Aggregated application uptime in seconds"
 );
+
 var myConcurrentUserTracker = new MyConcurrentUserTracker();
 meter.CreateObservableGauge(
     "concurrent_users",
@@ -201,13 +203,18 @@ if (featureFlag) {
 }
 
 //app.UseHttpsRedirection();
-
 app.Lifetime.ApplicationStopping.Register(() =>
 {
-    var aggregated = previousAggregated
-                   + (DateTime.UtcNow - started).TotalSeconds;
-    app.Logger.LogInformation("Application is stopping. Uptime: {aggregated}", aggregated);
-    SaveAggregatedUptimeToStore(aggregated);
+    var uptime = (DateTime.UtcNow - started).TotalSeconds;
+    // 1) append this pod’s row
+    AppendUptimeRow(UptimeCsvPath, podName, DateTime.UtcNow, uptime);
+    // 2) (optional) log the new total
+    var totalSoFar = previousAggregated + uptime;
+    app.Logger.LogInformation(
+        "Shutting down pod {pod} after {uptime}s (aggregate {total}s)",
+        podName,
+        uptime,
+        totalSoFar);
 });
 
 app.UseAuthorization();
@@ -215,23 +222,30 @@ app.MapControllers();
 app.Run();
 
 // Metrics Stuff
-double LoadAggregatedUptimeFromStore() {
-    if (!File.Exists(UptimeFilePath))
-        return 0;
-
-    var text = File.ReadAllText(UptimeFilePath);
-    if (double.TryParse(text,
-                        NumberStyles.Float,
-                        CultureInfo.InvariantCulture,
-                        out var value)) {
-        return value;
+double LoadAggregatedUptimeFromCsv(string path) {
+    if (!File.Exists(path)) return 0;
+    var lines = File.ReadAllLines(path);
+    double total = 0;
+    foreach (var line in lines.Skip(1))         // skip header
+    {
+        var cols = line.Split(',');
+        if (cols.Length < 3) continue;
+        if (double.TryParse(cols[2],
+                            NumberStyles.Float,
+                            CultureInfo.InvariantCulture,
+                            out var secs))
+            total += secs;
     }
-    return 0;
+    return total;
 }
-
-void SaveAggregatedUptimeToStore(double seconds) {
-    var text = seconds.ToString(CultureInfo.InvariantCulture);
-    File.WriteAllText(UptimeFilePath, text);
+void AppendUptimeRow(string path, string podName, DateTime shutdownUtc, double uptimeSeconds) {
+    var isNew = !File.Exists(path);
+    using var w = new StreamWriter(path, append: true);
+    if (isNew)
+        w.WriteLine("podName,shutdownTime,uptimeSeconds");
+    // use ISO 8601 for the timestamp
+    var ts = shutdownUtc.ToString("o", CultureInfo.InvariantCulture);
+    w.WriteLine($"{podName},{ts},{uptimeSeconds.ToString(CultureInfo.InvariantCulture)}");
 }
 
 public class MyConcurrentUserTracker {
