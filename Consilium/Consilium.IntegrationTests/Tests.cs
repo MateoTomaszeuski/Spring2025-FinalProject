@@ -7,7 +7,7 @@ public class Tests : IDisposable {
     private readonly HttpClient client;
     public Tests() {
         client = new HttpClient();
-        //client.BaseAddress = new Uri("https://localhost:8080");
+        // client.BaseAddress = new Uri("http://localhost:8080");
         client.BaseAddress = new Uri("http://consilium-api:8080");
 
         string email = "bob@example.com";
