@@ -63,8 +63,8 @@ meter.CreateObservableGauge(
 
         var windowSecs = (DateTime.UtcNow - firstStart).TotalSeconds;
 
-        var fraction = windowSecs > 0 
-                       ? totalUp / windowSecs 
+        var fraction = windowSecs > 0
+                       ? totalUp / windowSecs
                        : 0;
 
         var rounded = Math.Round(fraction, 7, MidpointRounding.AwayFromZero);
