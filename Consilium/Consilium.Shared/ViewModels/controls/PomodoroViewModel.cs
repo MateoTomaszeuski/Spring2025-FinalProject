@@ -57,7 +57,7 @@ public partial class PomodoroViewModel : ObservableObject {
     private void SwitchAction() {
         if (CurrentAction == "Working") {
             CurrentAction = "Break";
-            _currentTimer = BreakTime;
+            _currentTimer = BreakTime * 60;
             // Make sound
         } else {
             CurrentAction = "Working";
