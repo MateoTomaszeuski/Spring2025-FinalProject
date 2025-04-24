@@ -39,7 +39,7 @@ public partial class SettingsViewModel : ObservableObject {
     }
     [RelayCommand]
     private async Task SendFeedBack() {
-        var r = await client.GetAsync($"NewFeature/feedback/{Content}");
+        var r = await client.GetAsync($"/NewFeature/feedback/{Content}");
         if (r.IsSuccessStatusCode) {
             SendFeedBackBool = false;
             Content = string.Empty;
