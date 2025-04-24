@@ -109,6 +109,9 @@
 	  <MauiXaml Update="PopUps\NewFeatureSent.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="PopUps\PomodoroPopUp.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Resources\Themes\BlueTheme.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

@@ -1,3 +1,5 @@
+using CommunityToolkit.Maui.Views;
+using Consilium.Maui.PopUps;
 using Consilium.Shared.ViewModels;
 
 namespace Consilium.Maui.Views;
@@ -15,5 +17,9 @@ public partial class ToolsView : ContentPage {
         OnPropertyChanged(nameof(vm.CalculatorActive));
         OnPropertyChanged(nameof(vm.PomodoroActive));
         OnPropertyChanged(nameof(vm.CalendarActive));
+    }
+
+    private void Button_Clicked(object sender, EventArgs e) {
+        this.ShowPopup(new PomodoroPopUp());
     }
 }

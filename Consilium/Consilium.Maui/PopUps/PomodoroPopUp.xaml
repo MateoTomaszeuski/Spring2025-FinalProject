@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Consilium.Maui.PopUps.PomodoroPopUp"
+             xmlns:toolkit="clr-namespace:CommunityToolkit.Maui.Views;assembly=CommunityToolkit.Maui">
+    <VerticalStackLayout
+        HorizontalOptions="Center">
+        <Label FontAttributes="Bold"
+        Text="The way that a Pomodoro timer works is:" />
+        <Label Text="1. Figure out what you want to accomplish."/>
+        <Label Text="2. Set the work timer for the amount of time that you would like to work 
+        (usually around 20–30 minutes)."/>
+        <Label Text="3. Work on the task you decided on."/>
+        <Label Text="4. When the timer ends, take a break—typically about ⅕ the length of the work timer."/>
+        <Label Text="5. Repeat until the task is done."/>
+    </VerticalStackLayout>
+</toolkit:Popup>
