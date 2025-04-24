@@ -118,6 +118,11 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddSingleton<IDBService, DBService>();
 
+var feedbackUri = builder.Configuration["FEEDBACK_WEBHOOK"] ?? "";
+if (!string.IsNullOrEmpty(feedbackUri)) {
+    builder.Services.AddHttpClient("FeedbackWebhock", client => client.BaseAddress = new Uri(feedbackUri));
+}
+
 var app = builder.Build();
 
 var pageHits = meter.CreateCounter<long>("page_requests_total", description: "Page hits by route");

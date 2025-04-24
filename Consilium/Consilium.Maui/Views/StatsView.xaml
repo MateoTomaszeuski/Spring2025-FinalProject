@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Consilium.Maui.Views.StatsView"
+             Title="StatsView">
+    <VerticalStackLayout>
+        <Label 
+            Text="Welcome to the Stats View!"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+        <VerticalStackLayout
+            IsVisible="{Binding Sent, Converter={StaticResource InverseBoolConverter}}">
+        <Label 
+            Text="This has not been implemented yet, but if you would like to see it, please click the button below"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+        <Button Text="Request Stats!"
+                Command="{Binding SendStatsCommand}"
+                Clicked="Button_Clicked"/>
+        </VerticalStackLayout>
+    </VerticalStackLayout>
+</ContentPage>

@@ -9,15 +9,31 @@ namespace Consilium.API.Controllers;
 public class NewFeatureController : ControllerBase {
     private readonly ILogger<NewFeatureController> logger;
     private readonly NewFeatureMerics newFeatureMerics;
+    private HttpClient client;
 
-    public NewFeatureController(ILogger<NewFeatureController> logger, NewFeatureMerics newFeatureMerics) {
+    public NewFeatureController(IHttpClientFactory factory,ILogger<NewFeatureController> logger, NewFeatureMerics newFeatureMerics) {
         this.logger = logger;
         this.newFeatureMerics = newFeatureMerics;
+        client = factory.CreateClient("FeedbackWebhock");
     }
     [HttpGet]
-    public string GetAllAccounts() {
+    public string GetNewFeature() {
         logger.LogInformation("New featrure clicked");
         newFeatureMerics.NonIntegratedViewClicked();
+        return "Received";
+    }
+    [HttpPost("feedback")]
+    public async Task<string> GetFeedback(string feedback) {
+        logger.LogInformation("Feedback clicked");
+       
+        var payload = new { content = feedback };
+
+        var response = await client.PostAsJsonAsync("", payload);
+
+        if (!response.IsSuccessStatusCode) {
+            logger.LogError("Discord webhook failed with {StatusCode}", response.StatusCode);
+        }
+
         return "Received";
     }
 }

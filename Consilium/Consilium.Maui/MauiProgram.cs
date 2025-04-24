@@ -69,6 +69,7 @@ public static class MauiProgram {
         builder.Services.AddSingleton<NotesView>();
         builder.Services.AddSingleton<PomodoroView>();
         builder.Services.AddSingleton<SettingsView>();
+        builder.Services.AddSingleton<StatsView>();
 
         return builder;
     }
@@ -85,6 +86,7 @@ public static class MauiProgram {
         builder.Services.AddSingleton<NotesViewModel>();
         builder.Services.AddSingleton<PomodoroViewModel>();
         builder.Services.AddSingleton<SettingsViewModel>();
+        builder.Services.AddSingleton<StatsViewModel>();
         return builder;
     }
     public static MauiAppBuilder RegisterServices(this MauiAppBuilder builder) {

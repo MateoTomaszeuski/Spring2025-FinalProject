@@ -12,5 +12,25 @@
                 x:Name="ThemePicker"
                 ItemsSource="{Binding Themes}"
                 SelectedItem="{Binding SelectedTheme}" />
+
+        <VerticalStackLayout>
+            <Button 
+                Text="Send Us FeedBack" 
+                IsVisible="{Binding SendFeedBackBool, Converter={StaticResource InverseBoolConverter}}}"
+                Command="{Binding ActivateFeedBackCommand}"/>
+            <VerticalStackLayout IsVisible="{Binding SendFeedBackBool}">
+                <Label Text="Write your feedback here:"/>
+                <Editor Placeholder="Content"  
+                    Text="{Binding Content}"
+                    AutoSize="TextChanges" 
+                    HeightRequest="80"  
+                    FontSize="14"
+                    BackgroundColor="{AppThemeBinding Dark={StaticResource Dark-Dark}, Light={StaticResource Light-Light}}"/>
+                <Button Text="Send Feedback!"
+                        Command="{Binding SendFeedBackCommand}"/>
+                <Button Text="Cancel"
+                        Command="{Binding CancelFeedbackCommand}"/>
+            </VerticalStackLayout>
+        </VerticalStackLayout>
     </VerticalStackLayout>
 </ContentPage>
