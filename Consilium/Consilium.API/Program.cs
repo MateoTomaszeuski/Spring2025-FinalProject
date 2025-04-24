@@ -18,20 +18,8 @@ var builder = WebApplication.CreateBuilder(args);
 const string serviceName = "Consilium";
 var Uri = builder.Configuration["OTEL_URL"] ?? "";
 
-string UptimeCsvPath = Path.Combine(
-    builder.Environment.WebRootPath,
-    "uptime",
-    "uptime.csv"
-);
-if (!Directory.Exists(Path.GetDirectoryName(UptimeCsvPath)))
-    Directory.CreateDirectory(Path.GetDirectoryName(UptimeCsvPath)!);
-
 DateTime started = DateTime.UtcNow;
 builder.Logging.AddConsole();
-
-double previousAggregated = LoadAggregatedUptimeFromCsv(UptimeCsvPath);
-var firstStart = LoadFirstDeploymentStartTime(UptimeCsvPath)
-                   ?? DateTime.UtcNow;
 
 var meter = new Meter(serviceName, "1.0.0");
 var errorCountCounter = meter.CreateCounter<long>("error_count", description: "Total number of errors");
@@ -41,37 +29,6 @@ meter.CreateObservableGauge(
     "application_uptime_seconds",
     () => new[] { new Measurement<double>((DateTime.UtcNow - started).TotalSeconds) },
     description: "Current application uptime in seconds"
-);
-meter.CreateObservableGauge(
-    "application_aggregated_uptime_seconds",
-    () =>
-    {
-        var current = (DateTime.UtcNow - started).TotalSeconds;
-        return new[] {
-            new Measurement<double>(previousAggregated + current)
-        };
-    },
-    description: "Aggregated application uptime in seconds"
-);
-meter.CreateObservableGauge(
-    "application_uptime_fraction",
-    () =>
-    {
-        var currentSecs = (DateTime.UtcNow - started).TotalSeconds;
-
-        var totalUp = previousAggregated + currentSecs;
-
-        var windowSecs = (DateTime.UtcNow - firstStart).TotalSeconds;
-
-        var fraction = windowSecs > 0
-                       ? totalUp / windowSecs
-                       : 0;
-
-        var rounded = Math.Round(fraction, 7, MidpointRounding.AwayFromZero);
-
-        return new[] { new Measurement<double>(rounded) };
-    },
-    description: "Fraction of time healthy since first deployment (0.xxxxx)"
 );
 
 var myConcurrentUserTracker = new MyConcurrentUserTracker();
@@ -226,131 +183,9 @@ if (featureFlag) {
     });
 }
 
-//app.UseHttpsRedirection();
-app.Lifetime.ApplicationStopping.Register(() =>
-{
-    var shutdown = DateTime.UtcNow;
-    var fullUptime = (shutdown - started).TotalSeconds;
-
-    var existing = LoadExistingIntervals(UptimeCsvPath);
-
-    var nonOverlap = ComputeNonOverlappingSeconds(started, shutdown, existing);
-
-    AppendUptimeRow(UptimeCsvPath, podName, shutdown, nonOverlap);
-
-    var newAggregate = previousAggregated + nonOverlap;
-    app.Logger.LogInformation(
-        "Pod {pod} ran {full}s, contributed {delta}s (agg={agg}s)",
-        podName,
-        Math.Round(fullUptime, 1),
-        Math.Round(nonOverlap, 1),
-        Math.Round(newAggregate, 1)
-    );
-});
-
-
 app.UseAuthorization();
 app.MapControllers();
 app.Run();
-
-// Metrics Stuff
-double LoadAggregatedUptimeFromCsv(string path) {
-    if (!File.Exists(path)) return 0;
-    var lines = File.ReadAllLines(path);
-    double total = 0;
-    foreach (var line in lines.Skip(1))         // skip header
-    {
-        var cols = line.Split(',');
-        if (cols.Length < 3) continue;
-        if (double.TryParse(cols[2],
-                            NumberStyles.Float,
-                            CultureInfo.InvariantCulture,
-                            out var secs))
-            total += secs;
-    }
-    return total;
-}
-void AppendUptimeRow(string path, string podName, DateTime shutdownUtc, double uptimeSeconds) {
-    var isNew = !File.Exists(path);
-    using var w = new StreamWriter(path, append: true);
-    if (isNew)
-        w.WriteLine("podName,shutdownTime,uptimeSeconds");
-    // use ISO 8601 for the timestamp
-    var ts = shutdownUtc.ToString("o", CultureInfo.InvariantCulture);
-    w.WriteLine($"{podName},{ts},{uptimeSeconds.ToString(CultureInfo.InvariantCulture)}");
-}
-IEnumerable<(DateTime Start, DateTime End)> LoadExistingIntervals(string path) {
-    if (!File.Exists(path)) yield break;
-
-    foreach (var line in File.ReadAllLines(path).Skip(1)) {
-        var cols = line.Split(',');
-        if (cols.Length < 3) continue;
-
-        if (!DateTime.TryParse(cols[1], null, DateTimeStyles.RoundtripKind, out var end))
-            continue;
-        if (!double.TryParse(cols[2], NumberStyles.Float, CultureInfo.InvariantCulture, out var uptime))
-            continue;
-
-        yield return (end - TimeSpan.FromSeconds(uptime), end);
-    }
-}
-double ComputeNonOverlappingSeconds(
-    DateTime thisStart,
-    DateTime thisEnd,
-    IEnumerable<(DateTime Start, DateTime End)> existing) {
-    var overlaps = existing
-        .Where(iv => iv.End > thisStart && iv.Start < thisEnd)
-        .Select(iv => (
-            Start: iv.Start < thisStart ? thisStart : iv.Start,
-            End: iv.End > thisEnd ? thisEnd : iv.End
-        ))
-        .OrderBy(iv => iv.Start)
-        .ToList();
-
-    var merged = new List<(DateTime Start, DateTime End)>();
-    foreach (var iv in overlaps) {
-        if (merged.Count == 0 || iv.Start > merged[^1].End) {
-            merged.Add(iv);
-        } else {
-            var last = merged[^1];
-            merged[^1] = (last.Start, iv.End > last.End ? iv.End : last.End);
-        }
-    }
-
-    var covered = merged.Sum(iv => (iv.End - iv.Start).TotalSeconds);
-
-    var total = (thisEnd - thisStart).TotalSeconds;
-
-    return Math.Max(0, total - covered);
-}
-
-DateTime? LoadFirstDeploymentStartTime(string csvPath) {
-    if (!File.Exists(csvPath))
-        return null;
-
-    // skip header, grab the first data row
-    var firstLine = File.ReadAllLines(csvPath).Skip(1).FirstOrDefault();
-    if (string.IsNullOrEmpty(firstLine))
-        return null;
-
-    var cols = firstLine.Split(',');
-    if (cols.Length < 3)
-        return null;
-
-    if (!DateTime.TryParse(cols[1],
-                           null,
-                           DateTimeStyles.RoundtripKind,
-                           out var shutdown))
-        return null;
-
-    if (!double.TryParse(cols[2],
-                         NumberStyles.Float,
-                         CultureInfo.InvariantCulture,
-                         out var uptimeSecs))
-        return shutdown;
-
-    return shutdown - TimeSpan.FromSeconds(uptimeSecs);
-}
 
 public class MyConcurrentUserTracker {
     private static long _count;
