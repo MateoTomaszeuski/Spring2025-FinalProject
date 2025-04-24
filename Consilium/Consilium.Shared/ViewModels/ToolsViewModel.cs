@@ -5,7 +5,7 @@ namespace Consilium.Shared.ViewModels;
 
 public partial class ToolsViewModel : ObservableObject {
     [ObservableProperty]
-    private bool notesActive = false;
+    private bool notesActive = true;
     [ObservableProperty]
     private bool calculatorActive = false;
     [ObservableProperty]
