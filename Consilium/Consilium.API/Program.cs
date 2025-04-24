@@ -41,7 +41,8 @@ meter.CreateObservableGauge(
 );
 meter.CreateObservableGauge(
     "application_aggregated_uptime_seconds",
-    () => {
+    () =>
+    {
         var current = (DateTime.UtcNow - started).TotalSeconds;
         return new[] {
             new Measurement<double>(previousAggregated + current)
