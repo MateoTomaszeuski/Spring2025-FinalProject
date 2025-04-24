@@ -22,3 +22,11 @@ data:
         url: http://consilium-prometheus-svc:9090
         jsonData:
           timeInterval: "5s"
+
+      -name: Zipkin
+        type: zipkin
+        access: proxy
+        url: http://consilium-zipkin-svc:9090
+        jsonData:
+          timeInterval: "5s"
+      
