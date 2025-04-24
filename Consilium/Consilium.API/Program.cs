@@ -229,17 +229,25 @@ if (featureFlag) {
 //app.UseHttpsRedirection();
 app.Lifetime.ApplicationStopping.Register(() =>
 {
-    var uptime = (DateTime.UtcNow - started).TotalSeconds;
-    // 1) append this pod’s row
-    AppendUptimeRow(UptimeCsvPath, podName, DateTime.UtcNow, uptime);
-    // 2) (optional) log the new total
-    var totalSoFar = previousAggregated + uptime;
+    var shutdown = DateTime.UtcNow;
+    var fullUptime = (shutdown - started).TotalSeconds;
+
+    var existing = LoadExistingIntervals(UptimeCsvPath);
+
+    var nonOverlap = ComputeNonOverlappingSeconds(started, shutdown, existing);
+
+    AppendUptimeRow(UptimeCsvPath, podName, shutdown, nonOverlap);
+
+    var newAggregate = previousAggregated + nonOverlap;
     app.Logger.LogInformation(
-        "Shutting down pod {pod} after {uptime}s (aggregate {total}s)",
+        "Pod {pod} ran {full}s, contributed {delta}s (agg={agg}s)",
         podName,
-        uptime,
-        totalSoFar);
+        Math.Round(fullUptime, 1),
+        Math.Round(nonOverlap, 1),
+        Math.Round(newAggregate, 1)
+    );
 });
+
 
 app.UseAuthorization();
 app.MapControllers();
@@ -271,6 +279,51 @@ void AppendUptimeRow(string path, string podName, DateTime shutdownUtc, double u
     var ts = shutdownUtc.ToString("o", CultureInfo.InvariantCulture);
     w.WriteLine($"{podName},{ts},{uptimeSeconds.ToString(CultureInfo.InvariantCulture)}");
 }
+IEnumerable<(DateTime Start, DateTime End)> LoadExistingIntervals(string path) {
+    if (!File.Exists(path)) yield break;
+
+    foreach (var line in File.ReadAllLines(path).Skip(1)) {
+        var cols = line.Split(',');
+        if (cols.Length < 3) continue;
+
+        if (!DateTime.TryParse(cols[1], null, DateTimeStyles.RoundtripKind, out var end))
+            continue;
+        if (!double.TryParse(cols[2], NumberStyles.Float, CultureInfo.InvariantCulture, out var uptime))
+            continue;
+
+        yield return (end - TimeSpan.FromSeconds(uptime), end);
+    }
+}
+double ComputeNonOverlappingSeconds(
+    DateTime thisStart,
+    DateTime thisEnd,
+    IEnumerable<(DateTime Start, DateTime End)> existing) {
+    var overlaps = existing
+        .Where(iv => iv.End > thisStart && iv.Start < thisEnd)
+        .Select(iv => (
+            Start: iv.Start < thisStart ? thisStart : iv.Start,
+            End: iv.End > thisEnd ? thisEnd : iv.End
+        ))
+        .OrderBy(iv => iv.Start)
+        .ToList();
+
+    var merged = new List<(DateTime Start, DateTime End)>();
+    foreach (var iv in overlaps) {
+        if (merged.Count == 0 || iv.Start > merged[^1].End) {
+            merged.Add(iv);
+        } else {
+            var last = merged[^1];
+            merged[^1] = (last.Start, iv.End > last.End ? iv.End : last.End);
+        }
+    }
+
+    var covered = merged.Sum(iv => (iv.End - iv.Start).TotalSeconds);
+
+    var total = (thisEnd - thisStart).TotalSeconds;
+
+    return Math.Max(0, total - covered);
+}
+
 DateTime? LoadFirstDeploymentStartTime(string csvPath) {
     if (!File.Exists(csvPath))
         return null;
