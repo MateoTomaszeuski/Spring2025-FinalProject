@@ -50,11 +50,11 @@
             Icon="timer.png"
             ContentTemplate="{DataTemplate local:ToolsView}"
             Route="Tools" />
-        <!--- <ShellContent
+        <ShellContent
             Title="Stats"
             Icon="graph.png"
             ContentTemplate="{DataTemplate local:StatsView}"
-            Route="Stats" />-->
+            Route="Stats" />
         <ShellContent
             Title="Profile"
             Icon="user.png"
@@ -65,10 +65,5 @@
             Icon="settings.png"
             ContentTemplate="{DataTemplate local:SettingsView}"
             Route="Settings" />
-        <ShellContent
-            Title="Statistics"
-            Icon="graph.png"
-            ContentTemplate="{DataTemplate local:StatsView}"
-            Route="Stats" />
     </TabBar>
 </Shell>
