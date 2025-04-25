@@ -23,4 +23,3 @@ jobs:
               ls -1t "$BACKUP_DIR"/*_backup.sql 2>/dev/null | tail -n +4 | xargs -r rm --
               pg_dump -U consilium-admin consiliumdb > "$BACKUP_DIR/$(date +%Y-%m-%d_%H%M)_backup.sql"
             '
-            
