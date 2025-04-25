@@ -52,6 +52,9 @@ public partial class TodoItem : ObservableObject {
         }
 
         _ = SaveCompletionAsync();
+
+        // tell the parent viewmodel that the completion status has changed
+        OnPropertyChanged(nameof(IsCompleted));
     }
 
     private async Task SaveCompletionAsync() {

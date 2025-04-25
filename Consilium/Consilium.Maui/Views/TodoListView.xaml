@@ -232,6 +232,7 @@
             <Button Text="Delete All Completed Tasks"
                     Command="{Binding DeleteAllCompletedCommand}"
                     BackgroundColor="{StaticResource Dark-Red}"
+                    IsVisible="{Binding AnyTasksAreCompleted}"
                     Margin="0,10,0,10" />
         </VerticalStackLayout>
     </ScrollView>

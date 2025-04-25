@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using Consilium.Shared.Models;
 using Consilium.Shared.Services;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 
 namespace Consilium.Shared.ViewModels;
 public partial class TodoListViewModel : ObservableObject {
@@ -19,12 +20,19 @@ public partial class TodoListViewModel : ObservableObject {
         IsLoading = true;
         await todoService.InitializeTodosAsync();
         TodoItems = todoService.GetTodoItems();
+
+        foreach (var item in TodoItems) {
+            item.PropertyChanged += OnTodoItemPropertyChanged;
+        }
+
         if (TodoItems.Count < 1) {
             Message = "No items found.";
         } else {
             Message = string.Empty;
         }
         IsLoading = false;
+
+        AnyTasksAreCompleted = TodoItems.Any(item => item.IsCompleted);
     }
 
     public ObservableCollection<string> SortOptions { get; } = new() {
@@ -67,6 +75,9 @@ public partial class TodoListViewModel : ObservableObject {
     [ObservableProperty]
     private string selectedCategory = "All";
 
+    [ObservableProperty]
+    private bool anyTasksAreCompleted = false;
+
     partial void OnSelectedCategoryChanged(string value) {
         IEnumerable<TodoItem> items;
 
@@ -94,6 +105,17 @@ public partial class TodoListViewModel : ObservableObject {
         TodoItems = new ObservableCollection<TodoItem>(ApplySort(items));
     }
 
+    private void OnTodoItemPropertyChanged(object? sender, PropertyChangedEventArgs e) {
+        if (e.PropertyName == nameof(TodoItem.IsCompleted)) {
+            UpdateAnyTasksAreCompleted();
+        }
+    }
+
+
+    private void UpdateAnyTasksAreCompleted() {
+        AnyTasksAreCompleted = TodoItems.Any(item => item.IsCompleted);
+    }
+
     private IEnumerable<TodoItem> ApplySort(IEnumerable<TodoItem> items) {
         switch (SelectedSortOption) {
             case "Category: A-Z":
@@ -114,12 +136,15 @@ public partial class TodoListViewModel : ObservableObject {
     [RelayCommand]
     private async Task AddTodo() {
         if (!string.IsNullOrWhiteSpace(NewTodoTitle)) {
-            await todoService.AddItemAsync(new TodoItem(todoService) { Title = NewTodoTitle, Category = NewTodoCategory });
+            var newTodo = new TodoItem(todoService) { Title = NewTodoTitle, Category = NewTodoCategory };
+            await todoService.AddItemAsync(newTodo);
+            newTodo.PropertyChanged += OnTodoItemPropertyChanged;
             TodoItems = todoService.GetTodoItems();
 
             // reapply the filter so users can see the list as they had it before
             OnSelectedCategoryChanged(SelectedCategory);
             NewTodoTitle = string.Empty;
+            UpdateAnyTasksAreCompleted();
         }
     }
 
@@ -185,5 +210,6 @@ public partial class TodoListViewModel : ObservableObject {
 
         // repopulates to-do items, while maintaining the selected sort/filter
         OnSelectedCategoryChanged(SelectedCategory);
+        UpdateAnyTasksAreCompleted();
     }
 }
