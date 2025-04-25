@@ -153,6 +153,7 @@ public partial class TodoListViewModel : ObservableObject {
         if (todoItem != null) {
             await todoService.RemoveToDoAsync(todoItem.Id);
             OnSelectedCategoryChanged(SelectedCategory);
+            UpdateAnyTasksAreCompleted();
         }
     }
 
