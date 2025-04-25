@@ -5,14 +5,14 @@
              Title="StatsView">
     <VerticalStackLayout Spacing="10" Margin="15">
         <Label 
-            Text="Welcome to the Stats View!"
-            FontAttributes="Bold"
+            Text="Thanks for your feedback. Check back soon to see this feature in action!"
+            IsVisible="{Binding Sent}"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
         <VerticalStackLayout
             IsVisible="{Binding Sent, Converter={StaticResource InverseBoolConverter}}">
         <Label 
-            Text="This has not been implemented yet, but if you would like to see it, please click the button below &#10;" 
+            Text="This feature has not been implemented yet, but if you think it would be helpful, please click the button below to let us know! &#10;" 
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
         <Button Text="Request Stats!"

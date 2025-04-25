@@ -3,48 +3,54 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Consilium.Maui.Controls.PomodoroView">
 
-    <StackLayout Padding="20" Spacing="15" 
-               HorizontalOptions="Center" VerticalOptions="Center">
+    <Grid HorizontalOptions="Center" VerticalOptions="Center" Margin="0,20,0,0">
         <ScrollView>
-            <VerticalStackLayout>
+            <VerticalStackLayout Spacing="15" HorizontalOptions="Center" VerticalOptions="Center">
                 <!-- Timer Display -->
-            <Label Text="{Binding CurrentTimerDisplay}"
-           FontSize="48"
-           HorizontalOptions="Center"/>
+                <Label Text="{Binding CurrentTimerDisplay}"
+                       FontSize="48"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center" />
 
-            <!-- Current Action (Working / Break) -->
-            <Label Text="{Binding CurrentAction}"
-           FontSize="24"
-           HorizontalOptions="Center"/>
+                <!-- Current Action (Working / Break) -->
+                <Label Text="{Binding CurrentAction}"
+                       FontSize="20"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center" />
 
-            <!-- Controls -->
-            <StackLayout Orientation="Horizontal" Spacing="10" HorizontalOptions="Center">
-                <Button Text="Start"
-              Command="{Binding StartTimerCommand}"
-              IsEnabled="{Binding IsTimerRunning, Converter={StaticResource InverseBoolConverter}}"/>
-                <Button Text="Stop"
-              Command="{Binding StopTimerCommand}"
-              IsEnabled="{Binding IsTimerRunning}"/>
-                <Button Text="Reset"
-              Command="{Binding ResetTimerCommand}"/>
-            </StackLayout>
+                <!-- Controls -->
+                <StackLayout Orientation="Horizontal" 
+                             Spacing="10" 
+                             HorizontalOptions="Center"
+                             VerticalOptions="Center"
+                             Margin="0,10,0,0">
+                    <Button Text="Start"
+                            Command="{Binding StartTimerCommand}"
+                            IsEnabled="{Binding IsTimerRunning, Converter={StaticResource InverseBoolConverter}}" />
+                    <Button Text="Stop"
+                            Command="{Binding StopTimerCommand}"
+                            IsEnabled="{Binding IsTimerRunning}" />
+                    <Button Text="Reset"
+                            Command="{Binding ResetTimerCommand}" />
+                </StackLayout>
 
-            <!-- Work & Break Settings -->
-                <StackLayout Spacing="10">
+                <!-- Work & Break Settings -->
+                <StackLayout Spacing="10" HorizontalOptions="Center"
+                             MaximumWidthRequest="300" MinimumWidthRequest="200">
                     <!-- WorkTime in seconds -->
-                    <Label Text="{Binding WorkTime, StringFormat='Work Time: {0} min'}" FontSize="18"/>
+                    <Label Text="{Binding WorkTime, StringFormat='Work Time: {0} min'}" FontSize="18" />
                     <Slider Minimum="1" 
-              Maximum="60" 
-              Value="{Binding WorkTime, Mode=TwoWay}"
-              ValueChanged="Slider_ValueChanged"/>
+                            Maximum="60" 
+                            Value="{Binding WorkTime, Mode=TwoWay}"
+                            ValueChanged="Slider_ValueChanged" />
 
                     <!-- BreakTime in seconds -->
-                    <Label Text="{Binding BreakTime, StringFormat='Break Time: {0} min'}" FontSize="18"/>
+                    <Label Text="{Binding BreakTime, StringFormat='Break Time: {0} min'}" FontSize="18" />
                     <Slider Minimum="1"
-              Maximum="20"
-              Value="{Binding BreakTime, Mode=TwoWay}"/>
+                            Maximum="20"
+                            Value="{Binding BreakTime, Mode=TwoWay}" />
                 </StackLayout>
             </VerticalStackLayout>
         </ScrollView>
-    </StackLayout>
+    </Grid>
 </ContentView>

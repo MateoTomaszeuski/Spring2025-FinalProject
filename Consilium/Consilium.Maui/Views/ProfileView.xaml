@@ -32,6 +32,13 @@
                     Padding="10"
                     CornerRadius="5"
                     IsEnabled="{Binding EmailIsValid}"/>
+
+            <Label Text="To sign into our app, all you need is a valid email address. Once you've entered your email, we'll try our best to keep you signed in."
+                    LineHeight="1.7"
+                   Margin="0,20,0,0"/>
+            <Label Text="If you ever need to log in again (or you want to sign in on a new device), we'll send you a new email."
+                     LineHeight="1.7"/>
+
         </StackLayout>
 
         <Border IsVisible="{Binding ShowUnAuthorized}">

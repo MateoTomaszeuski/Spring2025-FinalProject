@@ -67,7 +67,7 @@
             Route="Settings" />
         <ShellContent
             Title="Statistics"
-            Icon="settings.png"
+            Icon="graph.png"
             ContentTemplate="{DataTemplate local:StatsView}"
             Route="Stats" />
     </TabBar>

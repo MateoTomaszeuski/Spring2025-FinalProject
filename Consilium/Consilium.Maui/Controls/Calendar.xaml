@@ -7,7 +7,13 @@
         <VerticalStackLayout Padding="10" Spacing="10">
             <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Spacing="10">
                 <Button Text="◀" Clicked="OnPrevMonthClicked" />
-                <Label x:Name="MonthYearLabel" FontAttributes="Bold" FontSize="20" HorizontalOptions="CenterAndExpand" VerticalOptions="Center" />
+                <Label x:Name="MonthYearLabel" 
+                       FontAttributes="Bold" 
+                       FontSize="20" 
+                       HorizontalOptions="CenterAndExpand" 
+                       VerticalOptions="Center"
+                       WidthRequest="180"
+                       HorizontalTextAlignment="Center"/>
                 <Button Text="▶" Clicked="OnNextMonthClicked" />
             </StackLayout>
             <Grid x:Name="CalendarGrid"

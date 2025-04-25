@@ -21,6 +21,7 @@
             <x:String x:Key="RefreshArrowsIcon">&#xf021;</x:String>
             <x:String x:Key="UpArrowIcon">&#xf062;</x:String>
             <x:String x:Key="LeftArrowIcon">&#xf060;</x:String>
+            <x:String x:Key="InfoIcon">&#xf05a;</x:String>
 
             <converters:InverseBoolConverter x:Key="InverseBoolConverter"/>
             <converters:SeeMoreSeeLessConverter x:Key="SeeMoreSeeLessConverter" />

@@ -2,16 +2,28 @@
 <toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Consilium.Maui.PopUps.PomodoroPopUp"
-             xmlns:toolkit="clr-namespace:CommunityToolkit.Maui.Views;assembly=CommunityToolkit.Maui">
+             xmlns:toolkit="clr-namespace:CommunityToolkit.Maui.Views;assembly=CommunityToolkit.Maui"
+              Color="Transparent">
     <VerticalStackLayout
         HorizontalOptions="Center">
-        <Label FontAttributes="Bold"
-        Text="The way that a Pomodoro timer works is:" />
-        <Label Text="1. Figure out what you want to accomplish."/>
-        <Label Text="2. Set the work timer for the amount of time that you would like to work 
-        (usually around 20–30 minutes)."/>
-        <Label Text="3. Work on the task you decided on."/>
-        <Label Text="4. When the timer ends, take a break—typically about ⅕ the length of the work timer."/>
-        <Label Text="5. Repeat until the task is done."/>
+        <Border
+             Padding="40"
+             StrokeShape="RoundRectangle 20"
+             HorizontalOptions="FillAndExpand"
+             VerticalOptions="FillAndExpand">
+            <Border.Shadow>
+                <Shadow Brush="{AppThemeBinding Dark={StaticResource Black}, Light={StaticResource Gray500}}"/>
+            </Border.Shadow>
+            <VerticalStackLayout Spacing="10">
+                <Label FontAttributes="Bold"
+                        Text="If you've never used a Pomodoro timer before, here's how it works: &#10;"
+                       FontSize="17"/>
+                <Label Text="1. Figure out what you want to accomplish."/>
+                <Label Text="2. Set the work timer for the amount of time that you would like to work (usually around 20–30 minutes)."/>
+                <Label Text="3. Work on the task you decided on."/>
+                <Label Text="4. When the timer ends, take a break (typically about ⅕ the length of the work timer)."/>
+                <Label Text="5. Repeat until the task is complete."/>
+            </VerticalStackLayout>
+        </Border>
     </VerticalStackLayout>
 </toolkit:Popup>

@@ -41,7 +41,14 @@
             <tools:CalculatorView/>
         </VerticalStackLayout>
         <VerticalStackLayout IsVisible="{Binding PomodoroActive}">
-            <Button Text="information" Clicked="Button_Clicked"/>
+            <Button Text="{StaticResource InfoIcon}" 
+                    Clicked="Button_Clicked"
+                    FontFamily="FontAwesomeSolid"
+                    BackgroundColor="{DynamicResource Tertiary}"
+                    WidthRequest="0"
+                    HeightRequest="0"
+                    HorizontalOptions="Start"
+                    Margin="10"/>
             <tools:PomodoroView/>
         </VerticalStackLayout>
         <VerticalStackLayout IsVisible="{Binding CalendarActive}">
