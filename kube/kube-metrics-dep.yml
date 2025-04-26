@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: consilium-kube-metrics-dep
+  namespace: $NAMESPACE
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: consilium-kube-metrics
+  template:
+    metadata:
+      labels:
+        app: consilium-kube-metrics
+    spec:
+      containers:
+      - name: consilium-kube-metrics
+        image: quay.io/kubernetes/kube-state-metrics:v2.11.0
+        ports:
+          - name: metrics
+            containerPort: 8080
+          - name: telemetry
+            containerPort: 8081

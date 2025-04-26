@@ -39,7 +39,7 @@ public static class MauiProgram {
         builder.Services.AddHttpClient("ApiClient", client =>
         {
             client.BaseAddress = new Uri("https://consilium-api-cpgdcqaxepbyc2gj.westus3-01.azurewebsites.net/");
-            //client.BaseAddress = new Uri("https://main.consilium.duckdns.org/"); // If you want to hit kubernetees, make sure to be in the vpn
+            client.BaseAddress = new Uri("https://main.consilium.duckdns.org/"); // If you want to hit kubernetees, make sure to be in the vpn
 
 #if DEBUG
             //client.BaseAddress = new Uri("http://localhost:5202");
