@@ -4,6 +4,7 @@ metadata:
   name: consilium-prometheus-blackbox-dep
   namespace: $NAMESPACE
 spec:
+  nodeName: alex-office5
   strategy:
     type: RollingUpdate
     rollingUpdate:
