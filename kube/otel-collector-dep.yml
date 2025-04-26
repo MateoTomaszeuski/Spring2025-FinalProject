@@ -21,12 +21,17 @@ spec:
         - name: consilium-otel-config
           configMap:
             name: consilium-otel-collector-config
+        - name: otel-storage
+          persistentVolumeClaim:
+            claimName: consilium-otel-data-pvc
       containers:
       - name: consilium-otel-collector
         image: otel/opentelemetry-collector-contrib:0.120.0
         volumeMounts:
           - name: consilium-otel-config
             mountPath: /etc/otelcol-contrib/
+          - name: otel-storage
+            mountPath: /otel-data
         ports:
         - containerPort: 4317
         - containerPort: 8889

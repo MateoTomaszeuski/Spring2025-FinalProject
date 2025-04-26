@@ -24,6 +24,8 @@ data:
       namespace: default
     zipkin:
       endpoint: http://consilium-zipkin-svc:9411/api/v2/spans
+    file/span:
+      path: /otel-data/spans.json
 
   service:
     extensions: []
@@ -31,12 +33,12 @@ data:
       metrics:
         receivers: [otlp]
         processors: []
-        exporters: [prometheus, debug]
+        exporters: [prometheus,file/span, debug]
       logs:
         receivers: [otlp]
         processors: []
-        exporters: [otlphttp, debug]
+        exporters: [otlphttp,file/span, debug]
       traces:
         receivers: [otlp]
         processors: []
-        exporters: [zipkin, debug]
+        exporters: [zipkin,file/span, debug]
