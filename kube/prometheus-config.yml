@@ -34,4 +34,4 @@ data:
           - source_labels: [__address__]
             target_label: __param_target
           - target_label: __address__
-            replacement: consilium-prometheus-blackbox-exporter.$NAMESPACE.svc.cluster.local:9115
+            replacement:  consilium-blackbox-svc.$NAMESPACE.svc.cluster.local:9115
