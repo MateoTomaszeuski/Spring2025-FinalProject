@@ -9,7 +9,7 @@ spec:
         - consilium.duckdns.org
       secretName: consilium-secret-tls
   rules:
-  - host: $PULL_REQUEST_NUMBER-blackbox.consilium.duckdns.org    
+  - host: $PULL_REQUEST_NUMBER-blackbox.consilium.duckdns.org
     http:
       paths:
       - path: /

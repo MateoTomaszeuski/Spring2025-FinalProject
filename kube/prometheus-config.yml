@@ -34,4 +34,4 @@ data:
           - source_labels: [__address__]
             target_label: __param_target
           - target_label: __address__
-            replacement: blackbox.consilium.duckdns.org
+            replacement: main-blackbox.consilium.duckdns.org
