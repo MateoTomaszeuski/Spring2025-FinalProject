@@ -29,9 +29,9 @@ data:
           module: [http_2xx]
         static_configs:
           - targets:
-              - https://main.consilium.duckdns.org/health
+              - http://consilium-api-svc.$NAMESPACE.svc.cluster.local:1000/health
         relabel_configs:
           - source_labels: [__address__]
             target_label: __param_target
           - target_label: __address__
-            replacement: main-blackbox.consilium.duckdns.org
+            replacement: consilium-prometheus-blackbox-exporter.$NAMESPACE.svc.cluster.local:9115
