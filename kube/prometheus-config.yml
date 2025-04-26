@@ -22,16 +22,17 @@ data:
         static_configs:
           - targets: ["consilium-otel-collector-svc:8889"]
 
-      - job_name: "api_blackbox"
-        metrics_path: /probe
-        params:
-          module: [http_2xx]
-        static_configs:
-          - targets:
-              - https://main.consilium.duckdns.org/health
-        relabel_configs:
-          - source_labels: [__address__]
-            regex: (.*)
-            target_label: __param_target
-          - target_label: __address__
-            replacement: consilium-blackbox-svc.$NAMESPACE.svc.cluster.local:9115
+       - job_name: "api_blackbox"
+    metrics_path: /probe
+    params:
+      module: [http_2xx]
+    static_configs:
+      - targets:
+          # <svc>.<ns>.svc.cluster.local:port
+          - ingress-nginx-controller.ingress-nginx.svc.cluster.local:80
+    relabel_configs:
+      - source_labels: [__address__]
+        regex: (.*)
+        target_label: __param_target
+      - target_label: __address__
+        replacement: ingress-nginx-controller.ingress-nginx.svc.cluster.local:80
