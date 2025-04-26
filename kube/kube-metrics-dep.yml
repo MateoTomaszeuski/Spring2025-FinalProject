@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: consilium-kube-metrics
-        image: quay.io/kubernetes/kube-state-metrics:v2.11.0
+        image: registry.k8s.io/kube-state-metrics/kube-state-metrics:latest
         ports:
           - name: metrics
             containerPort: 8080
