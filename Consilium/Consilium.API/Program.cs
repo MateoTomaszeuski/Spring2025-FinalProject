@@ -12,7 +12,7 @@ using System.Data;
 using System.Diagnostics;
 using System.Diagnostics.Metrics;
 using System.Globalization;
-
+// hi
 var builder = WebApplication.CreateBuilder(args);
 
 const string serviceName = "Consilium";
