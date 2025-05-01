@@ -86,7 +86,7 @@ header {
   padding-left:10px;
 }
 
-#download-button {
+.download-button {
   background-color: var(--dark-green);
   color: white;
   border: none;
