@@ -5,7 +5,7 @@ namespace Consilium.API.DBServices;
 
 public class EmailService(IConfiguration config) : IEmailService {
     public async Task SendValidationEmail(string email, string validationToken) {
-        string link = $"https://consilium-api-cpgdcqaxepbyc2gj.westus3-01.azurewebsites.net/account/validate?email={email}&token={validationToken}";
+        string link = $"https://consilium-api-cpgdcqaxepbyc2gj.westus3-01.azurewebsites.net/validate?email={email}&token={validationToken}";
         Console.WriteLine(link);
 
         await SendEmail(email, link);
